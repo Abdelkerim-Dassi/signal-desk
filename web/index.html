@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Crypto Advisor</title>
+    <link rel="stylesheet" href="/app.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Live decision desk</p>
+          <h1>AI Crypto Advisor</h1>
+        </div>
+        <div class="topbar-actions">
+          <div class="live-controls" aria-label="Live update controls">
+            <label class="live-toggle">
+              <input id="liveToggle" type="checkbox" checked>
+              <span>Live</span>
+            </label>
+            <select id="refreshInterval" aria-label="Refresh interval">
+              <option value="60000">1m</option>
+              <option value="120000" selected>2m</option>
+              <option value="300000">5m</option>
+              <option value="900000">15m</option>
+            </select>
+          </div>
+          <span id="freshness" class="freshness">Waiting for market data</span>
+          <button id="refreshBtn" class="icon-action" type="button" aria-label="Refresh market data" title="Refresh">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 12a9 9 0 0 1-15.4 6.4L3 16m0 0v5h5M3 12A9 9 0 0 1 18.4 5.6L21 8m0 0V3h-5"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <aside class="control-panel">
+          <form id="advisorForm">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Inputs</p>
+                <h2>Portfolio Lens</h2>
+              </div>
+              <button id="addHoldingBtn" class="icon-action subtle" type="button" aria-label="Add holding" title="Add holding">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 5v14M5 12h14"/>
+                </svg>
+              </button>
+            </div>
+
+            <label class="field">
+              <span>Market source</span>
+              <select id="marketSource">
+                <option value="binance" selected>Binance Spot</option>
+                <option value="coingecko">CoinGecko</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Quote asset</span>
+              <select id="quoteAsset">
+                <option value="USDT" selected>USDT</option>
+                <option value="USDC">USDC</option>
+                <option value="FDUSD">FDUSD</option>
+                <option value="BTC">BTC</option>
+                <option value="EUR">EUR</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Watchlist pairs or coin IDs</span>
+              <textarea id="assetInput" rows="4">INJUSDT, OGUSDT</textarea>
+            </label>
+
+            <div class="holdings-head">
+              <span>Assets you hold</span>
+              <span>CoinGecko IDs</span>
+            </div>
+            <div id="holdingsList" class="holdings-list"></div>
+
+            <button class="primary-action" type="submit">
+              <span>Analyze Market</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6"/>
+              </svg>
+            </button>
+          </form>
+
+          <section class="notification-panel">
+            <div>
+              <p class="eyebrow">Alerts</p>
+              <h2>Instant Push</h2>
+            </div>
+            <div class="channel-row">
+              <label><input id="discordChannel" type="checkbox" checked> Discord</label>
+              <span id="discordStatus" class="status-pill">Not set</span>
+            </div>
+            <div class="channel-row">
+              <label><input id="whatsappChannel" type="checkbox"> WhatsApp</label>
+              <span id="whatsappStatus" class="status-pill">Not set</span>
+            </div>
+            <button id="sendAlertBtn" class="secondary-action" type="button">Send Current Alert</button>
+          </section>
+        </aside>
+
+        <section class="market-desk">
+          <section class="metrics-strip" aria-label="Global market metrics">
+            <article>
+              <span>Fear & Greed</span>
+              <strong id="sentimentMetric">--</strong>
+              <small id="sentimentLabel">Neutral</small>
+            </article>
+            <article>
+              <span>Market Cap</span>
+              <strong id="marketCapMetric">--</strong>
+              <small id="marketCapChange">24h --</small>
+            </article>
+            <article>
+              <span>BTC Dominance</span>
+              <strong id="btcDominanceMetric">--</strong>
+              <small id="ethDominanceMetric">ETH --</small>
+            </article>
+          </section>
+
+          <section class="split-board">
+            <div class="signal-board">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Ranked by conviction</p>
+                  <h2>Best Current Setups</h2>
+                </div>
+                <span id="assetCount" class="count-pill">0 assets</span>
+              </div>
+              <div id="opportunityList" class="opportunity-list"></div>
+            </div>
+
+            <div class="portfolio-board">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Position-aware</p>
+                  <h2>Your Buy / Sell / Hold</h2>
+                </div>
+              </div>
+              <div id="portfolioList" class="portfolio-list"></div>
+            </div>
+          </section>
+
+          <section class="intel-grid">
+            <div class="intel-panel">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Live attention</p>
+                  <h2>Trending Coins</h2>
+                </div>
+              </div>
+              <div id="trendingList" class="trend-list"></div>
+            </div>
+
+            <div class="intel-panel">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Market news</p>
+                  <h2>Latest Headlines</h2>
+                </div>
+              </div>
+              <div id="newsList" class="news-list"></div>
+            </div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+.env
+*.txt
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+frontend/node_modules/
+signal-desk/
+.DS_Store

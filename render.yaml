@@ -1,0 +1,23 @@
+# Render blueprint. In Render: New → Blueprint → connect this repo.
+# Secrets are NOT in this file — set ANTHROPIC_API_KEY etc. in the dashboard
+# (sync: false means Render prompts for them and never stores them in git).
+services:
+  - type: web
+    name: ai-crypto-advisor
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/status
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: DISCORD_WEBHOOK_URL
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_WHATSAPP_FROM
+        sync: false
+      - key: TWILIO_WHATSAPP_TO
+        sync: false

@@ -1,0 +1,127 @@
+import { useState } from 'react'
+import type { Brief, AppStatus } from '../lib/api'
+import { sendAlert } from '../lib/api'
+
+export function Trending({ brief }: { brief: Brief | undefined }) {
+  const rows = brief?.trending ?? []
+  if (rows.length === 0) return null
+  return (
+    <section className="glass rise p-4" style={{ animationDelay: '260ms' }}>
+      <h2 className="font-display text-sm font-semibold tracking-widest text-teal uppercase">
+        Trending
+      </h2>
+      <div className="mt-3 grid grid-cols-2 gap-2">
+        {rows.slice(0, 8).map((coin, i) => (
+          <div
+            key={`${coin.symbol}-${i}`}
+            className="flex items-center gap-2 rounded-lg border border-line bg-panel-2/60 px-2.5 py-2"
+          >
+            {coin.thumb && <img src={coin.thumb} alt="" className="size-6 rounded-full" />}
+            <div className="min-w-0">
+              <p className="truncate text-xs font-semibold">{coin.name}</p>
+              <p className="num text-[10px] text-mute">
+                {coin.symbol} · #{coin.market_cap_rank ?? '--'}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+export function News({ brief }: { brief: Brief | undefined }) {
+  const rows = brief?.news ?? []
+  if (rows.length === 0) return null
+  return (
+    <section className="glass rise p-4" style={{ animationDelay: '300ms' }}>
+      <h2 className="font-display text-sm font-semibold tracking-widest text-teal uppercase">
+        Headlines
+      </h2>
+      <div className="mt-2 divide-y divide-line">
+        {rows.slice(0, 6).map((item, i) => (
+          <a
+            key={`${item.url}-${i}`}
+            href={item.url}
+            target="_blank"
+            rel="noreferrer"
+            className="group block py-2.5"
+          >
+            <p className="text-[13px] leading-snug font-medium transition group-hover:text-teal">
+              {item.title}
+            </p>
+            <p className="num mt-0.5 text-[10px] text-mute">
+              {item.source} {item.published_at ? `· ${item.published_at}` : ''}
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+export function AlertPanel({
+  brief,
+  status,
+  onToast,
+}: {
+  brief: Brief | undefined
+  status: AppStatus | undefined
+  onToast: (msg: string) => void
+}) {
+  const [channels, setChannels] = useState<string[]>([])
+  const [sending, setSending] = useState(false)
+  const notifications = status?.notifications
+
+  const toggle = (channel: string) =>
+    setChannels((c) => (c.includes(channel) ? c.filter((x) => x !== channel) : [...c, channel]))
+
+  const send = async () => {
+    if (!brief) return onToast('Run an analysis first.')
+    if (channels.length === 0) return onToast('Select at least one alert channel.')
+    setSending(true)
+    try {
+      const payload = await sendAlert(brief, channels)
+      const sent = (payload.results || []).filter((r) => r.ok).length
+      onToast(sent ? `Alert sent to ${sent} channel(s).` : 'No alert channel is configured yet.')
+    } catch (e) {
+      onToast(e instanceof Error ? e.message : 'Alert failed.')
+    } finally {
+      setSending(false)
+    }
+  }
+
+  const Channel = ({ id, label, ready }: { id: string; label: string; ready?: boolean }) => (
+    <label className="flex cursor-pointer items-center gap-2 text-xs">
+      <input
+        type="checkbox"
+        checked={channels.includes(id)}
+        onChange={() => toggle(id)}
+        className="accent-(--color-teal)"
+      />
+      <span>{label}</span>
+      <span className={`num ml-auto text-[10px] ${ready ? 'text-buy' : 'text-mute'}`}>
+        {ready ? 'ready' : 'not set'}
+      </span>
+    </label>
+  )
+
+  return (
+    <section className="glass rise p-4" style={{ animationDelay: '340ms' }}>
+      <h2 className="font-display text-sm font-semibold tracking-widest text-teal uppercase">
+        Alerts
+      </h2>
+      <div className="mt-3 space-y-2">
+        <Channel id="discord" label="Discord webhook" ready={notifications?.discord} />
+        <Channel id="whatsapp" label="WhatsApp (Twilio)" ready={notifications?.whatsapp} />
+      </div>
+      <button
+        onClick={send}
+        disabled={sending}
+        className="mt-3 w-full cursor-pointer rounded-md border border-line-2 bg-teal/10 py-1.5 font-display text-xs font-semibold tracking-widest text-teal uppercase transition hover:bg-teal/20 disabled:opacity-40"
+      >
+        {sending ? 'sending…' : 'send market alert'}
+      </button>
+    </section>
+  )
+}
