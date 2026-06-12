@@ -212,5 +212,9 @@ async def notify(req: NotifyRequest) -> JSONResponse:
 
 
 # Static front-end last, so /api/* routes take precedence. html=True serves
-# index.html at "/" and falls back to it for client-side routes.
-app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
+# index.html at "/" and falls back to it for client-side routes. Guarded so the
+# app imports cleanly where the static build isn't co-located (e.g. a Vercel
+# serverless function, where the CDN serves the front-end and this only handles
+# /api/*); StaticFiles raises at construction if the directory is missing.
+if STATIC_DIR.exists():
+    app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")

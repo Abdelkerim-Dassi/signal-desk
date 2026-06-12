@@ -1,0 +1,18 @@
+# Front-end is rebuilt by Vercel's buildCommand; never ship local artifacts.
+frontend/node_modules
+frontend/dist
+
+# Python caches and local secrets.
+__pycache__
+**/__pycache__
+*.pyc
+.env
+
+# Docs / legacy / Render-only artifacts not needed by the Vercel build.
+docs
+signal-desk
+web
+Dockerfile
+.dockerignore
+render.yaml
+ai_prompt.txt

@@ -42,7 +42,9 @@ python -m uvicorn server.main:app --reload --port 8000
 ## 👉 Remaining — needs you (resume here)
 
 1. **AI is live** via `OPENAI_API_KEY` in `.env` (gpt-4o-mini fallback in `server/ai.py`). Add `ANTHROPIC_API_KEY` later to switch to Claude — Anthropic is preferred automatically when both are set. ⚠️ The OpenAI key was shared in chat — rotate it when convenient.
-2. **Deploy:** push to GitHub → Render → New → Blueprint → connect repo → set the AI key env var(s). (Docker build runs on Render; to test the image locally first, install Docker Desktop and run `docker build -t advisor . && docker run -p 8000:8000 advisor`.)
+2. **Deploy:** two options wired up —
+   - **Render (recommended):** push to GitHub → Render → New → Blueprint → connect repo → set the AI key env var(s). Persistent process, so the caches + rate limiter work as designed. (Docker build runs on Render; to test locally first, install Docker Desktop and run `docker build -t advisor . && docker run -p 8000:8000 advisor`.)
+   - **Vercel:** `vercel.json` + `api/index.py` added. `npm i -g vercel`, `vercel`, `vercel --prod`, then add env vars. ⚠️ Serverless = caches/rate-limiter don't persist; the AI rate limit no longer caps spend on a public URL. Fine for a demo; use Upstash Redis for shared state under real traffic. See README "Deploy (Vercel)".
 
 ## Key decisions
 - **Deploy host:** Render (free) via Docker. Binance is geo-blocked (451) on many cloud IPs — public deploy should default to CoinGecko; Fly.io if hosted Binance access is required.

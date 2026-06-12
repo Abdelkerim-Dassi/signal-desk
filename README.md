@@ -78,11 +78,21 @@ CoinGecko's free tier rate-limits bursts: requests retry on 429/5xx with backoff
 
 ## Deploy (Render)
 
-`render.yaml` + the multi-stage `Dockerfile` build the frontend and run uvicorn as one service:
+`render.yaml` + the multi-stage `Dockerfile` build the frontend and run uvicorn as one **persistent** service — the in-process brief/narrative caches and the AI rate limiter all work as designed. This is the recommended host.
 
 1. Push the repo to GitHub.
 2. Render → New → Blueprint → connect the repo.
 3. Set `ANTHROPIC_API_KEY` (and optional Discord/Twilio vars) in the service's Environment.
+
+## Deploy (Vercel)
+
+`vercel.json` builds the front-end to a static CDN deploy and runs the FastAPI app as a serverless function (`api/index.py`) handling `/api/*`.
+
+1. Push the repo to GitHub.
+2. `npm i -g vercel`, then `vercel` (links the project) and `vercel --prod` to deploy. (Or import the repo in the Vercel dashboard — the build settings come from `vercel.json`.)
+3. Set env vars: `vercel env add ANTHROPIC_API_KEY production` (repeat for `OPENAI_API_KEY` and any `DISCORD_WEBHOOK_URL` / `TWILIO_*`), then redeploy.
+
+> ⚠️ **Serverless caveat.** Vercel functions are stateless, so the `brief_cache`, `narrative_cache`, and the per-IP `ai_limiter` do **not** persist across invocations. Consequences: more CoinGecko calls (closer to rate limits), more repeat **paid** Claude generations, and — most importantly — the AI rate limit no longer caps spend on a public URL. Fine for a low-traffic demo. For real traffic, back these with a shared store (e.g. [Upstash Redis](https://upstash.com/)) or use the Render deploy above, which keeps all three guarantees.
 
 ## CLI prompt mode
 

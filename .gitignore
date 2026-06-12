@@ -1,5 +1,5 @@
 .env
-*.txt
+ai_prompt.txt
 __pycache__/
 *.pyc
 .venv/
@@ -8,3 +8,4 @@ node_modules/
 frontend/node_modules/
 signal-desk/
 .DS_Store
+.vercel
