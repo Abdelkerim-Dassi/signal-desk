@@ -74,10 +74,17 @@ def _safe_float(value: Any, default: float = 0.0) -> float:
 
 
 def _get_json(url: str, params: dict[str, Any] | None = None, timeout: int = 15) -> Any:
-    response = requests.get(url, params=params, timeout=timeout)
-    if response.status_code >= 400:
-        raise DataFetchError(f"{url} returned HTTP {response.status_code}")
-    return response.json()
+    # CoinGecko's free tier rate-limits bursts (429); one brief fires several calls.
+    for attempt in range(3):
+        response = requests.get(url, params=params, timeout=timeout)
+        if response.status_code == 429 or response.status_code >= 500:
+            if attempt < 2:
+                time.sleep(1.5 * (attempt + 1))
+                continue
+        if response.status_code >= 400:
+            raise DataFetchError(f"{url} returned HTTP {response.status_code}")
+        return response.json()
+    raise DataFetchError(f"{url} returned HTTP {response.status_code}")
 
 
 def normalize_asset_ids(raw_assets: str | list[str] | None) -> list[str]:
@@ -253,7 +260,18 @@ def get_fear_greed() -> dict[str, Any]:
         return {"score": 50, "status": "Neutral", "updated_at": None}
 
 
+# Global stats barely move minute-to-minute, and a brief rebuild already spends
+# most of the CoinGecko free-tier per-minute budget on markets/charts — so serve
+# a 5-min memo instead of competing for the last request slot every rebuild.
+_GLOBAL_MARKET_TTL = 300.0
+_last_global_market: dict[str, Any] | None = None
+_last_global_market_at = 0.0
+
+
 def get_global_market() -> dict[str, Any]:
+    global _last_global_market, _last_global_market_at
+    if _last_global_market is not None and time.time() - _last_global_market_at < _GLOBAL_MARKET_TTL:
+        return _last_global_market
     try:
         data = _get_json(f"{COINGECKO_API}/global", timeout=10).get("data", {})
         total_market_cap = data.get("total_market_cap", {}).get("usd")
@@ -261,14 +279,18 @@ def get_global_market() -> dict[str, Any]:
         market_cap_change = data.get("market_cap_change_percentage_24h_usd")
         btc_dominance = data.get("market_cap_percentage", {}).get("btc")
         eth_dominance = data.get("market_cap_percentage", {}).get("eth")
-        return {
+        _last_global_market = {
             "total_market_cap_usd": total_market_cap,
             "total_volume_usd": total_volume,
             "market_cap_change_24h": market_cap_change,
             "btc_dominance": btc_dominance,
             "eth_dominance": eth_dominance,
         }
+        _last_global_market_at = time.time()
+        return _last_global_market
     except Exception:
+        if _last_global_market is not None:
+            return _last_global_market
         return {
             "total_market_cap_usd": None,
             "total_volume_usd": None,
@@ -563,6 +585,8 @@ def build_market_brief(
     holding_map = {holding.coin_id: holding for holding in holdings}
     combined_assets = normalize_asset_ids(asset_ids + [holding.coin_id for holding in holdings])
     sentiment = get_fear_greed()
+    # Fetch before the per-asset chart loop drains the CoinGecko rate budget.
+    global_market = get_global_market()
     markets = get_market_prices(combined_assets)
     analyses = []
 
@@ -584,7 +608,7 @@ def build_market_brief(
         "exchange_label": "CoinGecko",
         "quote_asset": "USD",
         "sentiment": sentiment,
-        "global": get_global_market(),
+        "global": global_market,
         "trending": get_trending(),
         "assets": analyses,
         "opportunities": opportunities,

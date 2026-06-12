@@ -2,12 +2,14 @@
 
 _Living progress doc for the 1-week rebuild. Original plan: `.claude/plans/take-a-look-at-magical-hellman.md`._
 
-**Last updated:** 2026-06-11
+**Last updated:** 2026-06-12
 **Goal:** Public, attractive, simple hybrid app — heuristic engine scores; Claude writes the briefing + chat. React/Vite UI. Deploy at the **end** of the build.
 
 ---
 
 ## Current state — code complete, verified locally
+
+**2026-06-12 health check:** full pass re-verified — server boots clean, `/api/status`, `/api/analyze` (live data), dashboard + bundles, and `/api/ai/briefing` all working. Fixed a bug where the `global` market stats came back null: one brief rebuild fires ~9 CoinGecko calls and the free tier rate-limited the `/global` call. `_get_json` now retries on 429/5xx, and `get_global_market` is fetched before the chart loop and memoized for 5 min (serves last-known-good on failure). Also removed stray `cls`/`git` files from the repo root.
 
 Run locally:
 ```powershell

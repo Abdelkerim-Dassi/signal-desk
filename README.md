@@ -74,6 +74,8 @@ Defaults to **Binance Spot** with the `INJUSDT, OGUSDT` watchlist; also accepts 
 
 > Note: Binance geo-blocks many cloud-provider IPs (HTTP 451). On a public deploy, prefer the CoinGecko source; Binance works fully when running locally.
 
+CoinGecko's free tier rate-limits bursts: requests retry on 429/5xx with backoff, and the global market stats are memoized for 5 minutes (last-known-good is served if a refresh fails), so one brief rebuild stays within budget.
+
 ## Deploy (Render)
 
 `render.yaml` + the multi-stage `Dockerfile` build the frontend and run uvicorn as one service:
