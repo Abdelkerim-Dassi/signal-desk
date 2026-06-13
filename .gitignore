@@ -9,3 +9,5 @@ frontend/node_modules/
 signal-desk/
 .DS_Store
 .vercel
+.env*
+!.env.example

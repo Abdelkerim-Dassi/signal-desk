@@ -1,10 +1,14 @@
 """Optional Upstash Redis (REST) backend for cross-instance state.
 
 On serverless deploys (Vercel) the in-process caches and rate limiter reset on
-every invocation, so the AI spend guards don't actually hold. When
-UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN are set (Upstash gives you
-both; the Vercel Marketplace integration injects them automatically), the rate
-limiter and narrative cache get shared state across instances.
+every invocation, so the AI spend guards don't actually hold. When an Upstash
+Redis REST endpoint + token are configured, the rate limiter and narrative
+cache get shared state across instances.
+
+Two naming schemes are accepted, so this works no matter how Upstash was added:
+  * UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN — Upstash console default
+  * KV_REST_API_URL / KV_REST_API_TOKEN — what Vercel's Upstash Marketplace
+    integration injects (legacy @vercel/kv prefix; same REST endpoint + token)
 
 Uses Upstash's REST API over ``requests`` — no new dependency, no persistent
 connection (a plus on serverless). Every helper fails soft (returns None) so
@@ -22,16 +26,22 @@ import requests
 _TIMEOUT = 4
 
 
+def _credentials() -> tuple[str, str] | None:
+    url = os.getenv("UPSTASH_REDIS_REST_URL") or os.getenv("KV_REST_API_URL")
+    token = os.getenv("UPSTASH_REDIS_REST_TOKEN") or os.getenv("KV_REST_API_TOKEN")
+    return (url, token) if url and token else None
+
+
 def enabled() -> bool:
-    return bool(os.getenv("UPSTASH_REDIS_REST_URL") and os.getenv("UPSTASH_REDIS_REST_TOKEN"))
+    return _credentials() is not None
 
 
 def pipeline(commands: list[list[Any]]) -> list[Any] | None:
     """Run Redis commands via the REST pipeline endpoint. None on any failure."""
-    url = os.getenv("UPSTASH_REDIS_REST_URL")
-    token = os.getenv("UPSTASH_REDIS_REST_TOKEN")
-    if not url or not token:
+    creds = _credentials()
+    if creds is None:
         return None
+    url, token = creds
     try:
         resp = requests.post(
             f"{url.rstrip('/')}/pipeline",
