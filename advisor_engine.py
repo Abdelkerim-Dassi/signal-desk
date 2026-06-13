@@ -8,11 +8,16 @@ from email.utils import parsedate_to_datetime
 from typing import Any
 from xml.etree import ElementTree
 
+import os
+
 import requests
 
 
 COINGECKO_API = "https://api.coingecko.com/api/v3"
-BINANCE_API = "https://api.binance.com"
+# api.binance.com returns HTTP 451 from US IPs (where Vercel functions run by
+# default); data-api.binance.vision is Binance's public market-data mirror
+# serving the same /api/v3 endpoints without the geo-block.
+BINANCE_API = os.environ.get("BINANCE_API_BASE", "https://data-api.binance.vision")
 FEAR_GREED_API = "https://api.alternative.me/fng/"
 NEWS_FEEDS = (
     "https://www.coindesk.com/arc/outboundfeeds/rss/",
