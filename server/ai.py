@@ -17,14 +17,22 @@ The API key is read from the environment by the SDK — never hard-coded.
 
 from __future__ import annotations
 
+import asyncio
 import hashlib
 import json
 import os
 from typing import Any, AsyncIterator
 
+from . import upstash
 from .cache import narrative_cache
 
-MODEL = "claude-opus-4-8"
+# Override with ANTHROPIC_MODEL to trade quality for cost — e.g.
+# claude-haiku-4-5 ($1/$5 per MTok) or claude-sonnet-4-6 ($3/$15) instead of
+# the claude-opus-4-8 default ($5/$25). This brief-narration task is well
+# within Haiku's reach.
+MODEL = os.getenv("ANTHROPIC_MODEL", "claude-opus-4-8")
+
+NARRATIVE_TTL = 300  # seconds; shared by the in-memory and Redis caches
 
 MAX_CHAT_TURNS = 6  # cap history so a long chat can't inflate cost unboundedly
 
@@ -201,9 +209,18 @@ async def _openai_briefing(prompt: str) -> tuple[str, dict[str, Any]]:
 
 
 async def generate_briefing(brief: dict[str, Any]) -> dict[str, Any]:
-    """Return {text, cached, usage?}. Uses the narrative cache to avoid repeat spend."""
+    """Return {text, cached, usage?}. Uses the narrative cache to avoid repeat spend.
+
+    The in-memory cache is checked first, then Redis when configured — on
+    serverless each invocation may be a fresh process, so without the Redis
+    tier every briefing click is a fresh paid call.
+    """
     key = _narrative_key(brief)
     cached = narrative_cache.get(key)
+    if cached is None and upstash.enabled():
+        cached = await asyncio.to_thread(upstash.get_str, f"ai:narrative:{key}")
+        if cached is not None:
+            narrative_cache.set(key, cached, ttl=NARRATIVE_TTL)
     if cached is not None:
         return {"ok": True, "text": cached, "cached": True}
 
@@ -212,7 +229,9 @@ async def generate_briefing(brief: dict[str, Any]) -> dict[str, Any]:
         text, usage = await _openai_briefing(prompt)
     else:
         text, usage = await _anthropic_briefing(prompt)
-    narrative_cache.set(key, text)
+    narrative_cache.set(key, text, ttl=NARRATIVE_TTL)
+    if upstash.enabled():
+        await asyncio.to_thread(upstash.set_str, f"ai:narrative:{key}", text, NARRATIVE_TTL)
     return {"ok": True, "text": text, "cached": False, "usage": usage}
 
 

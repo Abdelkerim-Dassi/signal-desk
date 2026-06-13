@@ -36,7 +36,7 @@ from notifications import format_market_alert, notification_status, send_notific
 
 from . import ai
 from .cache import brief_cache
-from .ratelimit import ai_limiter
+from .ratelimit import check_ai_allowance
 from .schemas import AnalyzeRequest, BriefingRequest, ChatRequest, NotifyRequest
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -69,12 +69,11 @@ def _client_ip(request: Request) -> str:
 
 
 def _ai_rate_limited(request: Request) -> JSONResponse | None:
-    ip = _client_ip(request)
-    if ai_limiter.allow(ip):
+    allowed, reason, retry = check_ai_allowance(_client_ip(request))
+    if allowed:
         return None
-    retry = ai_limiter.retry_after(ip)
     return JSONResponse(
-        {"ok": False, "error": f"Rate limit reached — try again in ~{retry}s."},
+        {"ok": False, "error": f"{reason} — try again in ~{retry}s."},
         status_code=429,
         headers={"Retry-After": str(retry)},
     )

@@ -58,6 +58,22 @@ ANTHROPIC_API_KEY=sk-ant-...
 
 Without a key the app still works fully on the heuristic engine — the AI panels simply hide.
 
+## AI cost controls
+
+Spend on the AI endpoints is bounded by three layers (all env-tunable, defaults in `.env.example`):
+
+| Control | Default | What it does |
+|---|---|---|
+| `AI_RATE_LIMIT` / `AI_RATE_WINDOW` | 20 / 300s | per-IP burst cap on AI calls |
+| `AI_DAILY_IP_LIMIT` | 1 | each visitor's AI allowance per UTC day |
+| `AI_DAILY_LIMIT` | 100 | **global** hard ceiling on paid AI calls per UTC day |
+| narrative cache | 5 min | near-identical briefs reuse the last narrative for free |
+| `ANTHROPIC_MODEL` | `claude-opus-4-8` | swap to `claude-haiku-4-5` ($1/$5 per MTok vs $5/$25) for ~5× cheaper briefings |
+
+On a **persistent host (Render)** these work out of the box. On **serverless (Vercel)** the counters and cache reset per instance, so set `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (Upstash free tier; on Vercel install it from the Marketplace and the vars are injected) to back them with shared Redis state. Without Redis the guards still run, but only per-instance.
+
+Belt-and-braces: also set a hard monthly spending limit in the provider dashboard (OpenAI → Settings → Limits; Anthropic Console → Plans & billing). That caps the worst case no matter what the app does.
+
 ## Optional alerts
 
 ```
