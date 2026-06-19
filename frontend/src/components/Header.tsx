@@ -63,9 +63,11 @@ export default function Header({
 
         <button
           onClick={onOpenGuide}
-          className="glass cursor-pointer px-3 py-1.5 font-display text-xs font-semibold tracking-widest text-teal uppercase transition hover:border-line-2"
+          aria-label="How to use SignalDesk"
+          className="guide-cta flex cursor-pointer items-center gap-1.5 rounded-lg bg-teal px-3.5 py-1.5 font-display text-xs font-bold tracking-widest text-ink uppercase transition hover:brightness-110"
         >
-          ? guide
+          <span aria-hidden className="text-sm leading-none">✦</span>
+          How to use
         </button>
 
         <label className="glass flex cursor-pointer items-center gap-2 px-3 py-1.5 text-xs">

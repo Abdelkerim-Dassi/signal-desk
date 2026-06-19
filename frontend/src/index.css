@@ -119,6 +119,60 @@ body::before {
   animation: blink-caret 1s step-end infinite;
 }
 
+/* attention-grabbing "How to use" call-to-action: soft pulsing glow + a
+   light sheen that periodically sweeps across the button. */
+@keyframes guide-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 10px 0 rgba(94, 234, 212, 0.35),
+      0 0 0 0 rgba(94, 234, 212, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 22px 4px rgba(94, 234, 212, 0.6),
+      0 0 0 4px rgba(94, 234, 212, 0);
+  }
+}
+
+@keyframes guide-sheen {
+  0% {
+    transform: translateX(-160%) skewX(-20deg);
+  }
+  55%,
+  100% {
+    transform: translateX(320%) skewX(-20deg);
+  }
+}
+
+.guide-cta {
+  position: relative;
+  overflow: hidden;
+  animation: guide-glow 2.8s ease-in-out infinite;
+}
+.guide-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  transform: translateX(-160%) skewX(-20deg);
+  animation: guide-sheen 3.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .guide-cta,
+  .guide-cta::after {
+    animation: none;
+  }
+}
+
 /* thin custom scrollbars to match the terminal look */
 * {
   scrollbar-width: thin;
