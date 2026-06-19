@@ -49,29 +49,30 @@ npm run build      # writes frontend/dist, which FastAPI serves at /
 
 ## Enable the AI features
 
-Create a `.env` in the project root (gitignored, auto-loaded):
+Create a `.env` in the project root (gitignored, auto-loaded). Set **one** provider key:
 
 ```
-ANTHROPIC_API_KEY=sk-ant-...
+GROQ_API_KEY=gsk_...        # free, recommended — console.groq.com/keys
+# ANTHROPIC_API_KEY=sk-ant-...   # paid alternative, used first if set
 ```
 
-Without a key the app still works fully on the heuristic engine — the AI panels simply hide.
+Precedence is `ANTHROPIC_API_KEY` > `GROQ_API_KEY` > `OPENAI_API_KEY`. With Groq the base URL and model (`llama-3.3-70b-versatile`) default automatically. Without any key the app still works fully on the heuristic engine — the AI panels simply hide.
 
-## AI cost controls
+## AI usage limits
 
-Spend on the AI endpoints is bounded by three layers (all env-tunable, defaults in `.env.example`):
+The default provider (Groq) is free, so the spend guards ship **disabled** (`0` = unlimited). They exist to defend a *paid* key (Anthropic/OpenAI) — set any layer to a positive number to re-enable it. All are env-tunable; defaults in `.env.example`:
 
 | Control | Default | What it does |
 |---|---|---|
-| `AI_RATE_LIMIT` / `AI_RATE_WINDOW` | 20 / 300s | per-IP burst cap on AI calls |
-| `AI_DAILY_IP_LIMIT` | 1 | each visitor's AI allowance per UTC day |
-| `AI_DAILY_LIMIT` | 100 | **global** hard ceiling on paid AI calls per UTC day |
+| `AI_RATE_LIMIT` / `AI_RATE_WINDOW` | 0 (off) / 300s | per-IP burst cap on AI calls |
+| `AI_DAILY_IP_LIMIT` | 0 (off) | each visitor's AI allowance per UTC day |
+| `AI_DAILY_LIMIT` | 0 (off) | **global** hard ceiling on AI calls per UTC day |
 | narrative cache | 5 min | near-identical briefs reuse the last narrative for free |
-| `ANTHROPIC_MODEL` | `claude-opus-4-8` | swap to `claude-haiku-4-5` ($1/$5 per MTok vs $5/$25) for ~5× cheaper briefings |
+| `ANTHROPIC_MODEL` | `claude-opus-4-8` | (paid path only) swap to `claude-haiku-4-5` for ~5× cheaper briefings |
 
-On a **persistent host (Render)** these work out of the box. On **serverless (Vercel)** the counters and cache reset per instance, so set `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (Upstash free tier; on Vercel install it from the Marketplace and the vars are injected) to back them with shared Redis state. Without Redis the guards still run, but only per-instance.
+On a **persistent host (Render)** any enabled limit works out of the box. On **serverless (Vercel)** the counters and cache reset per instance, so set `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (Upstash free tier; on Vercel install it from the Marketplace and the vars are injected) to back them with shared Redis state. Without Redis the guards still run, but only per-instance.
 
-Belt-and-braces: also set a hard monthly spending limit in the provider dashboard (OpenAI → Settings → Limits; Anthropic Console → Plans & billing). That caps the worst case no matter what the app does.
+Note: Groq's free tier has its own per-minute rate limits — if a traffic burst trips them, set `AI_RATE_LIMIT` to a modest number (e.g. `20`) to smooth bursts without capping normal use.
 
 ## Optional alerts
 
@@ -97,7 +98,7 @@ CoinGecko's free tier rate-limits bursts: requests retry on 429/5xx with backoff
 
 1. Push the repo to GitHub.
 2. Render → New → Blueprint → connect the repo.
-3. Set `ANTHROPIC_API_KEY` (and optional Discord/Twilio vars) in the service's Environment.
+3. Set `GROQ_API_KEY` (or `ANTHROPIC_API_KEY`) and optional Discord/Twilio vars in the service's Environment.
 
 ## Deploy (Vercel)
 
@@ -105,9 +106,9 @@ CoinGecko's free tier rate-limits bursts: requests retry on 429/5xx with backoff
 
 1. Push the repo to GitHub.
 2. `npm i -g vercel`, then `vercel` (links the project) and `vercel --prod` to deploy. (Or import the repo in the Vercel dashboard — the build settings come from `vercel.json`.)
-3. Set env vars: `vercel env add ANTHROPIC_API_KEY production` (repeat for `OPENAI_API_KEY` and any `DISCORD_WEBHOOK_URL` / `TWILIO_*`), then redeploy.
+3. Set env vars: `vercel env add GROQ_API_KEY production` (plus any `DISCORD_WEBHOOK_URL` / `TWILIO_*`), then redeploy. Remove any old `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` you no longer want billed: `vercel env rm OPENAI_API_KEY production`.
 
-> ⚠️ **Serverless caveat.** Vercel functions are stateless, so the `brief_cache`, `narrative_cache`, and the per-IP `ai_limiter` do **not** persist across invocations. Consequences: more CoinGecko calls (closer to rate limits), more repeat **paid** Claude generations, and — most importantly — the AI rate limit no longer caps spend on a public URL. Fine for a low-traffic demo. For real traffic, back these with a shared store (e.g. [Upstash Redis](https://upstash.com/)) or use the Render deploy above, which keeps all three guarantees.
+> ⚠️ **Serverless caveat.** Vercel functions are stateless, so the `brief_cache` and `narrative_cache` do **not** persist across invocations — meaning more CoinGecko calls (closer to rate limits) and more repeat generations. With the free Groq provider this only costs latency, not money. Back the caches/limits with a shared store (e.g. [Upstash Redis](https://upstash.com/)) for a smoother experience, or use the Render deploy above.
 
 ## CLI prompt mode
 

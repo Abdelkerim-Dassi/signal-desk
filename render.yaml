@@ -9,6 +9,10 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/status
     envVars:
+      # AI provider — set ONE. GROQ_API_KEY is free (recommended);
+      # ANTHROPIC_API_KEY is the paid alternative, used first if both are set.
+      - key: GROQ_API_KEY
+        sync: false
       - key: ANTHROPIC_API_KEY
         sync: false
       - key: DISCORD_WEBHOOK_URL

@@ -97,13 +97,15 @@ class DailyIPCounter:
             return True
 
 
-# Three env-tunable layers on paid AI calls: a short per-IP window (burst
-# control), a per-IP daily allowance (each visitor gets a taste, not a tab),
-# and a global daily ceiling (the hard spend cap).
-AI_RATE_LIMIT = int(os.getenv("AI_RATE_LIMIT", "20"))
+# Three env-tunable layers on AI calls: a short per-IP window (burst control),
+# a per-IP daily allowance (each visitor gets a taste, not a tab), and a global
+# daily ceiling (the hard spend cap). They exist to defend a *paid* API key;
+# with a free provider (Groq) the default is fully unlimited. Set any layer to a
+# positive number to re-enable it (0 = disabled/unlimited).
+AI_RATE_LIMIT = int(os.getenv("AI_RATE_LIMIT", "0"))
 AI_RATE_WINDOW = int(os.getenv("AI_RATE_WINDOW", "300"))
-AI_DAILY_IP_LIMIT = int(os.getenv("AI_DAILY_IP_LIMIT", "1"))
-AI_DAILY_LIMIT = int(os.getenv("AI_DAILY_LIMIT", "100"))
+AI_DAILY_IP_LIMIT = int(os.getenv("AI_DAILY_IP_LIMIT", "0"))
+AI_DAILY_LIMIT = int(os.getenv("AI_DAILY_LIMIT", "0"))
 
 ai_limiter = RateLimiter(max_requests=AI_RATE_LIMIT, window_seconds=AI_RATE_WINDOW)
 _daily_ip_counter = DailyIPCounter(AI_DAILY_IP_LIMIT)
@@ -117,42 +119,44 @@ def _seconds_until_utc_midnight() -> int:
 
 
 def check_ai_allowance(ip: str) -> tuple[bool, str, int]:
-    """Gate one paid AI call. Returns (allowed, reason, retry_after_seconds).
+    """Gate one AI call. Returns (allowed, reason, retry_after_seconds).
+
+    Each of the three layers is disabled when its limit is 0 (the default for a
+    free provider). When all are off this is a no-op that never touches Redis.
 
     Per-IP check runs first so an abuser tripping their own limit doesn't drain
     the shared daily budget. Redis (fixed window) when configured; in-memory
     otherwise. Redis errors fall through to the in-memory path rather than
     blocking or silently allowing unlimited spend.
     """
+    if AI_RATE_LIMIT <= 0 and AI_DAILY_IP_LIMIT <= 0 and AI_DAILY_LIMIT <= 0:
+        return True, "", 0
+
     if upstash.enabled():
         day = time.strftime("%Y-%m-%d", time.gmtime())
-        window = int(time.time() // AI_RATE_WINDOW)
-        ip_key = f"ai:ip:{ip}:{window}"
-        ip_day_key = f"ai:ipday:{ip}:{day}"
-        res = upstash.pipeline(
-            [
-                ["INCR", ip_key],
-                ["EXPIRE", ip_key, str(AI_RATE_WINDOW)],
-                ["INCR", ip_day_key],
-                ["EXPIRE", ip_day_key, str(2 * _SECONDS_PER_DAY), "NX"],
-            ]
-        )
-        if res is not None:
-            if int(res[0]) > AI_RATE_LIMIT:
+        if AI_RATE_LIMIT > 0:
+            window = int(time.time() // AI_RATE_WINDOW)
+            ip_key = f"ai:ip:{ip}:{window}"
+            res = upstash.pipeline([["INCR", ip_key], ["EXPIRE", ip_key, str(AI_RATE_WINDOW)]])
+            if res is not None and int(res[0]) > AI_RATE_LIMIT:
                 retry = AI_RATE_WINDOW - int(time.time() % AI_RATE_WINDOW) + 1
                 return False, "Rate limit reached", retry
-            if int(res[2]) > AI_DAILY_IP_LIMIT:
+        if AI_DAILY_IP_LIMIT > 0:
+            ip_day_key = f"ai:ipday:{ip}:{day}"
+            res = upstash.pipeline([["INCR", ip_day_key], ["EXPIRE", ip_day_key, str(2 * _SECONDS_PER_DAY), "NX"]])
+            if res is not None and int(res[0]) > AI_DAILY_IP_LIMIT:
                 return False, "Daily AI allowance used up", _seconds_until_utc_midnight()
+        if AI_DAILY_LIMIT > 0:
             day_key = f"ai:day:{day}"
             day_res = upstash.pipeline([["INCR", day_key], ["EXPIRE", day_key, str(2 * _SECONDS_PER_DAY), "NX"]])
             if day_res is not None and int(day_res[0]) > AI_DAILY_LIMIT:
                 return False, "Daily AI budget reached", _seconds_until_utc_midnight()
-            return True, "", 0
+        return True, "", 0
 
-    if not ai_limiter.allow(ip):
+    if AI_RATE_LIMIT > 0 and not ai_limiter.allow(ip):
         return False, "Rate limit reached", ai_limiter.retry_after(ip)
-    if not _daily_ip_counter.allow(ip):
+    if AI_DAILY_IP_LIMIT > 0 and not _daily_ip_counter.allow(ip):
         return False, "Daily AI allowance used up", _seconds_until_utc_midnight()
-    if not _daily_counter.allow():
+    if AI_DAILY_LIMIT > 0 and not _daily_counter.allow():
         return False, "Daily AI budget reached", _seconds_until_utc_midnight()
     return True, "", 0

@@ -78,21 +78,48 @@ def _client():
     return AsyncAnthropic()  # reads ANTHROPIC_API_KEY from env
 
 
+# Groq is a free, OpenAI-compatible provider, so it rides the same OpenAI client
+# path — it just has its own key and sensible Groq defaults for base URL/model.
+GROQ_BASE_URL = "https://api.groq.com/openai/v1"
+GROQ_MODEL = "llama-3.3-70b-versatile"
+
+
+def _openai_config() -> tuple[str | None, str | None, str]:
+    """Resolve (api_key, base_url, model) for the OpenAI-compatible path.
+
+    GROQ_API_KEY takes precedence and brings Groq's defaults so production needs
+    no OpenAI key at all. Falls back to real OpenAI when only OPENAI_API_KEY is
+    set. OPENAI_BASE_URL / OPENAI_MODEL still override either way.
+    """
+    if os.getenv("GROQ_API_KEY"):
+        return (
+            os.getenv("GROQ_API_KEY"),
+            os.getenv("OPENAI_BASE_URL") or GROQ_BASE_URL,
+            os.getenv("OPENAI_MODEL") or GROQ_MODEL,
+        )
+    return (
+        os.getenv("OPENAI_API_KEY"),
+        os.getenv("OPENAI_BASE_URL") or None,
+        os.getenv("OPENAI_MODEL") or "gpt-4o-mini",
+    )
+
+
 def _openai_client():
     from openai import AsyncOpenAI
 
-    return AsyncOpenAI()  # reads OPENAI_API_KEY from env
+    api_key, base_url, _ = _openai_config()
+    return AsyncOpenAI(api_key=api_key, base_url=base_url)
 
 
 def _openai_model() -> str:
-    return os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+    return _openai_config()[2]
 
 
 def provider() -> str | None:
-    """Anthropic is preferred when both keys are present; OpenAI is the fallback."""
+    """Anthropic is preferred; the OpenAI-compatible path (Groq or OpenAI) is the fallback."""
     if os.getenv("ANTHROPIC_API_KEY"):
         return "anthropic"
-    if os.getenv("OPENAI_API_KEY"):
+    if os.getenv("GROQ_API_KEY") or os.getenv("OPENAI_API_KEY"):
         return "openai"
     return None
 
