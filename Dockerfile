@@ -1,7 +1,7 @@
 # AI Crypto Advisor — single-service container image.
 #
 # Stage 1 compiles the React dashboard; stage 2 runs FastAPI, which serves
-# frontend/dist at "/" (server/main.py prefers it over the legacy web/ UI).
+# frontend/dist at "/".
 
 FROM node:22-slim AS frontend
 WORKDIR /build

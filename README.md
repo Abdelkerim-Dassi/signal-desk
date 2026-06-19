@@ -9,13 +9,12 @@ Decision support, not financial advice.
 ```
 frontend/            React + Vite + TS + Tailwind + React Query + Recharts (dark terminal UI)
 server/
-  main.py            FastAPI — API routes + serves frontend/dist (falls back to web/)
+  main.py            FastAPI — API routes + serves frontend/dist
   ai.py              Claude briefing (cached) + streaming chat (SSE), claude-opus-4-8
   cache.py           TTL caches: market briefs (~75s), AI narratives (~5min)
   ratelimit.py       per-IP rate limit on the AI endpoints
 advisor_engine.py    heuristic scoring engine (Binance/CoinGecko, Fear & Greed, news)
 notifications.py     Discord webhook + Twilio WhatsApp alerts
-web/                 legacy vanilla UI (fallback only)
 ```
 
 The 2-minute dashboard poll only ever hits the free heuristic endpoint. Claude is called exclusively on explicit user action (generate briefing / chat), with a narrative cache so near-identical market snapshots never trigger repeat spend.
@@ -36,7 +35,7 @@ The 2-minute dashboard poll only ever hits the free heuristic endpoint. Claude i
 ```powershell
 pip install -r requirements.txt
 python -m uvicorn server.main:app --reload --port 8000
-# open http://127.0.0.1:8000  (serves frontend/dist if built, else the legacy web/ UI)
+# open http://127.0.0.1:8000  (serves frontend/dist once it's built — see below)
 ```
 
 Frontend development with hot reload (proxies `/api` to :8000):

@@ -9,9 +9,9 @@ limits when multiple clients poll at once.
 Run locally:
     uvicorn server.main:app --reload
 
-The static front-end is served from ``frontend/dist`` once it's built (Day 6);
-until then it falls back to the original ``web/`` directory so the existing UI
-keeps working.
+The static front-end is served from ``frontend/dist`` once it's built. When the
+build is absent (e.g. a Vercel serverless function, where the CDN serves the
+front-end), only the ``/api/*`` routes are mounted.
 """
 
 from __future__ import annotations
@@ -40,9 +40,7 @@ from .ratelimit import check_ai_allowance
 from .schemas import AnalyzeRequest, BriefingRequest, ChatRequest, NotifyRequest
 
 ROOT = Path(__file__).resolve().parent.parent
-DIST_DIR = ROOT / "frontend" / "dist"
-WEB_DIR = ROOT / "web"
-STATIC_DIR = DIST_DIR if DIST_DIR.exists() else WEB_DIR
+STATIC_DIR = ROOT / "frontend" / "dist"
 
 app = FastAPI(title="AI Crypto Advisor", version="0.2")
 

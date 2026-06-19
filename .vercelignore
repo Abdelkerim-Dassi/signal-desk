@@ -8,10 +8,8 @@ __pycache__
 *.pyc
 .env
 
-# Docs / legacy / Render-only artifacts not needed by the Vercel build.
+# Docs / Render-only artifacts not needed by the Vercel build.
 docs
-signal-desk
-web
 Dockerfile
 .dockerignore
 render.yaml
