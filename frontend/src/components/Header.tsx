@@ -10,6 +10,7 @@ interface HeaderProps {
   onToggleLive: (live: boolean) => void
   onIntervalChange: (ms: number) => void
   onRefresh: () => void
+  onOpenGuide: () => void
 }
 
 export default function Header({
@@ -21,6 +22,7 @@ export default function Header({
   onToggleLive,
   onIntervalChange,
   onRefresh,
+  onOpenGuide,
 }: HeaderProps) {
   // re-render every second so the countdown ticks
   const [, setTick] = useState(0)
@@ -58,6 +60,13 @@ export default function Header({
 
       <div className="ml-auto flex flex-wrap items-center gap-3">
         <span className={`num text-xs ${error ? 'text-sell' : 'text-mute'}`}>{freshness}</span>
+
+        <button
+          onClick={onOpenGuide}
+          className="glass cursor-pointer px-3 py-1.5 font-display text-xs font-semibold tracking-widest text-teal uppercase transition hover:border-line-2"
+        >
+          ? guide
+        </button>
 
         <label className="glass flex cursor-pointer items-center gap-2 px-3 py-1.5 text-xs">
           <span

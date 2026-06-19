@@ -6,6 +6,7 @@ import OpportunityList from './components/OpportunityList'
 import PortfolioPanel from './components/PortfolioPanel'
 import AiBriefing from './components/AiBriefing'
 import ChatPanel from './components/ChatPanel'
+import GuideModal from './components/GuideModal'
 import { AlertPanel, News, Trending } from './components/SidePanels'
 import { DEFAULT_CONFIG, useAppStatus, useBrief } from './hooks/useBrief'
 import type { AdvisorConfig } from './hooks/useBrief'
@@ -23,6 +24,7 @@ export default function App() {
   const briefQuery = useBrief(config)
   const statusQuery = useAppStatus()
   const [toast, setToast] = useState<string | null>(null)
+  const [showGuide, setShowGuide] = useState(false)
 
   useEffect(() => {
     if (!toast) return
@@ -45,6 +47,7 @@ export default function App() {
         onToggleLive={(live) => setDraft({ ...draft, live })}
         onIntervalChange={(intervalMs) => setDraft({ ...draft, intervalMs })}
         onRefresh={() => briefQuery.refetch()}
+        onOpenGuide={() => setShowGuide(true)}
       />
 
       <main className="mt-4 grid gap-4 lg:grid-cols-[1.9fr_1fr]">
@@ -71,6 +74,8 @@ export default function App() {
       <footer className="num py-6 text-center text-[11px] text-mute">
         Heuristic signals + AI narrative · decision support only — not financial advice.
       </footer>
+
+      <GuideModal open={showGuide} onClose={() => setShowGuide(false)} />
 
       {toast && (
         <div className="glass rise fixed bottom-5 left-1/2 z-50 -translate-x-1/2 px-4 py-2 text-sm">
