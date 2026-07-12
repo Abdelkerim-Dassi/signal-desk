@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Brief, ChatMessage } from '../lib/api'
 import { streamChat } from '../lib/api'
+import DeskHead from './DeskHead'
 
 export default function ChatPanel({
   brief,
@@ -54,9 +55,7 @@ export default function ChatPanel({
 
   return (
     <section className="glass rise flex flex-col p-4" style={{ animationDelay: '220ms' }}>
-      <h2 className="font-display text-sm font-semibold tracking-widest text-teal uppercase">
-        Ask the desk
-      </h2>
+      <DeskHead title="Ask the desk" meta="grounded in live data" />
 
       <div
         ref={scrollRef}
@@ -98,7 +97,7 @@ export default function ChatPanel({
           onChange={(e) => setInput(e.target.value)}
           placeholder={streaming ? 'streaming…' : 'ask about the market…'}
           disabled={streaming}
-          className="num w-full rounded-md border border-line bg-panel-2/80 px-3 py-2 text-xs outline-none transition focus:border-line-2 disabled:opacity-50"
+          className="num w-full min-w-0 rounded-md border border-line bg-panel-2/80 px-3 py-2 text-xs outline-none transition focus:border-line-2 disabled:opacity-50"
         />
         <button
           type="submit"

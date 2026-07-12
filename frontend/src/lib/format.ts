@@ -34,6 +34,20 @@ export const actionStyles: Record<Action, string> = {
   avoid: 'text-avoid border-avoid/40 bg-avoid/10',
 }
 
+/** Compact relative time for feed items, e.g. "3h ago". Null when unparseable. */
+export function timeAgo(dateString?: string): string | null {
+  if (!dateString) return null
+  const t = new Date(dateString).getTime()
+  if (Number.isNaN(t)) return null
+  const seconds = Math.max(0, (Date.now() - t) / 1000)
+  if (seconds < 90) return 'just now'
+  const minutes = seconds / 60
+  if (minutes < 60) return `${Math.round(minutes)}m ago`
+  const hours = minutes / 60
+  if (hours < 24) return `${Math.round(hours)}h ago`
+  return `${Math.round(hours / 24)}d ago`
+}
+
 export function formatDuration(totalSeconds: number): string {
   const seconds = Math.max(0, Math.floor(totalSeconds))
   const minutes = Math.floor(seconds / 60)

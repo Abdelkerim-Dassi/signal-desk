@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import type { Brief, AppStatus } from '../lib/api'
 import { sendAlert } from '../lib/api'
+import { timeAgo } from '../lib/format'
+import DeskHead from './DeskHead'
 
 export function Trending({ brief }: { brief: Brief | undefined }) {
   const rows = brief?.trending ?? []
   if (rows.length === 0) return null
   return (
     <section className="glass rise p-4" style={{ animationDelay: '260ms' }}>
-      <h2 className="font-display text-sm font-semibold tracking-widest text-teal uppercase">
-        Trending
-      </h2>
+      <DeskHead title="Trending" meta="coingecko search" />
       <div className="mt-3 grid grid-cols-2 gap-2">
         {rows.slice(0, 8).map((coin, i) => (
           <div
             key={`${coin.symbol}-${i}`}
-            className="flex items-center gap-2 rounded-lg border border-line bg-panel-2/60 px-2.5 py-2"
+            className="flex items-center gap-2 rounded-md border border-line bg-panel-2/60 px-2.5 py-2"
           >
             {coin.thumb && <img src={coin.thumb} alt="" className="size-6 rounded-full" />}
             <div className="min-w-0">
@@ -30,14 +30,18 @@ export function Trending({ brief }: { brief: Brief | undefined }) {
   )
 }
 
+/** RSS channel titles can be long ("CoinDesk: Bitcoin, Ethereum, …") — keep the masthead. */
+function sourceName(source?: string): string {
+  return (source ?? '').split(':')[0].trim()
+}
+
 export function News({ brief }: { brief: Brief | undefined }) {
   const rows = brief?.news ?? []
   if (rows.length === 0) return null
+  const feeds = new Set(rows.map((item) => sourceName(item.source))).size
   return (
     <section className="glass rise p-4" style={{ animationDelay: '300ms' }}>
-      <h2 className="font-display text-sm font-semibold tracking-widest text-teal uppercase">
-        Headlines
-      </h2>
+      <DeskHead title="Headlines" meta={`${feeds} feed${feeds === 1 ? '' : 's'}`} />
       <div className="mt-2 divide-y divide-line">
         {rows.slice(0, 6).map((item, i) => (
           <a
@@ -51,12 +55,35 @@ export function News({ brief }: { brief: Brief | undefined }) {
               {item.title}
             </p>
             <p className="num mt-0.5 text-[10px] text-mute">
-              {item.source} {item.published_at ? `· ${item.published_at}` : ''}
+              {sourceName(item.source)}
+              {timeAgo(item.published_at) ? ` · ${timeAgo(item.published_at)}` : ''}
             </p>
           </a>
         ))}
       </div>
     </section>
+  )
+}
+
+function Channel({
+  label,
+  ready,
+  checked,
+  onToggle,
+}: {
+  label: string
+  ready?: boolean
+  checked: boolean
+  onToggle: () => void
+}) {
+  return (
+    <label className="flex cursor-pointer items-center gap-2 text-xs">
+      <input type="checkbox" checked={checked} onChange={onToggle} className="accent-(--color-teal)" />
+      <span>{label}</span>
+      <span className={`num ml-auto text-[10px] ${ready ? 'text-buy' : 'text-mute'}`}>
+        {ready ? 'ready' : 'not set'}
+      </span>
+    </label>
   )
 }
 
@@ -91,29 +118,22 @@ export function AlertPanel({
     }
   }
 
-  const Channel = ({ id, label, ready }: { id: string; label: string; ready?: boolean }) => (
-    <label className="flex cursor-pointer items-center gap-2 text-xs">
-      <input
-        type="checkbox"
-        checked={channels.includes(id)}
-        onChange={() => toggle(id)}
-        className="accent-(--color-teal)"
-      />
-      <span>{label}</span>
-      <span className={`num ml-auto text-[10px] ${ready ? 'text-buy' : 'text-mute'}`}>
-        {ready ? 'ready' : 'not set'}
-      </span>
-    </label>
-  )
-
   return (
     <section className="glass rise p-4" style={{ animationDelay: '340ms' }}>
-      <h2 className="font-display text-sm font-semibold tracking-widest text-teal uppercase">
-        Alerts
-      </h2>
+      <DeskHead title="Alerts" />
       <div className="mt-3 space-y-2">
-        <Channel id="discord" label="Discord webhook" ready={notifications?.discord} />
-        <Channel id="whatsapp" label="WhatsApp (Twilio)" ready={notifications?.whatsapp} />
+        <Channel
+          label="Discord webhook"
+          ready={notifications?.discord}
+          checked={channels.includes('discord')}
+          onToggle={() => toggle('discord')}
+        />
+        <Channel
+          label="WhatsApp (Twilio)"
+          ready={notifications?.whatsapp}
+          checked={channels.includes('whatsapp')}
+          onToggle={() => toggle('whatsapp')}
+        />
       </div>
       <button
         onClick={send}

@@ -1,7 +1,9 @@
 import type { Brief, HoldingInput } from '../lib/api'
 import type { AdvisorConfig } from '../hooks/useBrief'
 import { compactCurrency, percent, changeColor } from '../lib/format'
+import DeskHead from './DeskHead'
 import { SignalPill } from './OpportunityList'
+import ScoreMeter from './ScoreMeter'
 
 interface PortfolioPanelProps {
   brief: Brief | undefined
@@ -9,8 +11,10 @@ interface PortfolioPanelProps {
   onConfigChange: (next: AdvisorConfig) => void
 }
 
+// min-w-0 lets the inputs shrink inside the holdings grid — without it their
+// intrinsic width (~170px each) forces the whole page wider than small screens
 const inputClass =
-  'num w-full rounded-md border border-line bg-panel-2/80 px-2.5 py-1.5 text-xs outline-none transition focus:border-line-2'
+  'num w-full min-w-0 rounded-md border border-line bg-panel-2/80 px-2.5 py-1.5 text-xs outline-none transition focus:border-line-2'
 
 export default function PortfolioPanel({ brief, config, onConfigChange }: PortfolioPanelProps) {
   const rows = brief?.portfolio ?? []
@@ -30,9 +34,10 @@ export default function PortfolioPanel({ brief, config, onConfigChange }: Portfo
 
   return (
     <section className="glass rise p-4" style={{ animationDelay: '140ms' }}>
-      <h2 className="font-display text-sm font-semibold tracking-widest text-teal uppercase">
-        Watchlist & portfolio
-      </h2>
+      <DeskHead
+        title="Watchlist & portfolio"
+        meta={rows.length > 0 ? `${rows.length} position${rows.length === 1 ? '' : 's'}` : undefined}
+      />
 
       <div className="mt-3 grid grid-cols-2 gap-2">
         <label className="block">
@@ -167,6 +172,7 @@ export default function PortfolioPanel({ brief, config, onConfigChange }: Portfo
                     <p className="font-semibold">{item.score ?? '--'}/100</p>
                   </div>
                 </div>
+                <ScoreMeter score={item.score} action={item.action} className="mt-2" />
                 <p className="mt-2 text-[11px] leading-snug text-mute">
                   {holding.note || item.risks?.[0] || 'Review position size before taking action.'}
                 </p>

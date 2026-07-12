@@ -25,9 +25,9 @@ export default function Header({
   onOpenGuide,
 }: HeaderProps) {
   // re-render every second so the countdown ticks
-  const [, setTick] = useState(0)
+  const [now, setNow] = useState(() => Date.now())
   useEffect(() => {
-    const t = window.setInterval(() => setTick((n) => n + 1), 1000)
+    const t = window.setInterval(() => setNow(Date.now()), 1000)
     return () => window.clearInterval(t)
   }, [])
 
@@ -39,7 +39,7 @@ export default function Header({
     const at = updatedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     if (!live) freshness = `updated ${at} · live off`
     else {
-      const remaining = (updatedAt.getTime() + intervalMs - Date.now()) / 1000
+      const remaining = (updatedAt.getTime() + intervalMs - now) / 1000
       freshness = `updated ${at} · next ${formatDuration(remaining)}`
     }
   }

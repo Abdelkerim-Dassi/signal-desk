@@ -41,10 +41,11 @@ export default function AiBriefing({
 
   return (
     <section className="glass rise p-4" style={{ animationDelay: '180ms' }}>
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center gap-3">
         <h2 className="font-display text-sm font-semibold tracking-widest text-teal uppercase">
           AI briefing
         </h2>
+        <span className="h-px min-w-4 flex-1 bg-line" aria-hidden />
         <button
           onClick={run}
           disabled={!brief || loading}

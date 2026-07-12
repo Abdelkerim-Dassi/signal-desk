@@ -1,5 +1,6 @@
 import type { Brief, Opportunity } from '../lib/api'
 import { actionKey, actionStyles, changeColor, compactCurrency, percent } from '../lib/format'
+import ScoreMeter from './ScoreMeter'
 import Sparkline from './Sparkline'
 
 function CoinBadge({ item }: { item: Opportunity }) {
@@ -22,16 +23,35 @@ export function SignalPill({ action }: { action?: string }) {
   const key = actionKey(action)
   return (
     <span
-      className={`rounded-md border px-2 py-0.5 font-display text-[11px] font-semibold tracking-widest uppercase ${actionStyles[key]}`}
+      className={`rounded border px-2 py-0.5 font-display text-[11px] font-semibold tracking-widest uppercase ${actionStyles[key]}`}
     >
       {key}
     </span>
   )
 }
 
+/** Reasons contributed to the score (+); risks warn against it (!). */
+function NoteChip({ text, kind }: { text: string; kind: 'reason' | 'risk' }) {
+  return (
+    <span className="rounded border border-line bg-panel-2/60 px-2 py-0.5 text-[11px] text-mute">
+      <b
+        className={`num mr-1 font-semibold ${kind === 'risk' ? 'text-hold' : 'text-teal-dim'}`}
+        aria-hidden
+      >
+        {kind === 'risk' ? '!' : '+'}
+      </b>
+      {text}
+    </span>
+  )
+}
+
 function SignalCard({ item, delay }: { item: Opportunity; delay: number }) {
-  const up = Number(item.change_24h ?? 0) >= 0
-  const notes = [...(item.reasons ?? []).slice(0, 2), ...(item.risks ?? []).slice(0, 1)]
+  // the sparkline draws the 7-day window, so its color follows the 7d change
+  const up = Number(item.change_7d ?? item.change_24h ?? 0) >= 0
+  const notes = [
+    ...(item.reasons ?? []).slice(0, 2).map((text) => ({ text, kind: 'reason' as const })),
+    ...(item.risks ?? []).slice(0, 1).map((text) => ({ text, kind: 'risk' as const })),
+  ]
   return (
     <article
       className="glass rise grid grid-cols-2 gap-x-4 gap-y-2 p-4 transition hover:border-line-2 sm:grid-cols-[1.4fr_auto_1fr_1fr]"
@@ -60,7 +80,8 @@ function SignalCard({ item, delay }: { item: Opportunity; delay: number }) {
         <p className="num font-semibold">
           {item.score ?? '--'} <span className="text-mute">/ {item.risk_level ?? '--'}</span>
         </p>
-        <p className={`num text-xs ${changeColor(item.change_24h)}`}>
+        <ScoreMeter score={item.score} action={item.action} className="mt-1.5" />
+        <p className={`num mt-1.5 text-xs ${changeColor(item.change_24h)}`}>
           {percent(item.change_24h)} today · {percent(item.change_7d)} 7d
         </p>
       </div>
@@ -68,12 +89,7 @@ function SignalCard({ item, delay }: { item: Opportunity; delay: number }) {
       {notes.length > 0 && (
         <div className="col-span-2 flex flex-wrap gap-1.5 sm:col-span-4">
           {notes.map((note) => (
-            <span
-              key={note}
-              className="rounded border border-line bg-panel-2/60 px-2 py-0.5 text-[11px] text-mute"
-            >
-              {note}
-            </span>
+            <NoteChip key={note.text} text={note.text} kind={note.kind} />
           ))}
         </div>
       )}
@@ -93,12 +109,17 @@ export default function OpportunityList({
   const rows = brief?.opportunities ?? []
   return (
     <section>
-      <div className="mb-3 flex items-baseline justify-between">
+      <div className="mb-3 flex items-center gap-3">
         <h2 className="font-display text-sm font-semibold tracking-widest text-teal uppercase">
           Ranked signals
         </h2>
-        {brief?.errors && brief.errors.length > 0 && (
-          <span className="text-xs text-hold">{brief.errors[0]}</span>
+        <span className="h-px min-w-4 flex-1 bg-line" aria-hidden />
+        {brief?.errors && brief.errors.length > 0 ? (
+          <span className="shrink-0 text-xs text-hold">{brief.errors[0]}</span>
+        ) : (
+          <span className="tick-label shrink-0" title="The engine's decision thresholds">
+            buy ≥67 · avoid ≤38
+          </span>
         )}
       </div>
       <div className="space-y-3">
