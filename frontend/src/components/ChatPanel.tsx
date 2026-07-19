@@ -63,8 +63,9 @@ export default function ChatPanel({
       >
         {messages.length === 0 && (
           <p className="text-xs leading-relaxed text-mute">
-            Ask about the current signals — e.g. <em>"why is INJ a hold right now?"</em> Answers are
-            grounded strictly in the live data above. Not financial advice.
+            Ask about the current signals — e.g. <em>"why is BTC a 78?"</em> or{' '}
+            <em>"what would move it to 100?"</em> Answers are grounded in the live data and the
+            scoring rubric. Not financial advice.
           </p>
         )}
         {messages.map((m, i) => (

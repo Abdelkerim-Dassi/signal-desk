@@ -19,6 +19,18 @@ export interface HoldingInfo {
   note?: string
 }
 
+export interface ScoreComponent {
+  label: string
+  delta: number
+}
+
+export interface ScoreBreakdown {
+  base: number
+  components: ScoreComponent[]
+  raw?: number
+  final: number
+}
+
 export interface Opportunity {
   symbol?: string
   name?: string
@@ -28,6 +40,7 @@ export interface Opportunity {
   market_cap_rank?: number
   action?: string
   score?: number
+  score_breakdown?: ScoreBreakdown
   risk_level?: string
   current_price?: number
   change_24h?: number

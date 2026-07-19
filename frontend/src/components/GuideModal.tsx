@@ -14,8 +14,8 @@ const steps: Step[] = [
       <>
         Open <strong>Watchlist &amp; portfolio</strong> (right column). Choose a{' '}
         <strong>source</strong> — <em>Binance Spot</em> (use pair tickers like{' '}
-        <code>INJUSDT</code>) or <em>CoinGecko</em> (use ids like{' '}
-        <code>injective-protocol</code>). Set the <strong>quote</strong> currency (USDT, USDC or
+        <code>BTCUSDT</code>) or <em>CoinGecko</em> (use ids like{' '}
+        <code>bitcoin</code>). Set the <strong>quote</strong> currency (USDT, USDC or
         BTC).
       </>
     ),
@@ -26,13 +26,28 @@ const steps: Step[] = [
     body: (
       <>
         In <strong>assets (comma separated)</strong>, list the coins you want scored, e.g.{' '}
-        <code>INJUSDT, OGUSDT</code>. The desk fetches live prices and computes a heuristic{' '}
+        <code>BTCUSDT, ETHUSDT</code>. The desk fetches live prices and computes a heuristic{' '}
         <strong>signal</strong> (buy / hold / sell / avoid) and a 0–100 score for each.
       </>
     ),
   },
   {
     n: '03',
+    title: 'How the score works',
+    body: (
+      <>
+        Every coin starts at a base of <strong>50</strong>. The desk adds or subtracts points for
+        trend (price vs its <strong>7 &amp; 30-day averages</strong>), <strong>momentum</strong>{' '}
+        (the 7-day return), <strong>volume</strong>, and market <strong>Fear &amp; Greed</strong> —
+        then clamps to <code>0–100</code>. <strong>Buy ≥67 · avoid ≤38</strong>; hold in between. A{' '}
+        <strong>100</strong> is rare by design — it takes a near-perfect confluence of every factor
+        at once. <strong>Click any score</strong> in the ranked list to see its exact build-up, or
+        ask the desk <em>&quot;what would move BTC to 100?&quot;</em>
+      </>
+    ),
+  },
+  {
+    n: '04',
     title: 'Add your holdings (optional)',
     body: (
       <>
@@ -44,7 +59,7 @@ const steps: Step[] = [
     ),
   },
   {
-    n: '04',
+    n: '05',
     title: 'Read the market context',
     body: (
       <>
@@ -56,7 +71,7 @@ const steps: Step[] = [
     ),
   },
   {
-    n: '05',
+    n: '06',
     title: 'Generate an AI briefing',
     body: (
       <>
@@ -68,18 +83,19 @@ const steps: Step[] = [
     ),
   },
   {
-    n: '06',
+    n: '07',
     title: 'Ask the desk',
     body: (
       <>
         Use <strong>Ask the desk</strong> to chat about the current signals, e.g.{' '}
-        <em>&quot;why is INJ a hold right now?&quot;</em> Answers stream live and stay grounded
-        strictly in the data on screen.
+        <em>&quot;why is BTC a hold right now?&quot;</em> or{' '}
+        <em>&quot;what would move it to 100?&quot;</em> Answers stream live and stay grounded in
+        the live data and the scoring rubric.
       </>
     ),
   },
   {
-    n: '07',
+    n: '08',
     title: 'Stay live & set alerts',
     body: (
       <>

@@ -26,9 +26,9 @@ export default function PortfolioPanel({ brief, config, onConfigChange }: Portfo
 
   const switchSource = (source: string) => {
     let assetsRaw = config.assetsRaw
-    if (source === 'binance' && assetsRaw.includes('bitcoin')) assetsRaw = 'INJUSDT, OGUSDT'
-    if (source === 'coingecko' && assetsRaw.toUpperCase().includes('INJUSDT'))
-      assetsRaw = 'injective-protocol, og-fan-token'
+    if (source === 'binance' && assetsRaw.includes('bitcoin')) assetsRaw = 'BTCUSDT, ETHUSDT'
+    if (source === 'coingecko' && assetsRaw.toUpperCase().includes('BTCUSDT'))
+      assetsRaw = 'bitcoin, ethereum'
     onConfigChange({ ...config, marketSource: source, assetsRaw })
   }
 
@@ -71,7 +71,7 @@ export default function PortfolioPanel({ brief, config, onConfigChange }: Portfo
           type="text"
           value={config.assetsRaw}
           onChange={(e) => onConfigChange({ ...config, assetsRaw: e.target.value })}
-          placeholder="INJUSDT, OGUSDT"
+          placeholder="BTCUSDT, ETHUSDT"
           className={inputClass}
         />
       </label>

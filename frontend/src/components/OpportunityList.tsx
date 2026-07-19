@@ -1,5 +1,6 @@
 import type { Brief, Opportunity } from '../lib/api'
 import { actionKey, actionStyles, changeColor, compactCurrency, percent } from '../lib/format'
+import ScoreBreakdown from './ScoreBreakdown'
 import ScoreMeter from './ScoreMeter'
 import Sparkline from './Sparkline'
 
@@ -77,9 +78,11 @@ function SignalCard({ item, delay }: { item: Opportunity; delay: number }) {
 
       <div>
         <p className="tick-label">score / risk</p>
-        <p className="num font-semibold">
-          {item.score ?? '--'} <span className="text-mute">/ {item.risk_level ?? '--'}</span>
-        </p>
+        <ScoreBreakdown
+          score={item.score}
+          riskLevel={item.risk_level}
+          breakdown={item.score_breakdown}
+        />
         <ScoreMeter score={item.score} action={item.action} className="mt-1.5" />
         <p className={`num mt-1.5 text-xs ${changeColor(item.change_24h)}`}>
           {percent(item.change_24h)} today · {percent(item.change_7d)} 7d

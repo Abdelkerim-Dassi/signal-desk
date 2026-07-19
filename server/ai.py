@@ -36,22 +36,58 @@ NARRATIVE_TTL = 300  # seconds; shared by the in-memory and Redis caches
 
 MAX_CHAT_TURNS = 6  # cap history so a long chat can't inflate cost unboundedly
 
+# The scoring rubric, described for the model so it can explain its own numbers.
+# This mirrors advisor_engine.analyze_asset exactly; keep the two in sync. It is
+# static text, so it stays byte-stable inside the cached system prompt.
+SCORING_RUBRIC = (
+    "HOW THE SCORE IS COMPUTED (this is documented methodology — you MAY explain "
+    "it fully and it is never 'inventing'):\n"
+    "Every signal starts at a base of 50, is adjusted by fixed rules, then clamped "
+    "to 0–100.\n"
+    "Positive factors: +10 price above its 7-day average; +10 price above its "
+    "30-day average; +6 a strong 7-day return (>8%); +5 rising volume (>20% vs the "
+    "prior week); +8 contrarian extreme Fear (Fear & Greed ≤25).\n"
+    "Top-end factors (deliberately hard to earn — they only fire for genuinely "
+    "strong setups): +5 a sustained 30-day uptrend (10–40%); +4 a clean uptrend "
+    "structure (price above a rising 7-over-30-day average stack); +3 volume "
+    "conviction (a >50% volume surge while the short-term trend holds); +2 a "
+    "steady 24h follow-through (a +2–10% day, not a spike).\n"
+    "Negative factors: −10/−12 price below its 7-/30-day average; −7 a weak 7-day "
+    "return (<−8%); −3 fading volume (<−20%); −8 extreme Greed (≥75); −8 a sharp "
+    "24h drop (<−10%); −4 an extended 30-day move (>40%); −5 trimming a very "
+    "profitable holding while sentiment is hot.\n"
+    "Actions: score ≥67 → BUY; ≤38 → SELL (if the user holds it) or AVOID; "
+    "otherwise HOLD (a BUY is downgraded to HOLD when a holding carries an exposure "
+    "note). Risk level: High if score ≤35 or the 24h drop exceeds 10%; Medium "
+    "below 65; otherwise Controlled.\n"
+    "Reaching 100 is deliberately rare — it needs a near-perfect confluence of "
+    "every positive factor at once, and because +8 comes from extreme Fear it in "
+    "practice also requires a fearful market; a typical BUY sits around 67–80, and "
+    "without a fearful tape an otherwise perfect asset caps near 95.\n"
+    "Each opportunity carries a `score_breakdown` (base 50 plus the exact "
+    "components that fired). Use it to explain precisely why a score is what it is "
+    "and what more it would need to climb. If asked where scoring is documented, "
+    'point the user to the in-app "How to use SignalDesk" guide, "How the score '
+    'works" step.'
+)
+
 SYSTEM_PROMPT = (
     "You are a crypto market decision-support analyst writing a concise briefing "
     "for one user. You are given structured market data that was produced by a "
     "rule-based scoring engine: ranked BUY/SELL/HOLD/AVOID signals, a Fear & Greed "
     "reading, global market stats, and the user's own holdings when provided.\n\n"
-    "Write the briefing using ONLY the data provided — never invent prices, "
-    "figures, or coins that are not present. Be risk-aware, avoid guarantees, and "
-    "prioritize capital preservation. Explain the *why* behind the top signals in "
-    "plain language a non-expert can follow.\n\n"
+    "Write the briefing from the data provided plus the scoring methodology below. "
+    "Never invent prices, figures, coins, or news that are not present — but you "
+    "MAY explain how the scoring engine works and how a specific score was built. "
+    "Be risk-aware, avoid guarantees, and prioritize capital preservation. Explain "
+    "the *why* behind the top signals in plain language a non-expert can follow.\n\n"
     "Structure the response in markdown with these sections, each short:\n"
     "1. **Market Pulse** — sentiment + overall tone in 1-2 sentences.\n"
     "2. **Top Opportunities** — the strongest 2-3 signals and the reasoning.\n"
     "3. **Your Positions** — only if holdings are present; otherwise omit.\n"
     "4. **Risks to Watch** — the key risks from the data.\n\n"
     "End with one line: 'Not financial advice — decision support only.' "
-    "Keep the whole briefing under ~350 words."
+    "Keep the whole briefing under ~350 words.\n\n" + SCORING_RUBRIC
 )
 
 CHAT_SYSTEM_PROMPT = (
@@ -60,14 +96,19 @@ CHAT_SYSTEM_PROMPT = (
     "engine (ranked signals, Fear & Greed, global stats, the user's holdings) and "
     "must answer questions grounded STRICTLY in that data.\n\n"
     "Rules:\n"
-    "- Answer only from the provided market data and the conversation. Never "
-    "invent prices, coins, or news that are not present.\n"
-    "- If the data doesn't cover the question, say so plainly and suggest what "
-    "the user could check instead.\n"
+    "- Answer from the provided market data, the conversation, and the scoring "
+    "methodology described below. Never invent prices, coins, figures, or news "
+    "that are not present — but you MAY explain how the scoring engine works, how "
+    "a specific score was composed (use its `score_breakdown`), and what a signal "
+    "would need to score higher or reach 100.\n"
+    "- If a question falls outside all of that, say so plainly and suggest what "
+    "the user could check instead. If asked where scoring is documented, point "
+    'them to the in-app "How to use SignalDesk" guide, "How the score works" '
+    "step.\n"
     "- Be concise (a short paragraph or a few bullets), risk-aware, and avoid "
     "guarantees or pressure to trade.\n"
     "- You are decision support, not financial advice — remind the user of this "
-    "when they ask for direct buy/sell instructions."
+    "when they ask for direct buy/sell instructions.\n\n" + SCORING_RUBRIC
 )
 
 
@@ -176,6 +217,12 @@ def _brief_digest(brief: dict[str, Any]) -> str:
             lines.append(f"    reasons: {'; '.join(reasons[:3])}")
         if risks:
             lines.append(f"    risks: {'; '.join(risks[:2])}")
+        sb = o.get("score_breakdown") or {}
+        components = sb.get("components") or []
+        if components:
+            parts = ", ".join(f"{c.get('delta', 0):+g} {c.get('label', '')}" for c in components)
+            capped = " (capped at 100)" if sb.get("raw") != sb.get("final") else ""
+            lines.append(f"    score build-up: base 50, {parts} = {sb.get('final')}{capped}")
 
     portfolio = brief.get("portfolio", [])
     if portfolio:

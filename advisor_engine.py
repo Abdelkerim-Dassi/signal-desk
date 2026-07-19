@@ -26,8 +26,8 @@ NEWS_FEEDS = (
 )
 
 
-DEFAULT_ASSETS = ["bitcoin", "ethereum", "solana", "chainlink", "render-token", "arbitrum"]
-DEFAULT_BINANCE_SYMBOLS = ["INJUSDT", "OGUSDT"]
+DEFAULT_ASSETS = ["bitcoin", "ethereum"]
+DEFAULT_BINANCE_SYMBOLS = ["BTCUSDT", "ETHUSDT"]
 BINANCE_QUOTE_ASSETS = ("USDT", "USDC", "FDUSD", "BTC", "ETH", "BNB", "EUR", "TRY")
 COINGECKO_TO_BINANCE = {
     "bitcoin": "BTCUSDT",
@@ -408,52 +408,77 @@ def analyze_asset(
     score = 50.0
     reasons: list[str] = []
     risks: list[str] = []
+    breakdown: list[dict[str, Any]] = []
+
+    def bump(delta: float, label: str, reason: str | None = None, risk: str | None = None) -> None:
+        """Apply a scoring delta and record it in one place.
+
+        Keeps ``score``, ``breakdown``, ``reasons`` and ``risks`` in lock-step so
+        the emitted ``score_breakdown`` is always an exact account of the number —
+        the same rubric the UI expands and the AI narrates.
+        """
+        nonlocal score
+        score += delta
+        breakdown.append({"label": label, "delta": delta})
+        if reason:
+            reasons.append(reason)
+        if risk:
+            risks.append(risk)
 
     if ma7 and current_price > ma7:
-        score += 10
-        reasons.append("Price is above the 7-day average, showing short-term strength.")
+        bump(10, "Above 7-day average", reason="Price is above the 7-day average, showing short-term strength.")
     elif ma7:
-        score -= 10
-        reasons.append("Price is below the 7-day average, so momentum is weak.")
+        bump(-10, "Below 7-day average", reason="Price is below the 7-day average, so momentum is weak.")
 
     if ma30 and current_price > ma30:
-        score += 10
-        reasons.append("Price is above the 30-day average, confirming broader trend support.")
+        bump(10, "Above 30-day average", reason="Price is above the 30-day average, confirming broader trend support.")
     elif ma30:
-        score -= 12
-        reasons.append("Price is below the 30-day average, which raises trend risk.")
+        bump(-12, "Below 30-day average", reason="Price is below the 30-day average, which raises trend risk.")
 
     if change_7d > 8:
-        score += 6
-        reasons.append("The 7-day return is strong.")
+        bump(6, "Strong 7-day return", reason="The 7-day return is strong.")
     elif change_7d < -8:
-        score -= 7
-        reasons.append("The 7-day return is sharply negative.")
+        bump(-7, "Weak 7-day return", reason="The 7-day return is sharply negative.")
 
     if volume_change is not None and volume_change > 20:
-        score += 5
-        reasons.append("Recent volume is rising, which can confirm the move.")
+        bump(5, "Rising volume", reason="Recent volume is rising, which can confirm the move.")
     elif volume_change is not None and volume_change < -20:
-        score -= 3
-        reasons.append("Recent volume is fading, so conviction is lower.")
+        bump(-3, "Fading volume", reason="Recent volume is fading, so conviction is lower.")
 
     if sentiment_score <= 25:
-        score += 8
-        reasons.append("Market sentiment is fearful, which can create discounted entries.")
-        risks.append("Fear can persist longer than expected during broad sell-offs.")
+        bump(8, "Contrarian fear",
+             reason="Market sentiment is fearful, which can create discounted entries.",
+             risk="Fear can persist longer than expected during broad sell-offs.")
     elif sentiment_score >= 75:
-        score -= 8
-        reasons.append("Market sentiment is greedy, so chasing entries is riskier.")
-        risks.append("Extreme greed can precede fast pullbacks.")
+        bump(-8, "Market greed",
+             reason="Market sentiment is greedy, so chasing entries is riskier.",
+             risk="Extreme greed can precede fast pullbacks.")
 
     if change_24h < -10:
-        score -= 8
-        risks.append("The asset dropped heavily in 24 hours, so volatility risk is elevated.")
+        bump(-8, "Sharp 24h drop",
+             risk="The asset dropped heavily in 24 hours, so volatility risk is elevated.")
     if change_30d > 40:
-        score -= 4
-        risks.append("The 30-day move is extended, making a cooldown more likely.")
+        bump(-4, "Extended 30-day move",
+             risk="The 30-day move is extended, making a cooldown more likely.")
     if drawdown_from_high < -70:
         risks.append("The asset remains far below its all-time high, which may signal structural weakness.")
+
+    # Top-end criteria: deliberately hard to earn so only a genuinely strong
+    # setup can stack toward the 100 ceiling. The +3/+2 are gated on the
+    # short-term uptrend (price above its 7-day MA) so a volume surge or a green
+    # day on a *falling* asset reads as capitulation, not strength — not a bonus.
+    if 10 < change_30d <= 40:
+        bump(5, "Sustained 30-day uptrend",
+             reason="The 30-day trend is steadily higher without being overextended.")
+    if ma7 and ma30 and current_price > ma7 and current_price > ma30 and ma7 > ma30:
+        bump(4, "Uptrend structure",
+             reason="Price sits above a rising 7-over-30-day average stack — a clean uptrend structure.")
+    if volume_change is not None and volume_change > 50 and ma7 and current_price > ma7:
+        bump(3, "Volume conviction",
+             reason="Volume is surging while price holds its short-term trend — strong conviction.")
+    if ma7 and current_price > ma7 and 2 <= change_24h <= 10:
+        bump(2, "Steady 24h follow-through",
+             reason="Today's gain is steady rather than a spike — consistent with a durable trend.")
 
     unrealized_pnl = None
     value = None
@@ -463,7 +488,7 @@ def analyze_asset(
         if holding.average_buy_price:
             unrealized_pnl = percent_change(current_price, holding.average_buy_price)
             if unrealized_pnl is not None and unrealized_pnl > 35 and sentiment_score >= 65:
-                score -= 5
+                bump(-5, "Profit-trim (hot sentiment)")
                 exposure_note = "Profit is meaningful while sentiment is hot; consider trimming risk."
             elif unrealized_pnl is not None and unrealized_pnl < -20 and score < 45:
                 exposure_note = "Position is underwater and trend is weak; avoid adding without confirmation."
@@ -510,6 +535,12 @@ def analyze_asset(
         "ma30": ma30,
         "volume_change_7d": volume_change,
         "score": round(score, 1),
+        "score_breakdown": {
+            "base": 50,
+            "components": breakdown,
+            "raw": round(50 + sum(c["delta"] for c in breakdown), 1),
+            "final": round(score, 1),
+        },
         "action": action,
         "stance": stance,
         "risk_level": risk_level,
