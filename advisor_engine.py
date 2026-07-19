@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+import re
 import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -325,7 +326,59 @@ def get_trending() -> list[dict[str, Any]]:
         return []
 
 
-def get_news(limit: int = 8) -> list[dict[str, Any]]:
+def _news_terms(watchlist: list[dict[str, Any]] | None) -> list[tuple[str, list[str]]]:
+    """Build (symbol, [search terms]) for each watchlist coin.
+
+    The full name always counts; the ticker only when it is >=3 chars, so noisy
+    two-letter symbols (e.g. "OG") don't match half the headlines by accident.
+    """
+    terms: list[tuple[str, list[str]]] = []
+    for row in watchlist or []:
+        symbol = str(row.get("symbol") or "").upper()
+        name = str(row.get("name") or "").strip()
+        words: list[str] = []
+        if name:
+            words.append(name.lower())
+        if len(symbol) >= 3:
+            words.append(symbol.lower())
+        if words:
+            terms.append((symbol or name, words))
+    return terms
+
+
+def _match_coins(title: str, terms: list[tuple[str, list[str]]]) -> list[str]:
+    """Watchlist symbols whose name or ticker appears as a whole word in title."""
+    low = title.lower()
+    hits: list[str] = []
+    for symbol, words in terms:
+        if any(re.search(rf"\b{re.escape(word)}\b", low) for word in words):
+            hits.append(symbol)
+    return hits
+
+
+def _dedupe_news(articles: list[dict[str, Any]], limit: int) -> list[dict[str, Any]]:
+    """Top `limit` articles, dropping repeats of the same URL across feeds."""
+    seen: set[str] = set()
+    out: list[dict[str, Any]] = []
+    for article in articles:
+        url = article.get("url")
+        if url in seen:
+            continue
+        seen.add(url)
+        out.append(article)
+        if len(out) >= limit:
+            break
+    return out
+
+
+def get_news(limit: int = 8, watchlist: list[dict[str, Any]] | None = None) -> list[dict[str, Any]]:
+    """Latest crypto headlines, most recent first.
+
+    When a watchlist is supplied, narrow to articles that actually mention those
+    coins (tagging each with the matched symbols). If nothing matches — common for
+    a niche watchlist — fall back to general market news so the panel is never
+    empty.
+    """
     articles: list[dict[str, Any]] = []
     for feed_url in NEWS_FEEDS:
         try:
@@ -336,7 +389,8 @@ def get_news(limit: int = 8) -> list[dict[str, Any]]:
             if channel is None:
                 continue
             source = channel.findtext("title") or "Crypto news"
-            for item in channel.findall("item")[:limit]:
+            # Scan deeper than `limit`: narrowing to a watchlist prunes most of it.
+            for item in channel.findall("item")[:25]:
                 title = item.findtext("title")
                 link = item.findtext("link")
                 published = item.findtext("pubDate")
@@ -354,7 +408,18 @@ def get_news(limit: int = 8) -> list[dict[str, Any]]:
         except Exception:
             continue
     articles.sort(key=lambda article: article.get("published_ts", 0), reverse=True)
-    return articles[:limit]
+
+    terms = _news_terms(watchlist)
+    if terms:
+        matched: list[dict[str, Any]] = []
+        for article in articles:
+            coins = _match_coins(article["title"], terms)
+            if coins:
+                matched.append({**article, "coins": coins})
+        if matched:
+            return _dedupe_news(matched, limit)
+
+    return _dedupe_news(articles, limit)
 
 
 def parse_news_date(value: str | None) -> datetime | None:
@@ -599,7 +664,7 @@ def build_binance_market_brief(
         "assets": analyses,
         "opportunities": opportunities,
         "portfolio": portfolio,
-        "news": get_news(),
+        "news": get_news(watchlist=opportunities),
         "errors": errors,
         "disclaimer": (
             "Signals use Binance Spot market data plus public sentiment/news. "
@@ -649,7 +714,7 @@ def build_market_brief(
         "assets": analyses,
         "opportunities": opportunities,
         "portfolio": portfolio,
-        "news": get_news(),
+        "news": get_news(watchlist=opportunities),
         "disclaimer": (
             "Signals are decision-support heuristics, not financial advice. "
             "Use position sizing, stop losses, and your own research."

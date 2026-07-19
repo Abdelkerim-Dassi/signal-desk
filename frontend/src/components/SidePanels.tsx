@@ -38,10 +38,14 @@ function sourceName(source?: string): string {
 export function News({ brief }: { brief: Brief | undefined }) {
   const rows = brief?.news ?? []
   if (rows.length === 0) return null
+  const watchlisted = rows.some((item) => (item.coins?.length ?? 0) > 0)
   const feeds = new Set(rows.map((item) => sourceName(item.source))).size
   return (
     <section className="glass rise p-4" style={{ animationDelay: '300ms' }}>
-      <DeskHead title="Headlines" meta={`${feeds} feed${feeds === 1 ? '' : 's'}`} />
+      <DeskHead
+        title="Headlines"
+        meta={watchlisted ? 'your watchlist' : `${feeds} feed${feeds === 1 ? '' : 's'}`}
+      />
       <div className="mt-2 divide-y divide-line">
         {rows.slice(0, 6).map((item, i) => (
           <a
@@ -55,6 +59,9 @@ export function News({ brief }: { brief: Brief | undefined }) {
               {item.title}
             </p>
             <p className="num mt-0.5 text-[10px] text-mute">
+              {item.coins && item.coins.length > 0 && (
+                <span className="text-teal-dim">{item.coins.slice(0, 3).join(' · ')} · </span>
+              )}
               {sourceName(item.source)}
               {timeAgo(item.published_at) ? ` · ${timeAgo(item.published_at)}` : ''}
             </p>
