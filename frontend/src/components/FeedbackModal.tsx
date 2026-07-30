@@ -9,12 +9,22 @@ import {
   type FeedbackAnswers,
 } from '../lib/feedback'
 
-/* Values are sent verbatim to the Google Form, so keep every question there a
-   short-answer field — a multiple-choice question silently rejects anything
-   that isn't an exact option match. See lib/feedback.ts. */
-const EXPERIENCE = ['just curious', 'under 1 year', '1–3 years', '3+ years']
-const CLARITY = ['1/5', '2/5', '3/5', '4/5', '5/5']
-const WOULD_USE = ['yes, daily', 'sometimes', 'no']
+/* ⚠️ `value` is posted verbatim to a multiple-choice question in the live Google
+   Form, which accepts an exact option string and rejects everything else — and
+   because we post `no-cors`, a rejection is invisible: the visitor sees "sent"
+   and the answer is gone. If you rename an option in the form, rename the
+   `value` here in the same commit. `label` is ours to style freely. */
+const EXPERIENCE = [
+  { label: '< 1 year', value: '< 1 year' },
+  { label: '1–3 years', value: '1-3 years' },
+  { label: '3+ years', value: '+3 years' },
+]
+const CLARITY = ['1', '2', '3', '4', '5'].map((v) => ({ label: v, value: v }))
+const WOULD_USE = [
+  { label: 'yes', value: 'yes' },
+  { label: 'sometimes', value: 'sometimes' },
+  { label: 'no', value: 'No' },
+]
 
 const EMPTY: FeedbackAnswers = {
   experience: '',
@@ -22,7 +32,6 @@ const EMPTY: FeedbackAnswers = {
   wouldUse: '',
   missing: '',
   friction: '',
-  contact: '',
 }
 
 function Chips({
@@ -31,7 +40,7 @@ function Chips({
   onChange,
   ariaLabel,
 }: {
-  options: string[]
+  options: { label: string; value: string }[]
   value: string
   onChange: (v: string) => void
   ariaLabel: string
@@ -39,22 +48,21 @@ function Chips({
   return (
     <div role="radiogroup" aria-label={ariaLabel} className="mt-2 flex flex-wrap gap-2">
       {options.map((o) => {
-        const active = value === o
+        const active = value === o.value
         return (
           <button
-            key={o}
+            key={o.value}
             type="button"
             role="radio"
             aria-checked={active}
-            // tapping the active chip clears it — every quick question is optional
-            onClick={() => onChange(active ? '' : o)}
-            className={`num cursor-pointer rounded-md border px-3 py-1.5 text-xs transition ${
+            onClick={() => onChange(o.value)}
+            className={`num cursor-pointer rounded-md border px-3.5 py-2 text-sm transition ${
               active
                 ? 'border-line-2 bg-teal/12 text-teal'
                 : 'border-line text-mute hover:border-line-2 hover:text-fg'
             }`}
           >
-            {o}
+            {o.label}
           </button>
         )
       })}
@@ -107,7 +115,13 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
   if (!open) return null
 
   const set = (patch: Partial<FeedbackAnswers>) => setAnswers((a) => ({ ...a, ...patch }))
-  const canSend = answers.missing.trim().length > 2 && state !== 'sending'
+  // the three questions Google marks required — leave any blank and it rejects
+  // the whole submission, silently (see lib/feedback.ts)
+  const canSend =
+    Boolean(answers.experience) &&
+    Boolean(answers.wouldUse) &&
+    answers.missing.trim().length > 2 &&
+    state !== 'sending'
 
   async function send() {
     setState('sending')
@@ -185,7 +199,7 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
             )}
 
             <div className="mt-5 space-y-5">
-              <Field label="How long have you been in crypto?">
+              <Field label="How long have you been in crypto?" hint="required">
                 <Chips
                   options={EXPERIENCE}
                   value={answers.experience}
@@ -203,7 +217,7 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
                 />
               </Field>
 
-              <Field label="Would you check this before a trade?">
+              <Field label="Would you check this before a trade?" hint="required">
                 <Chips
                   options={WOULD_USE}
                   value={answers.wouldUse}
@@ -212,7 +226,7 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
                 />
               </Field>
 
-              <Field label="What's missing?" hint="the only question that really matters — required">
+              <Field label="What's missing?" hint="the one that really matters — required">
                 <textarea
                   value={answers.missing}
                   onChange={(e) => set({ missing: e.target.value })}
@@ -231,16 +245,6 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
                   maxLength={1200}
                   placeholder="Brutal honesty preferred."
                   className={textareaClass}
-                />
-              </Field>
-
-              <Field label="Contact" hint="optional — leave blank to stay fully anonymous">
-                <input
-                  value={answers.contact}
-                  onChange={(e) => set({ contact: e.target.value })}
-                  maxLength={160}
-                  placeholder="email or @handle"
-                  className={textareaClass.replace('resize-none ', '')}
                 />
               </Field>
             </div>

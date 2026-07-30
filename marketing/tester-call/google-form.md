@@ -1,116 +1,95 @@
-# In-app feedback form — setup (10 minutes, once)
+# In-app feedback form — how it's wired
 
-The app already has the form built in: a `30-second feedback` modal styled like the
-rest of the desk, opened from a footer link and from a prompt that appears in the
-bottom corner after 45 seconds. It posts answers straight to a Google Form.
+**Live and collecting.** The app has a `Give feedback` CTA in the footer and a
+prompt that appears bottom-right after 45 seconds. Both open a short modal
+styled like the rest of the desk; answers POST straight to the Google Form.
 
-Until you paste the two ids below, **every feedback entry point stays hidden** —
-so this is safe to deploy right now.
+- Form: https://forms.gle/f3ZH4cme3Uk7kLE47
+- Form id: `1FAIpQLSdneGODdpJYTBr7GWGt6YYWMl86m_13WkFRIyPgDBJZ43lIgg`
+- Wiring: `frontend/src/lib/feedback.ts`
+- Verified 2026-07-30 with a live submission (HTTP 200, row landed).
 
----
+## The mapping
 
-## 1. Create the Google Form
+| # | Question | Entry id | Type | Required | Values the app sends |
+|---|---|---|---|---|---|
+| 1 | How long have you been in crypto? | `entry.1271786998` | multiple choice | **yes** | `< 1 year` · `1-3 years` · `+3 years` |
+| 2 | Was the 0–100 score clear? | `entry.2033865039` | multiple choice | no | `1` … `5` |
+| 3 | Would you check this before a trade? | `entry.182064027` | multiple choice | **yes** | `yes` · `sometimes` · `No` |
+| 4 | What's missing? | `entry.22660724` | short answer | **yes** | free text |
+| 5 | Anything confusing or broken? | `entry.752842110` | short answer | no | free text |
 
-New form → title **SignalDesk — what's missing?**
+## ⚠️ The rule that keeps it working
 
-Add these six questions **in this order**. Types matter:
+Three questions are **multiple choice**, which accepts an exact option string and
+rejects anything else, and three are **required**. The browser posts `no-cors`,
+so a rejection is invisible — the visitor sees "sent" and the answer is gone.
 
-| # | Question | Type | Required |
-|---|---|---|---|
-| 1 | How long have you been in crypto? | Short answer | no |
-| 2 | Was the 0–100 score clear? (1–5) | Short answer | no |
-| 3 | Would you check this before a trade? | Short answer | no |
-| 4 | What's missing? | Paragraph | no |
-| 5 | Anything confusing or broken? | Paragraph | no |
-| 6 | Contact (optional) | Short answer | no |
-
-> ⚠️ **Use Short answer / Paragraph for all six — not multiple choice.**
-> The app sends values as plain strings. A multiple-choice question rejects
-> anything that isn't an exact option match, and because the browser posts
-> `no-cors` the rejection is invisible — the visitor sees "sent" and the answer
-> is gone. Text fields accept anything.
->
-> Leave every question **not required** too. The app enforces its own rule (only
-> "What's missing?" is mandatory); a required field the app leaves blank kills
-> the whole submission silently.
-
-In **Settings**:
-- **Collect email addresses → Off** (this is the anonymous part)
-- **Limit to 1 response → Off** (it would force a Google sign-in)
-- Responses → **Link to Sheets** so answers land in a spreadsheet
-
-## 2. Grab the ids
-
-Send → 🔗 link → copy. You get:
+Measured on the live form:
 
 ```
-https://docs.google.com/forms/d/e/1FAIpQLSd..................../viewform
-                                  └──────── this is the FORM_ID ────────┘
+correct values           → HTTP 200, row created
+"yes, daily" on Q3       → HTTP 400, silently discarded
 ```
 
-Now the per-question ids — use the prefill trick, no page-source digging:
+So: **if you rename an option or flip a required toggle in Google Forms, change
+`FeedbackModal.tsx` in the same commit.** The app currently mirrors both — the
+send button stays disabled until Q1, Q3 and Q4 are answered, and the chip
+`value`s match the option strings character for character (note Q3's capital
+`No`, and Q1's plain hyphen in `1-3 years`).
 
-1. In the form editor: **⋮ (top right) → Get pre-filled link**
-2. Type a throwaway value into every one of the six questions — `1`, `2`, `3`, `4`, `5`, `6` works and makes the next step obvious
-3. **Get link → Copy link**. You'll get something like:
+Re-verify after any form edit:
 
-```
-...viewform?usp=pp_url&entry.1234567890=1&entry.2345678901=2&entry.3456789012=3
-            &entry.4567890123=4&entry.5678901234=5&entry.6789012345=6
-```
-
-Each `entry.NNNN` is one question, **in the order you added them**.
-
-## 3. Paste them in
-
-`frontend/src/lib/feedback.ts`, top of the file:
-
-```ts
-export const FEEDBACK = {
-  formId: '1FAIpQLSd....................',
-  entries: {
-    experience: 'entry.1234567890',   // Q1 — how long in crypto
-    clarity:    'entry.2345678901',   // Q2 — was the score clear
-    wouldUse:   'entry.3456789012',   // Q3 — check before a trade
-    missing:    'entry.4567890123',   // Q4 — what's missing
-    friction:   'entry.5678901234',   // Q5 — confusing or broken
-    contact:    'entry.6789012345',   // Q6 — contact
-  },
-}
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" -X POST \
+  "https://docs.google.com/forms/d/e/1FAIpQLSdneGODdpJYTBr7GWGt6YYWMl86m_13WkFRIyPgDBJZ43lIgg/formResponse" \
+  --data-urlencode "entry.1271786998=1-3 years" \
+  --data-urlencode "entry.182064027=yes" \
+  --data-urlencode "entry.22660724=verification row - delete me"
 ```
 
-Keep the `entry.` prefix. These aren't secrets — they're in the public form's own
-HTML — so committing them is fine.
+`200` = accepted. `400` = you just broke the form.
 
-## 4. Verify before you promote it
+To re-read the ids after adding a question, download the form page and parse
+`FB_PUBLIC_LOAD_DATA_` (the script in `scratchpad/parse_form.py` does exactly
+this), or use ⋮ → **Get pre-filled link**.
 
-Non-negotiable, because failures here are silent:
+## Where the answers land
 
-```powershell
-cd frontend; npm run dev
-```
+1. **Form → Responses tab** — summary charts per question.
+2. **Google Sheets** — click the green Sheets icon in that tab once. Creates a
+   linked spreadsheet, one row per submission with a timestamp, live. This is
+   where to actually work.
+3. **Email per response** — Responses → ⋮ → *Get email notifications for new
+   responses*. Worth having on for the first week, while early testers are still
+   reachable.
 
-Open the app, click **tell me what's missing** in the footer, fill it in, send —
-then check the linked sheet. One row, six columns, values in the right columns.
-If a column is empty or shifted, an entry id is on the wrong key.
+## Two things worth fixing when you get a minute
 
-Then `npm run build` and deploy.
+- **No contact question.** There's no way to reach a tester who writes something
+  brilliant. Add a `Contact (optional)` short-answer question, send me the new
+  entry id, and I'll add the field back to the modal — it's already designed.
+- **Q1 and Q3 are marked required.** That's why the app now blocks sending until
+  they're answered. Making them optional in Google Forms would let someone fire
+  off a one-line "add alerts" and leave, which is usually the feedback you most
+  want. Your call — tell me and I'll relax the app side to match.
 
----
+## Behaviour notes
 
-## How it behaves
+- The corner prompt waits 45s on purpose: asking "what's missing?" before someone
+  has read a single score returns noise. Dismissing or sending writes
+  `signaldesk.feedback.v1` to localStorage, so nobody is asked twice.
+- Anonymous for real — no sign-in, no email collection, and the POST goes
+  browser → Google directly, so your own backend never sees the visitor.
+- `?feedback=preview` on any URL (and `npm run dev` always) renders the flow
+  with answers logged to the console instead of submitted.
 
-- **Footer link** — always visible, low-key: *"Testing this? tell me what's missing — 30 seconds, anonymous."*
-- **Corner prompt** — appears after 45s (`FeedbackPrompt delayMs`). Deliberately delayed: asking "what's missing?" before someone has read a single score gets you noise. Dismissing it or sending sets `signaldesk.feedback.v1` in localStorage, so nobody gets nagged twice.
-- **Anonymous for real** — no sign-in, no email field unless they volunteer one, and the POST goes browser → Google directly, so your own backend never sees the visitor at all.
-- Only *"What's missing?"* is required. Every other field is one tap or skippable — that's what keeps completion high.
+## Reading the results
 
-## Reading the answers
+Q4 is the one that pays for all of this. Tally it by theme rather than reading it
+as a list — five people asking for "alerts when a score crosses" in five
+phrasings is one feature, and it's your roadmap.
 
-The one question that pays for the whole thing is **Q4**. Tally it by theme rather
-than reading it as a list — five people asking for "alerts when a score crosses"
-in five different phrasings is one feature, and it's your roadmap.
-
-Q2 is your messaging check, not a UX score: if clarity is averaging below 4, the
-problem is that the score's *purpose* isn't landing in the first 10 seconds, which
-is a copy fix on the dashboard, not a feature.
+Q2 is a messaging check, not a UX score: averaging below 4 means the score's
+*purpose* isn't landing in the first ten seconds, which is a copy fix on the
+dashboard, not a feature request.

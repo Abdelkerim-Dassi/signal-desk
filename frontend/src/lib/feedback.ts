@@ -17,17 +17,24 @@
  */
 export const FEEDBACK = {
   /** From the form's share link: .../forms/d/e/<FORM_ID>/viewform */
-  formId: '',
+  formId: '1FAIpQLSdneGODdpJYTBr7GWGt6YYWMl86m_13WkFRIyPgDBJZ43lIgg',
   /** The `entry.NNNNNNNNN` id of each question, in form order. */
   entries: {
-    experience: '',
-    clarity: '',
-    wouldUse: '',
-    missing: '',
-    friction: '',
-    contact: '',
+    experience: 'entry.1271786998',
+    clarity: 'entry.2033865039',
+    wouldUse: 'entry.182064027',
+    missing: 'entry.22660724',
+    friction: 'entry.752842110',
   },
 }
+
+/**
+ * Three of the live form's questions are multiple choice, which accepts an
+ * exact option string and nothing else, and three are marked required. Both
+ * constraints are mirrored in FeedbackModal — see the note there before
+ * touching either side.
+ */
+export const FEEDBACK_REQUIRED = ['experience', 'wouldUse', 'missing'] as const
 
 export interface FeedbackAnswers {
   experience: string
@@ -35,7 +42,6 @@ export interface FeedbackAnswers {
   wouldUse: string
   missing: string
   friction: string
-  contact: string
 }
 
 /** Until the ids are filled in, the app hides every feedback entry point. */
