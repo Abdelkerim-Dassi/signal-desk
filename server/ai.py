@@ -70,8 +70,7 @@ SCORING_RUBRIC = (
     "Each coin carries a `score_breakdown` (base 50 plus the exact components that "
     "fired, and any regime cap). Use it to explain precisely why a score is what "
     "it is and what more it would need to climb. If asked where scoring is "
-    'documented, point the user to the in-app "How to use SignalDesk" guide, "How '
-    'the score works" step.'
+    'documented, point the user to the in-app "How Qirat works" guide.'
 )
 
 # Ratings are impersonal analysis. Telling one user what to do with their own
@@ -122,12 +121,33 @@ CHAT_SYSTEM_PROMPT = (
     "would need to score higher or reach 100.\n"
     "- If a question falls outside all of that, say so plainly and suggest what "
     "the user could check instead. If asked where scoring is documented, point "
-    'them to the in-app "How to use SignalDesk" guide, "How the score works" '
-    "step.\n"
+    'them to the in-app "How Qirat works" guide.\n'
     "- Be concise (a short paragraph or a few bullets), risk-aware, and avoid "
     "guarantees or pressure to trade.\n"
     "- " + NO_ADVICE_RULE + "\n\n" + SCORING_RUBRIC
 )
+
+
+# Languages the UI ships in. The instruction rides in the user turn (not the
+# system prompt) so the cached system prompt stays byte-identical across them.
+LANGUAGES = {
+    "en": "English",
+    "fr": "French",
+    "ar": "Modern Standard Arabic",
+}
+
+
+def _language(code: str | None) -> str:
+    return code if code in LANGUAGES else "en"
+
+
+def _language_instruction(code: str) -> str:
+    if code == "en":
+        return ""
+    return (
+        f"\n\nWrite your entire answer in {LANGUAGES[code]}. Keep coin tickers "
+        "(BTC, ETH), numbers and the rating words STRONG / NEUTRAL / WEAK as they are."
+    )
 
 
 def _client():
@@ -199,7 +219,7 @@ def ai_enabled() -> bool:
     return provider() is not None
 
 
-def _narrative_key(brief: dict[str, Any]) -> str:
+def _narrative_key(brief: dict[str, Any], language: str = "en") -> str:
     """Cache key that is stable across polls but changes when the picture changes.
 
     Uses the ranked (symbol, rating, rounded-score) tuples plus the sentiment
@@ -214,7 +234,7 @@ def _narrative_key(brief: dict[str, Any]) -> str:
         (o.get("symbol") for o in brief.get("portfolio", []) if o.get("symbol"))
     )
     regime = (brief.get("regime") or {}).get("state")
-    raw = json.dumps([ranked, sentiment, holdings, regime], sort_keys=True, default=str)
+    raw = json.dumps([ranked, sentiment, holdings, regime, language], sort_keys=True, default=str)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
@@ -327,14 +347,15 @@ async def _openai_briefing(prompt: str) -> tuple[str, dict[str, Any]]:
     return text, usage
 
 
-async def generate_briefing(brief: dict[str, Any]) -> dict[str, Any]:
+async def generate_briefing(brief: dict[str, Any], language: str = "en") -> dict[str, Any]:
     """Return {text, cached, usage?}. Uses the narrative cache to avoid repeat spend.
 
     The in-memory cache is checked first, then Redis when configured — on
     serverless each invocation may be a fresh process, so without the Redis
     tier every briefing click is a fresh paid call.
     """
-    key = _narrative_key(brief)
+    language = _language(language)
+    key = _narrative_key(brief, language)
     cached = narrative_cache.get(key)
     if cached is None and upstash.enabled():
         cached = await asyncio.to_thread(upstash.get_str, f"ai:narrative:{key}")
@@ -343,7 +364,7 @@ async def generate_briefing(brief: dict[str, Any]) -> dict[str, Any]:
     if cached is not None:
         return {"ok": True, "text": cached, "cached": True}
 
-    prompt = _brief_digest(brief) + "\n\nWrite the market briefing now."
+    prompt = _brief_digest(brief) + "\n\nWrite the market briefing now." + _language_instruction(language)
     if provider() == "openai":
         text, usage = await _openai_briefing(prompt)
     else:
@@ -358,6 +379,7 @@ def _chat_messages(
     question: str,
     brief: dict[str, Any] | None,
     history: list[dict[str, str]],
+    language: str = "en",
 ) -> list[dict[str, Any]]:
     """Build the message list: capped history, then the data-grounded question.
 
@@ -386,7 +408,7 @@ def _chat_messages(
             f"refreshing). Answer carefully without inventing data.\n\n"
             f"User question: {question}"
         )
-    messages.append({"role": "user", "content": final})
+    messages.append({"role": "user", "content": final + _language_instruction(_language(language))})
     return messages
 
 
@@ -394,9 +416,10 @@ async def stream_chat(
     question: str,
     brief: dict[str, Any] | None,
     history: list[dict[str, str]],
+    language: str = "en",
 ) -> AsyncIterator[str]:
     """Yield the assistant's answer as text chunks, grounded in the brief."""
-    messages = _chat_messages(question, brief, history)
+    messages = _chat_messages(question, brief, history, language)
 
     if provider() == "openai":
         client = _openai_client()

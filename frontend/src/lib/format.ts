@@ -5,7 +5,8 @@ export function compactCurrency(value: number | null | undefined): string {
     style: 'currency',
     currency: 'USD',
     notation: Math.abs(n) >= 1_000_000 ? 'compact' : 'standard',
-    maximumFractionDigits: Math.abs(n) >= 1000 ? 1 : 4,
+    // whole dollars for big prices, cents for mid, more precision for sub-$1 coins
+    maximumFractionDigits: Math.abs(n) >= 1_000_000 ? 1 : Math.abs(n) >= 1000 ? 0 : Math.abs(n) >= 1 ? 2 : 4,
   }).format(n)
 }
 

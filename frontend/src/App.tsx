@@ -1,29 +1,51 @@
 import { useEffect, useState } from 'react'
-import Header from './components/Header'
-import MarketStats from './components/MarketStats'
-import FearGreedGauge from './components/FearGreedGauge'
-import OpportunityList from './components/OpportunityList'
-import PortfolioPanel from './components/PortfolioPanel'
-import RegimeBanner from './components/RegimeBanner'
-import TrackRecord from './components/TrackRecord'
-import AiBriefing from './components/AiBriefing'
-import ChatPanel from './components/ChatPanel'
-import GuideModal from './components/GuideModal'
+import AskView from './components/AskView'
+import CoinList from './components/CoinList'
 import FeedbackModal, { FeedbackPrompt } from './components/FeedbackModal'
-import { AlertPanel, News, Trending } from './components/SidePanels'
+import GuideModal from './components/GuideModal'
+import MarketMoves from './components/MarketMoves'
+import { BottomNav, TopBar } from './components/Navigation'
+import PortfolioView from './components/PortfolioView'
+import TodayHero from './components/TodayHero'
+import TrackRecord from './components/TrackRecord'
 import { DEFAULT_CONFIG, useAppStatus, useBrief } from './hooks/useBrief'
 import type { AdvisorConfig } from './hooks/useBrief'
 import { feedbackVisible } from './lib/feedback'
+import { useI18n } from './lib/i18n'
+import { loadConfig, saveConfig } from './lib/prefs'
+import { VIEWS } from './lib/views'
+import type { View } from './lib/views'
+
+function viewFromHash(): View {
+  const id = window.location.hash.replace('#', '')
+  return VIEWS.some((v) => v.id === id) ? (id as View) : 'today'
+}
 
 export default function App() {
-  const [config, setConfig] = useState<AdvisorConfig>(DEFAULT_CONFIG)
-  // Draft config: typing in the form shouldn't refetch per keystroke. The
+  const { t } = useI18n()
+  const [view, setView] = useState<View>(viewFromHash)
+  const [config, setConfig] = useState<AdvisorConfig>(() => loadConfig(DEFAULT_CONFIG))
+  // Draft config: typing in a form shouldn't refetch per keystroke. The
   // query key only changes when the debounced config settles.
-  const [draft, setDraft] = useState<AdvisorConfig>(DEFAULT_CONFIG)
+  const [draft, setDraft] = useState<AdvisorConfig>(config)
   useEffect(() => {
-    const t = window.setTimeout(() => setConfig(draft), 700)
-    return () => window.clearTimeout(t)
+    const timer = window.setTimeout(() => {
+      setConfig(draft)
+      saveConfig(draft)
+    }, 700)
+    return () => window.clearTimeout(timer)
   }, [draft])
+
+  useEffect(() => {
+    const onHash = () => setView(viewFromHash())
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [])
+  const go = (next: View) => {
+    window.location.hash = next === 'today' ? '' : next
+    setView(next)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const briefQuery = useBrief(config)
   const statusQuery = useAppStatus()
@@ -33,95 +55,93 @@ export default function App() {
 
   useEffect(() => {
     if (!toast) return
-    const t = window.setTimeout(() => setToast(null), 3600)
-    return () => window.clearTimeout(t)
+    const timer = window.setTimeout(() => setToast(null), 3600)
+    return () => window.clearTimeout(timer)
   }, [toast])
 
   const brief = briefQuery.data
   const updatedAt = brief?.generated_at ? new Date(brief.generated_at) : null
-  const aiEnabled = Boolean(statusQuery.data?.ai_enabled)
+  const error = briefQuery.error ? (briefQuery.error as Error).message : null
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6">
-      <Header
-        isFetching={briefQuery.isFetching}
-        error={briefQuery.error ? (briefQuery.error as Error).message : null}
-        updatedAt={updatedAt && !Number.isNaN(updatedAt.getTime()) ? updatedAt : null}
-        live={draft.live}
-        intervalMs={draft.intervalMs}
-        onToggleLive={(live) => setDraft({ ...draft, live })}
-        onIntervalChange={(intervalMs) => setDraft({ ...draft, intervalMs })}
-        onRefresh={() => briefQuery.refetch()}
-        onOpenGuide={() => setShowGuide(true)}
-      />
+    <div className="min-h-screen pb-24 md:pb-8">
+      <TopBar view={view} onView={go} onHelp={() => setShowGuide(true)} />
 
-      <main className="mt-4 grid gap-4 lg:grid-cols-[1.9fr_1fr]">
-        <div className="space-y-4">
-          <MarketStats brief={brief} />
-          <RegimeBanner regime={brief?.regime} />
-          <OpportunityList
+      <main className="mx-auto max-w-5xl space-y-6 px-4 pt-5">
+        {view === 'today' && (
+          <>
+            <TodayHero
+              brief={brief}
+              isFetching={briefQuery.isFetching}
+              error={error}
+              updatedAt={updatedAt && !Number.isNaN(updatedAt.getTime()) ? updatedAt : null}
+              onRefresh={() => briefQuery.refetch()}
+            />
+            <CoinList
+              brief={brief}
+              isLoading={briefQuery.isLoading}
+              error={error}
+              config={draft}
+              onConfigChange={setDraft}
+            />
+            <MarketMoves brief={brief} />
+          </>
+        )}
+        {view === 'record' && <TrackRecord />}
+        {view === 'ask' && <AskView brief={brief} aiEnabled={Boolean(statusQuery.data?.ai_enabled)} />}
+        {view === 'portfolio' && (
+          <PortfolioView
             brief={brief}
-            isLoading={briefQuery.isLoading}
-            error={briefQuery.error ? (briefQuery.error as Error).message : null}
+            config={draft}
+            onConfigChange={setDraft}
+            status={statusQuery.data}
+            onToast={setToast}
           />
-          <TrackRecord />
-          <News brief={brief} />
-        </div>
+        )}
 
-        <aside className="space-y-4">
-          <FearGreedGauge sentiment={brief?.sentiment} />
-          <AiBriefing brief={brief} aiEnabled={aiEnabled} />
-          <ChatPanel brief={brief} aiEnabled={aiEnabled} />
-          <PortfolioPanel brief={brief} config={draft} onConfigChange={setDraft} />
-          <Trending brief={brief} />
-          <AlertPanel brief={brief} status={statusQuery.data} onToast={setToast} />
-        </aside>
+        <footer className="space-y-2 pt-4 pb-2 text-center text-xs text-muted">
+          <p>{t('foot.disclaimer')}</p>
+          <p dir="ltr">
+            {t('foot.data')}: Binance ·{' '}
+            <a
+              href="https://www.coingecko.com/en/api"
+              target="_blank"
+              rel="noreferrer"
+              className="underline underline-offset-2 hover:text-gold"
+            >
+              Powered by CoinGecko
+            </a>{' '}
+            · Fear &amp; Greed:{' '}
+            <a
+              href="https://alternative.me/crypto/fear-and-greed-index/"
+              target="_blank"
+              rel="noreferrer"
+              className="underline underline-offset-2 hover:text-gold"
+            >
+              Alternative.me
+            </a>
+          </p>
+          {feedbackVisible && (
+            <div className="pt-3">
+              <button
+                onClick={() => setShowFeedback(true)}
+                className="cursor-pointer rounded-full border border-border-strong px-5 py-2 text-sm font-medium text-gold transition hover:bg-gold-soft"
+              >
+                {t('foot.feedback')}
+              </button>
+              <p className="mt-2">{t('foot.feedbackHint')}</p>
+            </div>
+          )}
+        </footer>
       </main>
 
-      <footer className="num space-y-2 py-6 text-center text-[11px] text-mute">
-        <p>
-          Rule-based setup ratings, identical for every user · AI narrative · not financial advice.
-          Ratings describe a coin&apos;s chart, never what you should do with your money.
-        </p>
-        <p>
-          Market data: Binance ·{' '}
-          <a
-            href="https://www.coingecko.com/en/api"
-            target="_blank"
-            rel="noreferrer"
-            className="underline decoration-line-2 underline-offset-2 hover:text-teal"
-          >
-            Powered by CoinGecko
-          </a>{' '}
-          · Fear &amp; Greed Index by{' '}
-          <a
-            href="https://alternative.me/crypto/fear-and-greed-index/"
-            target="_blank"
-            rel="noreferrer"
-            className="underline decoration-line-2 underline-offset-2 hover:text-teal"
-          >
-            Alternative.me
-          </a>
-        </p>
-        {feedbackVisible && (
-          <p className="pt-1">
-            <button
-              onClick={() => setShowFeedback(true)}
-              className="glass cursor-pointer px-5 py-2 font-display text-xs font-bold tracking-widest text-teal uppercase transition hover:border-line-2 hover:brightness-125"
-            >
-              ✎ Give feedback
-            </button>
-            <span className="mt-2 block">Testing this? 30 seconds, anonymous — it shapes what gets built next.</span>
-          </p>
-        )}
-      </footer>
-
+      <BottomNav view={view} onView={go} />
       <GuideModal open={showGuide} onClose={() => setShowGuide(false)} />
       <FeedbackModal open={showFeedback} onClose={() => setShowFeedback(false)} />
       <FeedbackPrompt onOpen={() => setShowFeedback(true)} />
 
       {toast && (
-        <div className="glass rise fixed bottom-5 left-1/2 z-50 -translate-x-1/2 px-4 py-2 text-sm">
+        <div className="card rise fixed bottom-24 left-1/2 z-50 -translate-x-1/2 px-4 py-2 text-sm md:bottom-6">
           {toast}
         </div>
       )}

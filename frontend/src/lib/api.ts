@@ -93,7 +93,7 @@ export interface Brief {
   portfolio?: Opportunity[]
   trending?: TrendingCoin[]
   news?: NewsItem[]
-  errors?: string[]
+  errors?: ({ symbol: string; error: string } | string)[]
 }
 
 export interface ReturnStats {
@@ -193,11 +193,12 @@ export async function getStatus(): Promise<AppStatus> {
 
 export async function generateBriefing(
   brief: Brief,
+  language = 'en',
 ): Promise<{ text: string; cached: boolean }> {
   const res = await fetch('/api/ai/briefing', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ brief }),
+    body: JSON.stringify({ brief, language }),
   })
   return asJson<{ text: string; cached: boolean }>(res)
 }
@@ -223,12 +224,13 @@ export async function streamChat(
   brief: Brief | null,
   history: ChatMessage[],
   onChunk: (text: string) => void,
+  language = 'en',
   signal?: AbortSignal,
 ): Promise<void> {
   const res = await fetch('/api/ai/chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ question, brief, history }),
+    body: JSON.stringify({ question, brief, history, language }),
     signal,
   })
   if (!res.ok) {

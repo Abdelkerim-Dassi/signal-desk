@@ -37,6 +37,7 @@ class BriefingRequest(BaseModel):
     """Ask Claude to write a narrative over an already-computed brief."""
 
     brief: dict[str, Any] = Field(..., description="A brief dict from /api/analyze")
+    language: str = "en"  # en | fr | ar — the language the narrative is written in
 
 
 class ChatMessage(BaseModel):
@@ -48,3 +49,4 @@ class ChatRequest(BaseModel):
     question: str
     brief: dict[str, Any] | None = None
     history: list[ChatMessage] = Field(default_factory=list)
+    language: str = "en"

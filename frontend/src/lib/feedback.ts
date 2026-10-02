@@ -69,7 +69,6 @@ export const feedbackFormUrl = FEEDBACK.formId
 export async function submitFeedback(answers: FeedbackAnswers): Promise<void> {
   if (!feedbackConfigured) {
     if (!feedbackPreview) throw new Error('feedback form is not configured')
-    // eslint-disable-next-line no-console
     console.info('[feedback preview] not sent — this is what Google would receive:', answers)
     await new Promise((r) => setTimeout(r, 500)) // so the sending state is visible
     return

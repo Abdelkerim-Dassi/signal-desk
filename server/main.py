@@ -48,9 +48,9 @@ BACKTEST_FILE = Path(__file__).resolve().parent / "data" / "backtest.json"
 # The track record only changes once a day; a short memo keeps the panel from
 # re-reading every snapshot out of Redis on each page load.
 track_cache = TTLCache(default_ttl=600.0)
-log = logging.getLogger("signaldesk")
+log = logging.getLogger("qirat")
 
-app = FastAPI(title="AI Crypto Advisor", version="0.2")
+app = FastAPI(title="Qirat", version="0.3")
 
 # CORS is a no-op in production (front-end is served same-origin) but lets the
 # Vite dev server talk to a separately-run API if the proxy isn't used.
@@ -162,7 +162,7 @@ async def ai_briefing(req: BriefingRequest, request: Request) -> JSONResponse:
     if limited is not None:
         return limited
     try:
-        result = await ai.generate_briefing(req.brief)
+        result = await ai.generate_briefing(req.brief, req.language)
         return JSONResponse(result)
     except Exception as exc:
         return JSONResponse({"ok": False, "error": str(exc)}, status_code=502)
@@ -189,7 +189,7 @@ async def ai_chat(req: ChatRequest, request: Request) -> Response:
         # Errors mid-stream can't change the status code anymore, so they're
         # delivered as a {"error": ...} event the client renders inline.
         try:
-            async for chunk in ai.stream_chat(question, req.brief, history):
+            async for chunk in ai.stream_chat(question, req.brief, history, req.language):
                 yield f"data: {json.dumps({'text': chunk})}\n\n"
             yield 'data: {"done": true}\n\n'
         except Exception as exc:

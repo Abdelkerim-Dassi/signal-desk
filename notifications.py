@@ -30,7 +30,7 @@ def format_market_alert(brief: dict[str, Any], max_items: int = 4) -> str:
     sentiment = brief.get("sentiment", {})
     regime = brief.get("regime") or {}
     lines = [
-        "SignalDesk market alert",
+        "Qirat market update",
         f"Fear & Greed: {sentiment.get('score', 'n/a')}/100 - {sentiment.get('status', 'Neutral')}",
         f"Market regime: {regime.get('label', 'Unknown')}",
         "",

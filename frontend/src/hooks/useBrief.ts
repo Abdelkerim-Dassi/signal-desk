@@ -14,11 +14,8 @@ export interface AdvisorConfig {
 export const DEFAULT_CONFIG: AdvisorConfig = {
   marketSource: 'binance',
   quoteAsset: 'USDT',
-  assetsRaw: 'BTCUSDT, ETHUSDT',
-  holdings: [
-    { coin_id: 'BTCUSDT', amount: '', average_buy_price: '' },
-    { coin_id: 'ETHUSDT', amount: '', average_buy_price: '' },
-  ],
+  assetsRaw: 'BTCUSDT, ETHUSDT, SOLUSDT',
+  holdings: [],
   live: true,
   intervalMs: 120_000,
 }

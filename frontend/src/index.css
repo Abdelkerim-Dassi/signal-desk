@@ -1,91 +1,142 @@
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap');
 @import 'tailwindcss';
 
+/* Qirat — "calm & clear". Light-first, warm paper background, one gold
+   accent (the brand: a karat grades gold). Rating hues carry meaning only:
+   strong = emerald, neutral = slate, weak = coral. Readex Pro covers Latin
+   and Arabic in one family, so EN / FR / AR read as the same product. */
 @theme {
-  --font-display: 'Chakra Petch', sans-serif;
-  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --font-sans: 'Readex Pro', system-ui, sans-serif;
+  --font-display: 'Readex Pro', system-ui, sans-serif;
+  --font-mono: 'Readex Pro', system-ui, sans-serif;
 
-  --color-ink: #06090d;
-  --color-panel: #0b1016;
-  --color-panel-2: #0e151d;
-  /* neutral hairlines for structure; teal borders are reserved for
-     interactive elements (hover/focus), so the accent keeps meaning */
-  --color-line: rgba(148, 163, 184, 0.12);
-  --color-line-2: rgba(94, 234, 212, 0.26);
-  --color-teal: #5eead4;
-  --color-teal-dim: rgba(94, 234, 212, 0.6);
-  --color-buy: #34d399;
-  --color-sell: #f87171;
-  --color-hold: #fbbf24;
-  --color-avoid: #fb923c;
-  /* setup ratings — ScoreMeter reads these as var(--color-<rating>) */
+  --color-bg: #f6f4ef;
+  --color-card: #ffffff;
+  --color-subtle: #f1eee7;
+  --color-border: rgba(21, 23, 28, 0.08);
+  --color-border-strong: rgba(154, 107, 20, 0.35);
+  --color-text: #15171c;
+  --color-muted: #6b6f78;
+  --color-gold: #9a6b14;
+  --color-gold-bright: #c9962f;
+  --color-gold-soft: #f6ecd6;
+
+  --color-up: #0e9f6e;
+  --color-down: #e0484e;
+  --color-strong: #0e9f6e;
+  --color-neutral: #64748b;
+  --color-weak: #e0484e;
+  --color-warn: #b45309;
+
+  /* legacy names still used by a few components (feedback form) */
+  --color-ink: var(--color-bg);
+  --color-panel: var(--color-card);
+  --color-panel-2: var(--color-subtle);
+  --color-line: var(--color-border);
+  --color-line-2: var(--color-border-strong);
+  --color-fg: var(--color-text);
+  --color-mute: var(--color-muted);
+  --color-teal: var(--color-gold);
+  --color-teal-dim: var(--color-gold-bright);
+  --color-buy: var(--color-up);
+  --color-sell: var(--color-down);
+  --color-hold: var(--color-warn);
+  --color-avoid: var(--color-warn);
+}
+
+/* dark theme: explicit choice, or the system preference when none is set */
+:root[data-theme='dark'] {
+  --color-bg: #0f1013;
+  --color-card: #17191d;
+  --color-subtle: #1f2126;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(227, 181, 81, 0.4);
+  --color-text: #ecedef;
+  --color-muted: #9a9ea6;
+  --color-gold: #e3b551;
+  --color-gold-bright: #f0c768;
+  --color-gold-soft: rgba(227, 181, 81, 0.12);
+  --color-up: #34d399;
+  --color-down: #f87171;
   --color-strong: #34d399;
-  --color-neutral: #fbbf24;
+  --color-neutral: #94a3b8;
   --color-weak: #f87171;
-  --color-mute: #8c98a8;
-  --color-fg: #e6edf3;
+  --color-warn: #fbbf24;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #0f1013;
+    --color-card: #17191d;
+    --color-subtle: #1f2126;
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-border-strong: rgba(227, 181, 81, 0.4);
+    --color-text: #ecedef;
+    --color-muted: #9a9ea6;
+    --color-gold: #e3b551;
+    --color-gold-bright: #f0c768;
+    --color-gold-soft: rgba(227, 181, 81, 0.12);
+    --color-up: #34d399;
+    --color-down: #f87171;
+    --color-strong: #34d399;
+    --color-neutral: #94a3b8;
+    --color-weak: #f87171;
+    --color-warn: #fbbf24;
+  }
 }
 
 html {
-  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-ink);
-  color: var(--color-fg);
-  /* layered atmosphere: two faint radial glows + vertical falloff */
-  background-image:
-    radial-gradient(900px 500px at 12% -10%, rgba(94, 234, 212, 0.07), transparent 60%),
-    radial-gradient(700px 420px at 95% 0%, rgba(56, 130, 246, 0.06), transparent 55%),
-    linear-gradient(180deg, #080c11 0%, #06090d 50%);
-  background-attachment: fixed;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* faint scanline texture over everything, terminal flavor */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 0.012) 0px,
-    rgba(255, 255, 255, 0.012) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  z-index: 50;
+/* Arabic reads better a touch larger and with more line height */
+:root[lang='ar'] body {
+  font-size: 1.04rem;
+  line-height: 1.7;
 }
 
+@utility card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 1px 2px rgba(15, 16, 19, 0.04),
+    0 12px 32px -18px rgba(15, 16, 19, 0.14);
+}
+
+/* kept for components that still use the old name */
 @utility glass {
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012));
-  border: 1px solid var(--color-line);
-  border-radius: 0.5rem;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 1px 2px rgba(15, 16, 19, 0.04),
+    0 12px 32px -18px rgba(15, 16, 19, 0.14);
 }
 
 @utility tick-label {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-mute);
+  color: var(--color-muted);
 }
 
 @utility num {
-  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
-/* staggered entrance for panels */
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -94,16 +145,16 @@ body::before {
 }
 
 @utility rise {
-  animation: rise-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes pulse-dot {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-strong) 50%, transparent);
   }
   60% {
-    box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
+    box-shadow: 0 0 0 6px transparent;
   }
 }
 
@@ -125,59 +176,60 @@ body::before {
   animation: blink-caret 1s step-end infinite;
 }
 
-/* attention-grabbing "How to use" call-to-action: soft pulsing glow + a
-   light sheen that periodically sweeps across the button. */
-@keyframes guide-glow {
-  0%,
-  100% {
-    box-shadow:
-      0 0 10px 0 rgba(94, 234, 212, 0.35),
-      0 0 0 0 rgba(94, 234, 212, 0.4);
-  }
-  50% {
-    box-shadow:
-      0 0 22px 4px rgba(94, 234, 212, 0.6),
-      0 0 0 4px rgba(94, 234, 212, 0);
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-@keyframes guide-sheen {
-  0% {
-    transform: translateX(-160%) skewX(-20deg);
-  }
-  55%,
-  100% {
-    transform: translateX(320%) skewX(-20deg);
-  }
+@utility spin {
+  animation: spin 0.9s linear infinite;
 }
 
-.guide-cta {
+/* the hero's soft gold wash */
+.hero-wash {
+  background:
+    radial-gradient(120% 90% at 100% 0%, var(--color-gold-soft), transparent 60%),
+    var(--color-card);
+}
+
+/* score meter: a calm rounded bar with hairline ticks at the rating
+   thresholds (38 weak, 67 strong). Logical inset so it fills from the
+   reading edge in RTL too. */
+.meter {
   position: relative;
-  overflow: hidden;
-  animation: guide-glow 2.8s ease-in-out infinite;
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--meter-color) 16%, transparent);
 }
-.guide-cta::after {
-  content: '';
+.meter-fill {
   position: absolute;
-  inset: 0 auto 0 0;
-  width: 40%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.55),
-    transparent
-  );
-  transform: translateX(-160%) skewX(-20deg);
-  animation: guide-sheen 3.4s ease-in-out infinite;
-  pointer-events: none;
+  inset-block: 0;
+  inset-inline-start: 0;
+  border-radius: 999px;
+  background: var(--meter-color);
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
+.meter-segments {
+  display: none;
+}
+.meter-tick {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--color-card);
+}
+:root[dir='rtl'] .meter-tick {
+  transform: scaleX(-1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .rise,
   .live-dot,
   .caret,
-  .guide-cta,
-  .guide-cta::after {
+  .spin {
     animation: none;
   }
   .meter-fill {
@@ -185,73 +237,36 @@ body::before {
   }
 }
 
-/* Score meter — the desk's signature instrument. A segmented 0–100 bar with
-   hairline ticks at the engine's real decision thresholds (38 avoid/sell,
-   67 buy). The fill wears the action's status hue; the track is a dim step
-   of the same hue so state reads across the whole bar. */
-.meter {
-  position: relative;
-  height: 8px;
-  border-radius: 2px;
-  background: color-mix(in srgb, var(--meter-color) 14%, transparent);
-}
-.meter-fill {
-  position: absolute;
-  inset: 0 auto 0 0;
-  border-radius: 2px;
-  background: var(--meter-color);
-  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-/* 2px surface gaps carve the bar into segments (VU-meter reading) */
-.meter-segments {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent 0px,
-    transparent 6px,
-    var(--color-ink) 6px,
-    var(--color-ink) 8px
-  );
-  pointer-events: none;
-}
-.meter-tick {
-  position: absolute;
-  top: -3px;
-  bottom: -3px;
-  width: 1px;
-  background: rgba(230, 237, 243, 0.4);
-}
-
-/* thin custom scrollbars to match the terminal look */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(94, 234, 212, 0.25) transparent;
-}
-
 /* markdown body inside the AI briefing */
 .briefing-md h3 {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-teal);
-  margin: 0.9rem 0 0.3rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 1rem 0 0.25rem;
+}
+.briefing-md h3::before {
+  content: '';
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-inline-end: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-gold-bright);
+  vertical-align: middle;
 }
 .briefing-md p {
   margin: 0.35rem 0;
-  line-height: 1.55;
+  line-height: 1.65;
 }
 .briefing-md ul {
   margin: 0.3rem 0 0.5rem;
-  padding-left: 1.1rem;
-  list-style: square;
+  padding-inline-start: 1.1rem;
+  list-style: disc;
 }
 .briefing-md li {
   margin: 0.25rem 0;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 .briefing-md strong {
-  color: var(--color-fg);
   font-weight: 600;
 }
