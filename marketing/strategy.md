@@ -49,7 +49,7 @@ Gold purity is written "karat" in US English and "carat" in British English and 
 Have a native speaker from the Gulf and one from the Maghreb check the Arabic lines before you publish. Tone and word choice change between dialects.
 
 ### Three key messages
-1. **Show the math.** Every score breaks down into trend, momentum, volume and Fear & Greed. Tap the score and see each point. Example card: `BTC · 74 · STRONG setup · base 50 · trend +12 · momentum +8 · volume +6 · fear & greed −2`.
+1. **Show the math.** Every score breaks down into trend, momentum, volume and Fear & Greed. Tap the score and see each point. Real example from today: `BTC · 74 · STRONG setup · base 50 · above 7-day avg +10 · above 30-day avg +10 · uptrend structure +4`.
 2. **Receipts, not promises.** Each day's ratings are written once and never edited. Losses stay up. The live log started on 2026-10-02; the first 7-day results land on 2026-10-09.
 3. **A second opinion, built for calm.** Qirat rates setups. It does not give orders. When BTC trades below its 200-day average, the regime switch caps every score, because a weak market should lower everyone's confidence.
 
@@ -184,7 +184,7 @@ Market size signals: Sub-Saharan Africa received over $200B in crypto in the yea
 | # | Format | Hook (on-screen text) | Structure | Length | Auto-generate later? |
 |---|---|---|---|---|---|
 | 1 | **Daily Karat: today's 3 strongest setups** | "3 coins scored above 70 today. This is the math, not a tip." | Hook → 3 cards (2 s each) → "Market regime: ON/OFF" → disclaimer → CTA | 15–20 s | **Yes**: daily template from API data |
-| 2 | **Show the math: why BTC is 74** | "BTC is a 74. Here's every single point." | Card → each factor animates in (+12 trend, +8 momentum…) → "What would move it to 80?" → CTA | 25–35 s | **Yes**: one per coin from the breakdown |
+| 2 | **Show the math: why BTC is 74** | "BTC is a 74. Here's every single point." | Card → each factor animates in (+10 above 7-day avg, +10 above 30-day avg, +4 uptrend…) → "What would move it to 80?" → CTA | 25–35 s | **Yes**: one per coin from the breakdown |
 | 3 | **Weekly report card: our ratings vs the market, losses included** | "Last week we rated 5 coins Strong. 2 went down. Here's the full log." | Table of the week's Strong ratings with % change → the worst result first → running totals → "log is never edited" | 40–55 s | **Mostly**: generate the table, write the commentary line by hand |
 | 4 | **Scam-spotting: what "AI signal" groups won't show you** | "If a signals group can't show you this one page, leave." | 3 red flags (no track record, deleted losses, "guaranteed") → what a real log looks like → FBI $7.2B stat → CTA | 30–45 s | No (evergreen, write by hand) |
 | 5 | **Risk-off explainer** | "Every score is capped today. Here's why." | BTC vs 200-day line chart → "regime switch ON" → what it means and what it doesn't | 20–30 s | **Yes**: triggered when the regime changes |
@@ -206,7 +206,7 @@ Market size signals: Sub-Saharan Africa received over $200B in crypto in the yea
 | ElevenLabs Free | ~10 min/month | **No.** Non-commercial only, attribution required ([BIGVU](https://bigvu.tv/blog/elevenlabs-pricing-2026-plans-credits-commercial-rights-api-costs/)) | Skip |
 | CapCut built-in TTS | Free in app | Terms unclear for commercial use **(unverified)** | Avoid for brand content |
 
-Recommendation: text-only for the first 4 weeks. Then test Azure voices on formats 2 and 5. Run large Kokoro or Piper jobs from `D:\claude-work\` (models and venvs belong on D:).
+Recommendation: text-only for the first 4 weeks. Then test Azure voices on formats 2 and 5.
 
 5. **Schedule:** YouTube Studio's own scheduler; Meta Business Suite for Instagram; Telegram's built-in scheduled messages; Buffer Free for X and LinkedIn (3 channels, 10 queued posts each) ([Buffer limits](https://boomp.net/resources/questions/buffer-free-plan-limits-2026)).
 6. **Later, automate:** use `@vercel/og` (free) to generate share cards from live data, and **Remotion** (free for individuals and companies with up to 3 employees) ([Remotion license](https://www.remotion.dev/docs/pricing)) to render formats 1, 2, 3 and 5 as MP4s from the API every day. This turns about 40 min/day of editing into zero. Build it after the bot ships (week 7–8).
@@ -414,7 +414,7 @@ FR creator outreach (week 7), Remotion automation (weeks 7–8), Arabic push (we
 4. **Sun Oct 4: first 3-hour batch.** Make 3 evergreen videos (scam-spotting, "Show the math: BTC", momentum glossary) and the Canva templates for the Daily Karat card and the report card in EN and FR.
 5. **Mon Oct 5: invite the 50 testers** personally as Founding Assayers, and confirm their lifetime access and credits in writing. Send the corrected DM script to 30 more people.
 6. **Mon Oct 5: set up tracking.** PostHog events (`score_viewed`, `breakdown_opened`, `ai_question`), UTM links for each channel, and a Kit waitlist form ("weekly report card by email").
-7. **Tue Oct 6: start Reddit karma.** 3 helpful comments a day in r/CryptoCurrency and r/BitcoinBeginners, with no links. First LinkedIn build-in-public post: "On Friday I start a track record I can never edit."
+7. **Tue Oct 6: start Reddit karma.** 3 helpful comments a day in r/CryptoCurrency and r/BitcoinBeginners, with no links. First LinkedIn build-in-public post: "On Friday, the first week of a track record I can never edit goes public."
 8. **Wed Oct 7: write the compliance checklist** (section 10) into a pinned note and use it on every post from now on. Ask a lawyer friend or a free legal clinic about Tunisia and about MiCA "personalised advice" before Pro.
 9. **Thu Oct 8: prepare the Oct 9 package.** A "first week of the log" results card, an X thread, an Instagram Story with the new poll, a LinkedIn post and a Telegram post, all scheduled.
 10. **Fri Oct 9: publish the first week's results** across every channel. Reply to every comment for 1 hour. On Sunday Oct 11, fill in the first weekly scorecard.

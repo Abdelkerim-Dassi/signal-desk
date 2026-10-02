@@ -145,8 +145,9 @@ def _language_instruction(code: str) -> str:
     if code == "en":
         return ""
     return (
-        f"\n\nWrite your entire answer in {LANGUAGES[code]}. Keep coin tickers "
-        "(BTC, ETH), numbers and the rating words STRONG / NEUTRAL / WEAK as they are."
+        f"\n\nWrite your entire answer in {LANGUAGES[code]}, including the section "
+        "headings (translate them). Keep coin tickers (BTC, ETH), numbers and the "
+        "rating words STRONG / NEUTRAL / WEAK as they are."
     )
 
 
