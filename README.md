@@ -67,7 +67,7 @@ GROQ_API_KEY=gsk_...        # free, recommended — console.groq.com/keys
 # ANTHROPIC_API_KEY=sk-ant-...   # paid alternative, used first if set
 ```
 
-Precedence is `ANTHROPIC_API_KEY` > `GROQ_API_KEY` > `OPENAI_API_KEY`. With Groq the base URL and model (`llama-3.3-70b-versatile`) default automatically. Without any key the app still works fully on the heuristic engine — the AI panels simply hide.
+Precedence is `ANTHROPIC_API_KEY` > `GROQ_API_KEY` > `OPENAI_API_KEY`. With Groq the base URL and model (`openai/gpt-oss-120b`) default automatically. Without any key the app still works fully on the heuristic engine — the AI panels simply hide.
 
 ## AI usage limits
 

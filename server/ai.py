@@ -140,7 +140,9 @@ def _client():
 # Groq is a free, OpenAI-compatible provider, so it rides the same OpenAI client
 # path — it just has its own key and sensible Groq defaults for base URL/model.
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
-GROQ_MODEL = "llama-3.3-70b-versatile"
+# llama-3.3-70b-versatile was retired on Groq's free/dev tiers on 2026-08-16;
+# gpt-oss-120b is Groq's recommended replacement and the cheapest of them.
+GROQ_MODEL = "openai/gpt-oss-120b"
 
 
 def _openai_config() -> tuple[str | None, str | None, str]:
@@ -172,6 +174,16 @@ def _openai_client():
 
 def _openai_model() -> str:
     return _openai_config()[2]
+
+
+def _openai_extra() -> dict[str, Any]:
+    """Model-specific request options for the OpenAI-compatible path.
+
+    gpt-oss models reason before answering, and those tokens count against
+    ``max_completion_tokens``; low effort keeps the budget for the answer itself.
+    The reasoning arrives in a separate field, so ``content`` stays clean.
+    """
+    return {"reasoning_effort": "low"} if "gpt-oss" in _openai_model() else {}
 
 
 def provider() -> str | None:
@@ -300,7 +312,8 @@ async def _openai_briefing(prompt: str) -> tuple[str, dict[str, Any]]:
     client = _openai_client()
     resp = await client.chat.completions.create(
         model=_openai_model(),
-        max_completion_tokens=1200,
+        max_completion_tokens=2000,
+        **_openai_extra(),
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": prompt},
@@ -391,6 +404,7 @@ async def stream_chat(
             model=_openai_model(),
             max_completion_tokens=1500,
             stream=True,
+            **_openai_extra(),
             messages=[{"role": "system", "content": CHAT_SYSTEM_PROMPT}, *messages],
         )
         async for chunk in stream:
