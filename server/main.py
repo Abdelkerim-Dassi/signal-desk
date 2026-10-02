@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import os
 from pathlib import Path
 
@@ -47,6 +48,7 @@ BACKTEST_FILE = Path(__file__).resolve().parent / "data" / "backtest.json"
 # The track record only changes once a day; a short memo keeps the panel from
 # re-reading every snapshot out of Redis on each page load.
 track_cache = TTLCache(default_ttl=600.0)
+log = logging.getLogger("signaldesk")
 
 app = FastAPI(title="AI Crypto Advisor", version="0.2")
 
@@ -218,15 +220,21 @@ async def get_track_record() -> JSONResponse:
     # The daily cron is the primary logger; this is the fallback so a missed
     # cron run (or local dev) still records the day on first visit.
     try:
-        await asyncio.to_thread(track_record.ensure_today)
-    except Exception:
-        pass
+        snapshot = await asyncio.to_thread(track_record.ensure_today)
+    except Exception as exc:
+        log.exception("track-record snapshot failed")
+        snapshot = {"logged": False, "reason": "error", "error": str(exc)}
+    if not snapshot.get("logged") and snapshot.get("reason") != "exists":
+        log.warning("track-record snapshot not logged: %s", snapshot)
     try:
         live = await asyncio.to_thread(track_record.summary)
     except Exception as exc:
+        log.exception("track-record summary failed")
         live = {"error": str(exc)}
-    payload = {"ok": True, "live": live, "backtest": _load_backtest()}
-    track_cache.set("track", payload)
+    payload = {"ok": True, "live": live, "backtest": _load_backtest(), "snapshot": snapshot}
+    # A failed snapshot retries after a minute instead of waiting out the memo.
+    healthy = snapshot.get("logged") or snapshot.get("reason") == "exists"
+    track_cache.set("track", payload, ttl=None if healthy else 60)
     return JSONResponse(payload)
 
 
@@ -237,11 +245,12 @@ async def cron_snapshot(request: Request) -> JSONResponse:
     if secret and request.headers.get("authorization") != f"Bearer {secret}":
         return JSONResponse({"ok": False, "error": "unauthorized"}, status_code=401)
     try:
-        logged = await asyncio.to_thread(track_record.ensure_today)
+        snapshot = await asyncio.to_thread(track_record.ensure_today)
     except Exception as exc:
+        log.exception("cron snapshot failed")
         return JSONResponse({"ok": False, "error": str(exc)}, status_code=502)
     track_cache.set("track", None, ttl=0)
-    return JSONResponse({"ok": True, "logged": logged})
+    return JSONResponse({"ok": True, "snapshot": snapshot})
 
 
 @app.post("/api/notify")

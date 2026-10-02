@@ -118,15 +118,21 @@ def take_snapshot() -> dict[str, Any]:
     }
 
 
-def ensure_today() -> bool:
-    """Log today's snapshot if it isn't logged yet. True when this call logged it."""
+def ensure_today() -> dict[str, Any]:
+    """Log today's snapshot if it isn't logged yet; report what happened."""
     day = _today()
     if _has_day(day):
-        return False
+        return {"day": day, "logged": False, "reason": "exists"}
     doc = take_snapshot()
     if not doc["rows"]:
-        return False
-    return _put_day(day, doc)
+        return {"day": day, "logged": False, "reason": "no_rows", "errors": doc["errors"]}
+    if not _put_day(day, doc):
+        return {"day": day, "logged": False, "reason": "write_failed", "store": _store_name()}
+    return {"day": day, "logged": True, "rows": len(doc["rows"]), "store": _store_name()}
+
+
+def _store_name() -> str:
+    return "redis" if upstash.enabled() else "sqlite"
 
 
 # ── summary ──────────────────────────────────────────────────────────────────
