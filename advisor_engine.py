@@ -3,6 +3,7 @@ from __future__ import annotations
 import math
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
@@ -306,6 +307,54 @@ def get_global_market() -> dict[str, Any]:
         }
 
 
+# Market regime: is BTC above its 200-day average? The 2021-2026 backtest
+# (scripts/backtest.py) showed STRONG setups only beat the market while BTC
+# held that line — in risk-off tapes (2022, much of 2025) they lost money — so
+# a risk-off regime caps every score just below the STRONG threshold.
+REGIME_MA_DAYS = 200
+_REGIME_TTL = 3600.0
+_last_regime: dict[str, Any] | None = None
+_last_regime_at = 0.0
+
+
+def regime_from_closes(closes: list[float]) -> dict[str, Any]:
+    """Classify the regime from daily BTC closes (oldest first, last = current)."""
+    if len(closes) < REGIME_MA_DAYS:
+        return {"state": "unknown", "label": "Unknown"}
+    price = closes[-1]
+    ma = sum(closes[-REGIME_MA_DAYS:]) / REGIME_MA_DAYS
+    risk_on = price > ma
+    return {
+        "state": "risk_on" if risk_on else "risk_off",
+        "label": "Risk-on" if risk_on else "Risk-off",
+        "btc_price": price,
+        "btc_ma200": ma,
+        "distance_pct": percent_change(price, ma),
+    }
+
+
+def get_market_regime() -> dict[str, Any]:
+    global _last_regime, _last_regime_at
+    if _last_regime is not None and time.time() - _last_regime_at < _REGIME_TTL:
+        return _last_regime
+    try:
+        klines = get_binance_klines("BTCUSDT", limit=REGIME_MA_DAYS)
+        closes = [_safe_float(row[4]) for row in klines if len(row) >= 5]
+    except Exception:
+        try:
+            chart = get_market_chart("bitcoin", days=REGIME_MA_DAYS + 5)
+            closes = [_safe_float(row[1]) for row in chart["prices"]]
+        except Exception:
+            closes = []
+    regime = regime_from_closes(closes)
+    if regime["state"] == "unknown" and _last_regime is not None:
+        return _last_regime  # last-known-good beats "unknown"
+    if regime["state"] != "unknown":
+        _last_regime = regime
+        _last_regime_at = time.time()
+    return regime
+
+
 def get_trending() -> list[dict[str, Any]]:
     try:
         data = _get_json(f"{COINGECKO_API}/search/trending", timeout=10)
@@ -446,12 +495,29 @@ def percent_change(current: float, previous: float | None) -> float | None:
     return ((current - previous) / previous) * 100
 
 
+STRONG_MIN = 67  # score >= this → STRONG setup
+WEAK_MAX = 38  # score <= this → WEAK setup; NEUTRAL in between
+RISK_OFF_CAP = STRONG_MIN - 1  # ceiling while BTC is below its 200-day average
+
+
+def rating_for(score: float) -> str:
+    if score >= STRONG_MIN:
+        return "STRONG"
+    if score <= WEAK_MAX:
+        return "WEAK"
+    return "NEUTRAL"
+
+
 def analyze_asset(
     market: dict[str, Any],
     chart: dict[str, Any] | None,
     sentiment: dict[str, Any],
     holding: Holding | None = None,
+    regime: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """Score one asset. The score depends only on market data — never on the
+    user's holdings — so every user sees the same rating for the same coin
+    (impersonal analysis, not personalised advice)."""
     prices = [_safe_float(row[1]) for row in (chart or {}).get("prices", [])]
     volumes = [_safe_float(row[1]) for row in (chart or {}).get("volumes", [])]
     current_price = _safe_float(market.get("current_price"))
@@ -545,32 +611,28 @@ def analyze_asset(
         bump(2, "Steady 24h follow-through",
              reason="Today's gain is steady rather than a spike — consistent with a durable trend.")
 
+    score = max(0, min(100, score))
+    cap = None
+    if (regime or {}).get("state") == "risk_off" and score > RISK_OFF_CAP:
+        score = RISK_OFF_CAP
+        cap = {
+            "value": RISK_OFF_CAP,
+            "reason": "Risk-off market: BTC is below its 200-day average",
+        }
+    rating = rating_for(score)
+
+    # Holdings only add factual context (value, P&L) — they never move the score.
     unrealized_pnl = None
     value = None
-    exposure_note = None
+    position_note = None
     if holding:
         value = holding.amount * current_price
         if holding.average_buy_price:
             unrealized_pnl = percent_change(current_price, holding.average_buy_price)
             if unrealized_pnl is not None and unrealized_pnl > 35 and sentiment_score >= 65:
-                bump(-5, "Profit-trim (hot sentiment)")
-                exposure_note = "Profit is meaningful while sentiment is hot; consider trimming risk."
-            elif unrealized_pnl is not None and unrealized_pnl < -20 and score < 45:
-                exposure_note = "Position is underwater and trend is weak; avoid adding without confirmation."
-
-    score = max(0, min(100, score))
-    if score >= 67:
-        action = "BUY"
-        stance = "Opportunity"
-    elif score <= 38:
-        action = "SELL" if holding else "AVOID"
-        stance = "Defensive"
-    else:
-        action = "HOLD"
-        stance = "Watch"
-
-    if holding and exposure_note and action == "BUY":
-        action = "HOLD"
+                position_note = "Position is up over 35% while market sentiment is greedy."
+            elif unrealized_pnl is not None and unrealized_pnl < -20 and rating == "WEAK":
+                position_note = "Position is down over 20% and the coin's setup is weak."
 
     risk_level = "High" if score <= 35 or change_24h < -10 else "Medium" if score < 65 else "Controlled"
     if not risks:
@@ -605,9 +667,9 @@ def analyze_asset(
             "components": breakdown,
             "raw": round(50 + sum(c["delta"] for c in breakdown), 1),
             "final": round(score, 1),
+            "cap": cap,
         },
-        "action": action,
-        "stance": stance,
+        "rating": rating,
         "risk_level": risk_level,
         "reasons": reasons[:4],
         "risks": risks[:3],
@@ -616,11 +678,47 @@ def analyze_asset(
             "average_buy_price": holding.average_buy_price,
             "value": value,
             "unrealized_pnl": unrealized_pnl,
-            "note": exposure_note,
+            "note": position_note,
         }
         if holding
         else None,
     }
+
+
+def score_binance_symbols(
+    symbols: list[str],
+    sentiment: dict[str, Any],
+    regime: dict[str, Any] | None,
+    quote_asset: str = "USDT",
+    holding_map: dict[str, Holding] | None = None,
+) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
+    """Score Binance pairs concurrently; returns (analyses in input order, per-symbol errors).
+
+    Binance's public data API allows thousands of request-weight per minute, so
+    a small thread pool is safe and turns ~2 sequential round-trips per symbol
+    into roughly one batch.
+    """
+    holding_map = holding_map or {}
+
+    def score(symbol: str) -> dict[str, Any]:
+        ticker = get_binance_24hr(symbol)
+        klines = get_binance_klines(symbol)
+        market = binance_ticker_to_market(ticker, klines, quote_asset)
+        chart = binance_klines_to_chart(klines)
+        return analyze_asset(market, chart, sentiment, holding_map.get(symbol), regime)
+
+    analyses = []
+    errors = []
+    if not symbols:
+        return analyses, errors
+    with ThreadPoolExecutor(max_workers=min(8, len(symbols))) as pool:
+        futures = [(symbol, pool.submit(score, symbol)) for symbol in symbols]
+        for symbol, future in futures:
+            try:
+                analyses.append(future.result())
+            except Exception as exc:
+                errors.append({"symbol": symbol, "error": str(exc)})
+    return analyses, errors
 
 
 def build_binance_market_brief(
@@ -633,20 +731,8 @@ def build_binance_market_brief(
     holding_symbols = [infer_binance_symbol(holding.coin_id, quote_asset) for holding in holdings]
     symbols = normalize_binance_symbols(assets + holding_symbols, quote_asset)
     sentiment = get_fear_greed()
-    analyses = []
-    errors = []
-
-    for symbol in symbols:
-        try:
-            ticker = get_binance_24hr(symbol)
-            klines = get_binance_klines(symbol)
-            market = binance_ticker_to_market(ticker, klines, quote_asset)
-            chart = binance_klines_to_chart(klines)
-            row = analyze_asset(market, chart, sentiment, holding_map.get(symbol))
-            analyses.append(row)
-            time.sleep(0.08)
-        except Exception as exc:
-            errors.append({"symbol": symbol, "error": str(exc)})
+    regime = get_market_regime()
+    analyses, errors = score_binance_symbols(symbols, sentiment, regime, quote_asset, holding_map)
 
     if not analyses and errors:
         raise DataFetchError("; ".join(f"{row['symbol']}: {row['error']}" for row in errors))
@@ -659,6 +745,7 @@ def build_binance_market_brief(
         "exchange_label": "Binance Spot",
         "quote_asset": quote_asset.upper(),
         "sentiment": sentiment,
+        "regime": regime,
         "global": get_global_market(),
         "trending": get_trending(),
         "assets": analyses,
@@ -667,8 +754,8 @@ def build_binance_market_brief(
         "news": get_news(watchlist=opportunities),
         "errors": errors,
         "disclaimer": (
-            "Signals use Binance Spot market data plus public sentiment/news. "
-            "They are decision-support heuristics, not financial advice."
+            "Ratings use Binance Spot market data plus public sentiment/news. "
+            "They are rule-based scores, identical for every user — not financial advice."
         ),
     }
 
@@ -686,6 +773,7 @@ def build_market_brief(
     holding_map = {holding.coin_id: holding for holding in holdings}
     combined_assets = normalize_asset_ids(asset_ids + [holding.coin_id for holding in holdings])
     sentiment = get_fear_greed()
+    regime = get_market_regime()
     # Fetch before the per-asset chart loop drains the CoinGecko rate budget.
     global_market = get_global_market()
     markets = get_market_prices(combined_assets)
@@ -699,7 +787,7 @@ def build_market_brief(
             time.sleep(0.12)
         except Exception:
             chart = None
-        analyses.append(analyze_asset(market, chart, sentiment, holding_map.get(coin_id)))
+        analyses.append(analyze_asset(market, chart, sentiment, holding_map.get(coin_id), regime))
 
     opportunities = sorted(analyses, key=lambda row: row["score"], reverse=True)
     portfolio = [row for row in analyses if row.get("holding")]
@@ -709,6 +797,7 @@ def build_market_brief(
         "exchange_label": "CoinGecko",
         "quote_asset": "USD",
         "sentiment": sentiment,
+        "regime": regime,
         "global": global_market,
         "trending": get_trending(),
         "assets": analyses,
@@ -716,7 +805,7 @@ def build_market_brief(
         "portfolio": portfolio,
         "news": get_news(watchlist=opportunities),
         "disclaimer": (
-            "Signals are decision-support heuristics, not financial advice. "
-            "Use position sizing, stop losses, and your own research."
+            "Ratings are rule-based scores, identical for every user — not financial advice. "
+            "Do your own research and size your own risk."
         ),
     }

@@ -20,19 +20,29 @@ export function changeColor(value: number | null | undefined): string {
   return Number(value) >= 0 ? 'text-buy' : 'text-sell'
 }
 
-export type Action = 'buy' | 'sell' | 'hold' | 'avoid'
+export type Rating = 'strong' | 'neutral' | 'weak'
 
-export function actionKey(action?: string): Action {
-  const a = String(action || 'hold').toLowerCase()
-  return (['buy', 'sell', 'hold', 'avoid'].includes(a) ? a : 'hold') as Action
+export function ratingKey(rating?: string): Rating {
+  const r = String(rating || 'neutral').toLowerCase()
+  return (['strong', 'neutral', 'weak'].includes(r) ? r : 'neutral') as Rating
 }
 
-export const actionStyles: Record<Action, string> = {
-  buy: 'text-buy border-buy/40 bg-buy/10',
-  sell: 'text-sell border-sell/40 bg-sell/10',
-  hold: 'text-hold border-hold/40 bg-hold/10',
-  avoid: 'text-avoid border-avoid/40 bg-avoid/10',
+export const ratingStyles: Record<Rating, string> = {
+  strong: 'text-strong border-strong/40 bg-strong/10',
+  neutral: 'text-neutral border-neutral/40 bg-neutral/10',
+  weak: 'text-weak border-weak/40 bg-weak/10',
 }
+
+export const ratingTextClass: Record<Rating, string> = {
+  strong: 'text-strong',
+  neutral: 'text-neutral',
+  weak: 'text-weak',
+}
+
+/** Engine thresholds — mirror advisor_engine.STRONG_MIN / WEAK_MAX / RISK_OFF_CAP. */
+export const STRONG_MIN = 67
+export const WEAK_MAX = 38
+export const RISK_OFF_CAP = 66
 
 /** Compact relative time for feed items, e.g. "3h ago". Null when unparseable. */
 export function timeAgo(dateString?: string): string | null {

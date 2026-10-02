@@ -2,7 +2,7 @@ import type { Brief, HoldingInput } from '../lib/api'
 import type { AdvisorConfig } from '../hooks/useBrief'
 import { compactCurrency, percent, changeColor } from '../lib/format'
 import DeskHead from './DeskHead'
-import { SignalPill } from './OpportunityList'
+import { RatingPill } from './OpportunityList'
 import ScoreMeter from './ScoreMeter'
 
 interface PortfolioPanelProps {
@@ -154,7 +154,7 @@ export default function PortfolioPanel({ brief, config, onConfigChange }: Portfo
               >
                 <div className="flex items-center justify-between">
                   <p className="font-display text-sm font-semibold">{item.name || item.symbol}</p>
-                  <SignalPill action={item.action} />
+                  <RatingPill rating={item.rating} />
                 </div>
                 <div className="num mt-2 grid grid-cols-3 gap-2 text-xs">
                   <div>
@@ -172,9 +172,9 @@ export default function PortfolioPanel({ brief, config, onConfigChange }: Portfo
                     <p className="font-semibold">{item.score ?? '--'}/100</p>
                   </div>
                 </div>
-                <ScoreMeter score={item.score} action={item.action} className="mt-2" />
+                <ScoreMeter score={item.score} rating={item.rating} className="mt-2" />
                 <p className="mt-2 text-[11px] leading-snug text-mute">
-                  {holding.note || item.risks?.[0] || 'Review position size before taking action.'}
+                  {holding.note || item.risks?.[0] || "The rating describes the coin's setup, not your position."}
                 </p>
               </div>
             )

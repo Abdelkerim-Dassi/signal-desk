@@ -4,6 +4,8 @@ import MarketStats from './components/MarketStats'
 import FearGreedGauge from './components/FearGreedGauge'
 import OpportunityList from './components/OpportunityList'
 import PortfolioPanel from './components/PortfolioPanel'
+import RegimeBanner from './components/RegimeBanner'
+import TrackRecord from './components/TrackRecord'
 import AiBriefing from './components/AiBriefing'
 import ChatPanel from './components/ChatPanel'
 import GuideModal from './components/GuideModal'
@@ -56,11 +58,13 @@ export default function App() {
       <main className="mt-4 grid gap-4 lg:grid-cols-[1.9fr_1fr]">
         <div className="space-y-4">
           <MarketStats brief={brief} />
+          <RegimeBanner regime={brief?.regime} />
           <OpportunityList
             brief={brief}
             isLoading={briefQuery.isLoading}
             error={briefQuery.error ? (briefQuery.error as Error).message : null}
           />
+          <TrackRecord />
           <News brief={brief} />
         </div>
 
@@ -75,7 +79,30 @@ export default function App() {
       </main>
 
       <footer className="num space-y-2 py-6 text-center text-[11px] text-mute">
-        <p>Heuristic signals + AI narrative · decision support only — not financial advice.</p>
+        <p>
+          Rule-based setup ratings, identical for every user · AI narrative · not financial advice.
+          Ratings describe a coin&apos;s chart, never what you should do with your money.
+        </p>
+        <p>
+          Market data: Binance ·{' '}
+          <a
+            href="https://www.coingecko.com/en/api"
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-line-2 underline-offset-2 hover:text-teal"
+          >
+            Powered by CoinGecko
+          </a>{' '}
+          · Fear &amp; Greed Index by{' '}
+          <a
+            href="https://alternative.me/crypto/fear-and-greed-index/"
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-line-2 underline-offset-2 hover:text-teal"
+          >
+            Alternative.me
+          </a>
+        </p>
         {feedbackVisible && (
           <p className="pt-1">
             <button

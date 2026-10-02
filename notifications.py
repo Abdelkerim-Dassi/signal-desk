@@ -28,19 +28,21 @@ def notification_status() -> dict[str, bool]:
 
 def format_market_alert(brief: dict[str, Any], max_items: int = 4) -> str:
     sentiment = brief.get("sentiment", {})
+    regime = brief.get("regime") or {}
     lines = [
-        "AI Crypto Advisor alert",
+        "SignalDesk market alert",
         f"Fear & Greed: {sentiment.get('score', 'n/a')}/100 - {sentiment.get('status', 'Neutral')}",
+        f"Market regime: {regime.get('label', 'Unknown')}",
         "",
-        "Top signals:",
+        "Top setups:",
     ]
     for item in brief.get("opportunities", [])[:max_items]:
         lines.append(
-            f"- {item.get('symbol', '').upper()} {item.get('action')}: "
+            f"- {item.get('symbol', '').upper()} {item.get('rating')}: "
             f"score {item.get('score')}/100, risk {item.get('risk_level')}"
         )
     lines.append("")
-    lines.append("Not financial advice. Review risk before acting.")
+    lines.append("Rule-based ratings, not financial advice.")
     return "\n".join(lines)
 
 

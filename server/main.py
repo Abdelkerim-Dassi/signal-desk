@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -34,13 +35,18 @@ from fastapi.staticfiles import StaticFiles
 from advisor_engine import build_market_brief, normalize_asset_ids, parse_holdings
 from notifications import format_market_alert, notification_status, send_notifications
 
-from . import ai
-from .cache import brief_cache
+from . import ai, track_record
+from .cache import TTLCache, brief_cache
 from .ratelimit import check_ai_allowance
 from .schemas import AnalyzeRequest, BriefingRequest, ChatRequest, NotifyRequest
 
 ROOT = Path(__file__).resolve().parent.parent
 STATIC_DIR = ROOT / "frontend" / "dist"
+BACKTEST_FILE = Path(__file__).resolve().parent / "data" / "backtest.json"
+
+# The track record only changes once a day; a short memo keeps the panel from
+# re-reading every snapshot out of Redis on each page load.
+track_cache = TTLCache(default_ttl=600.0)
 
 app = FastAPI(title="AI Crypto Advisor", version="0.2")
 
@@ -195,6 +201,47 @@ async def ai_chat(req: ChatRequest, request: Request) -> Response:
             "X-Accel-Buffering": "no",  # ask reverse proxies not to buffer SSE
         },
     )
+
+
+def _load_backtest() -> dict | None:
+    try:
+        return json.loads(BACKTEST_FILE.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+
+
+@app.get("/api/track-record")
+async def get_track_record() -> JSONResponse:
+    cached = track_cache.get("track")
+    if cached is not None:
+        return JSONResponse(cached)
+    # The daily cron is the primary logger; this is the fallback so a missed
+    # cron run (or local dev) still records the day on first visit.
+    try:
+        await asyncio.to_thread(track_record.ensure_today)
+    except Exception:
+        pass
+    try:
+        live = await asyncio.to_thread(track_record.summary)
+    except Exception as exc:
+        live = {"error": str(exc)}
+    payload = {"ok": True, "live": live, "backtest": _load_backtest()}
+    track_cache.set("track", payload)
+    return JSONResponse(payload)
+
+
+@app.get("/api/cron/snapshot")
+async def cron_snapshot(request: Request) -> JSONResponse:
+    """Daily snapshot trigger (Vercel Cron). Vercel sends CRON_SECRET as a bearer token."""
+    secret = os.getenv("CRON_SECRET")
+    if secret and request.headers.get("authorization") != f"Bearer {secret}":
+        return JSONResponse({"ok": False, "error": "unauthorized"}, status_code=401)
+    try:
+        logged = await asyncio.to_thread(track_record.ensure_today)
+    except Exception as exc:
+        return JSONResponse({"ok": False, "error": str(exc)}, status_code=502)
+    track_cache.set("track", None, ttl=0)
+    return JSONResponse({"ok": True, "logged": logged})
 
 
 @app.post("/api/notify")

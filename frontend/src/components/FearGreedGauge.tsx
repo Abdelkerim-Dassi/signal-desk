@@ -120,6 +120,17 @@ export default function FearGreedGauge({ sentiment }: { sentiment: Sentiment | u
         <span className="num text-2xl font-semibold">{sentiment?.score ?? '--'}</span>
         <span className="font-display text-sm text-teal">{sentiment?.status ?? 'Neutral'}</span>
       </div>
+      <p className="mt-1 text-center text-[10px] text-mute">
+        Source:{' '}
+        <a
+          href="https://alternative.me/crypto/fear-and-greed-index/"
+          target="_blank"
+          rel="noreferrer"
+          className="underline decoration-line-2 underline-offset-2 hover:text-teal"
+        >
+          Alternative.me
+        </a>
+      </p>
     </div>
   )
 }

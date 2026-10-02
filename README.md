@@ -1,6 +1,6 @@
 # AI Crypto Advisor — SignalDesk
 
-A hybrid crypto decision-support app: a fast, free **heuristic engine** ranks BUY / SELL / HOLD / AVOID signals from live market data, and **Claude** turns those numbers into a readable market briefing plus a grounded chat. React dashboard, FastAPI backend, one deployable service.
+A hybrid crypto decision-support app: a fast, free **rule-based engine** scores each coin 0–100 and rates its setup STRONG / NEUTRAL / WEAK from live market data (gated by a BTC 200-day market regime), and **Claude** turns those numbers into a readable market briefing plus a grounded chat. React dashboard, FastAPI backend, one deployable service.
 
 Decision support, not financial advice.
 
@@ -13,7 +13,9 @@ server/
   ai.py              Claude briefing (cached) + streaming chat (SSE), claude-opus-4-8
   cache.py           TTL caches: market briefs (~75s), AI narratives (~5min)
   ratelimit.py       per-IP rate limit on the AI endpoints
-advisor_engine.py    heuristic scoring engine (Binance/CoinGecko, Fear & Greed, news)
+advisor_engine.py    rule-based scoring engine (Binance/CoinGecko, Fear & Greed, BTC regime, news)
+server/track_record.py  daily immutable log of ratings for 18 coins + forward-return summary
+scripts/backtest.py  replays the engine on 2021–present history → server/data/backtest.json
 notifications.py     Discord webhook + Twilio WhatsApp alerts
 ```
 
@@ -29,6 +31,15 @@ The 2-minute dashboard poll only ever hits the free heuristic endpoint. Claude i
 | POST | `/api/ai/briefing` | Claude narrative over a brief (rate-limited) |
 | POST | `/api/ai/chat` | streaming SSE chat grounded in the brief (rate-limited) |
 | POST | `/api/notify` | send Discord/WhatsApp alert |
+| GET | `/api/track-record` | live log summary + backtest (logs today's snapshot if missing) |
+| GET | `/api/cron/snapshot` | daily snapshot trigger (Vercel Cron, 00:05 UTC; `CRON_SECRET` bearer if set) |
+
+## Ratings, regime and track record
+
+- **Ratings** describe a coin's setup, not an instruction: score ≥67 STRONG, ≤38 WEAK, NEUTRAL between. The score depends only on market data — never on a user's holdings — so every user sees the same rating.
+- **Market regime:** when BTC is below its 200-day average (risk-off), every score is capped at 66, so nothing rates STRONG. The backtest showed STRONG setups only beat the market in risk-on conditions.
+- **Track record:** each UTC day the same 18 coins are scored and written once (set-if-absent) to Upstash Redis, or to `data/track_record.sqlite3` locally (`TRACK_DB_PATH` overrides). 7/30-day results are computed from the logged prices only.
+- **Backtest:** `python scripts/backtest.py` regenerates `server/data/backtest.json` through the engine's own code path. Rerun it after changing any scoring rule.
 
 ## Run locally
 

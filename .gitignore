@@ -10,3 +10,6 @@ frontend/node_modules/
 .vercel
 .env*
 !.env.example
+
+# local track-record log (SQLite fallback when Redis is not configured)
+/data/

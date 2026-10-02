@@ -24,11 +24,25 @@ export interface ScoreComponent {
   delta: number
 }
 
+export interface ScoreCap {
+  value: number
+  reason: string
+}
+
 export interface ScoreBreakdown {
   base: number
   components: ScoreComponent[]
   raw?: number
   final: number
+  cap?: ScoreCap | null
+}
+
+export interface Regime {
+  state: 'risk_on' | 'risk_off' | 'unknown'
+  label: string
+  btc_price?: number
+  btc_ma200?: number
+  distance_pct?: number | null
 }
 
 export interface Opportunity {
@@ -38,7 +52,7 @@ export interface Opportunity {
   pair?: string
   source?: string
   market_cap_rank?: number
-  action?: string
+  rating?: string
   score?: number
   score_breakdown?: ScoreBreakdown
   risk_level?: string
@@ -73,12 +87,57 @@ export interface Brief {
   quote_asset?: string
   assets?: string[]
   sentiment?: Sentiment
+  regime?: Regime
   global?: GlobalStats
   opportunities?: Opportunity[]
   portfolio?: Opportunity[]
   trending?: TrendingCoin[]
   news?: NewsItem[]
   errors?: string[]
+}
+
+export interface ReturnStats {
+  n: number
+  mean?: number
+  median?: number
+  hit_rate?: number
+}
+
+/** Rating bucket → stats per horizon, e.g. ratings.STRONG['30d']. */
+export type RatingStats = Record<'ALL' | 'STRONG' | 'NEUTRAL' | 'WEAK', Record<string, ReturnStats>>
+
+export interface LoggedCall {
+  symbol: string
+  rating: string
+  score: number
+  price: number
+  return?: number
+}
+
+export interface LiveTrackRecord {
+  started_on: string | null
+  days_logged: number
+  first_results_on: string | null
+  universe: string[]
+  horizons: Record<string, { ratings: Record<string, ReturnStats>; pending_calls: number }>
+  today: { day: string; regime: string; rows: LoggedCall[] } | null
+  latest_resolved: { day: string; horizon: number; rows: LoggedCall[] } | null
+  error?: string
+}
+
+export interface Backtest {
+  generated_at: string
+  period: { start: string; end: string }
+  coins: string[]
+  coin_days: number
+  ratings: RatingStats
+  by_year: Record<string, { ALL: Record<string, ReturnStats>; STRONG: Record<string, ReturnStats> }>
+  caveats: string[]
+}
+
+export interface TrackRecord {
+  live: LiveTrackRecord
+  backtest: Backtest | null
 }
 
 export interface HoldingInput {
@@ -120,6 +179,11 @@ export async function analyze(params: AnalyzeParams): Promise<Brief> {
   })
   const payload = await asJson<{ brief: Brief }>(res)
   return payload.brief
+}
+
+export async function getTrackRecord(): Promise<TrackRecord> {
+  const res = await fetch('/api/track-record')
+  return asJson<TrackRecord>(res)
 }
 
 export async function getStatus(): Promise<AppStatus> {

@@ -41,7 +41,8 @@ export default function ScoreBreakdown({
     return <p className="num font-semibold">{value}</p>
   }
 
-  const capped = breakdown.raw !== undefined && breakdown.raw !== breakdown.final
+  const cap = breakdown.cap
+  const clamped = !cap && breakdown.raw !== undefined && breakdown.raw !== breakdown.final
 
   return (
     <div>
@@ -70,10 +71,21 @@ export default function ScoreBreakdown({
           {breakdown.components.map((c, i) => (
             <DeltaRow key={`${c.label}-${i}`} label={c.label} delta={c.delta} />
           ))}
+          {cap && (
+            <div className="flex items-start justify-between gap-3 border-t border-dashed border-weak/30 pt-1">
+              <span className="text-weak">
+                Risk-off cap
+                <span className="block text-[10px] leading-snug text-mute">
+                  {cap.reason} · raw {breakdown.raw}
+                </span>
+              </span>
+              <span className="num font-semibold text-weak">≤{cap.value}</span>
+            </div>
+          )}
           <div className="mt-1 flex items-center justify-between gap-3 border-t border-line pt-1.5">
             <span className="font-semibold text-fg">
               Score
-              {capped && <span className="ml-1 text-[10px] font-normal text-mute">(capped at 100)</span>}
+              {clamped && <span className="ml-1 text-[10px] font-normal text-mute">(clamped to 0–100)</span>}
             </span>
             <span className="num font-semibold text-teal">{breakdown.final}</span>
           </div>

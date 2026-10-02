@@ -26,8 +26,10 @@ const steps: Step[] = [
     body: (
       <>
         In <strong>assets (comma separated)</strong>, list the coins you want scored, e.g.{' '}
-        <code>BTCUSDT, ETHUSDT</code>. The desk fetches live prices and computes a heuristic{' '}
-        <strong>signal</strong> (buy / hold / sell / avoid) and a 0–100 score for each.
+        <code>BTCUSDT, ETHUSDT</code>. The desk fetches live prices and gives each coin a 0–100
+        score and a <strong>setup rating</strong>: <strong>strong</strong>, <strong>neutral</strong>{' '}
+        or <strong>weak</strong>. A rating describes the coin&apos;s chart; it is not an
+        instruction to buy or sell.
       </>
     ),
   },
@@ -39,7 +41,8 @@ const steps: Step[] = [
         Every coin starts at a base of <strong>50</strong>. The desk adds or subtracts points for
         trend (price vs its <strong>7 &amp; 30-day averages</strong>), <strong>momentum</strong>{' '}
         (the 7-day return), <strong>volume</strong>, and market <strong>Fear &amp; Greed</strong> —
-        then clamps to <code>0–100</code>. <strong>Buy ≥67 · avoid ≤38</strong>; hold in between. A{' '}
+        then clamps to <code>0–100</code>. <strong>Strong ≥67 · weak ≤38</strong>; neutral in
+        between. The score is the same for every user and never depends on your holdings. A{' '}
         <strong>100</strong> is rare by design — it takes a near-perfect confluence of every factor
         at once. <strong>Click any score</strong> in the ranked list to see its exact build-up, or
         ask the desk <em>&quot;what would move BTC to 100?&quot;</em>
@@ -48,30 +51,53 @@ const steps: Step[] = [
   },
   {
     n: '04',
-    title: 'Add your holdings (optional)',
+    title: 'Check the market regime',
     body: (
       <>
-        Under <strong>holdings</strong>, enter the <em>coin</em>, <em>amount</em> you own and your{' '}
-        <em>avg buy</em> price. The <strong>Watchlist &amp; portfolio</strong> cards then show
-        position value, unrealized PnL and a per-position note. Use <strong>+ add holding</strong>{' '}
-        to add rows or <strong>×</strong> to remove.
+        The <strong>Market regime</strong> bar shows whether BTC is above its{' '}
+        <strong>200-day average</strong>. When it isn&apos;t (<strong>risk-off</strong>), every
+        score is capped at <code>66</code>, so nothing rates strong. In the 2021–26 backtest,
+        strong setups only beat the market in risk-on conditions.
       </>
     ),
   },
   {
     n: '05',
-    title: 'Read the market context',
+    title: 'Check the track record',
     body: (
       <>
-        The left column shows <strong>Market stats</strong>, the ranked{' '}
-        <strong>opportunity list</strong> and <strong>headlines</strong>. The right column adds the{' '}
-        <strong>Fear &amp; Greed</strong> gauge and <strong>Trending</strong> coins — the backdrop
-        for every signal.
+        <strong>Track record</strong> shows how each rating performed afterwards.{' '}
+        <em>Backtest</em> replays the exact rules on 2021–26 data. <em>Live log</em> records 18
+        coins every day, once and never edited, losses included.
       </>
     ),
   },
   {
     n: '06',
+    title: 'Add your holdings (optional)',
+    body: (
+      <>
+        Under <strong>holdings</strong>, enter the <em>coin</em>, <em>amount</em> you own and your{' '}
+        <em>avg buy</em> price. The <strong>Watchlist &amp; portfolio</strong> cards then show
+        position value and unrealized PnL. Holdings never change a coin&apos;s score. Use{' '}
+        <strong>+ add holding</strong> to add rows or <strong>×</strong> to remove.
+      </>
+    ),
+  },
+  {
+    n: '07',
+    title: 'Read the market context',
+    body: (
+      <>
+        The left column shows <strong>Market stats</strong>, the ranked{' '}
+        <strong>setups</strong> and <strong>headlines</strong>. The right column adds the{' '}
+        <strong>Fear &amp; Greed</strong> gauge and <strong>Trending</strong> coins — the backdrop
+        for every rating.
+      </>
+    ),
+  },
+  {
+    n: '08',
     title: 'Generate an AI briefing',
     body: (
       <>
@@ -83,19 +109,19 @@ const steps: Step[] = [
     ),
   },
   {
-    n: '07',
+    n: '09',
     title: 'Ask the desk',
     body: (
       <>
-        Use <strong>Ask the desk</strong> to chat about the current signals, e.g.{' '}
-        <em>&quot;why is BTC a hold right now?&quot;</em> or{' '}
+        Use <strong>Ask the desk</strong> to chat about the current setups, e.g.{' '}
+        <em>&quot;why is ETH only neutral right now?&quot;</em> or{' '}
         <em>&quot;what would move it to 100?&quot;</em> Answers stream live and stay grounded in
         the live data and the scoring rubric.
       </>
     ),
   },
   {
-    n: '08',
+    n: '10',
     title: 'Stay live & set alerts',
     body: (
       <>
@@ -164,8 +190,8 @@ export default function GuideModal({ open, onClose }: { open: boolean; onClose: 
         </ol>
 
         <p className="mt-6 border-t border-line pt-4 text-[11px] leading-relaxed text-mute">
-          Heuristic signals + AI narrative · decision support only — not financial advice. Always
-          size positions and manage risk yourself.
+          Rule-based setup ratings + AI narrative · decision support only, not financial advice.
+          Always size positions and manage risk yourself.
         </p>
       </div>
     </div>

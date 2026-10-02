@@ -13,6 +13,7 @@
       "config": { "includeFiles": ["server/**", "advisor_engine.py", "notifications.py"] }
     }
   ],
+  "crons": [{ "path": "/api/cron/snapshot", "schedule": "5 0 * * *" }],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/index.py" },
     { "src": "/assets/(.*)", "dest": "/frontend/assets/$1" },

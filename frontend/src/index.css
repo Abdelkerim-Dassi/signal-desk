@@ -19,6 +19,10 @@
   --color-sell: #f87171;
   --color-hold: #fbbf24;
   --color-avoid: #fb923c;
+  /* setup ratings — ScoreMeter reads these as var(--color-<rating>) */
+  --color-strong: #34d399;
+  --color-neutral: #fbbf24;
+  --color-weak: #f87171;
   --color-mute: #8c98a8;
   --color-fg: #e6edf3;
 }

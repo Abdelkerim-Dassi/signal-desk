@@ -19,21 +19,21 @@ def compile_ai_briefing(assets: str | list[str] | None = None) -> str:
         "=== SYSTEM PROMPT ===",
         (
             "You are a crypto market decision-support analyst. Analyze the provided "
-            "market data and explain BUY, SELL, HOLD, or AVOID signals. Be risk-aware, "
+            "market data and explain the STRONG, NEUTRAL, or WEAK setup ratings. Be risk-aware, "
             "avoid guarantees, and prioritize capital preservation."
         ),
         "",
         f"=== MARKET BRIEFING ({datetime.now().strftime('%Y-%m-%d')}) ===",
         f"Fear & Greed: {brief['sentiment'].get('score')}/100 - {brief['sentiment'].get('status')}",
         "",
-        "=== RANKED SIGNALS ===",
+        "=== RANKED SETUPS ===",
     ]
 
     for item in brief["opportunities"][:8]:
         lines.extend(
             [
                 f"{item['symbol']} / {item['name']}",
-                f"Action: {item['action']} | Score: {item['score']}/100 | Risk: {item['risk_level']}",
+                f"Rating: {item['rating']} | Score: {item['score']}/100 | Risk: {item['risk_level']}",
                 f"Price: ${item['current_price']:,.4f} | 24h: {item['change_24h']:.2f}% | 7d: {item['change_7d']:.2f}%",
                 "Reasons: " + "; ".join(item["reasons"][:3]),
                 "Risks: " + "; ".join(item["risks"][:2]),
@@ -48,8 +48,8 @@ def compile_ai_briefing(assets: str | list[str] | None = None) -> str:
             "",
             "=== REQUIRED OUTPUT FORMAT ===",
             "1. MARKET CYCLE ANALYSIS",
-            "2. BEST CURRENT OPPORTUNITIES",
-            "3. WHAT TO BUY / SELL / HOLD",
+            "2. STRONGEST CURRENT SETUPS",
+            "3. WHAT IS DRIVING EACH RATING",
             "4. RISK FACTORS",
             "",
             brief["disclaimer"],

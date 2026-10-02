@@ -1,13 +1,13 @@
 """Claude-powered narrative layer.
 
-The heuristic engine produces the numbers (scores, actions, risks). Claude turns
+The heuristic engine produces the numbers (scores, ratings, risks). Claude turns
 that structured ``brief`` into a readable market briefing, and (Day 5) answers
 follow-up questions grounded strictly in the same data.
 
 Cost control:
   * The 2-minute dashboard poll never calls this module — only an explicit
     "refresh briefing" / chat action does.
-  * ``narrative_cache`` (a ~5-min TTL keyed on the ranked actions/scores, not the
+  * ``narrative_cache`` (a ~5-min TTL keyed on the ranked ratings/scores, not the
     timestamp) means a near-identical brief reuses the last narrative for free.
   * The stable system prompt carries a ``cache_control`` marker so the API caches
     it when it's large enough; the TTL cache above is the primary cost guard.
@@ -42,8 +42,9 @@ MAX_CHAT_TURNS = 6  # cap history so a long chat can't inflate cost unboundedly
 SCORING_RUBRIC = (
     "HOW THE SCORE IS COMPUTED (this is documented methodology — you MAY explain "
     "it fully and it is never 'inventing'):\n"
-    "Every signal starts at a base of 50, is adjusted by fixed rules, then clamped "
-    "to 0–100.\n"
+    "Every coin starts at a base of 50, is adjusted by fixed rules, then clamped "
+    "to 0–100. The score uses market data only — it is identical for every user "
+    "and never depends on what the user holds.\n"
     "Positive factors: +10 price above its 7-day average; +10 price above its "
     "30-day average; +6 a strong 7-day return (>8%); +5 rising volume (>20% vs the "
     "prior week); +8 contrarian extreme Fear (Fear & Greed ≤25).\n"
@@ -54,52 +55,70 @@ SCORING_RUBRIC = (
     "steady 24h follow-through (a +2–10% day, not a spike).\n"
     "Negative factors: −10/−12 price below its 7-/30-day average; −7 a weak 7-day "
     "return (<−8%); −3 fading volume (<−20%); −8 extreme Greed (≥75); −8 a sharp "
-    "24h drop (<−10%); −4 an extended 30-day move (>40%); −5 trimming a very "
-    "profitable holding while sentiment is hot.\n"
-    "Actions: score ≥67 → BUY; ≤38 → SELL (if the user holds it) or AVOID; "
-    "otherwise HOLD (a BUY is downgraded to HOLD when a holding carries an exposure "
-    "note). Risk level: High if score ≤35 or the 24h drop exceeds 10%; Medium "
-    "below 65; otherwise Controlled.\n"
+    "24h drop (<−10%); −4 an extended 30-day move (>40%).\n"
+    "Market regime: when BTC trades below its 200-day average the market is "
+    "'Risk-off' and every score is capped at 66, so no coin can rate STRONG. The "
+    "2021–2026 backtest found strong setups only beat the market in risk-on "
+    "conditions. A capped score's `score_breakdown.cap` says so.\n"
+    "Ratings: score ≥67 → STRONG setup; ≤38 → WEAK setup; otherwise NEUTRAL. "
+    "Ratings describe the coin's current technical setup — they are not "
+    "instructions to buy or sell. Risk level: High if score ≤35 or the 24h drop "
+    "exceeds 10%; Medium below 65; otherwise Controlled.\n"
     "Reaching 100 is deliberately rare — it needs a near-perfect confluence of "
     "every positive factor at once, and because +8 comes from extreme Fear it in "
-    "practice also requires a fearful market; a typical BUY sits around 67–80, and "
-    "without a fearful tape an otherwise perfect asset caps near 95.\n"
-    "Each opportunity carries a `score_breakdown` (base 50 plus the exact "
-    "components that fired). Use it to explain precisely why a score is what it is "
-    "and what more it would need to climb. If asked where scoring is documented, "
-    'point the user to the in-app "How to use SignalDesk" guide, "How the score '
-    'works" step.'
+    "practice also requires a fearful market; a typical STRONG sits around 67–80.\n"
+    "Each coin carries a `score_breakdown` (base 50 plus the exact components that "
+    "fired, and any regime cap). Use it to explain precisely why a score is what "
+    "it is and what more it would need to climb. If asked where scoring is "
+    'documented, point the user to the in-app "How to use SignalDesk" guide, "How '
+    'the score works" step.'
+)
+
+# Ratings are impersonal analysis. Telling one user what to do with their own
+# money is personalised investment advice (MiCA, FCA, SEC), so both prompts
+# forbid it and redirect to what the data says instead.
+NO_ADVICE_RULE = (
+    "Never tell the user to buy, sell, hold, add to, trim or exit any coin, and "
+    "never tailor a recommendation to their holdings, budget or circumstances. "
+    "If asked 'should I buy/sell X?', explain what X's rating and score components "
+    "say about its setup and what would change them, then note that the decision "
+    "and position sizing are theirs. You may describe their positions factually "
+    "(value, P&L, the coin's rating) but never advise on them."
 )
 
 SYSTEM_PROMPT = (
-    "You are a crypto market decision-support analyst writing a concise briefing "
-    "for one user. You are given structured market data that was produced by a "
-    "rule-based scoring engine: ranked BUY/SELL/HOLD/AVOID signals, a Fear & Greed "
-    "reading, global market stats, and the user's own holdings when provided.\n\n"
+    "You are a crypto market analyst writing a concise, plain-language briefing. "
+    "You are given structured market data produced by a rule-based scoring "
+    "engine: coins ranked by score with STRONG/NEUTRAL/WEAK setup ratings, the "
+    "market regime, a Fear & Greed reading, global market stats, and the "
+    "user's watchlist positions when provided.\n\n"
     "Write the briefing from the data provided plus the scoring methodology below. "
     "Never invent prices, figures, coins, or news that are not present — but you "
     "MAY explain how the scoring engine works and how a specific score was built. "
-    "Be risk-aware, avoid guarantees, and prioritize capital preservation. Explain "
-    "the *why* behind the top signals in plain language a non-expert can follow.\n\n"
+    "Be risk-aware and avoid guarantees. Explain the *why* behind the strongest "
+    "and weakest setups in plain language a non-expert can follow.\n\n"
+    + NO_ADVICE_RULE + "\n\n"
     "Structure the response in markdown with these sections, each short:\n"
-    "1. **Market Pulse** — sentiment + overall tone in 1-2 sentences.\n"
-    "2. **Top Opportunities** — the strongest 2-3 signals and the reasoning.\n"
-    "3. **Your Positions** — only if holdings are present; otherwise omit.\n"
+    "1. **Market Pulse** — regime, sentiment and overall tone in 1-2 sentences.\n"
+    "2. **Strongest Setups** — the top 2-3 scores and what is driving them.\n"
+    "3. **Your Watchlist Positions** — only if holdings are present; factual "
+    "value/P&L and each coin's rating, no advice; otherwise omit.\n"
     "4. **Risks to Watch** — the key risks from the data.\n\n"
-    "End with one line: 'Not financial advice — decision support only.' "
+    "End with one line: 'Rule-based ratings, not financial advice.' "
     "Keep the whole briefing under ~350 words.\n\n" + SCORING_RUBRIC
 )
 
 CHAT_SYSTEM_PROMPT = (
-    "You are a crypto market decision-support assistant chatting with one user. "
-    "You are given a structured market snapshot produced by a rule-based scoring "
-    "engine (ranked signals, Fear & Greed, global stats, the user's holdings) and "
-    "must answer questions grounded STRICTLY in that data.\n\n"
+    "You are a crypto market analyst assistant chatting with one user. You are "
+    "given a structured market snapshot produced by a rule-based scoring engine "
+    "(coins ranked by score with setup ratings, the market regime, Fear & Greed, "
+    "global stats, the user's watchlist positions) and must answer questions "
+    "grounded STRICTLY in that data.\n\n"
     "Rules:\n"
     "- Answer from the provided market data, the conversation, and the scoring "
     "methodology described below. Never invent prices, coins, figures, or news "
     "that are not present — but you MAY explain how the scoring engine works, how "
-    "a specific score was composed (use its `score_breakdown`), and what a signal "
+    "a specific score was composed (use its `score_breakdown`), and what a coin "
     "would need to score higher or reach 100.\n"
     "- If a question falls outside all of that, say so plainly and suggest what "
     "the user could check instead. If asked where scoring is documented, point "
@@ -107,8 +126,7 @@ CHAT_SYSTEM_PROMPT = (
     "step.\n"
     "- Be concise (a short paragraph or a few bullets), risk-aware, and avoid "
     "guarantees or pressure to trade.\n"
-    "- You are decision support, not financial advice — remind the user of this "
-    "when they ask for direct buy/sell instructions.\n\n" + SCORING_RUBRIC
+    "- " + NO_ADVICE_RULE + "\n\n" + SCORING_RUBRIC
 )
 
 
@@ -172,18 +190,19 @@ def ai_enabled() -> bool:
 def _narrative_key(brief: dict[str, Any]) -> str:
     """Cache key that is stable across polls but changes when the picture changes.
 
-    Uses the ranked (symbol, action, rounded-score) tuples plus the sentiment
+    Uses the ranked (symbol, rating, rounded-score) tuples plus the sentiment
     bucket — deliberately NOT ``generated_at``, which changes every refresh.
     """
     ranked = [
-        (o.get("symbol"), o.get("action"), round(float(o.get("score") or 0)))
+        (o.get("symbol"), o.get("rating"), round(float(o.get("score") or 0)))
         for o in brief.get("opportunities", [])
     ]
     sentiment = round(float((brief.get("sentiment") or {}).get("score") or 50) / 5)
     holdings = sorted(
         (o.get("symbol") for o in brief.get("portfolio", []) if o.get("symbol"))
     )
-    raw = json.dumps([ranked, sentiment, holdings], sort_keys=True, default=str)
+    regime = (brief.get("regime") or {}).get("state")
+    raw = json.dumps([ranked, sentiment, holdings, regime], sort_keys=True, default=str)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
@@ -196,6 +215,14 @@ def _brief_digest(brief: dict[str, Any]) -> str:
         f"(quote {brief.get('quote_asset', 'USD')})",
         f"Fear & Greed: {sentiment.get('score', 'n/a')}/100 — {sentiment.get('status', 'Neutral')}",
     ]
+    regime = brief.get("regime") or {}
+    if regime.get("state") in ("risk_on", "risk_off"):
+        lines.append(
+            f"Market regime: {regime.get('label')} — BTC ${regime.get('btc_price') or 0:,.0f} is "
+            f"{regime.get('distance_pct') or 0:+.1f}% vs its 200-day average "
+            f"${regime.get('btc_ma200') or 0:,.0f}"
+            + (" (scores capped at 66, no STRONG ratings)" if regime["state"] == "risk_off" else "")
+        )
     if glob.get("total_market_cap_usd"):
         lines.append(
             f"Global market cap: ${glob['total_market_cap_usd']:,.0f} "
@@ -203,12 +230,12 @@ def _brief_digest(brief: dict[str, Any]) -> str:
             f"BTC dominance {glob.get('btc_dominance', 0):.1f}%"
         )
 
-    lines.append("\nRanked signals:")
+    lines.append("\nCoins ranked by score:")
     for o in brief.get("opportunities", [])[:8]:
         price = o.get("current_price") or 0
         lines.append(
             f"- {str(o.get('symbol', '')).upper()} ({o.get('name', '')}): "
-            f"{o.get('action')} | score {o.get('score')}/100 | risk {o.get('risk_level')} | "
+            f"{o.get('rating')} setup | score {o.get('score')}/100 | risk {o.get('risk_level')} | "
             f"${price:,.4f} | 24h {o.get('change_24h', 0):+.2f}% | 7d {o.get('change_7d', 0):+.2f}%"
         )
         reasons = o.get("reasons") or []
@@ -221,19 +248,24 @@ def _brief_digest(brief: dict[str, Any]) -> str:
         components = sb.get("components") or []
         if components:
             parts = ", ".join(f"{c.get('delta', 0):+g} {c.get('label', '')}" for c in components)
-            capped = " (capped at 100)" if sb.get("raw") != sb.get("final") else ""
+            if sb.get("cap"):
+                capped = f" (capped at {sb['cap']['value']}: {sb['cap']['reason']})"
+            elif sb.get("raw") != sb.get("final"):
+                capped = " (clamped to 0–100)"
+            else:
+                capped = ""
             lines.append(f"    score build-up: base 50, {parts} = {sb.get('final')}{capped}")
 
     portfolio = brief.get("portfolio", [])
     if portfolio:
-        lines.append("\nUser holdings:")
+        lines.append("\nUser's watchlist positions (context only — do not advise on them):")
         for o in portfolio:
             h = o.get("holding") or {}
             pnl = h.get("unrealized_pnl")
             pnl_s = f"{pnl:+.2f}%" if isinstance(pnl, (int, float)) else "n/a"
             lines.append(
                 f"- {str(o.get('symbol', '')).upper()}: value ${h.get('value') or 0:,.2f}, "
-                f"unrealized P&L {pnl_s}, signal {o.get('action')}"
+                f"unrealized P&L {pnl_s}, coin rating {o.get('rating')}"
             )
 
     return "\n".join(lines)

@@ -54,7 +54,7 @@ export default function Header({
           <h1 className="font-display text-xl font-semibold tracking-wide">
             SIGNAL<span className="text-teal">DESK</span>
           </h1>
-          <p className="tick-label">ai crypto advisor · decision support</p>
+          <p className="tick-label">transparent crypto scores · decision support</p>
         </div>
       </div>
 

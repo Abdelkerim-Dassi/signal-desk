@@ -71,7 +71,7 @@ export default function AiBriefing({
       ) : (
         !loading && (
           <p className="mt-3 text-xs leading-relaxed text-mute">
-            Generate an AI narrative of the current signals — what's moving, why, and the risks to
+            Generate an AI narrative of the current setups — what's moving, why, and the risks to
             watch. Costs one API call; near-identical snapshots are served from cache.
           </p>
         )

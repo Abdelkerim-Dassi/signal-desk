@@ -1,5 +1,13 @@
 import type { Brief, Opportunity } from '../lib/api'
-import { actionKey, actionStyles, changeColor, compactCurrency, percent } from '../lib/format'
+import {
+  changeColor,
+  compactCurrency,
+  percent,
+  ratingKey,
+  ratingStyles,
+  STRONG_MIN,
+  WEAK_MAX,
+} from '../lib/format'
 import ScoreBreakdown from './ScoreBreakdown'
 import ScoreMeter from './ScoreMeter'
 import Sparkline from './Sparkline'
@@ -20,12 +28,19 @@ function marketLine(item: Opportunity): string {
   return `${(item.symbol || '').toUpperCase()} · rank ${item.market_cap_rank ?? '--'}`
 }
 
-export function SignalPill({ action }: { action?: string }) {
-  const key = actionKey(action)
+const ratingGlyph = { strong: '▲', neutral: '■', weak: '▼' } as const
+
+/** The coin's setup rating — a description of its chart, never an instruction. */
+export function RatingPill({ rating }: { rating?: string }) {
+  const key = ratingKey(rating)
   return (
     <span
-      className={`rounded border px-2 py-0.5 font-display text-[11px] font-semibold tracking-widest uppercase ${actionStyles[key]}`}
+      className={`inline-flex items-center gap-1.5 rounded border px-2 py-0.5 font-display text-[11px] font-semibold tracking-widest uppercase ${ratingStyles[key]}`}
+      title={`${key} setup`}
     >
+      <span aria-hidden className="text-[8px]">
+        {ratingGlyph[key]}
+      </span>
       {key}
     </span>
   )
@@ -46,7 +61,7 @@ function NoteChip({ text, kind }: { text: string; kind: 'reason' | 'risk' }) {
   )
 }
 
-function SignalCard({ item, delay }: { item: Opportunity; delay: number }) {
+function SetupCard({ item, delay }: { item: Opportunity; delay: number }) {
   // the sparkline draws the 7-day window, so its color follows the 7d change
   const up = Number(item.change_7d ?? item.change_24h ?? 0) >= 0
   const notes = [
@@ -66,8 +81,13 @@ function SignalCard({ item, delay }: { item: Opportunity; delay: number }) {
         </div>
       </div>
 
-      <div className="flex items-center justify-end sm:justify-center">
-        <SignalPill action={item.action} />
+      <div className="flex flex-col items-end justify-center gap-1 sm:items-center">
+        <RatingPill rating={item.rating} />
+        {item.score_breakdown?.cap && (
+          <span className="tick-label !text-[9px] !text-weak" title={item.score_breakdown.cap.reason}>
+            capped · risk-off
+          </span>
+        )}
       </div>
 
       <div>
@@ -83,7 +103,7 @@ function SignalCard({ item, delay }: { item: Opportunity; delay: number }) {
           riskLevel={item.risk_level}
           breakdown={item.score_breakdown}
         />
-        <ScoreMeter score={item.score} action={item.action} className="mt-1.5" />
+        <ScoreMeter score={item.score} rating={item.rating} className="mt-1.5" />
         <p className={`num mt-1.5 text-xs ${changeColor(item.change_24h)}`}>
           {percent(item.change_24h)} today · {percent(item.change_7d)} 7d
         </p>
@@ -114,14 +134,14 @@ export default function OpportunityList({
     <section>
       <div className="mb-3 flex items-center gap-3">
         <h2 className="font-display text-sm font-semibold tracking-widest text-teal uppercase">
-          Ranked signals
+          Ranked setups
         </h2>
         <span className="h-px min-w-4 flex-1 bg-line" aria-hidden />
         {brief?.errors && brief.errors.length > 0 ? (
           <span className="shrink-0 text-xs text-hold">{brief.errors[0]}</span>
         ) : (
-          <span className="tick-label shrink-0" title="The engine's decision thresholds">
-            buy ≥67 · avoid ≤38
+          <span className="tick-label shrink-0" title="The engine's rating thresholds">
+            strong ≥{STRONG_MIN} · weak ≤{WEAK_MAX}
           </span>
         )}
       </div>
@@ -138,7 +158,7 @@ export default function OpportunityList({
           <div className="glass p-6 text-center text-sm text-mute">No market data returned yet.</div>
         )}
         {rows.map((item, i) => (
-          <SignalCard key={item.pair || item.symbol || i} item={item} delay={60 + i * 50} />
+          <SetupCard key={item.pair || item.symbol || i} item={item} delay={60 + i * 50} />
         ))}
       </div>
     </section>

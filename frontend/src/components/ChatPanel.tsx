@@ -63,7 +63,7 @@ export default function ChatPanel({
       >
         {messages.length === 0 && (
           <p className="text-xs leading-relaxed text-mute">
-            Ask about the current signals — e.g. <em>"why is BTC a 78?"</em> or{' '}
+            Ask about the current setups — e.g. <em>"why is BTC a 78?"</em> or{' '}
             <em>"what would move it to 100?"</em> Answers are grounded in the live data and the
             scoring rubric. Not financial advice.
           </p>
