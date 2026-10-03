@@ -32,11 +32,14 @@ import requests
 
 from advisor_engine import get_fear_greed, get_market_regime, score_binance_symbols
 
-from . import track_record, upstash
+from . import cards, track_record, upstash
+from .labels import te
 from .cache import TTLCache
 
 APP_URL = "https://signal-desk-psi.vercel.app"
 CHANNEL_URL = "https://t.me/getqirat"
+# The public channel the daily card and Friday report card are posted to.
+CHANNEL = os.getenv("TELEGRAM_CHANNEL", "@getqirat")
 DEFAULT_WATCH = ["BTC", "ETH", "SOL"]
 POPULAR = ["BTC", "ETH", "SOL", "BNB", "XRP", "DOGE", "ADA", "AVAX", "LINK", "TON", "SUI", "DOT"]
 MAX_WATCH = 12
@@ -210,35 +213,6 @@ T: dict[str, dict[str, str]] = {
     },
 }
 
-# Scoring-engine strings the bot shows. Mirrors the ENGINE map in
-# frontend/src/lib/i18n.ts (labels only; the bot links to the app for prose).
-ENGINE: dict[str, dict[str, str]] = {
-    "Above 7-day average": {"fr": "Au-dessus de la moyenne 7 j", "ar": "فوق متوسط 7 أيام"},
-    "Below 7-day average": {"fr": "Sous la moyenne 7 j", "ar": "تحت متوسط 7 أيام"},
-    "Above 30-day average": {"fr": "Au-dessus de la moyenne 30 j", "ar": "فوق متوسط 30 يوماً"},
-    "Below 30-day average": {"fr": "Sous la moyenne 30 j", "ar": "تحت متوسط 30 يوماً"},
-    "Strong 7-day return": {"fr": "Forte hausse sur 7 j", "ar": "عائد قوي خلال 7 أيام"},
-    "Weak 7-day return": {"fr": "Forte baisse sur 7 j", "ar": "تراجع حاد خلال 7 أيام"},
-    "Rising volume": {"fr": "Volume en hausse", "ar": "حجم تداول متزايد"},
-    "Fading volume": {"fr": "Volume en baisse", "ar": "حجم تداول متراجع"},
-    "Contrarian fear": {"fr": "Peur du marché (contrarien)", "ar": "خوف السوق (إشارة معاكسة)"},
-    "Market greed": {"fr": "Avidité du marché", "ar": "طمع السوق"},
-    "Sharp 24h drop": {"fr": "Chute brutale sur 24 h", "ar": "هبوط حاد خلال 24 ساعة"},
-    "Extended 30-day move": {"fr": "Hausse étirée sur 30 j", "ar": "صعود مبالغ فيه خلال 30 يوماً"},
-    "Sustained 30-day uptrend": {"fr": "Hausse durable sur 30 j", "ar": "اتجاه صاعد مستمر خلال 30 يوماً"},
-    "Uptrend structure": {"fr": "Structure haussière", "ar": "بنية اتجاه صاعد"},
-    "Volume conviction": {"fr": "Volume convaincant", "ar": "حجم تداول مؤكِّد"},
-    "Steady 24h follow-through": {"fr": "Hausse régulière sur 24 h", "ar": "صعود ثابت خلال 24 ساعة"},
-    "STRONG": {"en": "Strong", "fr": "Forte", "ar": "قوي"},
-    "NEUTRAL": {"en": "Neutral", "fr": "Neutre", "ar": "محايد"},
-    "WEAK": {"en": "Weak", "fr": "Faible", "ar": "ضعيف"},
-    "Extreme Fear": {"fr": "Peur extrême", "ar": "خوف شديد"},
-    "Fear": {"fr": "Peur", "ar": "خوف"},
-    "Neutral": {"fr": "Neutre", "ar": "محايد"},
-    "Greed": {"fr": "Avidité", "ar": "طمع"},
-    "Extreme Greed": {"fr": "Avidité extrême", "ar": "طمع شديد"},
-}
-
 GLYPH = {"STRONG": "▲", "NEUTRAL": "●", "WEAK": "▼"}
 DOT = {"STRONG": "🟢", "NEUTRAL": "⚪", "WEAK": "🔴"}
 
@@ -246,13 +220,6 @@ DOT = {"STRONG": "🟢", "NEUTRAL": "⚪", "WEAK": "🔴"}
 def t(lang: str, key: str, **kw: Any) -> str:
     text = T.get(lang, T["en"]).get(key) or T["en"][key]
     return text.format(**kw) if kw else text
-
-
-def te(lang: str, text: str | None) -> str:
-    if not text:
-        return ""
-    entry = ENGINE.get(text, {})
-    return entry.get(lang) or entry.get("en") or text
 
 
 def esc(text: Any) -> str:
@@ -485,6 +452,50 @@ def send(chat_id: int | str, text: str, buttons: list[list[dict[str, Any]]] | No
     return api("sendMessage", **params)
 
 
+def send_photo(
+    chat_id: int | str,
+    png: bytes,
+    caption: str,
+    buttons: list[list[dict[str, Any]]] | None = None,
+) -> dict[str, Any]:
+    data: dict[str, Any] = {"chat_id": str(chat_id), "caption": caption[:1024], "parse_mode": "HTML"}
+    if buttons:
+        data["reply_markup"] = json.dumps({"inline_keyboard": buttons})
+    try:
+        resp = requests.post(
+            f"https://api.telegram.org/bot{_token()}/sendPhoto",
+            data=data,
+            files={"photo": ("qirat.png", png, "image/png")},
+            timeout=20,
+        )
+        return resp.json()
+    except Exception as exc:
+        return {"ok": False, "description": str(exc)}
+
+
+def score_caption(lang: str, a: dict[str, Any], regime: dict[str, Any]) -> str:
+    """Caption under a coin card. The card itself is English/French, so Arabic
+    readers also get the breakdown here in Arabic."""
+    rating = a["rating"]
+    lines = [
+        f"<b>{esc(a.get('name') or a['symbol'])} ({esc(a['symbol'])})</b> · "
+        f"<b>{a['score']:.0f}/100</b> · {GLYPH[rating]} {esc(te(lang, rating))}",
+    ]
+    if lang == "ar":
+        sb = a.get("score_breakdown") or {}
+        lines += ["", f"<i>{t(lang, 'why')}</i>", f"{t(lang, 'base')}: {sb.get('base', 50)}"]
+        for c in sb.get("components") or []:
+            d = c.get("delta", 0)
+            lines.append(f"{'+' if d > 0 else ''}{d:g}  {esc(te(lang, c.get('label')))}")
+        if sb.get("cap"):
+            lines.append(f"≤{sb['cap']['value']}  {t(lang, 'cap')}")
+    rl = regime_line(lang, regime)
+    if rl:
+        lines += ["", rl]
+    lines += ["", f"<i>{t(lang, 'disclaimer')}</i>"]
+    return "\n".join(lines)
+
+
 def app_button(lang: str, view: str = "") -> dict[str, Any]:
     return {"text": t(lang, "open_app"), "url": APP_URL + (f"/#{view}" if view else "")}
 
@@ -549,7 +560,13 @@ def handle_score(chat_id: int, lang: str, data: dict[str, Any], tickers: list[st
         buttons = [[app_button(lang)]]
         if base not in data["watch"] and len(data["watch"]) < MAX_WATCH:
             buttons.insert(0, [{"text": t(lang, "add_btn", coin=base), "callback_data": f"add:{base}"}])
-        send(chat_id, score_card(lang, a, regime), buttons)
+        try:
+            png = cards.coin_card(a, regime, lang)
+        except Exception:
+            png = None
+        if png and send_photo(chat_id, png, score_caption(lang, a, regime), buttons).get("ok"):
+            continue
+        send(chat_id, score_card(lang, a, regime), buttons)  # text fallback
     if missing:
         send(chat_id, t(lang, "not_found", list=", ".join(missing)))
 
@@ -784,6 +801,90 @@ def check_alerts() -> dict[str, Any]:
             ])
             alerts += _deliver(cid, text, [[{"text": "🔍", "callback_data": f"score:{coin}"}, app_button(lang)]])
     return {"symbols": len(found), "alerts": alerts}
+
+
+def _claim(kind: str, day: str) -> bool:
+    """True once per (kind, day): a retried or doubled cron run can't double-post."""
+    key = f"tg:posted:{kind}:{day}"
+    if upstash.enabled():
+        res = upstash.pipeline([["SET", key, "1", "NX", "EX", str(3 * 86400)]])
+        return bool(res and res[0] == "OK")
+    with _memory_lock:
+        if key in _memory:
+            return False
+        _memory[key] = "1"
+        return True
+
+
+def post_channel_today() -> dict[str, Any]:
+    """Post today's logged ratings (the live track record's rows) to the channel."""
+    track_record.ensure_today()
+    live = track_record.summary()
+    today = live.get("today")
+    if not today or not today.get("rows"):
+        return {"posted": False, "reason": "no snapshot"}
+    if not _claim("today", today["day"]):
+        return {"posted": False, "reason": "already posted"}
+    regime = get_market_regime()
+    rows = sorted(today["rows"], key=lambda r: r["score"], reverse=True)
+    top = " · ".join(f"{r['symbol']} {r['score']:.0f}" for r in rows if r["rating"] == "STRONG")[:180]
+    weak = " · ".join(f"{r['symbol']} {r['score']:.0f}" for r in reversed(rows) if r["rating"] == "WEAK")[:180]
+    lang = "en"
+    lines = [f"<b>Today's karats</b> · {today['day']}"]
+    rl = regime_line(lang, regime)
+    if rl:
+        lines.append(rl)
+    lines.append("")
+    if top:
+        lines.append(f"▲ Strong: {top}")
+    if weak:
+        lines.append(f"▼ Weak: {weak}")
+    lines += [
+        "",
+        "Score any coin, with the math: @getqirat_bot",
+        f"<i>{t(lang, 'disclaimer')}</i>",
+    ]
+    png = cards.today_card(today["rows"], regime, today["day"], lang)
+    res = send_photo(CHANNEL, png, "\n".join(lines), [[app_button(lang)]])
+    return {"posted": bool(res.get("ok")), "error": res.get("description")}
+
+
+def post_channel_report(force: bool = False) -> dict[str, Any]:
+    """Post the report card (ratings from 7 days ago and how they did), Fridays."""
+    live = track_record.summary()
+    resolved = live.get("latest_resolved")
+    if not resolved:
+        return {"posted": False, "reason": "no results yet"}
+    if not force and datetime.now(timezone.utc).weekday() != 4:
+        return {"posted": False, "reason": "not Friday"}
+    if not _claim("report", resolved["day"]):
+        return {"posted": False, "reason": "already posted"}
+    stats = (live.get("horizons", {}).get(f"{resolved['horizon']}d") or {}).get("ratings", {})
+    strong, every = stats.get("STRONG") or {}, stats.get("ALL") or {}
+    lang = "en"
+    caption = "\n".join([
+        f"<b>Report card</b> · ratings from {resolved['day']}, {resolved['horizon']} days later",
+        f"Strong avg {fmt_pct(strong.get('mean'))} · all coins {fmt_pct(every.get('mean'))} · "
+        f"{strong.get('hit_rate', '--')}% of Strong went up",
+        "Worst result first. Nothing deleted, nothing edited.",
+        "",
+        f"<i>{t(lang, 'disclaimer')}</i>",
+    ])
+    png = cards.report_card(resolved, stats, lang)
+    res = send_photo(CHANNEL, png, caption, [[app_button(lang, "record")]])
+    return {"posted": bool(res.get("ok")), "error": res.get("description")}
+
+
+def run_daily() -> dict[str, Any]:
+    """The morning job: channel posts first, then each subscriber's digest."""
+    out: dict[str, Any] = {}
+    for name, job in (("channel_today", post_channel_today), ("channel_report", post_channel_report)):
+        try:
+            out[name] = job()
+        except Exception as exc:
+            out[name] = {"posted": False, "error": str(exc)}
+    out["digest"] = send_daily()
+    return out
 
 
 def stats() -> dict[str, Any]:

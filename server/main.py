@@ -36,7 +36,7 @@ from fastapi.staticfiles import StaticFiles
 from advisor_engine import build_market_brief, normalize_asset_ids, parse_holdings
 from notifications import format_market_alert, notification_status, send_notifications
 
-from . import ai, telegram_bot, track_record
+from . import ai, cards, telegram_bot, track_record
 from .cache import TTLCache, brief_cache
 from .ratelimit import check_ai_allowance
 from .schemas import AnalyzeRequest, BriefingRequest, ChatRequest, NotifyRequest
@@ -288,7 +288,7 @@ async def cron_telegram_daily(request: Request) -> JSONResponse:
         return JSONResponse(_UNAUTHORIZED, status_code=401)
     if not telegram_bot.enabled():
         return JSONResponse({"ok": False, "error": "bot not configured"}, status_code=503)
-    result = await asyncio.to_thread(telegram_bot.send_daily)
+    result = await asyncio.to_thread(telegram_bot.run_daily)
     return JSONResponse({"ok": True, **result})
 
 
@@ -301,6 +301,55 @@ async def cron_telegram_alerts(request: Request) -> JSONResponse:
         return JSONResponse({"ok": False, "error": "bot not configured"}, status_code=503)
     result = await asyncio.to_thread(telegram_bot.check_alerts)
     return JSONResponse({"ok": True, **result})
+
+
+# ── share cards (PNG) ────────────────────────────────────────────────────────
+# Ready-to-post images for the channel, X and Instagram; cached for 10 minutes.
+
+_CARD_HEADERS = {"Cache-Control": "public, max-age=600"}
+
+
+def _png(data: bytes) -> Response:
+    return Response(content=data, media_type="image/png", headers=_CARD_HEADERS)
+
+
+@app.get("/api/card/coin.png")
+async def card_coin(symbol: str = "BTC", lang: str = "en") -> Response:
+    base = symbol.strip().upper().removesuffix("USDT")
+    found, missing, regime = await asyncio.to_thread(telegram_bot.score, [base])
+    if base not in found:
+        return JSONResponse({"ok": False, "error": f"{base} not found"}, status_code=404)
+    return _png(await asyncio.to_thread(cards.coin_card, found[base], regime, lang))
+
+
+@app.get("/api/card/today.png")
+async def card_today(lang: str = "en") -> Response:
+    def build() -> bytes | None:
+        track_record.ensure_today()
+        today = track_record.summary().get("today")
+        if not today or not today.get("rows"):
+            return None
+        from advisor_engine import get_market_regime
+
+        return cards.today_card(today["rows"], get_market_regime(), today["day"], lang)
+
+    data = await asyncio.to_thread(build)
+    if data is None:
+        return JSONResponse({"ok": False, "error": "no snapshot yet"}, status_code=404)
+    return _png(data)
+
+
+@app.get("/api/card/report.png")
+async def card_report(lang: str = "en") -> Response:
+    live = await asyncio.to_thread(track_record.summary)
+    resolved = live.get("latest_resolved")
+    if not resolved:
+        return JSONResponse(
+            {"ok": False, "error": f"first results arrive on {live.get('first_results_on')}"},
+            status_code=404,
+        )
+    stats = (live.get("horizons", {}).get(f"{resolved['horizon']}d") or {}).get("ratings", {})
+    return _png(await asyncio.to_thread(cards.report_card, resolved, stats, lang))
 
 
 @app.post("/api/notify")
