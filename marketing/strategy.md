@@ -7,7 +7,7 @@ Numbers marked **(unverified)** come from secondary sources I could not confirm,
 
 ## 0. The strategy on one page
 
-- **Home base = Telegram.** A channel and the bot are where crypto users already live, and you own the audience there. Every other channel sends people to `t.me/qirat`.
+- **Home base = Telegram.** A channel and the bot are where crypto users already live, and you own the audience there. Every other channel sends people to `t.me/getqirat`.
 - **Main reach engine = short faceless videos**, made once and posted to YouTube Shorts, Instagram Reels, X and (later) TikTok.
 - **What sets you apart = receipts.** Each Friday, a public report card from the live log, losses included. No competitor does this, so post it every week without fail.
 - **Fixed weekly time: about 8 hours.** A 3-hour batch on Sunday, about 10 minutes a day for the daily data post, and about 2 hours for replies and community.
@@ -175,7 +175,7 @@ Market size signals: Sub-Saharan Africa received over $200B in crypto in the yea
 ### Rules for every video
 - Vertical 9:16, 1080p, **text on screen first** (most people watch muted). Voice-over is optional.
 - 3-second hook, as text on screen. Show the score card within 2 seconds.
-- End card: "Every coin has a karat. Check yours: t.me/qirat" + "Not financial advice".
+- End card: "Every coin has a karat. Check yours: t.me/getqirat" + "Not financial advice".
 - Make one English master, then translate the text layer to FR and AR. Arabic reads right to left, so mirror the layout template.
 - **YouTube "inauthentic content" policy (July 2025):** templated, repetitive, mass-produced Shorts can be demonetized and pushed down ([Gulf News](https://gulfnews.com/technology/youtube-updates-monetisation-policies-ai-and-repetitive-content-ban-begins-july-15-1.500192660)). Rotate formats, write your own commentary line in each video, and don't post 5 identical templates a day.
 
@@ -227,9 +227,9 @@ Recommendation: text-only for the first 4 weeks. Then test Azure voices on forma
 ## 5. Community building
 
 ### Structure
-- **Telegram channel `@qirat` (English):** one-way and calm. Daily Karat, Friday report card, regime alerts. Public, so people can find it in Telegram search.
+- **Telegram channel `@getqirat` (English):** one-way and calm. Daily Karat, Friday report card, regime alerts. Public, so people can find it in Telegram search.
 - **Linked discussion group "Qirat Lounge":** comments under every post, plus **forum topics**: `#argue-with-the-score`, `#feedback-and-bugs`, `#français`, `#العربية`, `#founding-assayers` (private). Commenting under channel posts works without joining the group ([InviteMember](https://blog.invitemember.com/how-to-enable-comments-on-your-telegram-channel/)), which removes friction.
-- **`@qirat_fr` channel from day 1.** The bot posts the same daily data in French at almost no extra effort. **`@qirat_ar`** opens in week 9 once the French channel has a working routine (the Arabic UI is already built).
+- **`@getqirat_fr` channel from day 1.** The bot posts the same daily data in French at almost no extra effort. **`@getqirat_ar`** opens in week 9 once the French channel has a working routine (the Arabic UI is already built).
 - **Discord: not now.** Your audiences in the Maghreb, Africa and the Gulf use Telegram, and a second inbox would cost you about 2 hours a week. Reconsider at 2,000+ members or when B2B clients ask for it.
 
 ### The 50 testers become "Founding Assayers"
@@ -260,7 +260,7 @@ An assayer is the person who tests the purity of gold, which fits the brand.
 4. Telegram is the link in bio on every account.
 
 ### Getting to 1,000
-1. Shorts → Telegram: every video ends with `t.me/qirat`. At 500 views per Short and a 0.5–1% follow-through to Telegram **(estimate)**, 60 Shorts give about 150–300 subscribers.
+1. Shorts → Telegram: every video ends with `t.me/getqirat`. At 500 views per Short and a 0.5–1% follow-through to Telegram **(estimate)**, 60 Shorts give about 150–300 subscribers.
 2. **Bot group mode is your growth loop.** Every `/score` card posted in someone else's group carries "qirat · every coin has a karat" and a link. Aim for 20 small groups (1k–20k members) by day 90.
 3. Swap posts with 10–15 small, non-signals channels in EN/FR/AR ("this week's report card", credited). Telegram's similar-channels suggestions also help discovery once channels link to each other ([TechCrunch](https://techcrunch.com/2023/12/01/telegram-spruces-up-its-channels-with-new-discovery-and-customization-features/embed/)).
 4. Launch week spike (Product Hunt, Show HN, Reddit maker subreddits): 150–300 **(estimate)**.
@@ -276,13 +276,13 @@ An assayer is the person who tests the purity of gold, which fits the brand.
 | Week 4 (Oct 26–Nov 1) | Telegram bot beta for the Founding Assayers |
 | Week 5 (Nov 2–8) | **Buy getqirat.com** (first purchase). Redirect the Vercel URL; Telegram links stay the same. |
 | Week 6 (Nov 9–15) | **Public launch week**: bot public, domain live, 4 weekly report cards published |
-| Week 9 (Nov 30–Dec 6) | Arabic push (UI already built) + `@qirat_ar` |
+| Week 9 (Nov 30–Dec 6) | Arabic push (UI already built) + `@getqirat_ar` |
 | Week 13 | 90-day report card; Pro waitlist (no payments yet) |
 
 If the bot is late, move launch week back. **Launch week waits for the bot and for 4 report cards.**
 
 ### Pre-launch (weeks 1–5)
-- Reserve `@qirat` / `@getqirat` on Telegram, X, Instagram, YouTube, TikTok, Threads and LinkedIn (company page, kept quiet).
+- Reserve `@getqirat` (Telegram done) on X, Instagram, YouTube, TikTok, Threads and LinkedIn (company page, kept quiet).
 - Waitlist: Kit Free (up to 10,000 subscribers, 1 automation) ([Kit](https://marcandrews.com/kit-free-plan-2026-is-10000-subscribers-really-free/)) with one offer: "Get the weekly report card by email." This turns the receipts into a lead magnet.
 - Build in public 2× a week on LinkedIn and X: decisions, numbers, mistakes.
 - Product Hunt: create a maker profile and an "upcoming" page in week 3. A waitlist of 300–500 engaged people matters more than votes ([LaunchList](https://app.getlaunchlist.com/blog/how-to-launch-on-product-hunt-2026)).
@@ -295,7 +295,7 @@ If the bot is late, move launch week back. **Launch week waits for the bot and f
 | Mon Nov 9 | Monthly report card (Oct 9–Nov 8). Email the waitlist: "Tomorrow we launch. Here's month 1, losses included." |
 | Tue Nov 10 | **Product Hunt** at 09:01 CET (00:01 PST). Write a maker comment that explains the uneditable log. Reply to every comment within an hour. Telegram + X + LinkedIn + Instagram all point to PH. |
 | Wed Nov 11 | **Show HN** at 14:00–16:00 CET (8–10am US Eastern): "Show HN: Qirat – transparent crypto scores with a track record I can't edit." Post in r/SideProject and r/indiehackers. |
-| Thu Nov 12 | French push: `@qirat_fr`, r/vosfinances only if there's an honest discussion angle, DMs to 10 French creators with the report card. |
+| Thu Nov 12 | French push: `@getqirat_fr`, r/vosfinances only if there's an honest discussion angle, DMs to 10 French creators with the report card. |
 | Fri Nov 13 | Launch-week report card video + "what launch week taught me" post. |
 
 Do not ask anyone to upvote on Product Hunt or HN; both platforms punish it.
@@ -329,9 +329,9 @@ FR creator outreach (week 7), Remotion automation (weeks 7–8), Arabic push (we
 | 4 | Oct 26–Nov 1 | **Bot beta** | Founding Assayers test `/score`; behind-the-scenes posts |
 | 5 | Nov 2–8 | **Four weeks of receipts** | Domain bought; waitlist push; "what the log shows so far" |
 | 6 | Nov 9–15 | **Launch week** | See section 6 |
-| 7 | Nov 16–22 | **En français** | `@qirat_fr` push; FR glossary; creator outreach |
+| 7 | Nov 16–22 | **En français** | `@getqirat_fr` push; FR glossary; creator outreach |
 | 8 | Nov 23–29 | **Risk-off, explained** | 200-day regime; "Black Friday deals" from signal groups = red flags (avoid US launches on Thanksgiving, Nov 26) |
-| 9 | Nov 30–Dec 6 | **بالعربية** | Arabic push + `@qirat_ar`; Gulf-focused X posts |
+| 9 | Nov 30–Dec 6 | **بالعربية** | Arabic push + `@getqirat_ar`; Gulf-focused X posts |
 | 10 | Dec 7–13 | **For community admins** | Group mode demos; pitch 20 admins |
 | 11 | Dec 14–20 | **Argue with the score month** | Assayer Guild opens; best community arguments |
 | 12 | Dec 21–27 | **2026 in karats** | Backtest + live log year review, losses first; lighter posting |
@@ -408,9 +408,9 @@ FR creator outreach (week 7), Remotion automation (weeks 7–8), Arabic push (we
 
 ## 11. The next 7 days (Sat Oct 3 – Fri Oct 9)
 
-1. **Sat Oct 3: reserve handles.** `@qirat` first, `@getqirat` as fallback, on Telegram, X, Instagram, YouTube, TikTok and Threads. Use the same name everywhere. Set the bio line from section 1 and point the link to `t.me/qirat`.
+1. **Sat Oct 3: reserve handles.** Telegram is done: `t.me/getqirat`. Use `@getqirat` on X, Instagram, YouTube, TikTok and Threads too, so the name is the same everywhere. Set the bio line from section 1 and point the link to `t.me/getqirat`.
 2. **Sat Oct 3: fix the tester copy.** Apply the changes table in section 1 to `copy.md` and `story-frames.html` (rename to Qirat, remove BUY/ACHAT and "is BTC a buy", Strong/Neutral/Weak labels). Re-render the 3 story frames.
-3. **Sun Oct 4: set up Telegram.** Create `@qirat` and `@qirat_fr` and the linked "Qirat Lounge" group with forum topics. Write the pinned welcome post with the disclaimer and the "how the score works" link.
+3. **Sun Oct 4: set up Telegram.** Create `@getqirat_fr` (the English `@getqirat` channel already exists) and the linked "Qirat Lounge" group with forum topics. Write the pinned welcome post with the disclaimer and the "how the score works" link.
 4. **Sun Oct 4: first 3-hour batch.** Make 3 evergreen videos (scam-spotting, "Show the math: BTC", momentum glossary) and the Canva templates for the Daily Karat card and the report card in EN and FR.
 5. **Mon Oct 5: invite the 50 testers** personally as Founding Assayers, and confirm their lifetime access and credits in writing. Send the corrected DM script to 30 more people.
 6. **Mon Oct 5: set up tracking.** PostHog events (`score_viewed`, `breakdown_opened`, `ai_question`), UTM links for each channel, and a Kit waitlist form ("weekly report card by email").

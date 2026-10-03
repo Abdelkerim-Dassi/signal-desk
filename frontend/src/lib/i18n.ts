@@ -199,6 +199,12 @@ const UI = {
     ar: 'تقييمات قائمة على قواعد ثابتة ومتطابقة للجميع. ليست نصيحة مالية.',
   },
   'foot.data': { en: 'Market data', fr: 'Données', ar: 'البيانات' },
+  'foot.telegram': { en: 'Join us on Telegram', fr: 'Rejoignez-nous sur Telegram', ar: 'انضم إلينا على تيليجرام' },
+  'foot.telegramHint': {
+    en: 'Daily karats, the Friday report card, and a place to argue with the score.',
+    fr: 'Les carats du jour, le bilan du vendredi, et un endroit pour contester le score.',
+    ar: 'قراريط يومية، وتقرير الجمعة، ومكان لمناقشة الدرجة.',
+  },
   'foot.feedback': { en: 'Give feedback', fr: 'Donner mon avis', ar: 'شارك رأيك' },
   'foot.feedbackHint': {
     en: 'Testing Qirat? 30 seconds, anonymous. It shapes what gets built next.',

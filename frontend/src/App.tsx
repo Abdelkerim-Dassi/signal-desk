@@ -4,6 +4,7 @@ import CoinList from './components/CoinList'
 import FeedbackModal, { FeedbackPrompt } from './components/FeedbackModal'
 import GuideModal from './components/GuideModal'
 import MarketMoves from './components/MarketMoves'
+import { IconTelegram } from './components/Icons'
 import { BottomNav, TopBar } from './components/Navigation'
 import PortfolioView from './components/PortfolioView'
 import TodayHero from './components/TodayHero'
@@ -15,6 +16,8 @@ import { useI18n } from './lib/i18n'
 import { loadConfig, saveConfig } from './lib/prefs'
 import { VIEWS } from './lib/views'
 import type { View } from './lib/views'
+
+const TELEGRAM_URL = 'https://t.me/getqirat'
 
 function viewFromHash(): View {
   const id = window.location.hash.replace('#', '')
@@ -98,6 +101,24 @@ export default function App() {
             onToast={setToast}
           />
         )}
+
+        <a
+          href={TELEGRAM_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="card flex items-center gap-4 p-4 transition hover:border-border-strong"
+        >
+          <span className="grid size-11 shrink-0 place-items-center rounded-full bg-[#229ED9] text-xl text-white">
+            <IconTelegram />
+          </span>
+          <span className="min-w-0">
+            <span className="block font-semibold">{t('foot.telegram')}</span>
+            <span className="block text-sm text-muted">{t('foot.telegramHint')}</span>
+          </span>
+          <span className="ms-auto shrink-0 text-sm font-medium text-gold" dir="ltr">
+            t.me/getqirat
+          </span>
+        </a>
 
         <footer className="space-y-2 pt-4 pb-2 text-center text-xs text-muted">
           <p>{t('foot.disclaimer')}</p>

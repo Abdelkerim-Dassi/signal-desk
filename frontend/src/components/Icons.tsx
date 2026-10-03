@@ -85,6 +85,12 @@ export const IconSend = (p: SVGProps<SVGSVGElement>) => (
     <path d="m12 13.5 8-9.5" />
   </Svg>
 )
+export const IconTelegram = (p: SVGProps<SVGSVGElement>) => (
+  <Svg {...p}>
+    <path d="M21.5 4.5 2.8 11.7c-.9.4-.9 1.6.1 1.9l4.6 1.4 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.5 4.8 3.5c.7.5 1.7.1 1.9-.7l3-15.3c.2-1-.8-1.8-1.9-1.4Z" />
+    <path d="m7.6 15 10-7.3-7.7 8.6" />
+  </Svg>
+)
 export const IconSparkle = (p: SVGProps<SVGSVGElement>) => (
   <Svg {...p}>
     <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3ZM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z" />
