@@ -13,7 +13,10 @@
       "config": { "includeFiles": ["server/**", "advisor_engine.py", "notifications.py"] }
     }
   ],
-  "crons": [{ "path": "/api/cron/snapshot", "schedule": "5 0 * * *" }],
+  "crons": [
+    { "path": "/api/cron/snapshot", "schedule": "5 0 * * *" },
+    { "path": "/api/cron/telegram-daily", "schedule": "0 6 * * *" }
+  ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/index.py" },
     { "src": "/assets/(.*)", "dest": "/frontend/assets/$1" },

@@ -1,0 +1,24 @@
+# Every 30 minutes, ask the app to re-score watched coins and send Telegram
+# alerts for ratings that changed. Vercel's free plan only runs daily crons, so
+# GitHub Actions is the free scheduler here. The endpoint authenticates with
+# the JOBS_SECRET repository secret (also set in Vercel).
+#
+# Note: GitHub pauses scheduled workflows in public repos after 60 days with
+# no commits; re-enable it from the Actions tab if that happens.
+name: Telegram rating alerts
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  alerts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check ratings and send alerts
+        run: |
+          curl --fail --silent --show-error --max-time 240 \
+            -H "Authorization: Bearer ${{ secrets.JOBS_SECRET }}" \
+            https://signal-desk-psi.vercel.app/api/cron/telegram-alerts

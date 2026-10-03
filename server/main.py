@@ -36,7 +36,7 @@ from fastapi.staticfiles import StaticFiles
 from advisor_engine import build_market_brief, normalize_asset_ids, parse_holdings
 from notifications import format_market_alert, notification_status, send_notifications
 
-from . import ai, track_record
+from . import ai, telegram_bot, track_record
 from .cache import TTLCache, brief_cache
 from .ratelimit import check_ai_allowance
 from .schemas import AnalyzeRequest, BriefingRequest, ChatRequest, NotifyRequest
@@ -238,12 +238,24 @@ async def get_track_record() -> JSONResponse:
     return JSONResponse(payload)
 
 
+def _job_authorized(request: Request) -> bool:
+    """Scheduled jobs authenticate with a bearer secret: CRON_SECRET is what
+    Vercel Cron sends, JOBS_SECRET is what the GitHub Actions schedule sends.
+    With neither configured (local dev) jobs are open."""
+    secrets = [s for s in (os.getenv("CRON_SECRET"), os.getenv("JOBS_SECRET")) if s]
+    if not secrets:
+        return True
+    return request.headers.get("authorization") in {f"Bearer {s}" for s in secrets}
+
+
+_UNAUTHORIZED = {"ok": False, "error": "unauthorized"}
+
+
 @app.get("/api/cron/snapshot")
 async def cron_snapshot(request: Request) -> JSONResponse:
-    """Daily snapshot trigger (Vercel Cron). Vercel sends CRON_SECRET as a bearer token."""
-    secret = os.getenv("CRON_SECRET")
-    if secret and request.headers.get("authorization") != f"Bearer {secret}":
-        return JSONResponse({"ok": False, "error": "unauthorized"}, status_code=401)
+    """Daily track-record snapshot (Vercel Cron)."""
+    if not _job_authorized(request):
+        return JSONResponse(_UNAUTHORIZED, status_code=401)
     try:
         snapshot = await asyncio.to_thread(track_record.ensure_today)
     except Exception as exc:
@@ -251,6 +263,44 @@ async def cron_snapshot(request: Request) -> JSONResponse:
         return JSONResponse({"ok": False, "error": str(exc)}, status_code=502)
     track_cache.set("track", None, ttl=0)
     return JSONResponse({"ok": True, "snapshot": snapshot})
+
+
+@app.post("/api/telegram/webhook")
+async def telegram_webhook(request: Request) -> JSONResponse:
+    """Telegram pushes every bot update here (registered with setWebhook)."""
+    if not telegram_bot.enabled():
+        return JSONResponse({"ok": False}, status_code=404)
+    if request.headers.get("x-telegram-bot-api-secret-token") != telegram_bot.webhook_secret():
+        return JSONResponse(_UNAUTHORIZED, status_code=401)
+    update = await request.json()
+    try:
+        await asyncio.to_thread(telegram_bot.handle_update, update)
+    except Exception:
+        # Always answer 200: a failing update must not make Telegram retry it forever.
+        log.exception("telegram update failed")
+    return JSONResponse({"ok": True})
+
+
+@app.get("/api/cron/telegram-daily")
+async def cron_telegram_daily(request: Request) -> JSONResponse:
+    """Morning digest to every chat with the daily switch on (Vercel Cron)."""
+    if not _job_authorized(request):
+        return JSONResponse(_UNAUTHORIZED, status_code=401)
+    if not telegram_bot.enabled():
+        return JSONResponse({"ok": False, "error": "bot not configured"}, status_code=503)
+    result = await asyncio.to_thread(telegram_bot.send_daily)
+    return JSONResponse({"ok": True, **result})
+
+
+@app.get("/api/cron/telegram-alerts")
+async def cron_telegram_alerts(request: Request) -> JSONResponse:
+    """Rating-change alerts (GitHub Actions, every 30 minutes)."""
+    if not _job_authorized(request):
+        return JSONResponse(_UNAUTHORIZED, status_code=401)
+    if not telegram_bot.enabled():
+        return JSONResponse({"ok": False, "error": "bot not configured"}, status_code=503)
+    result = await asyncio.to_thread(telegram_bot.check_alerts)
+    return JSONResponse({"ok": True, **result})
 
 
 @app.post("/api/notify")
