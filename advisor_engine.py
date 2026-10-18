@@ -717,7 +717,11 @@ def score_binance_symbols(
             try:
                 analyses.append(future.result())
             except Exception as exc:
-                errors.append({"symbol": symbol, "error": str(exc)})
+                row = {"symbol": symbol, "error": str(exc)}
+                # Binance answers 400 "Invalid symbol" for pairs it doesn't list
+                if "HTTP 400" in row["error"]:
+                    row["code"] = "unknown_symbol"
+                errors.append(row)
     return analyses, errors
 
 
@@ -734,7 +738,9 @@ def build_binance_market_brief(
     regime = get_market_regime()
     analyses, errors = score_binance_symbols(symbols, sentiment, regime, quote_asset, holding_map)
 
-    if not analyses and errors:
+    # A list made only of coins Binance doesn't list is a user typo, not an outage:
+    # return an empty brief with the errors so the app can say which coin to fix.
+    if not analyses and errors and any(row.get("code") != "unknown_symbol" for row in errors):
         raise DataFetchError("; ".join(f"{row['symbol']}: {row['error']}" for row in errors))
 
     opportunities = sorted(analyses, key=lambda row: row["score"], reverse=True)

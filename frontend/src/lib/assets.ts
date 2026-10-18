@@ -1,6 +1,6 @@
 // Watchlist asset helpers shared by the coin list and the portfolio.
 
-export const POPULAR = ['BTC', 'ETH', 'SOL', 'BNB', 'XRP', 'DOGE', 'ADA', 'AVAX', 'LINK', 'TON', 'SUI', 'DOT']
+export const POPULAR = ['BTC', 'ETH', 'SOL', 'BNB', 'XRP', 'DOGE', 'ADA', 'AVAX', 'LINK', 'TRX', 'SUI', 'DOT']
 const QUOTES = ['USDT', 'USDC', 'FDUSD', 'BTC', 'ETH', 'BNB', 'EUR', 'TRY']
 
 export function parseAssets(raw: string): string[] {

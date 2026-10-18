@@ -60,7 +60,24 @@ const UI = {
   'coins.remove': { en: 'Remove {coin}', fr: 'Retirer {coin}', ar: 'إزالة {coin}' },
   'coins.loading': { en: 'Grading your coins…', fr: 'Évaluation de vos cryptos…', ar: 'جارٍ تقييم عملاتك…' },
   'coins.empty': { en: 'Add a coin to see its score.', fr: 'Ajoutez une crypto pour voir son score.', ar: 'أضف عملة لترى درجتها.' },
-  'coins.notFound': { en: "Couldn't load: {list}", fr: 'Introuvable : {list}', ar: 'تعذّر التحميل: {list}' },
+  'coins.notFound': {
+    en: 'Not found on Binance: {list}. Remove it from your list.',
+    fr: 'Introuvable sur Binance : {list}. Retirez-la de votre liste.',
+    ar: 'غير موجودة على Binance: {list}. احذفها من قائمتك.',
+  },
+  'coins.unknown': {
+    en: 'We couldn’t find “{coin}” on Binance. Check the ticker, e.g. SOL.',
+    fr: 'Impossible de trouver « {coin} » sur Binance. Vérifiez le symbole, ex. SOL.',
+    ar: 'لم نجد «{coin}» على Binance. تحقّق من الرمز، مثلاً SOL.',
+  },
+  'coins.checking': { en: 'Checking…', fr: 'Vérification…', ar: 'جارٍ التحقق…' },
+  'coins.search': { en: 'Search a coin: BTC, Solana…', fr: 'Chercher une crypto : BTC, Solana…', ar: 'ابحث عن عملة: BTC، Solana…' },
+  'coins.noMatch': {
+    en: 'No coin matching “{q}” on Binance.',
+    fr: 'Aucune crypto « {q} » sur Binance.',
+    ar: 'لا توجد عملة تطابق «{q}» على Binance.',
+  },
+  'coins.added': { en: 'Added', fr: 'Ajoutée', ar: 'مضافة' },
 
   'coin.today': { en: 'today', fr: "aujourd'hui", ar: 'اليوم' },
   'coin.7d': { en: '7 days', fr: '7 jours', ar: '7 أيام' },

@@ -186,6 +186,28 @@ export async function getTrackRecord(): Promise<TrackRecord> {
   return asJson<TrackRecord>(res)
 }
 
+export type CoinOption = { base: string; pair: string; name: string; rank: number }
+
+/** Every coin Binance Spot trades against `quote`, most popular first. */
+export async function getCoins(quote = 'USDT'): Promise<CoinOption[]> {
+  const res = await fetch(`/api/coins?quote=${encodeURIComponent(quote)}`)
+  const data = (await res.json()) as { ok: boolean; coins?: CoinOption[]; error?: string }
+  if (!res.ok || !data.ok || !data.coins) throw new Error(data.error || 'Could not load the coin list')
+  return data.coins
+}
+
+/** Does Binance list this pair? `null` when we couldn't tell (then don't block the user). */
+export async function symbolExists(symbol: string): Promise<boolean | null> {
+  try {
+    const res = await fetch(`/api/symbol?symbol=${encodeURIComponent(symbol)}`)
+    if (!res.ok) return null
+    const data = (await res.json()) as { exists?: boolean | null }
+    return data.exists ?? null
+  } catch {
+    return null
+  }
+}
+
 export async function getStatus(): Promise<AppStatus> {
   const res = await fetch('/api/status')
   return asJson<AppStatus>(res)

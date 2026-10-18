@@ -151,6 +151,99 @@ async def brief(
         return JSONResponse({"ok": False, "error": str(exc)}, status_code=502)
 
 
+symbol_cache = TTLCache(default_ttl=6 * 3600.0)
+
+
+def _binance_lists(symbol: str) -> bool | None:
+    """True/False if Binance does/doesn't list the pair; None if we couldn't tell."""
+    import requests
+
+    from advisor_engine import BINANCE_API
+
+    try:
+        r = requests.get(f"{BINANCE_API}/api/v3/ticker/price", params={"symbol": symbol}, timeout=6)
+    except requests.RequestException:
+        return None
+    if r.status_code == 200:
+        return True
+    if r.status_code == 400:  # {"code":-1121,"msg":"Invalid symbol."}
+        return False
+    return None
+
+
+coins_cache = TTLCache(default_ttl=12 * 3600.0)
+# dollar/euro-pegged coins: a 0-100 setup score means nothing for them
+_STABLE = {"USDC", "FDUSD", "TUSD", "USDP", "DAI", "BUSD", "EUR", "AEUR", "USD1", "PYUSD", "EURI", "XUSD", "USDE", "BFUSD", "RLUSD"}
+
+
+def _load_coins(quote: str) -> list[dict]:
+    """Every coin Binance Spot trades against `quote`, with names and a
+    market-cap rank from CoinGecko where it has one (popular coins first)."""
+    import requests
+
+    from advisor_engine import BINANCE_API, COINGECKO_API
+
+    info = requests.get(
+        f"{BINANCE_API}/api/v3/exchangeInfo",
+        params={"permissions": "SPOT", "symbolStatus": "TRADING"},
+        timeout=20,
+    )
+    info.raise_for_status()
+    names: dict[str, tuple[str, int]] = {}
+    try:
+        g = requests.get(
+            f"{COINGECKO_API}/coins/markets",
+            params={"vs_currency": "usd", "order": "market_cap_desc", "per_page": 250, "page": 1},
+            timeout=15,
+        )
+        if g.ok:
+            for rank, c in enumerate(g.json(), start=1):
+                names.setdefault(str(c.get("symbol", "")).upper(), (str(c.get("name", "")), rank))
+    except requests.RequestException:
+        pass  # names are a nice-to-have; the Binance list is what matters
+    coins = []
+    for s in info.json().get("symbols", []):
+        base = s.get("baseAsset", "")
+        if s.get("quoteAsset") != quote or s.get("status") != "TRADING" or base in _STABLE:
+            continue
+        name, rank = names.get(base, ("", 9999))
+        coins.append({"base": base, "pair": s.get("symbol"), "name": name, "rank": rank})
+    coins.sort(key=lambda c: (c["rank"], c["base"]))
+    return coins
+
+
+@app.get("/api/coins")
+async def coins(quote: str = "USDT") -> JSONResponse:
+    """The coins a watchlist may contain, so the app picks from real pairs."""
+    q = quote.upper()
+    cached = coins_cache.get(q)
+    if cached is None:
+        try:
+            cached = await asyncio.to_thread(_load_coins, q)
+        except Exception as exc:
+            return JSONResponse({"ok": False, "error": str(exc)}, status_code=502)
+        coins_cache.set(q, cached)
+    return JSONResponse(
+        {"ok": True, "quote": q, "coins": cached},
+        headers={"Cache-Control": "public, max-age=3600, s-maxage=43200"},
+    )
+
+
+@app.get("/api/symbol")
+async def symbol_exists(symbol: str) -> JSONResponse:
+    """Check a Binance pair before it's added to a watchlist (the browser can't:
+    Binance's 400 responses carry no CORS header)."""
+    sym = "".join(ch for ch in symbol.upper() if ch.isalnum())[:20]
+    if not sym:
+        return JSONResponse({"ok": True, "symbol": sym, "exists": False})
+    cached = symbol_cache.get(sym)
+    if cached is None:
+        cached = await asyncio.to_thread(_binance_lists, sym)
+        if cached is not None:
+            symbol_cache.set(sym, cached)
+    return JSONResponse({"ok": True, "symbol": sym, "exists": cached})
+
+
 @app.post("/api/ai/briefing")
 async def ai_briefing(req: BriefingRequest, request: Request) -> JSONResponse:
     if not _ai_enabled():

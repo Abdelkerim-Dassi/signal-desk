@@ -312,7 +312,8 @@ export function FeedbackPrompt({
   if (!show) return null
 
   return (
-    <div className="rise fixed right-4 bottom-4 z-40 flex max-w-[calc(100vw-2rem)] items-stretch gap-px overflow-hidden rounded-xl shadow-[0_16px_50px_-12px_rgba(94,234,212,0.55)]">
+    // on phones, sit above the bottom navigation bar instead of covering it
+    <div className="rise fixed right-4 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-40 flex max-w-[calc(100vw-2rem)] items-stretch gap-px overflow-hidden rounded-xl shadow-[0_16px_50px_-12px_rgba(94,234,212,0.55)] md:bottom-4">
       <button
         onClick={() => {
           setShow(false)
@@ -320,7 +321,7 @@ export function FeedbackPrompt({
         }}
         // same glow + sheen as the header's "How to use" CTA — this is the one
         // thing we actively want a visitor to notice
-        className="guide-cta flex cursor-pointer items-center gap-2.5 bg-teal px-5 py-3.5 font-display text-base font-bold tracking-widest text-ink uppercase transition sm:text-lg"
+        className="guide-cta flex cursor-pointer items-center gap-2 bg-teal px-4 py-2.5 font-display text-sm font-bold tracking-widest text-ink uppercase transition sm:gap-2.5 sm:px-5 sm:py-3.5 sm:text-lg"
       >
         <span aria-hidden className="text-lg leading-none">✎</span>
         Give feedback
