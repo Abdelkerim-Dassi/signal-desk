@@ -8,6 +8,7 @@ import { baseOf, parseAssets, POPULAR, toAsset } from '../lib/assets'
 import { useI18n } from '../lib/i18n'
 import { IconChevron, IconPlus, IconX } from './Icons'
 import { CoinIcon, RatingPill, ScoreRing } from './Rating'
+import CandleChart from './CandleChart'
 import Sparkline from './Sparkline'
 
 function ScoreDetails({ item }: { item: Opportunity }) {
@@ -16,10 +17,18 @@ function ScoreDetails({ item }: { item: Opportunity }) {
   const up = Number(item.change_7d ?? 0) >= 0
   return (
     <div className="mt-4 space-y-4 border-t border-border pt-4">
-      <div>
-        <p className="mb-1 text-xs text-muted">{t('coin.7d')}</p>
-        <Sparkline points={item.sparkline} up={up} />
-      </div>
+      {(item.candles?.length ?? 0) >= 2 ? (
+        <div>
+          <p className="mb-1 text-xs text-muted">{t('chart.title')}</p>
+          <CandleChart candles={item.candles} />
+        </div>
+      ) : (
+        // CoinGecko source has no daily candles: keep the 7-day line
+        <div>
+          <p className="mb-1 text-xs text-muted">{t('coin.7d')}</p>
+          <Sparkline points={item.sparkline} up={up} />
+        </div>
+      )}
 
       {sb && sb.components?.length > 0 && (
         <div>

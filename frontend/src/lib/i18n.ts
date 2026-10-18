@@ -81,6 +81,16 @@ const UI = {
 
   'coin.today': { en: 'today', fr: "aujourd'hui", ar: 'اليوم' },
   'coin.7d': { en: '7 days', fr: '7 jours', ar: '7 أيام' },
+  'chart.title': { en: '30 days · one candle per day', fr: '30 jours · une bougie par jour', ar: '30 يوماً · شمعة لكل يوم' },
+  'chart.legend': {
+    en: 'Green: the day closed higher than it opened. Red: it closed lower. Thin line: the day’s high and low. Tap a candle to see that day.',
+    fr: 'Vert : la journée a clôturé plus haut qu’à l’ouverture. Rouge : plus bas. Trait fin : le plus haut et le plus bas du jour. Touchez une bougie pour voir ce jour.',
+    ar: 'الأخضر: أغلق اليوم أعلى من سعر الافتتاح. الأحمر: أغلق أدنى. الخط الرفيع: أعلى وأدنى سعر في اليوم. المس شمعة لترى ذلك اليوم.',
+  },
+  'chart.open': { en: 'Open', fr: 'Ouv.', ar: 'افتتاح' },
+  'chart.high': { en: 'High', fr: 'Haut', ar: 'أعلى' },
+  'chart.low': { en: 'Low', fr: 'Bas', ar: 'أدنى' },
+  'chart.close': { en: 'Close', fr: 'Clôt.', ar: 'إغلاق' },
   'coin.why': { en: 'Why this score', fr: 'Pourquoi ce score', ar: 'لماذا هذه الدرجة' },
   'coin.base': { en: 'Starting point', fr: 'Point de départ', ar: 'نقطة البداية' },
   'coin.score': { en: 'Score', fr: 'Score', ar: 'الدرجة' },

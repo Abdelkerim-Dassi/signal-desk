@@ -61,6 +61,8 @@ export interface Opportunity {
   change_7d?: number
   change_30d?: number
   sparkline?: number[]
+  /** Binance only: [open_time_ms, open, high, low, close] per day, last 30 days */
+  candles?: number[][]
   reasons?: string[]
   risks?: string[]
   holding?: HoldingInfo

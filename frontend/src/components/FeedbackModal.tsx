@@ -8,6 +8,7 @@ import {
   submitFeedback,
   type FeedbackAnswers,
 } from '../lib/feedback'
+import { useI18n } from '../lib/i18n'
 
 /* ⚠️ `value` is posted verbatim to a multiple-choice question in the live Google
    Form, which accepts an exact option string and rejects everything else — and
@@ -301,6 +302,7 @@ export function FeedbackPrompt({
   onOpen: () => void
   delayMs?: number
 }) {
+  const { t } = useI18n()
   const [show, setShow] = useState(false)
 
   useEffect(() => {
@@ -324,7 +326,7 @@ export function FeedbackPrompt({
         className="guide-cta flex cursor-pointer items-center gap-2 bg-teal px-4 py-2.5 font-display text-sm font-bold tracking-widest text-ink uppercase transition sm:gap-2.5 sm:px-5 sm:py-3.5 sm:text-lg"
       >
         <span aria-hidden className="text-lg leading-none">✎</span>
-        Give feedback
+        {t('foot.feedback')}
       </button>
       <button
         onClick={() => {

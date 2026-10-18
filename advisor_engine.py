@@ -221,6 +221,16 @@ def binance_klines_to_chart(klines: list[list[Any]]) -> dict[str, Any]:
     return {"prices": prices, "volumes": volumes}
 
 
+def binance_klines_to_candles(klines: list[list[Any]], days: int = 30) -> list[list[float]]:
+    """Daily candles for the coin chart: [open_time_ms, open, high, low, close]."""
+    candles = []
+    for row in klines[-days:]:
+        if len(row) < 5:
+            continue
+        candles.append([int(_safe_float(row[0]))] + [_safe_float(row[i]) for i in (1, 2, 3, 4)])
+    return candles
+
+
 def binance_ticker_to_market(
     ticker: dict[str, Any],
     klines: list[list[Any]],
@@ -246,6 +256,7 @@ def binance_ticker_to_market(
         "market_cap": None,
         "total_volume": _safe_float(ticker.get("quoteVolume")),
         "sparkline_in_7d": {"price": closes[-7:]},
+        "candles": binance_klines_to_candles(klines, days=30),
         "price_change_percentage_24h": _safe_float(ticker.get("priceChangePercent")),
         "price_change_percentage_7d_in_currency": percent_change(current_price, previous_7d) or 0.0,
         "price_change_percentage_30d_in_currency": percent_change(current_price, previous_30d) or 0.0,
@@ -655,6 +666,7 @@ def analyze_asset(
         "market_cap": market.get("market_cap"),
         "total_volume": market.get("total_volume"),
         "sparkline": (market.get("sparkline_in_7d") or {}).get("price", []),
+        "candles": market.get("candles") or [],
         "change_24h": change_24h,
         "change_7d": change_7d,
         "change_30d": change_30d,
