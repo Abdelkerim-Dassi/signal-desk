@@ -1,0 +1,245 @@
+<title>Qirat Tester Launch</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap">
+<style>
+  /* Layout: one narrow reading column; phases stacked top to bottom, each a checklist. */
+  :root {
+    --bg: #f6f4ef; --card: #ffffff; --subtle: #f1eee7;
+    --line: rgba(21,23,28,.09); --text: #15171c; --muted: #6b6f78;
+    --gold: #9a6b14; --gold-soft: #f6ecd6; --done: #0e9f6e; --warn: #b4232a;
+    --font: 'Readex Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #121317; --card: #1a1c21; --subtle: #22252b; --line: rgba(255,255,255,.09);
+    --text: #ecebe7; --muted: #9a9ea8; --gold: #d9a845; --gold-soft: #2c2415; --done: #34c48f; --warn: #f0777c; color-scheme: dark } }
+  :root[data-theme="dark"] {
+    --bg: #121317; --card: #1a1c21; --subtle: #22252b; --line: rgba(255,255,255,.09);
+    --text: #ecebe7; --muted: #9a9ea8; --gold: #d9a845; --gold-soft: #2c2415; --done: #34c48f; --warn: #f0777c; color-scheme: dark }
+
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 15px; line-height: 1.55; margin: 0; padding: 32px 16px 64px; }
+  main { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+  header { display: flex; flex-direction: column; gap: 6px; }
+  .eyebrow { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  h1 { font-size: 30px; line-height: 1.15; margin: 0; font-weight: 700; text-wrap: balance; }
+  .lede { color: var(--muted); margin: 0; max-width: 60ch; }
+  .progress { display: flex; align-items: center; gap: 12px; margin-top: 10px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .bar { flex: 1; height: 6px; background: var(--subtle); border-radius: 99px; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--gold); transition: width .3s; }
+
+  section { display: flex; flex-direction: column; gap: 10px; }
+  .phase { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  h2 { font-size: 19px; margin: 0; font-weight: 600; }
+  .when { font-size: 12px; color: var(--gold); background: var(--gold-soft); padding: 2px 9px; border-radius: 99px; font-weight: 500; }
+  ul.tasks { list-style: none; margin: 0; padding: 0; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+  ul.tasks li + li { border-top: 1px solid var(--line); }
+  label.task { display: grid; grid-template-columns: 22px 1fr; gap: 12px; padding: 14px 16px; cursor: pointer; }
+  label.task input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--done); }
+  .task-body { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .task-title { font-weight: 500; }
+  .task-note { color: var(--muted); font-size: 13.5px; }
+  .task-note b { color: var(--text); font-weight: 500; }
+  .warn { color: var(--warn); font-weight: 500; }
+  label.task:has(input:checked) .task-title { text-decoration: line-through; color: var(--muted); }
+  a { color: var(--gold); word-break: break-all; }
+  code { font-size: 13px; background: var(--subtle); padding: 1px 5px; border-radius: 5px; }
+
+  .box { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .box ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+  .msg { white-space: pre-wrap; background: var(--subtle); border-radius: 10px; padding: 14px; font-size: 14px; margin: 0; font-family: var(--font); }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  button { font: inherit; font-size: 13px; font-weight: 500; padding: 7px 14px; border-radius: 99px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
+  button:hover { border-color: var(--gold); }
+  button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .tabs button[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: var(--card); }
+  .links { display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; font-size: 14px; }
+  .links span { color: var(--muted); }
+  footer { color: var(--muted); font-size: 12.5px; }
+  @media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+
+<main>
+  <header>
+    <span class="eyebrow">Qirat · closed test · 50 seats</span>
+    <h1>Get 50 testers before launch week</h1>
+    <p class="lede">Launch week is Nov 9–13. Testers need about two weeks with the app before then, so the invites go out this week. Tick things off as you go; ticks are saved in this browser.</p>
+    <div class="progress"><div class="bar"><i id="bar"></i></div><span id="count">0 / 0 done</span></div>
+  </header>
+
+  <section>
+    <div class="phase"><h2>Prepare</h2><span class="when">Today · about 1 hour</span></div>
+    <ul class="tasks">
+      <li><label class="task"><input type="checkbox" id="t-form"><span class="task-body">
+        <span class="task-title">Add a "name or @handle for the credits" question to the Google Form</span>
+        <span class="task-note">The form is anonymous, so right now you can't tell who earned Founding Assayer credit. Make it a <b>short answer</b> question and <span class="warn">leave it optional</span>. A required question makes every in-app submission fail with no error shown.</span>
+      </span></label></li>
+      <li><label class="task"><input type="checkbox" id="t-domain"><span class="task-body">
+        <span class="task-title">Point qirat.tn at the app</span>
+        <span class="task-note">Bought on OVH. Add it to the Vercel project, then set the OVH DNS records Vercel shows. The old vercel.app address keeps working meanwhile.</span>
+      </span></label></li>
+      <li><label class="task"><input type="checkbox" id="t-self"><span class="task-body">
+        <span class="task-title">Do the 5 tester tasks yourself on your phone</span>
+        <span class="task-note">15 minutes. Fix anything broken before 30 people find it at once. Send one real feedback entry and check it shows up in the form's responses.</span>
+      </span></label></li>
+      <li><label class="task"><input type="checkbox" id="t-comply"><span class="task-body">
+        <span class="task-title">Run the compliance checklist on the copy</span>
+        <span class="task-note">Section 10 of <code>marketing/strategy.md</code>. No buy, sell, signal, profit or "guaranteed" anywhere.</span>
+      </span></label></li>
+      <li><label class="task"><input type="checkbox" id="t-list"><span class="task-body">
+        <span class="task-title">Write a list of 30 people who actually hold crypto</span>
+        <span class="task-note">Friends, colleagues, crypto group members you've talked to. Mix English and French speakers.</span>
+      </span></label></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="phase"><h2>Invite</h2><span class="when">Tomorrow to Friday</span></div>
+    <ul class="tasks">
+      <li><label class="task"><input type="checkbox" id="t-dm1"><span class="task-body">
+        <span class="task-title">Send the first 10 private messages</span>
+        <span class="task-note">One person at a time, by WhatsApp or Instagram. Use the message below. These bring in most of your testers: expect about 4 in 10 to reply and 2 in 10 to finish.</span>
+      </span></label></li>
+      <li><label class="task"><input type="checkbox" id="t-dm2"><span class="task-body">
+        <span class="task-title">Send the next 20 private messages</span>
+        <span class="task-note">Spread over two days so you can answer replies quickly.</span>
+      </span></label></li>
+      <li><label class="task"><input type="checkbox" id="t-tg"><span class="task-body">
+        <span class="task-title">Post the tester call in the Telegram channel and pin it</span>
+        <span class="task-note">Every tester who joins the channel is also your first community member.</span>
+      </span></label></li>
+      <li><label class="task"><input type="checkbox" id="t-ig"><span class="task-body">
+        <span class="task-title">Post the 3 Instagram story frames, 19:00–22:00</span>
+        <span class="task-note">From <code>story-frames.html</code>. Link sticker on frames 1 and 3, a poll on frame 1, a question box on frame 2. Save them as a "TESTERS" highlight.</span>
+      </span></label></li>
+      <li><label class="task"><input type="checkbox" id="t-fr"><span class="task-body">
+        <span class="task-title">Send the French version to French speakers</span>
+        <span class="task-note">Section 4 of <code>copy.md</code>. Keep anything aimed at Tunisia educational only.</span>
+      </span></label></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="phase"><h2>Follow up</h2><span class="when">48 hours after each batch</span></div>
+    <ul class="tasks">
+      <li><label class="task"><input type="checkbox" id="t-nudge"><span class="task-body">
+        <span class="task-title">Send one reminder to people who didn't reply</span>
+        <span class="task-note">Once only. "No pressure, but if you've got 3 min today, your take would change what I build next."</span>
+      </span></label></li>
+      <li><label class="task"><input type="checkbox" id="t-repost"><span class="task-body">
+        <span class="task-title">Re-post story frames 1 and 3</span>
+        <span class="task-note">Few people see both postings, so the repeat reaches new viewers.</span>
+      </span></label></li>
+      <li><label class="task"><input type="checkbox" id="t-thanks"><span class="task-body">
+        <span class="task-title">Thank every tester personally and add them to the credits list</span>
+      </span></label></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="phase"><h2>Decide</h2><span class="when">Around Oct 27</span></div>
+    <ul class="tasks">
+      <li><label class="task"><input type="checkbox" id="t-count"><span class="task-body">
+        <span class="task-title">Count the "would you use this weekly?" answers</span>
+        <span class="task-note">This is the number that tells you whether to launch on Nov 9 or fix things first.</span>
+      </span></label></li>
+      <li><label class="task"><input type="checkbox" id="t-top3"><span class="task-body">
+        <span class="task-title">Pick the 3 most requested fixes and build them before launch week</span>
+        <span class="task-note">Ignore one-off requests. Look for things 3 or more people said.</span>
+      </span></label></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="phase"><h2>What testers do</h2><span class="when">Paste into your message</span></div>
+    <div class="box">
+      <div class="row tabs" role="group" aria-label="Message language">
+        <button type="button" id="lang-en" aria-pressed="true">English</button>
+        <button type="button" id="lang-fr" aria-pressed="false">Français</button>
+      </div>
+      <pre class="msg" id="msg"></pre>
+      <div class="row"><button type="button" id="copy">Copy message</button></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="phase"><h2>Links</h2></div>
+    <div class="box links">
+      <span>App</span><a href="https://signal-desk-psi.vercel.app" target="_blank" rel="noopener">signal-desk-psi.vercel.app</a>
+      <span>Form</span><a href="https://docs.google.com/forms/d/e/1FAIpQLSdneGODdpJYTBr7GWGt6YYWMl86m_13WkFRIyPgDBJZ43lIgg/viewform" target="_blank" rel="noopener">Google Form (same as the in-app Feedback button)</a>
+      <span>Bot</span><a href="https://t.me/getqirat_bot" target="_blank" rel="noopener">t.me/getqirat_bot</a>
+      <span>Channel</span><a href="https://t.me/getqirat" target="_blank" rel="noopener">t.me/getqirat</a>
+    </div>
+  </section>
+
+  <footer>Full copy for stories, captions and messages: <code>marketing/tester-call/copy.md</code>. A second opinion, not financial advice.</footer>
+</main>
+
+<script>
+  const MSG = {
+    en: `Hey [name], you hold crypto, so I'd like your opinion on something.
+
+I built a small app called Qirat. It scores any coin 0–100 (Strong / Neutral / Weak setup) and shows the exact math behind the score. It also keeps a public track record, losses included. Free, no sign-up: https://signal-desk-psi.vercel.app
+
+Could you give it 5 minutes on your phone?
+1. Open it. Can you tell what it's for in 10 seconds?
+2. Add 2–3 coins you actually hold. Does anything look wrong?
+3. Tap a score and read how it was built. Convincing or confusing?
+4. Open the track record. Does it make you trust it more or less?
+5. Ask the AI two questions, e.g. "Why is ETH only Neutral?"
+Bonus: send a coin name to t.me/getqirat_bot
+
+Then tap Feedback in the app (3 minutes). Put your name if you want to be in the credits. Testers get lifetime free access.
+
+Honest > nice. If it's not useful I'd rather know now.`,
+    fr: `Salut [nom], tu as des cryptos, donc ton avis m'intéresse.
+
+J'ai construit une petite app, Qirat : elle note n'importe quelle crypto sur 100 (configuration Forte / Neutre / Faible) et montre le calcul derrière la note. Elle garde aussi un historique public, pertes comprises. Gratuit, sans inscription : https://signal-desk-psi.vercel.app
+
+Tu me donnes 5 minutes sur ton téléphone ?
+1. Ouvre l'app. Tu comprends à quoi elle sert en 10 secondes ?
+2. Ajoute 2 ou 3 cryptos que tu as vraiment. Quelque chose te paraît faux ?
+3. Touche une note et lis le calcul. Convaincant ou confus ?
+4. Ouvre l'historique. Ça te donne plus ou moins confiance ?
+5. Pose deux questions à l'IA, par ex. « Pourquoi l'ETH est seulement Neutre ? »
+Bonus : envoie le nom d'une crypto à t.me/getqirat_bot
+
+Ensuite, touche Avis dans l'app (3 minutes). Mets ton nom si tu veux être dans les crédits. Les testeurs ont l'accès gratuit à vie.
+
+Franc > gentil. Si c'est pas utile, je préfère le savoir maintenant.`
+  };
+  let lang = 'en';
+  const msgEl = document.getElementById('msg');
+  function setLang(l) {
+    lang = l; msgEl.textContent = MSG[l];
+    document.getElementById('lang-en').setAttribute('aria-pressed', l === 'en');
+    document.getElementById('lang-fr').setAttribute('aria-pressed', l === 'fr');
+  }
+  document.getElementById('lang-en').onclick = () => setLang('en');
+  document.getElementById('lang-fr').onclick = () => setLang('fr');
+  setLang('en');
+
+  const copyBtn = document.getElementById('copy');
+  copyBtn.onclick = () => {
+    const done = () => { copyBtn.textContent = 'Copied'; setTimeout(() => copyBtn.textContent = 'Copy message', 1600); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(msgEl); const s = getSelection(); s.removeAllRanges(); s.addRange(r); copyBtn.textContent = 'Selected, press Ctrl+C'; };
+    try { navigator.clipboard.writeText(MSG[lang]).then(done, fallback); } catch { fallback(); }
+  };
+
+  const KEY = 'qirat.tester-plan.v1';
+  const boxes = [...document.querySelectorAll('ul.tasks input[type=checkbox]')];
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch {}
+  function update() {
+    const n = boxes.filter(b => b.checked).length;
+    document.getElementById('count').textContent = `${n} / ${boxes.length} done`;
+    document.getElementById('bar').style.width = (100 * n / boxes.length) + '%';
+  }
+  boxes.forEach(b => {
+    b.checked = !!saved[b.id];
+    b.addEventListener('change', () => {
+      saved[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch {}
+      update();
+    });
+  });
+  update();
+</script>

@@ -41,7 +41,7 @@ python -m uvicorn server.main:app --reload --port 8000
 
 ## Deployed ✅ — live on Vercel
 
-- **Live:** https://signal-desk-psi.vercel.app (Vercel project `signal-desk`).
+- **Live:** https://signal-desk-psi.vercel.app (Vercel project `signal-desk`). qirat.tn is added in Vercel and its OVH A record points to 216.198.79.1; waiting for the .tn registry to publish it.
 - **AI provider:** **Groq** (free, `llama-3.3-70b-versatile`) via the OpenAI-compatible path. `GROQ_API_KEY` is set in Vercel production; the paid `OPENAI_API_KEY` was removed. Precedence is `ANTHROPIC_API_KEY` > `GROQ_API_KEY` > `OPENAI_API_KEY`, so adding an Anthropic key later switches to Claude automatically.
 - **Usage limits:** free provider ⇒ daily/global spend caps default to 0 (off). `AI_RATE_LIMIT=20` is set in Vercel as a per-IP burst guard so a traffic spike can't trip Groq's own free-tier per-minute limits.
 - **State:** Upstash Redis (KV_* / REDIS_URL) is connected, so the rate limit + narrative cache hold across serverless instances.

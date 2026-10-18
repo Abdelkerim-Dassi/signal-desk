@@ -274,7 +274,7 @@ An assayer is the person who tests the purity of gold, which fits the brand.
 |---|---|
 | Fri 2026-10-09 | First live track-record results: "Week 1 of the log, losses included" |
 | Week 4 (Oct 26–Nov 1) | Telegram bot beta for the Founding Assayers |
-| Week 5 (Nov 2–8) | **Buy getqirat.com** (first purchase). Redirect the Vercel URL; Telegram links stay the same. |
+| Week 5 (Nov 2–8) | **qirat.tn bought (OVH, Oct 2026).** Point it at Vercel; the old vercel.app URL keeps working; Telegram links stay the same. |
 | Week 6 (Nov 9–15) | **Public launch week**: bot public, domain live, 4 weekly report cards published |
 | Week 9 (Nov 30–Dec 6) | Arabic push (UI already built) + `@getqirat_ar` |
 | Week 13 | 90-day report card; Pro waitlist (no payments yet) |
@@ -408,7 +408,7 @@ FR creator outreach (week 7), Remotion automation (weeks 7–8), Arabic push (we
 
 ## 11. The next 7 days (Sat Oct 3 – Fri Oct 9)
 
-1. **Sat Oct 3: reserve handles.** Telegram is done: `t.me/getqirat`. Use `@getqirat` on X, Instagram, YouTube, TikTok and Threads too, so the name is the same everywhere. Set the bio line from section 1 and point the link to `t.me/getqirat`.
+1. **Sat Oct 3: reserve handles.** Sign up everywhere with the brand Gmail **qiratapp2@gmail.com** (YouTube channel lives under it too). Telegram is done: `t.me/getqirat`. Use `@getqirat` on X, Instagram, YouTube, TikTok and Threads too, so the name is the same everywhere. Set the bio line from section 1 and point the link to `t.me/getqirat`.
 2. **Sat Oct 3: fix the tester copy.** Apply the changes table in section 1 to `copy.md` and `story-frames.html` (rename to Qirat, remove BUY/ACHAT and "is BTC a buy", Strong/Neutral/Weak labels). Re-render the 3 story frames.
 3. **Sun Oct 4: set up Telegram.** Create `@getqirat_fr` (the English `@getqirat` channel already exists) and the linked "Qirat Lounge" group with forum topics. Write the pinned welcome post with the disclaimer and the "how the score works" link.
 4. **Sun Oct 4: first 3-hour batch.** Make 3 evergreen videos (scam-spotting, "Show the math: BTC", momentum glossary) and the Canva templates for the Daily Karat card and the report card in EN and FR.

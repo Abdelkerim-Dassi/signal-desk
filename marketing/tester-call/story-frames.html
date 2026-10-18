@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Qirat tester call — Instagram story frames (1080×1920)</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ── Design tokens: the Qirat app's light theme (frontend/src/index.css)
+         so the story reads as the same product people are about to open. ── */
+      :root {
+        --bg: #f6f4ef;
+        --card: #ffffff;
+        --subtle: #f1eee7;
+        --border: rgba(21, 23, 28, 0.08);
+        --text: #15171c;
+        --muted: #6b6f78;
+        --gold: #9a6b14;
+        --gold-bright: #c9962f;
+        --gold-soft: #f6ecd6;
+        --strong: #0e9f6e;
+        --neutral: #64748b;
+        --weak: #e0484e;
+        --font: 'Readex Pro', system-ui, sans-serif;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background: #d9d5cc;
+        font-family: var(--font);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 48px;
+        padding: 48px 24px 120px;
+      }
+
+      /* Export instructions — deliberately OUTSIDE .frame so they never land
+         in a node screenshot. */
+      .howto {
+        max-width: 1080px;
+        color: #3a3d44;
+        font-size: 15px;
+        line-height: 1.65;
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 12px;
+        padding: 22px 26px;
+      }
+      .howto h1 { font-size: 19px; margin-bottom: 10px; color: var(--gold); }
+      .howto ol { margin: 8px 0 0 20px; }
+      .howto code { font-size: 13px; color: var(--gold); background: var(--gold-soft); padding: 2px 6px; border-radius: 4px; }
+
+      .label { max-width: 1080px; width: 100%; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #5f5a50; }
+
+      /* ── The exportable frame: exactly 1080 × 1920 ─────────────────────── */
+      .frame {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background:
+          radial-gradient(900px 700px at 100% 0%, var(--gold-soft), transparent 62%),
+          radial-gradient(700px 600px at 0% 100%, rgba(201, 150, 47, 0.1), transparent 60%),
+          var(--bg);
+        color: var(--text);
+        /* Instagram overlays its own UI top & bottom — nothing important
+           inside those bands. */
+        padding: 208px 88px 300px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ── Shared atoms ──────────────────────────────────────────────────── */
+      .lockup { display: flex; align-items: center; gap: 18px; }
+      .wordmark { font-weight: 600; font-size: 54px; letter-spacing: -0.01em; }
+      .eyebrow { font-size: 24px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+      h2 { font-weight: 700; font-size: 100px; line-height: 1.04; letter-spacing: -0.025em; }
+      h2 em { font-style: normal; color: var(--gold); }
+
+      .lede { font-size: 36px; line-height: 1.45; color: var(--muted); }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 36px;
+        box-shadow: 0 2px 4px rgba(15, 16, 19, 0.04), 0 40px 80px -40px rgba(15, 16, 19, 0.25);
+      }
+      .num { font-variant-numeric: tabular-nums; }
+
+      .footline { margin-top: auto; font-size: 22px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+      /* ── Frame 1: the hook ─────────────────────────────────────────────── */
+      .live {
+        display: inline-flex; align-items: center; gap: 14px;
+        font-size: 22px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--strong);
+        background: rgba(14, 159, 110, 0.1); border-radius: 999px; padding: 12px 26px;
+      }
+      .live::before { content: ''; width: 14px; height: 14px; border-radius: 50%; background: var(--strong); }
+
+      .coin { padding: 48px 52px; }
+      .coin-top { display: flex; align-items: center; gap: 30px; }
+      .coin-icon { width: 104px; height: 104px; border-radius: 50%; background: #f7931a; display: grid; place-items: center; color: #fff; font-size: 62px; font-weight: 700; }
+      .coin-name { flex: 1; }
+      .coin-name b { display: block; font-size: 52px; font-weight: 600; }
+      .pill { display: inline-flex; align-items: center; gap: 10px; margin-top: 10px; font-size: 28px; font-weight: 600; color: var(--strong); background: rgba(14, 159, 110, 0.1); border-radius: 999px; padding: 6px 22px; }
+      .ring { position: relative; width: 190px; height: 190px; }
+      .ring svg { transform: rotate(-90deg); }
+      .ring span { position: absolute; inset: 0; display: grid; place-items: center; font-size: 70px; font-weight: 600; }
+
+      .breakdown { margin-top: 44px; background: var(--subtle); border-radius: 26px; padding: 30px 36px; display: grid; gap: 16px; font-size: 32px; }
+      .breakdown div { display: flex; justify-content: space-between; }
+      .breakdown .base { color: var(--muted); }
+      .breakdown .up { color: var(--strong); font-weight: 600; }
+      .breakdown .total { border-top: 2px solid var(--border); padding-top: 16px; font-weight: 700; }
+      .breakdown .total span:last-child { color: var(--gold); }
+
+      /* ── Frame 2: what it actually is ──────────────────────────────────── */
+      .rows { display: flex; flex-direction: column; gap: 46px; }
+      .row { display: flex; gap: 32px; align-items: flex-start; }
+      .row .n {
+        flex: 0 0 auto; width: 82px; height: 82px; border-radius: 50%;
+        display: grid; place-items: center;
+        font-weight: 600; font-size: 32px; color: var(--gold); background: var(--gold-soft);
+      }
+      .row h3 { font-weight: 600; font-size: 44px; line-height: 1.2; }
+      .row p { font-size: 31px; line-height: 1.45; color: var(--muted); margin-top: 10px; }
+      .strike { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--weak); }
+
+      /* ── Frame 3: the ask ──────────────────────────────────────────────── */
+      .steps { display: flex; flex-direction: column; gap: 28px; }
+      .step { display: flex; gap: 24px; align-items: baseline; font-size: 34px; line-height: 1.4; }
+      .step u { text-decoration: none; font-weight: 600; font-size: 28px; color: var(--gold); }
+
+      .perk { padding: 34px 38px; border-radius: 28px; background: var(--gold-soft); font-size: 31px; line-height: 1.45; }
+      .perk b { color: var(--gold); }
+
+      /* Sits where you drop Instagram's transparent link sticker. */
+      .tap {
+        display: flex; align-items: center; justify-content: center;
+        height: 128px; border-radius: 999px;
+        background: var(--text); color: var(--bg);
+        font-weight: 600; font-size: 46px; letter-spacing: 0.02em;
+        box-shadow: 0 24px 50px -20px rgba(15, 16, 19, 0.5);
+      }
+      .urls { font-size: 24px; color: var(--muted); text-align: center; line-height: 1.7; }
+      .urls b { color: var(--text); font-weight: 500; }
+    </style>
+  </head>
+  <body>
+    <div class="howto">
+      <h1>How to export these as Instagram stories</h1>
+      <ol>
+        <li>Open this file in Chrome or Edge. Each frame below is already exactly <strong>1080 × 1920</strong>.</li>
+        <li>Right-click a frame → <strong>Inspect</strong> → in the Elements panel right-click the highlighted
+          <code>&lt;section class="frame"&gt;</code> → <strong>Capture node screenshot</strong>. You get a pixel-perfect PNG.</li>
+        <li>Post the 3 PNGs as consecutive stories. On frame 3, place Instagram's
+          <strong>link sticker</strong> directly over the "Tap to join" button and set it to the Google Form URL.</li>
+        <li>Replace <code>YOUR-FORM-LINK</code>, and update the BTC score in frame 1 to today's real reading before posting.
+          A stale score is the first thing people will call out.</li>
+        <li>Run the compliance checklist in <code>marketing/strategy.md</code> (section 10) before posting.</li>
+      </ol>
+    </div>
+
+    <!-- ══════════════════ FRAME 1 — HOOK ══════════════════ -->
+    <div class="label">Frame 1 · hook: a question people ask themselves daily, answered with math</div>
+    <section class="frame">
+      <div class="lockup">
+        <svg width="64" height="64" viewBox="0 0 32 32" aria-hidden="true">
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3cf7a" /><stop offset="55%" stop-color="#d4a03a" /><stop offset="100%" stop-color="#9a6b14" /></linearGradient></defs>
+          <path d="M9 5h14l6 8-13 15L3 13l6-8Z" fill="url(#g1)" />
+          <path d="M3 13h26M9 5l4 8 3-8 3 8 4-8M13 13l3 15 3-15" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.1" stroke-linejoin="round" />
+        </svg>
+        <span class="wordmark">qirat</span>
+      </div>
+
+      <div style="margin-top: 76px"><span class="live">live market data</span></div>
+
+      <h2 style="margin-top: 40px">What's BTC's<br /><em>karat</em> today?</h2>
+
+      <div class="card coin" style="margin-top: 72px">
+        <div class="coin-top">
+          <span class="coin-icon">₿</span>
+          <div class="coin-name">
+            <b>Bitcoin</b>
+            <span class="pill">▲ Strong setup</span>
+          </div>
+          <div class="ring">
+            <svg width="190" height="190" aria-hidden="true">
+              <circle cx="95" cy="95" r="82" fill="none" stroke="#f1eee7" stroke-width="16" />
+              <circle cx="95" cy="95" r="82" fill="none" stroke="#0e9f6e" stroke-width="16" stroke-linecap="round"
+                stroke-dasharray="515.2" stroke-dashoffset="133.9" />
+            </svg>
+            <span class="num">74</span>
+          </div>
+        </div>
+
+        <div class="breakdown num">
+          <div class="base"><span>Starting point</span><span>50</span></div>
+          <div><span>Above 7-day average</span><span class="up">+10</span></div>
+          <div><span>Above 30-day average</span><span class="up">+10</span></div>
+          <div><span>Uptrend structure</span><span class="up">+4</span></div>
+          <div class="total"><span>Score</span><span>74</span></div>
+        </div>
+      </div>
+
+      <p class="lede" style="margin-top: 56px">
+        Every coin gets a score out of 100,<br />and the receipts for how it got there.
+      </p>
+
+      <div class="footline">No black box · No signals group</div>
+    </section>
+
+    <!-- ══════════════════ FRAME 2 — WHAT IT IS ══════════════════ -->
+    <div class="label">Frame 2 · proof: kill the "another scam signals group" reflex</div>
+    <section class="frame">
+      <div class="lockup">
+        <svg width="64" height="64" viewBox="0 0 32 32" aria-hidden="true">
+          <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3cf7a" /><stop offset="55%" stop-color="#d4a03a" /><stop offset="100%" stop-color="#9a6b14" /></linearGradient></defs>
+          <path d="M9 5h14l6 8-13 15L3 13l6-8Z" fill="url(#g2)" />
+          <path d="M3 13h26M9 5l4 8 3-8 3 8 4-8M13 13l3 15 3-15" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.1" stroke-linejoin="round" />
+        </svg>
+        <span class="wordmark">qirat</span>
+      </div>
+
+      <h2 style="margin-top: 90px">
+        <span class="strike">Trust me bro.</span><br /><em>Show me the math.</em>
+      </h2>
+
+      <div class="rows" style="margin-top: 92px">
+        <div class="row">
+          <span class="n">1</span>
+          <div>
+            <h3>A karat on every coin you watch</h3>
+            <p>Strong, Neutral or Weak setup, scored 0–100 from live price, trend, momentum, volume and market mood. Tap any score to see the exact build-up.</p>
+          </div>
+        </div>
+        <div class="row">
+          <span class="n">2</span>
+          <div>
+            <h3>A track record it can't edit</h3>
+            <p>A backtest since 2021, plus a live log saved once a day. Losses included.</p>
+          </div>
+        </div>
+        <div class="row">
+          <span class="n">3</span>
+          <div>
+            <h3>Ask it anything</h3>
+            <p>"Why is ETH only Neutral?" · "What would push BTC to 100?" Answers stay tied to live data, in English, French or Arabic.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="lede" style="margin-top: 76px">Free. No wallet. No sign-up. Nothing to connect.</p>
+
+      <div class="footline">A second opinion · Not financial advice</div>
+    </section>
+
+    <!-- ══════════════════ FRAME 3 — THE ASK ══════════════════ -->
+    <div class="label">Frame 3 · CTA: put the link sticker on the "Tap to join" button</div>
+    <section class="frame">
+      <div class="lockup">
+        <svg width="64" height="64" viewBox="0 0 32 32" aria-hidden="true">
+          <defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3cf7a" /><stop offset="55%" stop-color="#d4a03a" /><stop offset="100%" stop-color="#9a6b14" /></linearGradient></defs>
+          <path d="M9 5h14l6 8-13 15L3 13l6-8Z" fill="url(#g3)" />
+          <path d="M3 13h26M9 5l4 8 3-8 3 8 4-8M13 13l3 15 3-15" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.1" stroke-linejoin="round" />
+        </svg>
+        <span class="wordmark">qirat</span>
+      </div>
+
+      <p class="eyebrow" style="margin-top: 72px">Closed testing · 50 seats</p>
+
+      <h2 style="margin-top: 26px">I need <em>50 people</em> to break it.</h2>
+
+      <p class="lede" style="margin-top: 44px">
+        You hold crypto. I built the tool. Tell me what's missing; that's the whole deal.
+      </p>
+
+      <div class="steps" style="margin-top: 76px">
+        <div class="step"><u>1</u><span>Open it. No sign-up, works on your phone.</span></div>
+        <div class="step"><u>2</u><span>Add your coins, read the scores, argue with the AI.</span></div>
+        <div class="step"><u>3</u><span>Fill the form: 3 minutes. Brutal honesty preferred.</span></div>
+      </div>
+
+      <div class="perk" style="margin-top: 68px">
+        Testers become <b>Founding Assayers</b>: lifetime free access, their name in the app's credits, and first vote on what I build next.
+      </div>
+
+      <div style="margin-top: auto">
+        <div class="tap">Tap to join →</div>
+        <p class="urls" style="margin-top: 30px">
+          app <b>signal-desk-psi.vercel.app</b><br />
+          form <b>YOUR-FORM-LINK</b>
+        </p>
+      </div>
+    </section>
+  </body>
+</html>

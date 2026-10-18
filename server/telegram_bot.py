@@ -36,7 +36,7 @@ from . import cards, track_record, upstash
 from .labels import te
 from .cache import TTLCache
 
-APP_URL = "https://signal-desk-psi.vercel.app"
+APP_URL = os.environ.get("APP_URL", "https://signal-desk-psi.vercel.app")  # switch to https://qirat.tn once the .tn registry publishes it
 CHANNEL_URL = "https://t.me/getqirat"
 # The public channel the daily card and Friday report card are posted to.
 CHANNEL = os.getenv("TELEGRAM_CHANNEL", "@getqirat")
