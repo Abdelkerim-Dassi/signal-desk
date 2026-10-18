@@ -396,6 +396,17 @@ async def cron_telegram_alerts(request: Request) -> JSONResponse:
     return JSONResponse({"ok": True, **result})
 
 
+@app.get("/api/marketing/queue")
+async def marketing_queue(day: str | None = None) -> JSONResponse:
+    """The post queue with each item's approval state; the browser posting run
+    reads it to know what to publish on X and TikTok. Public: it only holds
+    posts meant to be public."""
+    from . import marketing
+
+    items = await asyncio.to_thread(marketing.queue_with_status, day)
+    return JSONResponse({"ok": True, "items": items}, headers={"Cache-Control": "no-store"})
+
+
 # ── share cards (PNG) ────────────────────────────────────────────────────────
 # Ready-to-post images for the channel, X and Instagram; cached for 10 minutes.
 

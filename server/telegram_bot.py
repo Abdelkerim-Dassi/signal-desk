@@ -614,6 +614,10 @@ def handle_message(msg: dict[str, Any]) -> None:
     else:
         return  # groups: only respond to commands
 
+    from . import marketing  # imported here: marketing imports this module
+
+    if marketing.handle_command(chat_id, is_private, cmd, args):
+        return
     if cmd == "start":
         send(chat_id, t(lang, "welcome"), [
             [{"text": t(lang, "score_btc"), "callback_data": "score:BTC"},
@@ -669,6 +673,10 @@ def handle_callback(cb: dict[str, Any]) -> None:
     chat = msg.get("chat")
     user = cb.get("from")
     action = cb.get("data") or ""
+    from . import marketing
+
+    if marketing.handle_callback(cb):  # answers its own callback
+        return
     api("answerCallbackQuery", callback_query_id=cb["id"])
     if not chat:
         return
@@ -876,9 +884,13 @@ def post_channel_report(force: bool = False) -> dict[str, Any]:
 
 
 def run_daily() -> dict[str, Any]:
-    """The morning job: channel posts first, then each subscriber's digest."""
+    """The morning job: channel posts first, then the owner's posts to approve,
+    then each subscriber's digest."""
+    from . import marketing
+
     out: dict[str, Any] = {}
-    for name, job in (("channel_today", post_channel_today), ("channel_report", post_channel_report)):
+    for name, job in (("channel_today", post_channel_today), ("channel_report", post_channel_report),
+                      ("marketing_drafts", marketing.send_drafts)):
         try:
             out[name] = job()
         except Exception as exc:

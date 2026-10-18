@@ -1,0 +1,57 @@
+{
+  "_readme": "Daily posts. Each morning (07:00 Tunis) the bot sends the owner every item dated today with Approve / Skip buttons. Approve posts the 'telegram' text to t.me/getqirat (and the Facebook Page when connected); 'x', 'x_reply' and 'tiktok' are published by the browser run. media: a repo path, or live:today / live:report for the share card built from today's data. Keep ids short (callback data is limited to 64 bytes). Rules: Strong/Neutral/Weak only, never buy/sell, no profit claims, always 'not financial advice'.",
+  "items": [
+    {
+      "id": "1019-karat",
+      "date": "2026-10-19",
+      "lang": "en",
+      "title": "What a karat is (video)",
+      "media": "marketing/content/week-2026-10-19/video-plain-en.mp4",
+      "telegram": "Gold has karats. Now coins do too. Qirat gives every coin a 0–100 score and shows each point of the math, in plain words. 30 seconds to see how. Not financial advice.",
+      "x": "Gold has karats. Now coins do too.\n\nQirat gives every coin a 0–100 score from its trend, momentum, volume and the market mood, and shows each point of the math.\n\nIf a score can't be explained, don't trust it. Not financial advice.",
+      "x_reply": "Try it free, no sign-up: https://signal-desk-psi.vercel.app\nDaily scores on Telegram: https://t.me/getqirat",
+      "tiktok": "Gold has karats. Now every coin has one too: a 0–100 score with the math shown. Free beta. Not financial advice. #crypto #bitcoin #cryptotunisia #learnontiktok"
+    },
+    {
+      "id": "1020-worst",
+      "date": "2026-10-20",
+      "lang": "en",
+      "title": "Our worst call (video)",
+      "media": "marketing/content/week-2026-10-19/video-worst-call.mp4",
+      "telegram": "We rated ATOM 93. A week later it was down 13%. That's our worst result from the ratings logged on Oct 11, and it stays in the log. Every Friday we publish the misses first. Not financial advice.",
+      "x": "We rated ATOM 93/100. A week later it was down 13%.\n\nMost signal groups delete posts like that. We put the worst result first, every Friday, and never edit the log.\n\nA score is only worth trusting if you can see its misses. Not financial advice.",
+      "x_reply": "The full log, losses included: https://signal-desk-psi.vercel.app\nhttps://t.me/getqirat",
+      "tiktok": "We rated this coin 93. It fell 13%. We post our misses first, every week. Not financial advice. #crypto #bitcoin #cryptotunisia"
+    },
+    {
+      "id": "1021-fr",
+      "date": "2026-10-21",
+      "lang": "fr",
+      "title": "Explainer in French (video)",
+      "media": "marketing/content/week-2026-10-19/video-plain-fr.mp4",
+      "telegram": "L'or a des carats. Les cryptos aussi, maintenant. Qirat donne à chaque crypto une note de 0 à 100 et montre chaque point du calcul, en mots simples. Pas un conseil financier.",
+      "x": "L'or a des carats. Les cryptos aussi.\n\nQirat note chaque crypto de 0 à 100 (tendance, momentum, volume, humeur du marché) et montre chaque point du calcul.\n\nUne note qu'on ne peut pas expliquer ne mérite pas votre confiance. Pas un conseil financier.",
+      "x_reply": "Gratuit, sans inscription : https://signal-desk-psi.vercel.app\nhttps://t.me/getqirat",
+      "tiktok": "Chaque crypto a son carat : une note de 0 à 100, avec le calcul. Bêta gratuite. Pas un conseil financier. #crypto #bitcoin #cryptotunisie #cryptofrance"
+    },
+    {
+      "id": "1022-beta",
+      "date": "2026-10-22",
+      "lang": "en",
+      "title": "Today's scores + tester call",
+      "media": "live:today",
+      "telegram": "Today's score sheet: every tracked coin, scored 0–100 from its chart and the market mood. Qirat is in free beta and I'm looking for 50 honest testers. Tell me what's confusing or missing. Not financial advice.",
+      "x": "Today's score sheet: every coin we track, scored 0–100 from its chart and the market mood.\n\nQirat is in free beta and I need 50 honest testers. No sign-up. Tell me what's confusing or what's missing.\n\nNot financial advice.",
+      "x_reply": "Try it: https://signal-desk-psi.vercel.app\nhttps://t.me/getqirat"
+    },
+    {
+      "id": "1023-report",
+      "date": "2026-10-23",
+      "lang": "en",
+      "title": "Friday report card (X only; the channel posts it automatically)",
+      "media": "live:report",
+      "x": "Friday report card.\n\nHow last week's ratings actually did, worst result first. Nothing deleted, nothing edited.\n\nThis is the only way to know if a score is worth anything. Not financial advice.",
+      "x_reply": "Full track record: https://signal-desk-psi.vercel.app\nhttps://t.me/getqirat"
+    }
+  ]
+}
