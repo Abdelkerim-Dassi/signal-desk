@@ -21,6 +21,6 @@
     { "src": "/api/(.*)", "dest": "/api/index.py" },
     { "src": "/assets/(.*)", "dest": "/frontend/assets/$1" },
     { "src": "/(favicon\\.svg|icons\\.svg)", "dest": "/frontend/$1" },
-    { "src": "/(.*)", "dest": "/frontend/index.html" }
+    { "src": "/((?!_vercel/).*)", "dest": "/frontend/index.html" }
   ]
 }
