@@ -890,7 +890,7 @@ def run_daily() -> dict[str, Any]:
 
     out: dict[str, Any] = {}
     for name, job in (("channel_today", post_channel_today), ("channel_report", post_channel_report),
-                      ("marketing_drafts", marketing.send_drafts)):
+                      ("marketing_queue", marketing.run_queue)):
         try:
             out[name] = job()
         except Exception as exc:

@@ -154,6 +154,36 @@ def send_drafts(day: str | None = None, force: bool = False) -> dict[str, Any]:
     return {"sent": sent, "items": len(items)}
 
 
+def autopost_enabled() -> bool:
+    """Default on: the queue publishes itself. MARKETING_AUTOPOST=0 brings back the
+    approve/skip step."""
+    return os.getenv("MARKETING_AUTOPOST", "1") != "0"
+
+
+def auto_publish(day: str | None = None) -> dict[str, Any]:
+    """Publish every queued post dated `day` to the channel (and Facebook), no
+    approval. Each item is claimed first so a doubled cron run can't post it twice.
+    The owner, if registered, gets a one-line FYI afterwards."""
+    day = day or datetime.now(timezone.utc).date().isoformat()
+    posted: list[str] = []
+    for item in [i for i in load_queue() if i.get("date") == day]:
+        if status(item["id"]) or not bot._claim(f"item:{item['id']}", day):
+            continue
+        lines = publish(item)
+        set_status(item["id"], "approved", auto=True, result=lines)
+        posted.append(f"<b>{bot.esc(item.get('title', item['id']))}</b>\n" +
+                      "\n".join(f"• {bot.esc(x)}" for x in lines))
+    chat = owner()
+    if posted and chat:
+        bot.send(chat, "🤖 Posted automatically today:\n\n" + "\n\n".join(posted))
+    return {"posted": len(posted), "day": day}
+
+
+def run_queue(day: str | None = None) -> dict[str, Any]:
+    """The morning job's entry point: auto-publish, or send drafts for approval."""
+    return auto_publish(day) if autopost_enabled() else send_drafts(day)
+
+
 def post_facebook(item: dict[str, Any]) -> dict[str, Any] | None:
     page, token = os.getenv("FB_PAGE_ID"), os.getenv("FB_PAGE_TOKEN")
     if not (page and token and item.get("telegram")):
