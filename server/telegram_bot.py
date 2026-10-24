@@ -869,18 +869,73 @@ def post_channel_report(force: bool = False) -> dict[str, Any]:
         return {"posted": False, "reason": "already posted"}
     stats = (live.get("horizons", {}).get(f"{resolved['horizon']}d") or {}).get("ratings", {})
     strong, every = stats.get("STRONG") or {}, stats.get("ALL") or {}
+    card = (live.get("scorecard") or {}).get(f"{resolved['horizon']}d") or {}
     lang = "en"
     caption = "\n".join([
         f"<b>Report card</b> · ratings from {resolved['day']}, {resolved['horizon']} days later",
         f"Strong avg {fmt_pct(strong.get('mean'))} · all coins {fmt_pct(every.get('mean'))} · "
         f"{strong.get('hit_rate', '--')}% of Strong went up",
+        record_line(card),
         "Worst result first. Nothing deleted, nothing edited.",
         "",
         f"<i>{t(lang, 'disclaimer')}</i>",
     ])
-    png = cards.report_card(resolved, stats, lang)
+    png = cards.report_card(resolved, stats, lang, card)
     res = send_photo(CHANNEL, png, caption, [[app_button(lang, "record")]])
+    _send_owner_scorecard(live.get("scorecard") or {})
     return {"posted": bool(res.get("ok")), "error": res.get("description")}
+
+
+def record_line(card: dict[str, Any]) -> str:
+    """The honest running tally: how often Strong beat the coin average, and
+    whether that's enough data to mean anything yet."""
+    sv = card.get("strong_vs_market") or {}
+    if not sv.get("n"):
+        return ""
+    periods = card.get("independent_periods", 0)
+    verdict = ("too early to judge" if periods < track_record.MIN_PERIODS
+               else "enough data to judge")
+    return (f"Strong beat the coin average on {sv['positive_pct']:.0f}% of logged days "
+            f"(avg {fmt_pct(sv['mean'])} vs average) · {periods} of "
+            f"{track_record.MIN_PERIODS} weeks logged, {verdict}.")
+
+
+def _send_owner_scorecard(scorecard: dict[str, Any]) -> None:
+    """Private Friday note: live score vs the silent candidates. Never public."""
+    from . import marketing
+
+    chat = marketing.owner()
+    card = scorecard.get("7d") or {}
+    if not chat or not card.get("days"):
+        return
+
+    def ic(sig: str) -> str:
+        a = (card.get(sig) or {}).get("ic") or {}
+        return f"{a['mean']:+.3f} (positive {a['positive_pct']:.0f}%, n={a['n']})" if a.get("n") else "--"
+
+    def spread(sig: str) -> str:
+        a = (card.get(sig) or {}).get("top_minus_bottom") or {}
+        return f"{a['mean']:+.2f}%" if a.get("n") else "--"
+
+    stab = card.get("stability_ic") or {}
+    mood = card.get("market_by_mood50") or {}
+    reg = card.get("market_by_regime") or {}
+
+    def mkt(block: dict[str, Any], s: str) -> str:
+        a = block.get(s) or {}
+        return f"{a['mean']:+.2f}% (n={a['n']})" if a.get("n") else "--"
+
+    send(chat, "\n".join([
+        "🔬 <b>Shadow scorecard</b> (private, 7-day, vs coin average)",
+        f"Live score  IC {ic('score')} · top-bottom third {spread('score')}",
+        f"Trend (new) IC {ic('trend')} · top-bottom third {spread('trend')}",
+        f"Stability: calm coins moved less, IC "
+        + (f"{stab['mean']:+.3f} (n={stab['n']})" if stab.get("n") else "--"),
+        f"Market next 7d · mood calm {mkt(mood, 'calm')} / cautious {mkt(mood, 'cautious')}",
+        f"Old regime · risk-on {mkt(reg, 'risk_on')} / risk-off {mkt(reg, 'risk_off')}",
+        f"Verdict: <b>{card.get('verdict')}</b> · {card.get('independent_periods', 0)} of "
+        f"{track_record.MIN_PERIODS} weeks",
+    ]))
 
 
 def run_daily() -> dict[str, Any]:

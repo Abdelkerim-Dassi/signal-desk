@@ -61,6 +61,9 @@ COPY = {
         "all_avg": "All coins avg",
         "strong_up": "Strong went up",
         "live_note": "Live log · every call kept, losses included",
+        "record": "Strong beat the average on {pct}% of days · {p}/{m} weeks · ",
+        "early": "too early to judge",
+        "judged": "enough data to judge",
     },
     "fr": {
         "setup": {"STRONG": "Configuration forte", "NEUTRAL": "Configuration neutre", "WEAK": "Configuration faible"},
@@ -81,6 +84,9 @@ COPY = {
         "all_avg": "Moy. toutes",
         "strong_up": "Fortes en hausse",
         "live_note": "Journal en direct · toutes les notes, pertes comprises",
+        "record": "Fortes > moyenne {pct}% des jours · {p}/{m} semaines · ",
+        "early": "trop tôt pour juger",
+        "judged": "assez de données pour juger",
     },
 }
 
@@ -321,8 +327,10 @@ def today_card(rows: list[dict[str, Any]], regime: dict[str, Any] | None, day: s
     return c.png()
 
 
-def report_card(resolved: dict[str, Any], stats: dict[str, Any], lang: str = "en") -> bytes:
-    """resolved = {day, horizon, rows:[{symbol, rating, score, return}]}; stats = ratings at that horizon."""
+def report_card(resolved: dict[str, Any], stats: dict[str, Any], lang: str = "en",
+                scorecard: dict[str, Any] | None = None) -> bytes:
+    """resolved = {day, horizon, rows:[{symbol, rating, score, return}]}; stats = ratings at that horizon;
+    scorecard = the track record's scorecard block for the same horizon (optional)."""
     lang = _label_lang(lang)
     cp = _copy(lang)
     c = Canvas()
@@ -355,6 +363,14 @@ def report_card(resolved: dict[str, Any], stats: dict[str, Any], lang: str = "en
         _mini_row(c, x, y, col_w, r["symbol"], r.get("rating", "NEUTRAL"), float(r.get("score", 0)),
                   _pct(ret), UP if (ret or 0) >= 0 else DOWN)
 
-    c.text((64, H - 140), cp["live_note"], 26, 500, MUTED, anchor="lm")
+    sv = (scorecard or {}).get("strong_vs_market") or {}
+    if sv.get("n"):
+        from .track_record import MIN_PERIODS
+        periods = scorecard.get("independent_periods", 0)
+        # The running tally takes the live-log note's place; the caption keeps that note.
+        note = cp["record"].format(pct=f"{sv['positive_pct']:.0f}", p=periods, m=MIN_PERIODS)             + cp["early" if periods < MIN_PERIODS else "judged"]
+        c.text((64, H - 140), note, 24, 600, GOLD, anchor="lm")
+    else:
+        c.text((64, H - 140), cp["live_note"], 26, 500, MUTED, anchor="lm")
     _footer(c, lang)
     return c.png()

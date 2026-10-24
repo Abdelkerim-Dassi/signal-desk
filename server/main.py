@@ -453,7 +453,8 @@ async def card_report(lang: str = "en") -> Response:
             status_code=404,
         )
     stats = (live.get("horizons", {}).get(f"{resolved['horizon']}d") or {}).get("ratings", {})
-    return _png(await asyncio.to_thread(cards.report_card, resolved, stats, lang))
+    card = (live.get("scorecard") or {}).get(f"{resolved['horizon']}d")
+    return _png(await asyncio.to_thread(cards.report_card, resolved, stats, lang, card))
 
 
 @app.post("/api/notify")
