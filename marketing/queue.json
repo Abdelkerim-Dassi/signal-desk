@@ -2,55 +2,54 @@
   "_readme": "Daily posts. Each morning (07:00 Tunis) the bot sends the owner every item dated today with Approve / Skip buttons. Approve posts the 'telegram' text to t.me/getqirat (and the Facebook Page when connected); 'x', 'x_reply' and 'tiktok' are published by the browser run. media: a repo path, or live:today / live:report for the share card built from today's data. Keep ids short (callback data is limited to 64 bytes). Rules: Strong/Neutral/Weak only, never buy/sell, no profit claims, always 'not financial advice'.",
   "items": [
     {
-      "id": "1019-karat",
-      "date": "2026-10-19",
+      "id": "1026-read",
+      "date": "2026-10-26",
       "lang": "en",
-      "title": "What a karat is (video)",
-      "media": "marketing/content/week-2026-10-19/video-plain-en.mp4",
-      "telegram": "Gold has karats. Now coins do too. Qirat gives every coin a 0–100 score and shows each point of the math, in plain words. 30 seconds to see how. Not financial advice.",
-      "x": "Gold has karats. Now coins do too.\n\nQirat gives every coin a 0–100 score from its trend, momentum, volume and the market mood, and shows each point of the math.\n\nIf a score can't be explained, don't trust it. Not financial advice.",
-      "x_reply": "Try it free, no sign-up: https://signal-desk-psi.vercel.app\nDaily scores on Telegram: https://t.me/getqirat",
-      "tiktok": "Gold has karats. Now every coin has one too: a 0–100 score with the math shown. Free beta. Not financial advice. #crypto #bitcoin #cryptotunisia #learnontiktok"
-    },
-    {
-      "id": "1020-worst",
-      "date": "2026-10-20",
-      "lang": "en",
-      "title": "Our worst call (video)",
-      "media": "marketing/content/week-2026-10-19/video-worst-call.mp4",
-      "telegram": "We rated ATOM 93. A week later it was down 13%. That's our worst result from the ratings logged on Oct 11, and it stays in the log. Every Friday we publish the misses first. Not financial advice.",
-      "x": "We rated ATOM 93/100. A week later it was down 13%.\n\nMost signal groups delete posts like that. We put the worst result first, every Friday, and never edit the log.\n\nA score is only worth trusting if you can see its misses. Not financial advice.",
-      "x_reply": "The full log, losses included: https://signal-desk-psi.vercel.app\nhttps://t.me/getqirat",
-      "tiktok": "We rated this coin 93. It fell 13%. We post our misses first, every week. Not financial advice. #crypto #bitcoin #cryptotunisia"
-    },
-    {
-      "id": "1021-fr",
-      "date": "2026-10-21",
-      "lang": "fr",
-      "title": "Explainer in French (video)",
-      "media": "marketing/content/week-2026-10-19/video-plain-fr.mp4",
-      "telegram": "L'or a des carats. Les cryptos aussi, maintenant. Qirat donne à chaque crypto une note de 0 à 100 et montre chaque point du calcul, en mots simples. Pas un conseil financier.",
-      "x": "L'or a des carats. Les cryptos aussi.\n\nQirat note chaque crypto de 0 à 100 (tendance, momentum, volume, humeur du marché) et montre chaque point du calcul.\n\nUne note qu'on ne peut pas expliquer ne mérite pas votre confiance. Pas un conseil financier.",
-      "x_reply": "Gratuit, sans inscription : https://signal-desk-psi.vercel.app\nhttps://t.me/getqirat",
-      "tiktok": "Chaque crypto a son carat : une note de 0 à 100, avec le calcul. Bêta gratuite. Pas un conseil financier. #crypto #bitcoin #cryptotunisie #cryptofrance"
-    },
-    {
-      "id": "1022-beta",
-      "date": "2026-10-22",
-      "lang": "en",
-      "title": "Today's scores + tester call",
+      "title": "How to read today's scores",
       "media": "live:today",
-      "telegram": "Today's score sheet: every tracked coin, scored 0–100 from its chart and the market mood. Qirat is in free beta and I'm looking for 50 honest testers. Tell me what's confusing or missing. Not financial advice.",
-      "x": "Today's score sheet: every coin we track, scored 0–100 from its chart and the market mood.\n\nQirat is in free beta and I need 50 honest testers. No sign-up. Tell me what's confusing or what's missing.\n\nNot financial advice.",
-      "x_reply": "Try it: https://signal-desk-psi.vercel.app\nhttps://t.me/getqirat"
+      "telegram": "How to read this: every coin gets a score from 0 to 100, like a karat for gold. Above 65 means its chart looks healthy right now. Below 35 means it looks weak. It describes the coin, not what you should do. Tap any coin in the app to see each point of the math. Not financial advice.",
+      "x": "New to crypto? Here's how to read a coin's score.\n\n0–100, like a karat for gold.\nAbove 65: the chart looks healthy right now.\nBelow 35: it looks weak.\n\nIt describes the coin, not what you should do with your money. Not financial advice.",
+      "x_reply": "See every point of the math, free, no sign-up: https://signal-desk-psi.vercel.app\nhttps://t.me/getqirat",
+      "tiktok": "How to read a crypto score in 10 seconds: 0–100, like a karat for gold. Not financial advice. #crypto #bitcoin #cryptotunisia #learnontiktok"
     },
     {
-      "id": "1023-report",
-      "date": "2026-10-23",
+      "id": "1027-ar",
+      "date": "2026-10-27",
+      "lang": "ar",
+      "title": "Arabic intro",
+      "telegram": "الذهب عنده قيراط، والعملات الرقمية عندها قيراط زادة. قيراط يعطي لكل عملة علامة من 0 إلى 100، ويوريك كل نقطة في الحساب بكلام بسيط. مجاني وبلاش تسجيل. موش نصيحة مالية.",
+      "x": "الذهب عنده قيراط، والعملات الرقمية زادة.\n\nقيراط يعطي لكل عملة علامة من 0 إلى 100 (الاتجاه، الزخم، الحجم ومزاج السوق) ويوريك كل نقطة في الحساب.\n\nموش نصيحة مالية.",
+      "x_reply": "مجاني، بلاش تسجيل: https://signal-desk-psi.vercel.app\nhttps://t.me/getqirat",
+      "tiktok": "كل عملة رقمية عندها قيراط: علامة من 0 إلى 100 مع الحساب كامل. موش نصيحة مالية. #crypto #bitcoin #تونس #cryptotunisia"
+    },
+    {
+      "id": "1028-honest",
+      "date": "2026-10-28",
+      "lang": "en",
+      "title": "Three weeks of honest results",
+      "media": "live:report",
+      "telegram": "Three weeks in, the honest number: the coins we scored highest have done worse than the market every week so far (last week -6.2% vs -4.0%). We're not hiding it, and we're studying why. Every result stays in the public log. Not financial advice.",
+      "x": "Three weeks in, the honest number:\n\nThe coins we scored highest did worse than the market every single week. Last week: -6.2% vs -4.0%.\n\nMost crypto accounts would delete this. We're publishing it and studying why. Not financial advice.",
+      "x_reply": "The full log, every miss included: https://signal-desk-psi.vercel.app\nhttps://t.me/getqirat"
+    },
+    {
+      "id": "1029-fr",
+      "date": "2026-10-29",
+      "lang": "fr",
+      "title": "French tester call",
+      "media": "live:today",
+      "telegram": "Qirat est en bêta gratuite et je cherche 50 testeurs honnêtes. Ouvrez l'app 2 minutes et dites-moi ce qui est confus ou ce qui manque. Sans inscription. Pas un conseil financier.",
+      "x": "Qirat est en bêta gratuite et je cherche 50 testeurs honnêtes.\n\n2 minutes dans l'app, puis dites-moi ce qui est confus ou ce qui manque. Sans inscription.\n\nPas un conseil financier.",
+      "x_reply": "Tester : https://signal-desk-psi.vercel.app\nhttps://t.me/getqirat",
+      "tiktok": "Je cherche 50 testeurs pour une app crypto gratuite, sans inscription. Pas un conseil financier. #crypto #cryptofrance #cryptotunisie"
+    },
+    {
+      "id": "1030-report",
+      "date": "2026-10-30",
       "lang": "en",
       "title": "Friday report card (X only; the channel posts it automatically)",
       "media": "live:report",
-      "x": "Friday report card.\n\nHow last week's ratings actually did, worst result first. Nothing deleted, nothing edited.\n\nThis is the only way to know if a score is worth anything. Not financial advice.",
+      "x": "Friday report card.\n\nHow last week's scores actually did, worst result first. Nothing deleted, nothing edited.\n\nThe only way to know if a score is worth anything. Not financial advice.",
       "x_reply": "Full track record: https://signal-desk-psi.vercel.app\nhttps://t.me/getqirat"
     }
   ]
