@@ -295,9 +295,9 @@ const UI = {
   'pf.noChannel': { en: 'No channel is configured yet.', fr: 'Aucun canal n’est configuré.', ar: 'لا توجد قناة مُعدّة بعد.' },
 
   'foot.disclaimer': {
-    en: 'Rule-based ratings, identical for everyone. Not financial advice.',
-    fr: 'Notes fondées sur des règles, identiques pour tous. Pas un conseil financier.',
-    ar: 'تقييمات قائمة على قواعد ثابتة ومتطابقة للجميع. ليست نصيحة مالية.',
+    en: 'Free during the beta. Rule-based grades, identical for everyone. Not financial advice.',
+    fr: 'Gratuit pendant la bêta. Notes fondées sur des règles, identiques pour tous. Pas un conseil financier.',
+    ar: 'مجاني خلال النسخة التجريبية. تقييمات قائمة على قواعد ثابتة ومتطابقة للجميع. ليست نصيحة مالية.',
   },
   'foot.data': { en: 'Market data', fr: 'Données', ar: 'البيانات' },
   'foot.telegram': { en: 'Join us on Telegram', fr: 'Rejoignez-nous sur Telegram', ar: 'انضم إلينا على تيليجرام' },

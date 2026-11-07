@@ -18,6 +18,12 @@ export default function Logo() {
     <span className="flex items-center gap-2" dir="ltr">
       <GemMark size={34} />
       <span className="text-xl font-semibold tracking-tight">qirat</span>
+      <span
+        className="rounded-full bg-gold-soft px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-gold"
+        title="Free during the beta"
+      >
+        Beta
+      </span>
     </span>
   )
 }
