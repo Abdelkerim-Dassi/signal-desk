@@ -45,7 +45,34 @@ export interface Regime {
   distance_pct?: number | null
 }
 
+/** Karat (calm + 90-day trend, vs the tracked coins) and Risk (30-day volatility). */
+export interface Grade {
+  karat: 24 | 22 | 18 | 14 | 10 | null
+  trend_score: number | null
+  calm_pct: number
+  momentum_pct: number | null
+  mom90_pct: number | null
+  risk: 'low' | 'medium' | 'high'
+  typical_day_pct: number
+  rough_month_pct: number
+}
+
+export interface Weather {
+  state: 'calm' | 'choppy' | 'stormy' | 'unknown'
+  btc_price?: number
+  btc_ma50?: number
+  btc_ma200?: number | null
+  vs_ma50_pct?: number | null
+  vs_ma200_pct?: number | null
+  above_ma50?: boolean
+  above_ma200?: boolean | null
+  fear_greed?: number | null
+  funding_pct?: number | null
+  hot?: ('greed' | 'funding')[]
+}
+
 export interface Opportunity {
+  grade?: Grade | null
   symbol?: string
   name?: string
   image?: string
@@ -90,6 +117,7 @@ export interface Brief {
   assets?: string[]
   sentiment?: Sentiment
   regime?: Regime
+  weather?: Weather
   global?: GlobalStats
   opportunities?: Opportunity[]
   portfolio?: Opportunity[]

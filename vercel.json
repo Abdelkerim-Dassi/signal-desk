@@ -20,7 +20,7 @@
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/index.py" },
     { "src": "/assets/(.*)", "dest": "/frontend/assets/$1" },
-    { "src": "/(favicon\\.svg|icons\\.svg)", "dest": "/frontend/$1" },
+    { "src": "/(favicon\\.svg|favicon\\.png|icons\\.svg|qirat-mark\\.png|apple-touch-icon\\.png|icon-512\\.png)", "dest": "/frontend/$1" },
     { "src": "/((?!_vercel/).*)", "dest": "/frontend/index.html" }
   ]
 }

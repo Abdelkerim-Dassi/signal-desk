@@ -6,7 +6,7 @@ import { baseOf, parseAssets, toAsset } from '../lib/assets'
 import { changeColor, compactCurrency, percent } from '../lib/format'
 import { useI18n } from '../lib/i18n'
 import { IconPlus, IconX } from './Icons'
-import { CoinIcon, RatingPill } from './Rating'
+import { CoinIcon, KaratBadge, RiskChip } from './Rating'
 
 const field =
   'w-full min-w-0 rounded-xl border border-border bg-subtle/60 px-3 py-2 text-sm outline-none transition focus:border-border-strong'
@@ -80,7 +80,8 @@ function Holdings({
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <p className="truncate font-semibold">{p.name || p.symbol}</p>
-                  <RatingPill rating={p.rating} size="sm" />
+                  <KaratBadge karat={p.grade?.karat} size="sm" />
+                  <RiskChip risk={p.grade?.risk} />
                 </div>
                 <p className="text-xs text-muted">{te(p.holding?.note) || t('coin.notAdvice')}</p>
               </div>

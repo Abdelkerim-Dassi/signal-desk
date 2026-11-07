@@ -58,6 +58,47 @@ export function ScoreRing({ score, rating, size = 56 }: { score?: number; rating
   )
 }
 
+const KARAT_STYLE: Record<number, string> = {
+  24: 'bg-[linear-gradient(140deg,#FFE58A,#F5B52A)] text-[#5A3A00]',
+  22: 'bg-[linear-gradient(140deg,#FFEDB0,#F7C557)] text-[#5A3A00]',
+  18: 'bg-[linear-gradient(140deg,#FFF3CF,#F2D48C)] text-[#6B4A08]',
+  14: 'bg-subtle text-text',
+  10: 'bg-subtle text-muted',
+}
+
+/** The karat as a little gold ingot: 24K brightest, 10K plain. */
+export function KaratBadge({ karat, size = 'md' }: { karat?: number | null; size?: 'sm' | 'md' }) {
+  const { t } = useI18n()
+  const big = size === 'md'
+  const cls = karat ? KARAT_STYLE[karat] ?? KARAT_STYLE[14] : 'bg-subtle text-muted'
+  return (
+    <span
+      className={`num inline-grid shrink-0 place-items-center rounded-xl font-bold shadow-[inset_0_-2px_0_rgba(0,0,0,0.08)] ${cls} ${
+        big ? 'h-11 min-w-14 px-2 text-lg' : 'h-6 min-w-9 px-1.5 text-xs'
+      }`}
+      dir="ltr"
+    >
+      {karat ? t('karat.label', { k: karat }) : t('karat.none')}
+    </span>
+  )
+}
+
+const RISK_TONE = {
+  low: 'text-strong bg-strong/10',
+  medium: 'text-warn bg-warn/10',
+  high: 'text-weak bg-weak/10',
+} as const
+
+export function RiskChip({ risk }: { risk?: 'low' | 'medium' | 'high' | null }) {
+  const { t } = useI18n()
+  if (!risk) return null
+  return (
+    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold ${RISK_TONE[risk]}`}>
+      {t(`risk.${risk}`)}
+    </span>
+  )
+}
+
 /** Coin logo from a public icon set, falling back to a lettered badge. */
 export function CoinIcon({ symbol, image }: { symbol?: string; image?: string }) {
   const sym = (symbol || '?').toLowerCase()

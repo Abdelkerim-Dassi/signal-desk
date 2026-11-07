@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import math
 import re
+import statistics
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
@@ -344,26 +346,244 @@ def regime_from_closes(closes: list[float]) -> dict[str, Any]:
     }
 
 
+_btc_closes: list[float] = []
+_btc_closes_at = 0.0
+BTC_HISTORY_DAYS = REGIME_MA_DAYS + 10
+
+
+def get_btc_closes() -> list[float]:
+    """Daily BTC closes (oldest first), cached for an hour; shared by the old
+    regime and the market weather. Keeps the last good series on failure."""
+    global _btc_closes, _btc_closes_at
+    if _btc_closes and time.time() - _btc_closes_at < _REGIME_TTL:
+        return _btc_closes
+    try:
+        klines = get_binance_klines("BTCUSDT", limit=BTC_HISTORY_DAYS)
+        closes = [_safe_float(row[4]) for row in klines if len(row) >= 5]
+    except Exception:
+        try:
+            chart = get_market_chart("bitcoin", days=BTC_HISTORY_DAYS)
+            closes = [_safe_float(row[1]) for row in chart["prices"]]
+        except Exception:
+            closes = []
+    if len(closes) >= REGIME_MA_DAYS:
+        _btc_closes, _btc_closes_at = closes, time.time()
+        return closes
+    return _btc_closes or closes
+
+
 def get_market_regime() -> dict[str, Any]:
     global _last_regime, _last_regime_at
     if _last_regime is not None and time.time() - _last_regime_at < _REGIME_TTL:
         return _last_regime
-    try:
-        klines = get_binance_klines("BTCUSDT", limit=REGIME_MA_DAYS)
-        closes = [_safe_float(row[4]) for row in klines if len(row) >= 5]
-    except Exception:
-        try:
-            chart = get_market_chart("bitcoin", days=REGIME_MA_DAYS + 5)
-            closes = [_safe_float(row[1]) for row in chart["prices"]]
-        except Exception:
-            closes = []
-    regime = regime_from_closes(closes)
+    regime = regime_from_closes(get_btc_closes())
     if regime["state"] == "unknown" and _last_regime is not None:
         return _last_regime  # last-known-good beats "unknown"
     if regime["state"] != "unknown":
         _last_regime = regime
         _last_regime_at = time.time()
     return regime
+
+
+# ── Market weather (headline since 2026-11) ─────────────────────────────────
+# The 2021-2026 study found BTC vs its 50-day average separates good and bad
+# months far better than the 200-day line (median next 30 days +3.0% above it
+# vs -2.1% below; the 200-day split was +0.8% vs -0.2%). So the weather leads
+# with the 50-day line, uses the 200-day line to tell a dip from a downtrend,
+# and turns "calm" into "choppy" when the crowd is overheated.
+WEATHER_FAST_MA = 50
+GREED_HOT = 80  # Fear & Greed at or above this = euphoric crowd
+FUNDING_HOT = 0.0005  # 0.05% per 8h on perpetuals = longs paying up, crowded
+BINANCE_FUTURES_API = os.environ.get("BINANCE_FUTURES_API_BASE", "https://fapi.binance.com")
+FUNDING_SYMBOLS = ("BTCUSDT", "ETHUSDT", "SOLUSDT")
+_FUNDING_TTL = 900.0
+_funding: tuple[float, float | None] | None = None
+
+
+def get_avg_funding() -> float | None:
+    """Average last funding rate of the majors' perpetuals (a fraction per 8h),
+    or None when the futures API can't be reached (it is geo-blocked in places)."""
+    global _funding
+    if _funding is not None and time.time() - _funding[0] < _FUNDING_TTL:
+        return _funding[1]
+
+    def one(symbol: str) -> float | None:
+        try:
+            data = _get_json(f"{BINANCE_FUTURES_API}/fapi/v1/premiumIndex", params={"symbol": symbol}, timeout=5)
+            return float(data["lastFundingRate"])
+        except Exception:
+            return None
+
+    with ThreadPoolExecutor(max_workers=len(FUNDING_SYMBOLS)) as pool:
+        rates = [r for r in pool.map(one, FUNDING_SYMBOLS) if r is not None]
+    value = sum(rates) / len(rates) if rates else None
+    _funding = (time.time(), value)
+    return value
+
+
+def weather_from(closes: list[float], fear_greed: float | None = None,
+                 funding: float | None = None) -> dict[str, Any]:
+    """Calm / choppy / stormy from daily BTC closes (oldest first), plus the
+    crowd's temperature. ``hot`` lists what turned a calm market choppy."""
+    if len(closes) < WEATHER_FAST_MA:
+        return {"state": "unknown"}
+    price = closes[-1]
+    ma50 = sum(closes[-WEATHER_FAST_MA:]) / WEATHER_FAST_MA
+    ma200 = sum(closes[-REGIME_MA_DAYS:]) / REGIME_MA_DAYS if len(closes) >= REGIME_MA_DAYS else None
+    above50 = price > ma50
+    above200 = None if ma200 is None else price > ma200
+    hot = []
+    if fear_greed is not None and fear_greed >= GREED_HOT:
+        hot.append("greed")
+    if funding is not None and funding >= FUNDING_HOT:
+        hot.append("funding")
+    if above50:
+        state = "choppy" if hot else "calm"
+    elif above200 is False:
+        state = "stormy"
+    else:
+        state = "choppy"
+    return {
+        "state": state,
+        "btc_price": price,
+        "btc_ma50": ma50,
+        "btc_ma200": ma200,
+        "vs_ma50_pct": percent_change(price, ma50),
+        "vs_ma200_pct": percent_change(price, ma200) if ma200 else None,
+        "above_ma50": above50,
+        "above_ma200": above200,
+        "btc_change_7d": percent_change(price, closes[-8]) if len(closes) >= 8 else None,
+        "fear_greed": fear_greed,
+        "funding_pct": None if funding is None else round(funding * 100, 4),
+        "hot": hot,
+    }
+
+
+def get_market_weather(sentiment: dict[str, Any] | None = None) -> dict[str, Any]:
+    fng = (sentiment or get_fear_greed()).get("score")
+    return weather_from(get_btc_closes(), fng, get_avg_funding())
+
+
+# ── Karat & Risk grades (headline since 2026-11) ────────────────────────────
+# The same study found the old 0-100 setup score had no cross-sectional edge
+# (rank IC ~0.00 at 7 days), while:
+#   * calm coins with a 90-day uptrend (skipping the last week) did better than
+#     the rest: rank IC +0.09 at 7 days, +0.11 on 2024-26 alone -> the Karat;
+#   * a coin's 30-day volatility rank predicts its next 30-day volatility
+#     (rank IC 0.63, right in every month) and drawdown depth -> the Risk grade.
+# Both are ranks against one fixed reference set (the tracked coins), so every
+# coin, tracked or not, is graded on the same scale. The old score is still
+# computed and logged privately for comparison.
+GRADE_UNIVERSE = (
+    "BTC", "ETH", "SOL", "BNB", "XRP", "ADA", "DOGE", "AVAX", "LINK",
+    "DOT", "LTC", "INJ", "NEAR", "ATOM", "TRX", "UNI", "AAVE", "SUI",
+)
+VOL_DAYS = 30
+MOM_DAYS = 90
+MOM_SKIP = 7
+GRADE_HISTORY = MOM_DAYS + 10  # daily candles fetched per coin
+KARAT_BANDS = ((80.0, 24), (60.0, 22), (40.0, 18), (20.0, 14))
+KARAT_FLOOR = 10
+ROUGH_MONTH_Z = 1.65  # a 1-in-20 month under a normal model (crypto tails are fatter)
+_GRADE_REF_TTL = 3600.0
+_grade_ref: dict[str, Any] | None = None
+_grade_ref_at = 0.0
+_grade_ref_lock = threading.Lock()
+
+
+def grade_inputs(closes: list[float]) -> dict[str, Any] | None:
+    """30-day volatility (stdev of daily log returns) and 90-day momentum
+    skipping the last week. Momentum is None for coins younger than ~3 months."""
+    if len(closes) < VOL_DAYS + 1:
+        return None
+    window = closes[-(VOL_DAYS + 1):]
+    if any(c <= 0 for c in window):
+        return None
+    rets = [math.log(b / a) for a, b in zip(window, window[1:])]
+    mom = None
+    if len(closes) >= MOM_DAYS + 1 and closes[-1 - MOM_DAYS] > 0:
+        mom = closes[-1 - MOM_SKIP] / closes[-1 - MOM_DAYS] - 1
+    return {"vol30": statistics.stdev(rets), "mom90": mom}
+
+
+def _share_below(x: float, ref: list[float]) -> float:
+    """x's rank among the reference values as a 0..1 share. For a coin in the
+    reference set this equals its plain rank, matching the shadow log."""
+    if len(ref) < 2:
+        return 0.5
+    return min(1.0, sum(1 for v in ref if v < x) / (len(ref) - 1))
+
+
+def karat_for(trend_score: float) -> int:
+    for floor, karat in KARAT_BANDS:
+        if trend_score >= floor:
+            return karat
+    return KARAT_FLOOR
+
+
+def grade_from_inputs(inputs: dict[str, Any], ref: dict[str, Any]) -> dict[str, Any]:
+    vol, mom = inputs["vol30"], inputs["mom90"]
+    calm = _share_below(-vol, [-v for v in ref["vol30"]])
+    risk_rank = _share_below(vol, ref["vol30"])
+    risk = "low" if risk_rank < 1 / 3 else "medium" if risk_rank < 2 / 3 else "high"
+    out: dict[str, Any] = {
+        "karat": None,
+        "trend_score": None,
+        "calm_pct": round(100 * calm),
+        "momentum_pct": None,
+        "mom90_pct": None,
+        "risk": risk,
+        "typical_day_pct": round(vol * 100, 2),
+        "rough_month_pct": round((math.exp(-ROUGH_MONTH_Z * vol * math.sqrt(30)) - 1) * 100, 1),
+    }
+    if mom is not None:
+        mom_rank = _share_below(mom, ref["mom90"])
+        trend = 100 * (calm + mom_rank) / 2
+        out.update(
+            karat=karat_for(trend),
+            trend_score=round(trend, 1),
+            momentum_pct=round(100 * mom_rank),
+            mom90_pct=round(mom * 100, 1),
+        )
+    return out
+
+
+def get_grade_reference() -> dict[str, Any] | None:
+    """The reference distribution (30-day volatility and 90-day momentum of the
+    tracked coins), cached for an hour; the last good one on failure."""
+    global _grade_ref, _grade_ref_at
+    with _grade_ref_lock:
+        if _grade_ref is not None and time.time() - _grade_ref_at < _GRADE_REF_TTL:
+            return _grade_ref
+
+        def one(base: str) -> dict[str, Any] | None:
+            try:
+                klines = get_binance_klines(f"{base}USDT", limit=GRADE_HISTORY)
+                return grade_inputs([_safe_float(row[4]) for row in klines if len(row) >= 5])
+            except Exception:
+                return None
+
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            rows = [r for r in pool.map(one, GRADE_UNIVERSE) if r]
+        vols = [r["vol30"] for r in rows]
+        moms = [r["mom90"] for r in rows if r["mom90"] is not None]
+        if len(vols) >= 10 and len(moms) >= 10:
+            _grade_ref = {"vol30": vols, "mom90": moms, "asof": _now_iso()}
+            _grade_ref_at = time.time()
+        return _grade_ref
+
+
+def grade_sort_key(analysis: dict[str, Any]) -> tuple[float, float]:
+    """Best karat first; coins without one (too young) after, by the old score."""
+    trend = (analysis.get("grade") or {}).get("trend_score")
+    return (trend if trend is not None else -1.0, float(analysis.get("score") or 0))
+
+
+def grade_closes(closes: list[float], ref: dict[str, Any] | None) -> dict[str, Any] | None:
+    inputs = grade_inputs(closes)
+    if not inputs or not ref:
+        return None
+    return grade_from_inputs(inputs, ref)
 
 
 def get_trending() -> list[dict[str, Any]]:
@@ -711,13 +931,20 @@ def score_binance_symbols(
     into roughly one batch.
     """
     holding_map = holding_map or {}
+    try:
+        reference = get_grade_reference()
+    except Exception:
+        reference = None
 
     def score(symbol: str) -> dict[str, Any]:
         ticker = get_binance_24hr(symbol)
-        klines = get_binance_klines(symbol)
+        klines = get_binance_klines(symbol, limit=GRADE_HISTORY)
         market = binance_ticker_to_market(ticker, klines, quote_asset)
         chart = binance_klines_to_chart(klines)
-        return analyze_asset(market, chart, sentiment, holding_map.get(symbol), regime)
+        analysis = analyze_asset(market, chart, sentiment, holding_map.get(symbol), regime)
+        closes = [_safe_float(row[4]) for row in klines if len(row) >= 5]
+        analysis["grade"] = grade_closes(closes, reference)
+        return analysis
 
     analyses = []
     errors = []
@@ -755,7 +982,7 @@ def build_binance_market_brief(
     if not analyses and errors and any(row.get("code") != "unknown_symbol" for row in errors):
         raise DataFetchError("; ".join(f"{row['symbol']}: {row['error']}" for row in errors))
 
-    opportunities = sorted(analyses, key=lambda row: row["score"], reverse=True)
+    opportunities = sorted(analyses, key=grade_sort_key, reverse=True)
     portfolio = [row for row in analyses if row.get("holding")]
     return {
         "generated_at": _now_iso(),
@@ -764,6 +991,7 @@ def build_binance_market_brief(
         "quote_asset": quote_asset.upper(),
         "sentiment": sentiment,
         "regime": regime,
+        "weather": get_market_weather(sentiment),
         "global": get_global_market(),
         "trending": get_trending(),
         "assets": analyses,

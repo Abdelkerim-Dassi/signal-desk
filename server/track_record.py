@@ -22,7 +22,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
-from advisor_engine import get_fear_greed, get_market_regime, score_binance_symbols
+from advisor_engine import get_fear_greed, get_market_regime, get_market_weather, score_binance_symbols
 
 from . import shadow, upstash
 
@@ -111,6 +111,7 @@ def take_snapshot() -> dict[str, Any]:
         "taken_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "regime": regime.get("state"),
         "mood50": shadow_doc["mood"].get("state"),
+        "weather": _weather_state(sentiment),
         "fear_greed": sentiment.get("score"),
         "rows": [
             {
@@ -119,12 +120,20 @@ def take_snapshot() -> dict[str, Any]:
                 "score": a["score"],
                 "price": a["current_price"],
                 **{k: coins[a["symbol"]][k] for k in ("stability", "trend") if a["symbol"] in coins},
+                **{k: (a.get("grade") or {}).get(k) for k in ("karat", "risk") if a.get("grade")},
             }
             for a in analyses
             if a.get("current_price")
         ],
         "errors": len(errors),
     }
+
+
+def _weather_state(sentiment: dict[str, Any]) -> str | None:
+    try:
+        return get_market_weather(sentiment).get("state")
+    except Exception:
+        return None
 
 
 def ensure_today() -> dict[str, Any]:

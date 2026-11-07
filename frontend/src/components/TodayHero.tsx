@@ -36,15 +36,22 @@ export default function TodayHero({
   onRefresh: () => void
 }) {
   const { t, te } = useI18n()
-  const regime = brief?.regime
-  const state = regime?.state ?? 'unknown'
-  const pct = regime?.distance_pct != null ? `${Math.abs(regime.distance_pct).toFixed(1)}%` : '--'
+  const w = brief?.weather
+  const state = w?.state ?? 'unknown'
+  const pct = w?.vs_ma50_pct != null ? `${Math.abs(w.vs_ma50_pct).toFixed(1)}%` : '--'
   const g = brief?.global ?? {}
   const s = brief?.sentiment ?? {}
 
-  const title =
-    state === 'risk_on' ? t('hero.on.title') : state === 'risk_off' ? t('hero.off.title') : t('hero.unknown.title')
-  const dot = state === 'risk_on' ? 'bg-strong live-dot' : state === 'risk_off' ? 'bg-weak' : 'bg-neutral'
+  const title = state === 'unknown' ? t('hero.unknown.title') : t(`weather.${state}.title`)
+  const dot =
+    state === 'calm' ? 'bg-strong live-dot' : state === 'choppy' ? 'bg-warn' : state === 'stormy' ? 'bg-weak' : 'bg-neutral'
+  let body = ''
+  if (state === 'calm') body = t('weather.calm.body', { pct })
+  else if (state === 'stormy') body = t('weather.stormy.body')
+  else if (state === 'choppy')
+    body = w?.above_ma50
+      ? t('weather.choppy.hot', { why: (w.hot ?? []).map((h) => t(`weather.hot.${h}`)).join(', ') })
+      : t('weather.choppy.dip', { pct })
 
   let status: string
   if (isFetching) status = t('hero.refreshing')
@@ -72,10 +79,9 @@ export default function TodayHero({
         <span className={`size-2.5 shrink-0 rounded-full ${dot}`} aria-hidden />
         {title}
       </h1>
-      {state !== 'unknown' && (
+      {body && (
         <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-muted">
-          {t(state === 'risk_on' ? 'hero.on.body' : 'hero.off.body', { pct })}{' '}
-          <span className="hidden opacity-80 sm:inline">{t('hero.why')}</span>
+          {body} <span className="hidden opacity-80 sm:inline">{t('weather.why')}</span>
         </p>
       )}
 

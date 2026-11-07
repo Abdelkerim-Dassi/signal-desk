@@ -7,13 +7,13 @@ import { changeColor, compactCurrency, percent } from '../lib/format'
 import { baseOf, parseAssets, POPULAR, toAsset } from '../lib/assets'
 import { useI18n } from '../lib/i18n'
 import { IconChevron, IconPlus, IconX } from './Icons'
-import { CoinIcon, RatingPill, ScoreRing } from './Rating'
+import { CoinIcon, KaratBadge, RiskChip } from './Rating'
 import CandleChart from './CandleChart'
 import Sparkline from './Sparkline'
 
 function ScoreDetails({ item }: { item: Opportunity }) {
-  const { t, te } = useI18n()
-  const sb = item.score_breakdown
+  const { t } = useI18n()
+  const g = item.grade
   const up = Number(item.change_7d ?? 0) >= 0
   return (
     <div className="mt-4 space-y-4 border-t border-border pt-4">
@@ -30,76 +30,59 @@ function ScoreDetails({ item }: { item: Opportunity }) {
         </div>
       )}
 
-      {sb && sb.components?.length > 0 && (
+      {g && (
         <div>
-          <p className="mb-2 text-sm font-semibold">{t('coin.why')}</p>
-          <div className="space-y-1.5 rounded-2xl bg-subtle/70 p-3 text-sm">
-            <div className="flex justify-between gap-3 text-muted">
-              <span>{t('coin.base')}</span>
-              <span className="num">{sb.base}</span>
-            </div>
-            {sb.components.map((c, i) => (
-              <div key={`${c.label}-${i}`} className="flex justify-between gap-3">
-                <span>{te(c.label)}</span>
-                <span className={`num font-semibold ${c.delta >= 0 ? 'text-up' : 'text-down'}`} dir="ltr">
-                  {c.delta > 0 ? '+' : ''}
-                  {c.delta}
-                </span>
-              </div>
-            ))}
-            {sb.cap && (
-              <div className="flex justify-between gap-3 border-t border-dashed border-weak/30 pt-1.5 text-weak">
-                <span>
-                  {t('coin.cap')}
-                  <span className="block text-xs text-muted">
-                    {te(sb.cap.reason)} · {t('coin.beforeCap', { n: sb.raw ?? '--' })}
+          <p className="mb-2 text-sm font-semibold">
+            {g.karat ? t('karat.title', { k: g.karat }) : t('karat.young')}
+          </p>
+          <div className="grid gap-2.5 sm:grid-cols-2">
+            {g.mom90_pct != null && (
+              <div className="rounded-2xl bg-subtle/70 p-3">
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="text-xs text-muted">{t('karat.trend')}</span>
+                  <span className={`num text-base font-semibold ${changeColor(g.mom90_pct)}`} dir="ltr">
+                    {percent(g.mom90_pct)}
                   </span>
-                </span>
-                <span className="num font-semibold" dir="ltr">
-                  ≤{sb.cap.value}
-                </span>
+                </div>
+                <p className="mt-0.5 text-xs text-muted">{t('karat.trendSub', { n: g.momentum_pct ?? '--' })}</p>
               </div>
             )}
-            <div className="flex justify-between gap-3 border-t border-border pt-1.5 font-semibold">
-              <span>{t('coin.score')}</span>
-              <span className="num text-gold">{sb.final}</span>
+            <div className="rounded-2xl bg-subtle/70 p-3">
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="text-xs text-muted">{t('karat.calm')}</span>
+                <span className="num text-base font-semibold">{t('karat.perDay', { v: g.typical_day_pct.toFixed(1) })}</span>
+              </div>
+              <p className="mt-0.5 text-xs text-muted">{t('karat.calmSub', { n: g.calm_pct })}</p>
             </div>
           </div>
+          <p className="mt-2 text-xs leading-relaxed text-muted">{t('karat.scale')}</p>
         </div>
       )}
 
-      <div className="grid gap-3 sm:grid-cols-2">
-        {(item.reasons?.length ?? 0) > 0 && (
-          <div>
-            <p className="mb-1.5 text-sm font-semibold">{t('coin.helps')}</p>
-            <ul className="space-y-1 text-sm text-muted">
-              {item.reasons!.map((r) => (
-                <li key={r} className="flex gap-2">
-                  <span className="text-strong">+</span>
-                  {te(r)}
-                </li>
-              ))}
-            </ul>
+      {g && (
+        <div>
+          <div className="mb-2 flex items-center gap-2">
+            <p className="text-sm font-semibold">{t('risk.title')}</p>
+            <RiskChip risk={g.risk} />
           </div>
-        )}
-        {(item.risks?.length ?? 0) > 0 && (
-          <div>
-            <p className="mb-1.5 text-sm font-semibold">{t('coin.watch')}</p>
-            <ul className="space-y-1 text-sm text-muted">
-              {item.risks!.map((r) => (
-                <li key={r} className="flex gap-2">
-                  <span className="text-warn">!</span>
-                  {te(r)}
-                </li>
-              ))}
-            </ul>
+          <div className="space-y-1.5 rounded-2xl bg-subtle/70 p-3 text-sm">
+            <div className="flex justify-between gap-3">
+              <span>{t('risk.day')}</span>
+              <span className="num font-semibold" dir="ltr">±{g.typical_day_pct.toFixed(1)}%</span>
+            </div>
+            <div className="flex justify-between gap-3">
+              <span>{t('risk.month')}</span>
+              <span className="num font-semibold text-down" dir="ltr">{g.rough_month_pct.toFixed(0)}%</span>
+            </div>
+            <p className="border-t border-border pt-1.5 text-xs text-muted">
+              {t('risk.money', { v: Math.abs(Math.round(g.rough_month_pct)) })}
+            </p>
           </div>
-        )}
-      </div>
+          <p className="mt-2 text-xs text-muted">{t('risk.note')}</p>
+        </div>
+      )}
 
-      <p className="text-xs text-muted">
-        {t('coin.risk')}: <span className="font-medium text-text">{te(item.risk_level)}</span> · {t('coin.notAdvice')}
-      </p>
+      <p className="text-xs text-muted">{t('coin.notAdvice')}</p>
     </div>
   )
 }
@@ -121,17 +104,14 @@ function CoinCard({ item, delay }: { item: Opportunity; delay: number }) {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
             <p className="truncate font-semibold">{item.name || symbol}</p>
-            <RatingPill rating={item.rating} size="sm" />
-            {item.score_breakdown?.cap && (
-              <span className="text-[11px] font-medium text-weak">{t('coin.capped')}</span>
-            )}
+            <RiskChip risk={item.grade?.risk} />
           </div>
           <p className="num mt-0.5 text-sm text-muted" dir="ltr">
             <span className="text-text">{compactCurrency(item.current_price)}</span>{' '}
             <span className={changeColor(item.change_24h)}>{percent(item.change_24h)}</span>
           </p>
         </div>
-        <ScoreRing score={item.score} rating={item.rating} />
+        <KaratBadge karat={item.grade?.karat} />
         <IconChevron className={`shrink-0 text-muted transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && <ScoreDetails item={item} />}

@@ -30,13 +30,15 @@ from typing import Any
 
 import requests
 
-from advisor_engine import get_fear_greed, get_market_regime, score_binance_symbols
+from advisor_engine import (
+    get_fear_greed, get_market_regime, get_market_weather, grade_sort_key, score_binance_symbols,
+)
 
 from . import cards, track_record, upstash
 from .labels import te
 from .cache import TTLCache
 
-APP_URL = os.environ.get("APP_URL", "https://signal-desk-psi.vercel.app")  # switch to https://qirat.tn once the .tn registry publishes it
+APP_URL = os.environ.get("APP_URL", "https://qirat.tn")
 CHANNEL_URL = "https://t.me/getqirat"
 # The public channel the daily card and Friday report card are posted to.
 CHANNEL = os.getenv("TELEGRAM_CHANNEL", "@getqirat")
@@ -77,8 +79,25 @@ def api(method: str, **params: Any) -> dict[str, Any]:
 
 T: dict[str, dict[str, str]] = {
     "en": {
-        "welcome": "<b>Welcome to Qirat</b> 💎\nEvery coin has a karat. I grade crypto coins from 0 to 100 and show you the math behind every point.\n\nTry it: send <code>BTC</code> or tap a button.",
-        "help": "<b>How Qirat works</b>\n• /score BTC ETH: score coins (0–100) with the math shown\n• /watch: your coin list, daily briefing and alerts\n• /market: today's market regime and mood\n• /record: our track record, losses included\n• /language: change language\n\nStrong ≥67 · Weak ≤38. When Bitcoin is below its 200-day average, every score is capped at 66.",
+        "welcome": "<b>Welcome to Qirat</b> 💎\nEvery coin has a karat. I grade crypto coins like gold: 24K = calm and climbing, 10K = wild or sliding, and I tell you how risky each one is.\n\nTry it: send <code>BTC</code> or tap a button.",
+        "help": "<b>How Qirat works</b>\n• /score BTC ETH: each coin's karat (24K best, 10K weakest) and its risk\n• /watch: your coin list, daily briefing and alerts\n• /market: today's market weather\n• /record: our track record\n• /language: change language\n\nKarats compare coins with each other. The weather tells you how the whole market feels: in a storm even 24K coins usually fall.",
+        "w_calm": "☀️ Market: calm",
+        "w_choppy": "🌤 Market: choppy",
+        "w_stormy": "⛈ Market: stormy",
+        "w_calm_body": "Bitcoin is {pct} above its 50-day average and the crowd isn't overheated.",
+        "w_dip_body": "Bitcoin slipped {pct} below its 50-day average but holds its 200-day line. Expect bigger swings.",
+        "w_hot_body": "Bitcoin is above its 50-day average but the crowd is overheated. Pullbacks get more likely.",
+        "w_stormy_body": "Bitcoin is below its 50-day and 200-day averages. In storms most coins fall, even 24K ones.",
+        "risk_low": "🟢 Low risk",
+        "risk_medium": "🟠 Medium risk",
+        "risk_high": "🔴 High risk",
+        "young": "Too new for a karat (needs 3 months)",
+        "trend_line": "90-day trend {v} · stronger than {n}% of the top coins",
+        "calm_line": "Typical day ±{v}% · calmer than {n}% of the top coins",
+        "rough_line": "A rough month (1 in 20): about {v}% · on 100 TND ≈ {m} TND",
+        "karat_scale": "24K = calm and climbing · 10K = wild or sliding",
+        "karat_alert": "{coin}: {old} → {new}",
+        "alert_title": "🔔 <b>Karat change</b>",
         "disclaimer": "A rating describes the coin's chart, not what you should do with your money.",
         "why": "Why this score",
         "base": "Starting point",
@@ -113,7 +132,6 @@ T: dict[str, dict[str, str]] = {
         "channel": "Channel",
         "daily_title": "<b>Qirat daily</b> · {date}",
         "daily_footer": "Full AI briefing and every point explained in the app.",
-        "alert_title": "🔔 <b>Rating change</b>",
         "alert_line": "{coin}: {old} → {new} (score {score})",
         "record_backtest": "<b>Backtest 2021–26</b> (simulated): coins rated Strong returned {strong} on average over the next 30 days, vs {all} for all coins. Only {hit}% of them went up.",
         "record_live": "<b>Live log</b>: {n} coins rated every day since {date}, saved once and never edited.",
@@ -122,8 +140,25 @@ T: dict[str, dict[str, str]] = {
         "group_hello": "Hi! I'm Qirat. Anyone can send /score BTC here. Admins: /watch sets this group's coins and the daily card.",
     },
     "fr": {
-        "welcome": "<b>Bienvenue sur Qirat</b> 💎\nChaque crypto a son carat. Je note les cryptos de 0 à 100 et je montre le calcul derrière chaque point.\n\nEssayez : envoyez <code>BTC</code> ou touchez un bouton.",
-        "help": "<b>Comment marche Qirat</b>\n• /score BTC ETH : noter des cryptos (0–100), calcul inclus\n• /watch : votre liste, le briefing quotidien et les alertes\n• /market : le marché aujourd'hui\n• /record : notre historique, pertes comprises\n• /language : changer de langue\n\nForte ≥67 · Faible ≤38. Quand le bitcoin est sous sa moyenne 200 jours, tous les scores sont plafonnés à 66.",
+        "welcome": "<b>Bienvenue sur Qirat</b> 💎\nChaque crypto a son carat. Je note les cryptos comme l'or : 24K = calme et en hausse, 10K = agitée ou en baisse, et je vous dis à quel point chacune est risquée.\n\nEssayez : envoyez <code>BTC</code> ou touchez un bouton.",
+        "help": "<b>Comment marche Qirat</b>\n• /score BTC ETH : le carat de chaque crypto (24K le meilleur, 10K le plus faible) et son risque\n• /watch : votre liste, le briefing quotidien et les alertes\n• /market : la météo du marché\n• /record : notre historique\n• /language : changer de langue\n\nLes carats comparent les cryptos entre elles. La météo dit comment va tout le marché : dans l'orage, même les 24K baissent souvent.",
+        "w_calm": "☀️ Marché : calme",
+        "w_choppy": "🌤 Marché : agité",
+        "w_stormy": "⛈ Marché : orageux",
+        "w_calm_body": "Le bitcoin est {pct} au-dessus de sa moyenne 50 jours et la foule n'est pas en surchauffe.",
+        "w_dip_body": "Le bitcoin est passé {pct} sous sa moyenne 50 jours mais tient sa moyenne 200 jours. Attendez-vous à des remous.",
+        "w_hot_body": "Le bitcoin est au-dessus de sa moyenne 50 jours mais la foule surchauffe. Les replis deviennent plus probables.",
+        "w_stormy_body": "Le bitcoin est sous ses moyennes 50 et 200 jours. Dans l'orage, la plupart des cryptos baissent, même les 24K.",
+        "risk_low": "🟢 Risque faible",
+        "risk_medium": "🟠 Risque moyen",
+        "risk_high": "🔴 Risque élevé",
+        "young": "Trop récente pour un carat (3 mois requis)",
+        "trend_line": "Tendance 90 j {v} · plus forte que {n} % des grandes cryptos",
+        "calm_line": "Journée normale ±{v} % · plus calme que {n} % des grandes cryptos",
+        "rough_line": "Un mauvais mois (1 sur 20) : environ {v} % · sur 100 TND ≈ {m} TND",
+        "karat_scale": "24K = calme et en hausse · 10K = agitée ou en baisse",
+        "karat_alert": "{coin} : {old} → {new}",
+        "alert_title": "🔔 <b>Changement de carat</b>",
         "disclaimer": "Une note décrit le graphique de la crypto, pas ce que vous devez faire de votre argent.",
         "why": "Pourquoi ce score",
         "base": "Point de départ",
@@ -158,7 +193,6 @@ T: dict[str, dict[str, str]] = {
         "channel": "Canal",
         "daily_title": "<b>Qirat du jour</b> · {date}",
         "daily_footer": "Briefing IA complet et chaque point expliqué dans l'app.",
-        "alert_title": "🔔 <b>Changement de note</b>",
         "alert_line": "{coin} : {old} → {new} (score {score})",
         "record_backtest": "<b>Backtest 2021–26</b> (simulé) : les cryptos notées Fortes ont rapporté {strong} en moyenne sur 30 jours, contre {all} pour l'ensemble. Seules {hit} % ont monté.",
         "record_live": "<b>Journal en direct</b> : {n} cryptos notées chaque jour depuis le {date}, enregistrées une fois, jamais modifiées.",
@@ -167,8 +201,25 @@ T: dict[str, dict[str, str]] = {
         "group_hello": "Bonjour ! Je suis Qirat. Tout le monde peut envoyer /score BTC ici. Admins : /watch règle les cryptos du groupe et la carte quotidienne.",
     },
     "ar": {
-        "welcome": "<b>مرحباً بك في قيراط</b> 💎\nلكل عملة قيراطها. أقيّم العملات المشفرة من 0 إلى 100 وأريك الحساب وراء كل نقطة.\n\nجرّب: أرسل <code>BTC</code> أو اضغط زراً.",
-        "help": "<b>كيف يعمل قيراط</b>\n• /score BTC ETH: قيّم العملات (0–100) مع الحساب\n• /watch: قائمتك والموجز اليومي والتنبيهات\n• /market: حالة السوق اليوم\n• /record: سجلنا، بما في ذلك الخسائر\n• /language: تغيير اللغة\n\nقوي ≥67 · ضعيف ≤38. عندما يكون البيتكوين تحت متوسطه لـ200 يوم، تُحدّ كل الدرجات عند 66.",
+        "welcome": "<b>مرحباً بك في قيراط</b> 💎\nلكل عملة قيراطها. أقيّم العملات المشفرة مثل الذهب: عيار 24 = هادئة وصاعدة، عيار 10 = متقلبة أو هابطة، وأخبرك بمدى خطورة كل عملة.\n\nجرّب: أرسل <code>BTC</code> أو اضغط زراً.",
+        "help": "<b>كيف يعمل قيراط</b>\n• /score BTC ETH: عيار كل عملة (24 الأفضل، 10 الأضعف) ومخاطرتها\n• /watch: قائمتك والموجز اليومي والتنبيهات\n• /market: طقس السوق اليوم\n• /record: سجلنا\n• /language: تغيير اللغة\n\nالعيار يقارن العملات ببعضها. والطقس يخبرك بحال السوق كله: في العاصفة تنخفض حتى عملات عيار 24 غالباً.",
+        "w_calm": "☀️ السوق: هادئ",
+        "w_choppy": "🌤 السوق: متقلّب",
+        "w_stormy": "⛈ السوق: عاصف",
+        "w_calm_body": "البيتكوين أعلى من متوسطه لـ50 يوماً بنسبة {pct}، والسوق ليس في حالة اندفاع.",
+        "w_dip_body": "نزل البيتكوين {pct} تحت متوسطه لـ50 يوماً لكنه فوق خط الـ200 يوم. توقّع تقلبات أكبر.",
+        "w_hot_body": "البيتكوين فوق متوسطه لـ50 يوماً لكن السوق في حالة اندفاع. احتمال التراجع أكبر.",
+        "w_stormy_body": "البيتكوين تحت متوسطيه لـ50 و200 يوم. في العاصفة تنخفض معظم العملات، حتى عيار 24.",
+        "risk_low": "🟢 مخاطرة منخفضة",
+        "risk_medium": "🟠 مخاطرة متوسطة",
+        "risk_high": "🔴 مخاطرة عالية",
+        "young": "أحدث من أن تُعطى عياراً (تحتاج 3 أشهر)",
+        "trend_line": "اتجاه 90 يوماً {v} · أقوى من {n}٪ من العملات الكبرى",
+        "calm_line": "يوم عادي ±{v}٪ · أهدأ من {n}٪ من العملات الكبرى",
+        "rough_line": "شهر سيئ (1 من 20): نحو {v}٪ · على 100 دينار ≈ {m} دينار",
+        "karat_scale": "عيار 24 = هادئة وصاعدة · عيار 10 = متقلبة أو هابطة",
+        "karat_alert": "{coin}: {old} ← {new}",
+        "alert_title": "🔔 <b>تغيّر العيار</b>",
         "disclaimer": "التقييم يصف الرسم البياني للعملة، وليس ما يجب أن تفعله بأموالك.",
         "why": "لماذا هذه الدرجة",
         "base": "نقطة البداية",
@@ -203,7 +254,6 @@ T: dict[str, dict[str, str]] = {
         "channel": "القناة",
         "daily_title": "<b>قيراط اليوم</b> · {date}",
         "daily_footer": "الموجز الكامل بالذكاء الاصطناعي وشرح كل نقطة في التطبيق.",
-        "alert_title": "🔔 <b>تغيّر التقييم</b>",
         "alert_line": "{coin}: {old} ← {new} (الدرجة {score})",
         "record_backtest": "<b>اختبار تاريخي 2021–26</b> (محاكاة): حققت العملات المصنّفة قوية عائداً متوسطه {strong} خلال 30 يوماً، مقابل {all} لكل العملات. {hit}٪ منها فقط ارتفعت.",
         "record_live": "<b>السجل المباشر</b>: {n} عملة تُقيَّم يومياً منذ {date}، تُحفظ مرة واحدة دون تعديل.",
@@ -234,7 +284,9 @@ def fmt_price(value: float | None) -> str:
         return f"${v:,.0f}"
     if abs(v) >= 1:
         return f"${v:,.2f}"
-    return f"${v:.4f}"
+    if abs(v) >= 0.01:
+        return f"${v:.4f}"
+    return "$" + f"{v:.10f}".rstrip("0")
 
 
 def fmt_pct(value: float | None) -> str:
@@ -336,13 +388,13 @@ def _sentiment() -> dict[str, Any]:
 
 
 def score(bases: list[str]) -> tuple[dict[str, dict[str, Any]], list[str], dict[str, Any]]:
-    """Score coins by base ticker. Returns ({BASE: analysis}, [not found], regime)."""
+    """Grade coins by base ticker. Returns ({BASE: analysis}, [not found], weather)."""
     bases = [b.upper() for b in bases]
-    regime = get_market_regime()
+    regime = get_market_regime()  # still feeds the old score, which is logged privately
     analyses, errors = score_binance_symbols([f"{b}USDT" for b in bases], _sentiment(), regime)
     found = {a["symbol"].upper(): a for a in analyses}
     missing = [b for b in bases if b not in found]
-    return found, missing, regime
+    return found, missing, get_market_weather(_sentiment())
 
 
 def parse_tickers(text: str) -> list[str]:
@@ -357,33 +409,59 @@ def parse_tickers(text: str) -> list[str]:
 # ── message builders ────────────────────────────────────────────────────────
 
 
-def regime_line(lang: str, regime: dict[str, Any]) -> str:
-    state = regime.get("state")
-    if state == "risk_on":
-        return t(lang, "risk_on")
-    if state == "risk_off":
-        return t(lang, "risk_off")
+def regime_line(lang: str, weather: dict[str, Any]) -> str:
+    """One line for the market weather (kept under its old name for callers)."""
+    state = (weather or {}).get("state")
+    return t(lang, f"w_{state}") if state in ("calm", "choppy", "stormy") else ""
+
+
+def weather_body(lang: str, w: dict[str, Any]) -> str:
+    pct = f"{abs(w.get('vs_ma50_pct') or 0):.1f}%"
+    state = w.get("state")
+    if state == "calm":
+        return t(lang, "w_calm_body", pct=pct)
+    if state == "stormy":
+        return t(lang, "w_stormy_body")
+    if state == "choppy":
+        return t(lang, "w_hot_body") if w.get("above_ma50") else t(lang, "w_dip_body", pct=pct)
     return ""
 
 
-def score_card(lang: str, a: dict[str, Any], regime: dict[str, Any]) -> str:
-    rating = a["rating"]
-    sb = a.get("score_breakdown") or {}
+def karat_txt(a: dict[str, Any]) -> str:
+    k = (a.get("grade") or {}).get("karat")
+    return f"{k}K" if k else "New"
+
+
+def risk_txt(lang: str, a: dict[str, Any]) -> str:
+    r = (a.get("grade") or {}).get("risk")
+    return t(lang, f"risk_{r}") if r else ""
+
+
+def grade_lines(lang: str, a: dict[str, Any]) -> list[str]:
+    g = a.get("grade") or {}
+    if not g:
+        return []
+    out = []
+    if g.get("mom90_pct") is not None:
+        out.append(t(lang, "trend_line", v=fmt_pct(g["mom90_pct"]), n=g.get("momentum_pct", "--")))
+    else:
+        out.append(t(lang, "young"))
+    out.append(t(lang, "calm_line", v=f"{g['typical_day_pct']:.1f}", n=g.get("calm_pct", "--")))
+    out.append(t(lang, "rough_line", v=f"{g['rough_month_pct']:.0f}", m=abs(round(g["rough_month_pct"]))))
+    return out
+
+
+def score_card(lang: str, a: dict[str, Any], weather: dict[str, Any]) -> str:
     lines = [
         f"<b>{esc(a.get('name') or a['symbol'])} ({esc(a['symbol'])})</b> · {fmt_price(a.get('current_price'))} "
         f"({fmt_pct(a.get('change_24h'))} 24h)",
-        f"<b>{a['score']:.0f}/100</b> · {GLYPH[rating]} {esc(te(lang, rating))}",
-        meter(a["score"]),
+        f"<b>{karat_txt(a)}</b> · {risk_txt(lang, a)}",
         "",
-        f"<i>{t(lang, 'why')}</i>",
-        f"{t(lang, 'base')}: {sb.get('base', 50)}",
+        *grade_lines(lang, a),
+        "",
+        f"<i>{t(lang, 'karat_scale')}</i>",
     ]
-    for c in sb.get("components") or []:
-        delta = c.get("delta", 0)
-        lines.append(f"{'+' if delta > 0 else ''}{delta:g}  {esc(te(lang, c.get('label')))}")
-    if sb.get("cap"):
-        lines.append(f"≤{sb['cap']['value']}  {t(lang, 'cap')}")
-    rl = regime_line(lang, regime)
+    rl = regime_line(lang, weather)
     if rl:
         lines += ["", rl]
     lines += ["", f"<i>{t(lang, 'disclaimer')}</i>"]
@@ -391,22 +469,19 @@ def score_card(lang: str, a: dict[str, Any], regime: dict[str, Any]) -> str:
 
 
 def coin_line(lang: str, a: dict[str, Any]) -> str:
-    rating = a["rating"]
     return (
-        f"{DOT[rating]} <b>{esc(a['symbol'])}</b> {a['score']:.0f} · {esc(te(lang, rating))} · "
+        f"<b>{esc(a['symbol'])}</b> {karat_txt(a)} · {risk_txt(lang, a)} · "
         f"{fmt_price(a.get('current_price'))} {fmt_pct(a.get('change_24h'))}"
     )
 
 
 def market_text(lang: str) -> str:
-    regime = get_market_regime()
+    w = get_market_weather(_sentiment())
     s = _sentiment()
     lines = []
-    rl = regime_line(lang, regime)
+    rl = regime_line(lang, w)
     if rl:
-        pct = f"{abs(regime.get('distance_pct') or 0):.1f}%"
-        body = t(lang, "regime_on_body" if regime["state"] == "risk_on" else "regime_off_body", pct=pct)
-        lines += [f"<b>{rl}</b>", body, ""]
+        lines += [f"<b>{rl}</b>", weather_body(lang, w), ""]
     lines.append(f"{t(lang, 'mood')}: <b>{s.get('score', '--')}</b> · {esc(te(lang, s.get('status')))}")
     return "\n".join(lines)
 
@@ -473,23 +548,16 @@ def send_photo(
         return {"ok": False, "description": str(exc)}
 
 
-def score_caption(lang: str, a: dict[str, Any], regime: dict[str, Any]) -> str:
+def score_caption(lang: str, a: dict[str, Any], weather: dict[str, Any]) -> str:
     """Caption under a coin card. The card itself is English/French, so Arabic
-    readers also get the breakdown here in Arabic."""
-    rating = a["rating"]
+    readers also get the details here in Arabic."""
     lines = [
         f"<b>{esc(a.get('name') or a['symbol'])} ({esc(a['symbol'])})</b> · "
-        f"<b>{a['score']:.0f}/100</b> · {GLYPH[rating]} {esc(te(lang, rating))}",
+        f"<b>{karat_txt(a)}</b> · {risk_txt(lang, a)}",
     ]
     if lang == "ar":
-        sb = a.get("score_breakdown") or {}
-        lines += ["", f"<i>{t(lang, 'why')}</i>", f"{t(lang, 'base')}: {sb.get('base', 50)}"]
-        for c in sb.get("components") or []:
-            d = c.get("delta", 0)
-            lines.append(f"{'+' if d > 0 else ''}{d:g}  {esc(te(lang, c.get('label')))}")
-        if sb.get("cap"):
-            lines.append(f"≤{sb['cap']['value']}  {t(lang, 'cap')}")
-    rl = regime_line(lang, regime)
+        lines += ["", *grade_lines(lang, a)]
+    rl = regime_line(lang, weather)
     if rl:
         lines += ["", rl]
     lines += ["", f"<i>{t(lang, 'disclaimer')}</i>"]
@@ -517,7 +585,7 @@ def watch_text(lang: str, data: dict[str, Any]) -> str:
     if not data["watch"]:
         return t(lang, "watch_empty")
     found, missing, regime = score(data["watch"])
-    rows = sorted(found.values(), key=lambda a: a["score"], reverse=True)
+    rows = sorted(found.values(), key=grade_sort_key, reverse=True)
     lines = [t(lang, "watch_title"), ""] + [coin_line(lang, a) for a in rows]
     if missing:
         lines += ["", t(lang, "not_found", list=", ".join(missing))]
@@ -755,7 +823,7 @@ def send_daily() -> dict[str, Any]:
     sent = 0
     for cid, data in chats:
         lang = data.get("lang", "en")
-        rows = sorted((found[c] for c in data["watch"] if c in found), key=lambda a: a["score"], reverse=True)
+        rows = sorted((found[c] for c in data["watch"] if c in found), key=grade_sort_key, reverse=True)
         if not rows:
             continue
         lines = [t(lang, "daily_title", date=today), ""]
@@ -781,10 +849,10 @@ def check_alerts() -> dict[str, Any]:
     found, _, _ = score(sorted(watchers)[:MAX_ALERT_SYMBOLS])
     alerts = 0
     for coin, a in found.items():
-        key = f"tg:rating:{coin}"
+        key = f"tg:karat:{coin}"
         raw = _get(key)
         state = json.loads(raw) if raw else None
-        current = a["rating"]
+        current = karat_txt(a)
         if state is None:
             _set(key, json.dumps({"rating": current}))  # first sighting: baseline, no alert
             continue
@@ -801,8 +869,8 @@ def check_alerts() -> dict[str, Any]:
         for cid, lang in watchers.get(coin, []):
             text = "\n".join([
                 t(lang, "alert_title"),
-                t(lang, "alert_line", coin=f"<b>{esc(coin)}</b>", old=esc(te(lang, old)),
-                  new=f"{GLYPH[current]} {esc(te(lang, current))}", score=f"{a['score']:.0f}"),
+                t(lang, "karat_alert", coin=f"<b>{esc(coin)}</b>", old=esc(old), new=f"<b>{esc(current)}</b>"),
+                risk_txt(lang, a),
                 f"{fmt_price(a.get('current_price'))} {fmt_pct(a.get('change_24h'))}",
                 "",
                 f"<i>{t(lang, 'disclaimer')}</i>",
@@ -825,7 +893,7 @@ def _claim(kind: str, day: str) -> bool:
 
 
 def post_channel_today() -> dict[str, Any]:
-    """Post today's logged ratings (the live track record's rows) to the channel."""
+    """Post today's karats for the tracked coins to the channel."""
     track_record.ensure_today()
     live = track_record.summary()
     today = live.get("today")
@@ -833,32 +901,51 @@ def post_channel_today() -> dict[str, Any]:
         return {"posted": False, "reason": "no snapshot"}
     if not _claim("today", today["day"]):
         return {"posted": False, "reason": "already posted"}
-    regime = get_market_regime()
-    rows = sorted(today["rows"], key=lambda r: r["score"], reverse=True)
-    top = " · ".join(f"{r['symbol']} {r['score']:.0f}" for r in rows if r["rating"] == "STRONG")[:180]
-    weak = " · ".join(f"{r['symbol']} {r['score']:.0f}" for r in reversed(rows) if r["rating"] == "WEAK")[:180]
+    rows = [dict(r) for r in today["rows"]]
+    weather = get_market_weather(_sentiment())
+    if any("karat" not in r for r in rows):  # a day logged before karats existed
+        found, _, _ = score([r["symbol"] for r in rows])
+        for r in rows:
+            g = (found.get(r["symbol"]) or {}).get("grade") or {}
+            r.setdefault("karat", g.get("karat"))
+            r.setdefault("risk", g.get("risk"))
+    rows.sort(key=lambda r: (r.get("karat") or 0, r.get("trend") or 0), reverse=True)
+    top = " · ".join(f"{r['symbol']} {r['karat']}K" for r in rows if (r.get("karat") or 0) >= 22)[:180]
+    risky = " · ".join(r["symbol"] for r in rows if r.get("risk") == "high")[:180]
     lang = "en"
     lines = [f"<b>Today's karats</b> · {today['day']}"]
-    rl = regime_line(lang, regime)
+    rl = regime_line(lang, weather)
     if rl:
-        lines.append(rl)
+        lines += [rl, weather_body(lang, weather)]
     lines.append("")
     if top:
-        lines.append(f"▲ Strong: {top}")
-    if weak:
-        lines.append(f"▼ Weak: {weak}")
+        lines.append(f"🥇 Highest karats: {top}")
+    if risky:
+        lines.append(f"🔴 High risk: {risky}")
     lines += [
         "",
-        "Score any coin, with the math: @getqirat_bot",
+        "Grade any coin: @getqirat_bot",
         f"<i>{t(lang, 'disclaimer')}</i>",
     ]
-    png = cards.today_card(today["rows"], regime, today["day"], lang)
+    png = cards.today_card(rows, weather, today["day"], lang)
     res = send_photo(CHANNEL, png, "\n".join(lines), [[app_button(lang)]])
     return {"posted": bool(res.get("ok")), "error": res.get("description")}
 
 
+def public_report_card() -> bool:
+    """Whether the Friday report card goes to the public channel. Off by default:
+    results are measured privately for now and only the owner sees them."""
+    return os.getenv("PUBLIC_REPORT_CARD", "0").strip().lower() in ("1", "true", "yes", "on")
+
+
 def post_channel_report(force: bool = False) -> dict[str, Any]:
-    """Post the report card (ratings from 7 days ago and how they did), Fridays."""
+    """The Friday report card (ratings from 7 days ago and how they did). Sent to
+    the owner's private chat unless PUBLIC_REPORT_CARD is on."""
+    from . import marketing
+
+    target = CHANNEL if public_report_card() else marketing.owner()
+    if not target:
+        return {"posted": False, "reason": "no owner chat for the private report"}
     live = track_record.summary()
     resolved = live.get("latest_resolved")
     if not resolved:
@@ -871,8 +958,10 @@ def post_channel_report(force: bool = False) -> dict[str, Any]:
     strong, every = stats.get("STRONG") or {}, stats.get("ALL") or {}
     card = (live.get("scorecard") or {}).get(f"{resolved['horizon']}d") or {}
     lang = "en"
+    private = target != CHANNEL
     caption = "\n".join([
-        f"<b>Report card</b> · ratings from {resolved['day']}, {resolved['horizon']} days later",
+        ("🔒 <i>Private, not posted to the channel</i>\n" if private else "")
+        + f"<b>Report card</b> · ratings from {resolved['day']}, {resolved['horizon']} days later",
         f"Strong avg {fmt_pct(strong.get('mean'))} · all coins {fmt_pct(every.get('mean'))} · "
         f"{strong.get('hit_rate', '--')}% of Strong went up",
         record_line(card),
@@ -881,9 +970,9 @@ def post_channel_report(force: bool = False) -> dict[str, Any]:
         f"<i>{t(lang, 'disclaimer')}</i>",
     ])
     png = cards.report_card(resolved, stats, lang, card)
-    res = send_photo(CHANNEL, png, caption, [[app_button(lang, "record")]])
+    res = send_photo(target, png, caption, [[app_button(lang, "record")]])
     _send_owner_scorecard(live.get("scorecard") or {})
-    return {"posted": bool(res.get("ok")), "error": res.get("description")}
+    return {"posted": bool(res.get("ok")), "private": private, "error": res.get("description")}
 
 
 def record_line(card: dict[str, Any]) -> str:

@@ -1,13 +1,13 @@
 """Claude-powered narrative layer.
 
-The heuristic engine produces the numbers (scores, ratings, risks). Claude turns
+The engine produces the numbers (karats, risk grades, market weather). Claude turns
 that structured ``brief`` into a readable market briefing, and (Day 5) answers
 follow-up questions grounded strictly in the same data.
 
 Cost control:
   * The 2-minute dashboard poll never calls this module — only an explicit
     "refresh briefing" / chat action does.
-  * ``narrative_cache`` (a ~5-min TTL keyed on the ranked ratings/scores, not the
+  * ``narrative_cache`` (a ~5-min TTL keyed on the ranked karats/risk grades, not the
     timestamp) means a near-identical brief reuses the last narrative for free.
   * The stable system prompt carries a ``cache_control`` marker so the API caches
     it when it's large enough; the TTL cache above is the primary cost guard.
@@ -40,37 +40,35 @@ MAX_CHAT_TURNS = 6  # cap history so a long chat can't inflate cost unboundedly
 # This mirrors advisor_engine.analyze_asset exactly; keep the two in sync. It is
 # static text, so it stays byte-stable inside the cached system prompt.
 SCORING_RUBRIC = (
-    "HOW THE SCORE IS COMPUTED (this is documented methodology — you MAY explain "
-    "it fully and it is never 'inventing'):\n"
-    "Every coin starts at a base of 50, is adjusted by fixed rules, then clamped "
-    "to 0–100. The score uses market data only — it is identical for every user "
-    "and never depends on what the user holds.\n"
-    "Positive factors: +10 price above its 7-day average; +10 price above its "
-    "30-day average; +6 a strong 7-day return (>8%); +5 rising volume (>20% vs the "
-    "prior week); +8 contrarian extreme Fear (Fear & Greed ≤25).\n"
-    "Top-end factors (deliberately hard to earn — they only fire for genuinely "
-    "strong setups): +5 a sustained 30-day uptrend (10–40%); +4 a clean uptrend "
-    "structure (price above a rising 7-over-30-day average stack); +3 volume "
-    "conviction (a >50% volume surge while the short-term trend holds); +2 a "
-    "steady 24h follow-through (a +2–10% day, not a spike).\n"
-    "Negative factors: −10/−12 price below its 7-/30-day average; −7 a weak 7-day "
-    "return (<−8%); −3 fading volume (<−20%); −8 extreme Greed (≥75); −8 a sharp "
-    "24h drop (<−10%); −4 an extended 30-day move (>40%).\n"
-    "Market regime: when BTC trades below its 200-day average the market is "
-    "'Risk-off' and every score is capped at 66, so no coin can rate STRONG. The "
-    "2021–2026 backtest found strong setups only beat the market in risk-on "
-    "conditions. A capped score's `score_breakdown.cap` says so.\n"
-    "Ratings: score ≥67 → STRONG setup; ≤38 → WEAK setup; otherwise NEUTRAL. "
-    "Ratings describe the coin's current technical setup — they are not "
-    "instructions to buy or sell. Risk level: High if score ≤35 or the 24h drop "
-    "exceeds 10%; Medium below 65; otherwise Controlled.\n"
-    "Reaching 100 is deliberately rare — it needs a near-perfect confluence of "
-    "every positive factor at once, and because +8 comes from extreme Fear it in "
-    "practice also requires a fearful market; a typical STRONG sits around 67–80.\n"
-    "Each coin carries a `score_breakdown` (base 50 plus the exact components that "
-    "fired, and any regime cap). Use it to explain precisely why a score is what "
-    "it is and what more it would need to climb. If asked where scoring is "
-    'documented, point the user to the in-app "How Qirat works" guide.'
+    "HOW THE GRADES ARE COMPUTED (documented methodology: you MAY explain it "
+    "fully and it is never 'inventing'):\n"
+    "Qirat grades coins like gold. Every grade uses market data only, is identical "
+    "for every user and never depends on what the user holds.\n"
+    "KARAT (24K, 22K, 18K, 14K, 10K): how calm a coin has been (its 30-day "
+    "volatility) plus how strong its 90-day trend is (skipping the last week), "
+    "each ranked against a fixed reference set of 18 major coins and averaged "
+    "into a 0-100 trend score: >=80 is 24K, >=60 22K, >=40 18K, >=20 14K, else 10K. "
+    "24K = calm and climbing; 10K = wild or sliding. Coins under ~3 months old "
+    "have no karat yet. In 2021-2026 tests, calm coins with a 90-day uptrend did "
+    "better than the rest over the next week, but only modestly and not every "
+    "week, so a karat is a tilt of the odds, never a promise.\n"
+    "RISK (Low, Medium, High): the coin's 30-day volatility versus the same 18 "
+    "coins, in thirds. This is the most reliable part: a coin's recent volatility "
+    "predicted its next month's swings in every month tested. 'Typical day' is "
+    "the daily volatility; 'a rough month (1 in 20)' is the loss a normal-model "
+    "1-in-20 month would bring (real crypto tails can be worse).\n"
+    "MARKET WEATHER (calm, choppy, stormy): calm when BTC is above its 50-day "
+    "average and the crowd is not overheated (Fear & Greed below 80 and perpetual "
+    "funding below 0.05% per 8h); choppy when overheated, or when BTC dipped "
+    "under its 50-day average but holds its 200-day; stormy when BTC is below "
+    "both. Since 2021 months that started above the 50-day line went clearly "
+    "better. Karats compare coins with each other; the weather is about the whole "
+    "market, so in a storm even 24K coins usually fall.\n"
+    "Each coin carries a `grade` (karat, trend_score, calm_pct, momentum_pct, "
+    "mom90_pct, risk, typical_day_pct, rough_month_pct). Use it to explain why a "
+    "coin has its karat and what would change it (a steadier price, or a stronger "
+    "90-day trend). If asked where this is documented, point the user to the "
+    'in-app "How Qirat works" guide.'
 )
 
 # Ratings are impersonal analysis. Telling one user what to do with their own
@@ -79,38 +77,38 @@ SCORING_RUBRIC = (
 NO_ADVICE_RULE = (
     "Never tell the user to buy, sell, hold, add to, trim or exit any coin, and "
     "never tailor a recommendation to their holdings, budget or circumstances. "
-    "If asked 'should I buy/sell X?', explain what X's rating and score components "
-    "say about its setup and what would change them, then note that the decision "
+    "If asked 'should I buy/sell X?', explain what X's karat, risk and the market "
+    "weather say and what would change them, then note that the decision "
     "and position sizing are theirs. You may describe their positions factually "
-    "(value, P&L, the coin's rating) but never advise on them."
+    "(value, P&L, the coin's karat and risk) but never advise on them."
 )
 
 SYSTEM_PROMPT = (
     "You are a crypto market analyst writing a concise, plain-language briefing. "
     "You are given structured market data produced by a rule-based scoring "
-    "engine: coins ranked by score with STRONG/NEUTRAL/WEAK setup ratings, the "
-    "market regime, a Fear & Greed reading, global market stats, and the "
+    "engine: coins ranked by karat (24K best to 10K) with a risk grade, the "
+    "market weather, a Fear & Greed reading, global market stats, and the "
     "user's watchlist positions when provided.\n\n"
     "Write the briefing from the data provided plus the scoring methodology below. "
     "Never invent prices, figures, coins, or news that are not present — but you "
-    "MAY explain how the scoring engine works and how a specific score was built. "
+    "MAY explain how the grades work and why a coin has its karat. "
     "Be risk-aware and avoid guarantees. Explain the *why* behind the strongest "
-    "and weakest setups in plain language a non-expert can follow.\n\n"
+    "and weakest karats in plain language a non-expert can follow.\n\n"
     + NO_ADVICE_RULE + "\n\n"
     "Structure the response in markdown with these sections, each short:\n"
-    "1. **Market Pulse** — regime, sentiment and overall tone in 1-2 sentences.\n"
-    "2. **Strongest Setups** — the top 2-3 scores and what is driving them.\n"
+    "1. **Market Weather** — the weather, sentiment and overall tone in 1-2 sentences.\n"
+    "2. **Highest Karats** — the top 2-3 coins by karat and why, with their risk.\n"
     "3. **Your Watchlist Positions** — only if holdings are present; factual "
-    "value/P&L and each coin's rating, no advice; otherwise omit.\n"
+    "value/P&L and each coin's karat and risk, no advice; otherwise omit.\n"
     "4. **Risks to Watch** — the key risks from the data.\n\n"
-    "End with one line: 'Rule-based ratings, not financial advice.' "
+    "End with one line: 'Rule-based grades, not financial advice.' "
     "Keep the whole briefing under ~350 words.\n\n" + SCORING_RUBRIC
 )
 
 CHAT_SYSTEM_PROMPT = (
     "You are a crypto market analyst assistant chatting with one user. You are "
     "given a structured market snapshot produced by a rule-based scoring engine "
-    "(coins ranked by score with setup ratings, the market regime, Fear & Greed, "
+    "(coins ranked by karat with risk grades, the market weather, Fear & Greed, "
     "global stats, the user's watchlist positions) and must answer questions "
     "grounded STRICTLY in that data.\n\n"
     "Rules:\n"
@@ -147,7 +145,7 @@ def _language_instruction(code: str) -> str:
     return (
         f"\n\nWrite your entire answer in {LANGUAGES[code]}, including the section "
         "headings (translate them). Keep coin tickers (BTC, ETH), numbers and the "
-        "rating words STRONG / NEUTRAL / WEAK as they are."
+        "karat labels (24K, 22K, 18K, 14K, 10K) as they are."
     )
 
 
@@ -227,14 +225,14 @@ def _narrative_key(brief: dict[str, Any], language: str = "en") -> str:
     bucket — deliberately NOT ``generated_at``, which changes every refresh.
     """
     ranked = [
-        (o.get("symbol"), o.get("rating"), round(float(o.get("score") or 0)))
+        (o.get("symbol"), (o.get("grade") or {}).get("karat"), (o.get("grade") or {}).get("risk"))
         for o in brief.get("opportunities", [])
     ]
     sentiment = round(float((brief.get("sentiment") or {}).get("score") or 50) / 5)
     holdings = sorted(
         (o.get("symbol") for o in brief.get("portfolio", []) if o.get("symbol"))
     )
-    regime = (brief.get("regime") or {}).get("state")
+    regime = (brief.get("weather") or {}).get("state")
     raw = json.dumps([ranked, sentiment, holdings, regime, language], sort_keys=True, default=str)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
@@ -248,13 +246,14 @@ def _brief_digest(brief: dict[str, Any]) -> str:
         f"(quote {brief.get('quote_asset', 'USD')})",
         f"Fear & Greed: {sentiment.get('score', 'n/a')}/100 — {sentiment.get('status', 'Neutral')}",
     ]
-    regime = brief.get("regime") or {}
-    if regime.get("state") in ("risk_on", "risk_off"):
+    w = brief.get("weather") or {}
+    if w.get("state") in ("calm", "choppy", "stormy"):
         lines.append(
-            f"Market regime: {regime.get('label')} — BTC ${regime.get('btc_price') or 0:,.0f} is "
-            f"{regime.get('distance_pct') or 0:+.1f}% vs its 200-day average "
-            f"${regime.get('btc_ma200') or 0:,.0f}"
-            + (" (scores capped at 66, no STRONG ratings)" if regime["state"] == "risk_off" else "")
+            f"Market weather: {w['state']} — BTC ${w.get('btc_price') or 0:,.0f} is "
+            f"{w.get('vs_ma50_pct') or 0:+.1f}% vs its 50-day average"
+            + (f" and {w['vs_ma200_pct']:+.1f}% vs its 200-day" if w.get("vs_ma200_pct") is not None else "")
+            + (f"; overheated: {', '.join(w['hot'])}" if w.get("hot") else "")
+            + (f"; avg perp funding {w['funding_pct']:.4f}%/8h" if w.get("funding_pct") is not None else "")
         )
     if glob.get("total_market_cap_usd"):
         lines.append(
@@ -263,31 +262,21 @@ def _brief_digest(brief: dict[str, Any]) -> str:
             f"BTC dominance {glob.get('btc_dominance', 0):.1f}%"
         )
 
-    lines.append("\nCoins ranked by score:")
+    lines.append("\nCoins ranked by karat:")
     for o in brief.get("opportunities", [])[:8]:
         price = o.get("current_price") or 0
+        g = o.get("grade") or {}
+        karat = f"{g['karat']}K" if g.get("karat") else "no karat yet (too new)"
         lines.append(
-            f"- {str(o.get('symbol', '')).upper()} ({o.get('name', '')}): "
-            f"{o.get('rating')} setup | score {o.get('score')}/100 | risk {o.get('risk_level')} | "
-            f"${price:,.4f} | 24h {o.get('change_24h', 0):+.2f}% | 7d {o.get('change_7d', 0):+.2f}%"
+            f"- {str(o.get('symbol', '')).upper()} ({o.get('name', '')}): {karat} | risk {g.get('risk', 'n/a')} | "
+            f"${price:,.6g} | 24h {o.get('change_24h', 0):+.2f}% | 7d {o.get('change_7d', 0):+.2f}%"
         )
-        reasons = o.get("reasons") or []
-        risks = o.get("risks") or []
-        if reasons:
-            lines.append(f"    reasons: {'; '.join(reasons[:3])}")
-        if risks:
-            lines.append(f"    risks: {'; '.join(risks[:2])}")
-        sb = o.get("score_breakdown") or {}
-        components = sb.get("components") or []
-        if components:
-            parts = ", ".join(f"{c.get('delta', 0):+g} {c.get('label', '')}" for c in components)
-            if sb.get("cap"):
-                capped = f" (capped at {sb['cap']['value']}: {sb['cap']['reason']})"
-            elif sb.get("raw") != sb.get("final"):
-                capped = " (clamped to 0–100)"
-            else:
-                capped = ""
-            lines.append(f"    score build-up: base 50, {parts} = {sb.get('final')}{capped}")
+        if g:
+            trend = f"90-day trend {g['mom90_pct']:+.1f}% (stronger than {g['momentum_pct']}% of the 18 majors), " if g.get("mom90_pct") is not None else ""
+            lines.append(
+                f"    grade: {trend}typical day ±{g['typical_day_pct']:.1f}% (calmer than {g['calm_pct']}%), "
+                f"rough month ≈ {g['rough_month_pct']:.0f}%, trend score {g.get('trend_score')}"
+            )
 
     portfolio = brief.get("portfolio", [])
     if portfolio:
@@ -298,7 +287,7 @@ def _brief_digest(brief: dict[str, Any]) -> str:
             pnl_s = f"{pnl:+.2f}%" if isinstance(pnl, (int, float)) else "n/a"
             lines.append(
                 f"- {str(o.get('symbol', '')).upper()}: value ${h.get('value') or 0:,.2f}, "
-                f"unrealized P&L {pnl_s}, coin rating {o.get('rating')}"
+                f"unrealized P&L {pnl_s}, karat {(o.get('grade') or {}).get('karat')}K, risk {(o.get('grade') or {}).get('risk')}"
             )
 
     return "\n".join(lines)

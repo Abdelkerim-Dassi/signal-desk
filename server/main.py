@@ -433,9 +433,9 @@ async def card_today(lang: str = "en") -> Response:
         today = track_record.summary().get("today")
         if not today or not today.get("rows"):
             return None
-        from advisor_engine import get_market_regime
+        from advisor_engine import get_market_weather
 
-        return cards.today_card(today["rows"], get_market_regime(), today["day"], lang)
+        return cards.today_card(today["rows"], get_market_weather(), today["day"], lang)
 
     data = await asyncio.to_thread(build)
     if data is None:

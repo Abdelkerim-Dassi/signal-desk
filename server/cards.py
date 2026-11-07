@@ -3,7 +3,7 @@
 Three cards, all 1080×1350 (the 4:5 portrait that Telegram, Instagram and X
 all show uncropped):
 
-  * ``coin_card``   — one coin's score ring and the full point-by-point breakdown
+  * ``coin_card``   — one coin's karat, why it has it, and its risk
   * ``today_card``  — "Today's karats": the day's logged ratings for the tracked
                       universe, the same rows the live track record saves
   * ``report_card`` — the weekly report card: how ratings from a week ago did,
@@ -64,6 +64,22 @@ COPY = {
         "record": "Strong beat the average on {pct}% of days · {p}/{m} weeks · ",
         "early": "too early to judge",
         "judged": "enough data to judge",
+        "karat_title": "Why {k}K",
+        "young": "Too new for a karat (needs 3 months)",
+        "trend": "90-day trend",
+        "trend_sub": "stronger than {n}% of the top coins",
+        "calm": "Calm",
+        "calm_sub": "calmer than {n}% of the top coins",
+        "per_day": "±{v}% a day",
+        "risk": {"low": "Low risk", "medium": "Medium risk", "high": "High risk"},
+        "rough": "A rough month (1 in 20)",
+        "money": "On 100 TND, a rough month could cost about {v} TND",
+        "scale": "24K = calm and climbing · 10K = wild or sliding",
+        "weather": {"calm": "Market calm · BTC {pct} above its 50-day average",
+                    "choppy": "Market choppy · expect bigger swings",
+                    "stormy": "Market stormy · BTC below its 50 & 200-day averages"},
+        "today_counts": "{a} coins at 22K or more · {h} high-risk",
+        "today_sub2": "{n} top coins graded · {date}",
     },
     "fr": {
         "setup": {"STRONG": "Configuration forte", "NEUTRAL": "Configuration neutre", "WEAK": "Configuration faible"},
@@ -87,8 +103,29 @@ COPY = {
         "record": "Fortes > moyenne {pct}% des jours · {p}/{m} semaines · ",
         "early": "trop tôt pour juger",
         "judged": "assez de données pour juger",
+        "karat_title": "Pourquoi {k}K",
+        "young": "Trop récente pour un carat (3 mois requis)",
+        "trend": "Tendance 90 jours",
+        "trend_sub": "plus forte que {n} % des grandes cryptos",
+        "calm": "Calme",
+        "calm_sub": "plus calme que {n} % des grandes cryptos",
+        "per_day": "±{v} % par jour",
+        "risk": {"low": "Risque faible", "medium": "Risque moyen", "high": "Risque élevé"},
+        "rough": "Un mauvais mois (1 sur 20)",
+        "money": "Sur 100 TND, un mauvais mois pourrait coûter environ {v} TND",
+        "scale": "24K = calme et en hausse · 10K = agitée ou en baisse",
+        "weather": {"calm": "Marché calme · BTC {pct} au-dessus de sa moyenne 50 j",
+                    "choppy": "Marché agité · attendez-vous à des remous",
+                    "stormy": "Marché orageux · BTC sous ses moyennes 50 et 200 j"},
+        "today_counts": "{a} cryptos à 22K ou plus · {h} à risque élevé",
+        "today_sub2": "{n} grandes cryptos notées · {date}",
     },
 }
+
+KARAT_FILL = {24: (245, 181, 42), 22: (247, 197, 87), 18: (242, 212, 140), 14: (234, 229, 218), 10: (234, 229, 218)}
+RISK_COLOR = {"low": (14, 159, 110), "medium": (180, 83, 9), "high": (224, 72, 78)}
+WEATHER_COLOR = {"calm": (14, 159, 110), "choppy": (180, 83, 9), "stormy": (224, 72, 78)}
+MARK_FILE = Path(__file__).resolve().parent / "assets" / "qirat-mark.png"
 
 
 def _copy(lang: str) -> dict[str, Any]:
@@ -133,6 +170,15 @@ class Canvas:
         if frac > 0:
             self.d.arc(box, -90, -90 + 360 * frac, fill=color, width=width * S)
 
+    def mark(self, x, y, size) -> None:
+        """The mascot (a little 24K gold bar); falls back to the old gem."""
+        try:
+            im = Image.open(MARK_FILE).convert("RGBA").resize((int(size * S), int(size * S)), Image.LANCZOS)
+        except Exception:
+            self.gem(x, y + 4, size * 0.8)
+            return
+        self.img.paste(im, (int(x * S), int(y * S)), im)
+
     def gem(self, x, y, size) -> None:
         """The Qirat mark, scaled from its 32-unit design grid."""
         k = size / 32
@@ -171,7 +217,7 @@ class Canvas:
 
 
 def _header(c: Canvas, right: str) -> None:
-    c.gem(64, 58, 56)
+    c.mark(58, 50, 72)
     c.text((132, 86), "qirat", 44, 600, anchor="lm")
     c.text((W - 64, 86), right, 26, 400, MUTED, anchor="rm")
 
@@ -210,7 +256,9 @@ def _price(v: float | None) -> str:
         return f"${v:,.0f}"
     if abs(v) >= 1:
         return f"${v:,.2f}"
-    return f"${v:.4f}"
+    if abs(v) >= 0.01:
+        return f"${v:.4f}"
+    return "$" + f"{v:.10f}".rstrip("0")
 
 
 def _regime_line(c: Canvas, y: float, regime: dict[str, Any] | None, lang: str) -> None:
@@ -224,65 +272,81 @@ def _regime_line(c: Canvas, y: float, regime: dict[str, Any] | None, lang: str) 
     c.text((100, y), cp["risk_on" if on else "risk_off"].format(pct=pct), 28, 500, TEXT, anchor="lm")
 
 
-def coin_card(a: dict[str, Any], regime: dict[str, Any] | None, lang: str = "en") -> bytes:
+def _karat_pill(c: Canvas, x: float, y: float, karat: int | None, size: int = 40, anchor_right: bool = False) -> float:
+    label = f"{karat}K" if karat else "New"
+    w = c.text_width(label, size, 700) + size * 1.1
+    h = size * 1.6
+    if anchor_right:
+        x -= w
+    c.rrect((x, y, x + w, y + h), h * 0.3, KARAT_FILL.get(karat or 0, SUBTLE))
+    c.text((x + w / 2, y + h / 2), label, size, 700, (90, 58, 0) if karat and karat >= 18 else TEXT, anchor="mm")
+    return w
+
+
+def _risk_pill(c: Canvas, x: float, y: float, risk: str | None, lang: str, size: int = 28) -> float:
+    if not risk:
+        return 0
+    cp = _copy(lang)
+    color = RISK_COLOR[risk]
+    tint = tuple(int(255 - (255 - v) * 0.12) for v in color)
+    label = cp["risk"][risk]
+    w = c.text_width(label, size, 600) + size * 1.4
+    h = size * 1.7
+    c.rrect((x, y, x + w, y + h), h / 2, tint)
+    c.text((x + w / 2, y + h / 2), label, size, 600, color, anchor="mm")
+    return w
+
+
+def _weather_line(c: Canvas, y: float, weather: dict[str, Any] | None, lang: str) -> None:
+    cp = _copy(lang)
+    state = (weather or {}).get("state")
+    if state not in WEATHER_COLOR:
+        return
+    pct = f"{abs((weather or {}).get('vs_ma50_pct') or 0):.1f}%"
+    c.circle((78, y), 9, WEATHER_COLOR[state])
+    c.text((100, y), cp["weather"][state].format(pct=pct), 28, 500, TEXT, anchor="lm")
+
+
+def coin_card(a: dict[str, Any], weather: dict[str, Any] | None, lang: str = "en") -> bytes:
+    """One coin: its karat, why it has it, and what a rough month looks like."""
     lang = _label_lang(lang)
     cp = _copy(lang)
     c = Canvas()
     _header(c, date.today().isoformat())
+    g = a.get("grade") or {}
 
-    rating = a.get("rating", "NEUTRAL")
-    color = COLORS.get(rating, COLORS["NEUTRAL"])
     name = str(a.get("name") or a.get("symbol"))
     c.text((64, 200), name, 72, 700)
-    # symbol · price · 24h change, with the change coloured
     line = f"{a.get('symbol', '')} · {_price(a.get('current_price'))} · "
     c.text((66, 300), line, 32, 400, MUTED)
     ch = a.get("change_24h")
     c.text((66 + c.text_width(line, 32), 300), f"{_pct(ch)} 24h", 32, 500, UP if (ch or 0) >= 0 else DOWN)
-    _pill(c, 64, 360, rating, cp["setup"].get(rating, rating), 30)
+    _risk_pill(c, 64, 356, g.get("risk"), lang, 30)
+    _karat_pill(c, W - 64, 176, g.get("karat"), 66, anchor_right=True)
 
-    c.ring((880, 290), 118, 24, float(a.get("score") or 0), color)
-    c.text((880, 290), f"{float(a.get('score') or 0):.0f}", 92, 700, anchor="mm")
+    top = 470
+    c.rrect((64, top, W - 64, top + 330), 36, CARD)
+    title = cp["karat_title"].format(k=g["karat"]) if g.get("karat") else cp["young"]
+    c.text((104, top + 58), title, 32, 600, anchor="lm")
+    y = top + 140
+    if g.get("mom90_pct") is not None:
+        c.text((104, y), cp["trend"], 32, 500, anchor="lm")
+        c.text((W - 104, y), _pct(g["mom90_pct"]), 36, 700, UP if g["mom90_pct"] >= 0 else DOWN, anchor="rm")
+        c.text((104, y + 42), cp["trend_sub"].format(n=g.get("momentum_pct", "--")), 24, 400, MUTED, anchor="lm")
+        y += 112
+    if g:
+        c.text((104, y), cp["calm"], 32, 500, anchor="lm")
+        c.text((W - 104, y), cp["per_day"].format(v=f"{g['typical_day_pct']:.1f}"), 34, 700, anchor="rm")
+        c.text((104, y + 42), cp["calm_sub"].format(n=g.get("calm_pct", "--")), 24, 400, MUTED, anchor="lm")
 
-    # breakdown card
-    sb = a.get("score_breakdown") or {}
-    rows: list[tuple[str, str, tuple[int, int, int]]] = [(cp["base"], str(sb.get("base", 50)), MUTED)]
-    for comp in sb.get("components") or []:
-        d = comp.get("delta", 0)
-        rows.append((te(lang, comp.get("label")), f"{'+' if d > 0 else ''}{d:g}", UP if d >= 0 else DOWN))
-    if sb.get("cap"):
-        rows.append((cp["cap"], f"≤{sb['cap']['value']}", COLORS["WEAK"]))
-    rows = rows[:10]
-    top = 480
-    row_h = 62
-    bottom = top + 96 + row_h * len(rows) + 92
-    c.rrect((64, top, W - 64, bottom), 36, CARD)
-    c.text((104, top + 58), cp["why"], 32, 600, anchor="lm")
-    y = top + 128
-    for label, value, vcolor in rows:
-        c.text((104, y), label, 32, 400, MUTED if vcolor == MUTED else TEXT, anchor="lm")
-        c.text((W - 104, y), value, 34, 600, vcolor, anchor="rm")
-        y += row_h
-    c.d.line([(104 * S, (y - 22) * S), ((W - 104) * S, (y - 22) * S)], fill=(232, 228, 220), width=S)
-    c.text((104, y + 20), cp["score"], 34, 700, anchor="lm")
-    c.text((W - 104, y + 20), f"{float(sb.get('final', a.get('score') or 0)):.0f}", 38, 700, GOLD, anchor="rm")
+        rtop = top + 360
+        c.rrect((64, rtop, W - 64, rtop + 190), 36, CARD)
+        c.text((104, rtop + 60), cp["rough"], 32, 500, anchor="lm")
+        c.text((W - 104, rtop + 60), f"{g['rough_month_pct']:.0f}%", 36, 700, DOWN, anchor="rm")
+        c.text((104, rtop + 130), cp["money"].format(v=abs(round(g["rough_month_pct"]))), 26, 400, MUTED, anchor="lm")
 
-    # where the score sits on the 0–100 scale, with the rating thresholds
-    scale_y = max(bottom + 90, H - 300)
-    if scale_y + 60 < H - 170:
-        score = float(a.get("score") or 0)
-        bx, bw = 64, W - 128
-        c.rrect((bx, scale_y - 8, bx + bw, scale_y + 8), 8, SUBTLE)
-        c.rrect((bx, scale_y - 8, bx + bw * max(0.02, min(1, score / 100)), scale_y + 8), 8, color)
-        for thr in (38, 67):
-            tx = bx + bw * thr / 100
-            c.d.line([(tx * S, (scale_y - 16) * S), (tx * S, (scale_y + 16) * S)], fill=BG, width=3 * S)
-        c.text((bx, scale_y + 44), "0", 24, 500, MUTED, anchor="lm")
-        c.text((bx + bw * 0.38, scale_y + 44), f"{te(lang, 'WEAK')} ≤38", 24, 500, COLORS["WEAK"], anchor="mm")
-        c.text((bx + bw * 0.67, scale_y + 44), f"{te(lang, 'STRONG')} ≥67", 24, 500, COLORS["STRONG"], anchor="mm")
-        c.text((bx + bw, scale_y + 44), "100", 24, 500, MUTED, anchor="rm")
-
-    _regime_line(c, H - 150, regime, lang)
+    c.text((64, H - 210), cp["scale"], 26, 500, GOLD, anchor="lm")
+    _weather_line(c, H - 150, weather, lang)
     _footer(c, lang)
     return c.png()
 
@@ -303,26 +367,35 @@ def _mini_row(c: Canvas, x: float, y: float, w: float, symbol: str, rating: str,
         c.text((x + w - 24, y), right, 30, 700, right_color or TEXT, anchor="rm")
 
 
-def today_card(rows: list[dict[str, Any]], regime: dict[str, Any] | None, day: str, lang: str = "en") -> bytes:
+def _karat_row(c: Canvas, x: float, y: float, w: float, r: dict[str, Any]) -> None:
+    c.rrect((x, y - 34, x + w, y + 34), 20, CARD)
+    c.circle((x + 30, y), 9, RISK_COLOR.get(r.get("risk") or "", (190, 190, 190)))
+    c.text((x + 52, y), r["symbol"], 30, 600, anchor="lm")
+    _karat_pill(c, x + w - 16, y - 21, r.get("karat"), 26, anchor_right=True)
+
+
+def today_card(rows: list[dict[str, Any]], weather: dict[str, Any] | None, day: str, lang: str = "en") -> bytes:
+    """Today's karats for the tracked coins; each dot is the coin's risk."""
     lang = _label_lang(lang)
     cp = _copy(lang)
     c = Canvas()
     _header(c, day)
     c.text((64, 200), cp["today"], 68, 700)
-    c.text((66, 290), cp["today_sub"].format(n=len(rows), date=day), 28, 400, MUTED)
-    counts = {k: sum(1 for r in rows if r.get("rating") == k) for k in COLORS}
-    c.text((66, 336), cp["counts"].format(s=counts["STRONG"], n=counts["NEUTRAL"], w=counts["WEAK"]), 28, 600, GOLD)
+    c.text((66, 290), cp["today_sub2"].format(n=len(rows), date=day), 28, 400, MUTED)
+    rich = sum(1 for r in rows if (r.get("karat") or 0) >= 22)
+    high = sum(1 for r in rows if r.get("risk") == "high")
+    c.text((66, 336), cp["today_counts"].format(a=rich, h=high), 28, 600, GOLD)
 
-    ordered = sorted(rows, key=lambda r: r.get("score", 0), reverse=True)[:18]
+    ordered = sorted(rows, key=lambda r: (r.get("karat") or 0, r.get("trend") or 0), reverse=True)[:18]
     col_w = (W - 64 * 2 - 24) / 2
     per_col = (len(ordered) + 1) // 2
     for i, r in enumerate(ordered):
         col, idx = divmod(i, per_col)
         x = 64 + col * (col_w + 24)
         y = 446 + idx * 82
-        _mini_row(c, x, y, col_w, r["symbol"], r.get("rating", "NEUTRAL"), float(r.get("score", 0)), None)
+        _karat_row(c, x, y, col_w, r)
 
-    _regime_line(c, H - 150, regime, lang)
+    _weather_line(c, H - 150, weather, lang)
     _footer(c, lang)
     return c.png()
 
