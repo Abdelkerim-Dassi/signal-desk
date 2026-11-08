@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<body>
+<title>Qirat Research Proposal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap">
+<style>
+/* Layout: a long-form report on a warm "assay paper" ground; a sticky contents rail on wide screens,
+   one reading column (~70ch) with wide tables in their own scroll boxes. Gold = Qirat's karat accent. */
+:root {
+  --bg: #f6f4ef;
+  --card: #ffffff;
+  --subtle: #efebe2;
+  --line: rgba(21, 23, 28, 0.10);
+  --line-strong: rgba(154, 107, 20, 0.38);
+  --fg: #15171c;
+  --muted: #5f636c;
+  --gold: #8f6312;
+  --gold-bright: #c9962f;
+  --gold-soft: #f6ecd6;
+  --go: #0b7f58;
+  --go-soft: #dff3ea;
+  --warn: #9a4a07;
+  --warn-soft: #fbeedd;
+  --stop: #c0353b;
+  --stop-soft: #fbe3e4;
+  --bar-track: #e6e1d6;
+  --font-body: 'Readex Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1013; --card: #17191d; --subtle: #1f2126;
+    --line: rgba(255,255,255,0.09); --line-strong: rgba(227,181,81,0.42);
+    --fg: #ecedef; --muted: #a2a6ae;
+    --gold: #e3b551; --gold-bright: #f0c86a; --gold-soft: #2a2416;
+    --go: #4cc99a; --go-soft: #13291f; --warn: #f0a35a; --warn-soft: #2d2114;
+    --stop: #f07b80; --stop-soft: #321a1c; --bar-track: #2a2c31;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1013; --card: #17191d; --subtle: #1f2126;
+  --line: rgba(255,255,255,0.09); --line-strong: rgba(227,181,81,0.42);
+  --fg: #ecedef; --muted: #a2a6ae;
+  --gold: #e3b551; --gold-bright: #f0c86a; --gold-soft: #2a2416;
+  --go: #4cc99a; --go-soft: #13291f; --warn: #f0a35a; --warn-soft: #2d2114;
+  --stop: #f07b80; --stop-soft: #321a1c; --bar-track: #2a2c31;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6; font-weight: 400;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+}
+a { color: var(--gold); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 4px; }
+.shell { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; }
+@media (max-width: 900px) { .shell { grid-template-columns: minmax(0, 1fr); gap: 0; } .rail { display: none; } }
+.rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; padding-top: 40px; font-size: 13.5px; }
+.rail p { text-transform: uppercase; letter-spacing: .09em; font-size: 11px; color: var(--muted); margin: 0 0 10px; }
+.rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.rail a { color: var(--muted); text-decoration: none; display: grid; grid-template-columns: 22px 1fr; }
+.rail a:hover { color: var(--gold); }
+.rail span { font-variant-numeric: tabular-nums; color: var(--gold); }
+main { min-width: 0; }
+header.top { padding: 40px 0 28px; border-bottom: 1px solid var(--line); }
+.eyebrow { text-transform: uppercase; letter-spacing: .1em; font-size: 12px; color: var(--gold); font-weight: 600; margin: 0 0 10px; }
+h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(30px, 5vw, 46px); line-height: 1.1; margin: 0 0 14px; text-wrap: balance; letter-spacing: -0.01em; }
+.lede { font-size: 18px; color: var(--muted); max-width: 66ch; margin: 0 0 18px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 500; padding: 3px 10px; border-radius: 999px; background: var(--subtle); color: var(--fg); border: 1px solid var(--line); white-space: nowrap; }
+.chip.gold { background: var(--gold-soft); color: var(--gold); border-color: var(--line-strong); }
+.chip.go { background: var(--go-soft); color: var(--go); border-color: transparent; }
+.chip.warn { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.chip.stop { background: var(--stop-soft); color: var(--stop); border-color: transparent; }
+section { padding-top: 44px; scroll-margin-top: 16px; }
+h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(24px, 3.4vw, 30px); line-height: 1.2; margin: 0 0 6px; text-wrap: balance; display: flex; gap: 12px; align-items: baseline; }
+h2 .n { font-family: var(--font-body); font-size: 14px; color: var(--gold); font-weight: 600; font-variant-numeric: tabular-nums; }
+h3 { font-size: 17px; font-weight: 600; margin: 26px 0 8px; }
+.sub { color: var(--muted); margin: 0 0 18px; max-width: 70ch; }
+p, li { max-width: 72ch; }
+ul.tight, ol.tight { padding-left: 20px; margin: 8px 0; display: grid; gap: 6px; }
+.callout { background: var(--card); border: 1px solid var(--line-strong); border-radius: 14px; padding: 20px 22px; margin: 18px 0; }
+.callout h3 { margin-top: 0; }
+.answer { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 18px 0; }
+.answer > div { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; min-width: 0; }
+.answer h4 { margin: 0 0 6px; font-size: 15px; }
+.answer p { margin: 0; font-size: 14.5px; color: var(--muted); }
+.answer .k { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--gold); font-weight: 600; margin-bottom: 6px; display: block; }
+/* bars */
+.bars { display: grid; gap: 10px; margin: 16px 0 6px; }
+.bar { display: grid; grid-template-columns: minmax(150px, 230px) minmax(0, 1fr) 72px; gap: 12px; align-items: center; font-size: 14px; }
+@media (max-width: 560px) { .bar { grid-template-columns: minmax(0, 1fr) 64px; } .bar .track { grid-column: 1 / -1; grid-row: 2; } }
+.track { position: relative; height: 14px; background: var(--bar-track); border-radius: 7px; overflow: hidden; }
+.fill { position: absolute; top: 0; bottom: 0; border-radius: 7px; background: var(--muted); }
+.fill.gold { background: var(--gold-bright); }
+.fill.stop { background: var(--stop); }
+.fill.go { background: var(--go); }
+.val { font-variant-numeric: tabular-nums; text-align: right; font-weight: 600; }
+.axis { display: grid; grid-template-columns: minmax(150px, 230px) minmax(0, 1fr) 72px; gap: 12px; font-size: 11.5px; color: var(--muted); }
+.axis .ticks { display: flex; justify-content: space-between; font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) { .axis { grid-template-columns: minmax(0,1fr); } .axis > span:first-child, .axis > span:last-child { display: none; } }
+.marker { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--fg); opacity: .55; }
+.caption { font-size: 12.5px; color: var(--muted); margin: 6px 0 0; }
+/* tables */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--card); margin: 14px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 640px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; background: var(--subtle); }
+tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+td strong { font-weight: 600; }
+.rank { color: var(--gold); font-weight: 700; font-variant-numeric: tabular-nums; }
+/* diagram */
+.diagram { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin: 16px 0; }
+.diagram svg { display: block; min-width: 680px; width: 100%; height: auto; }
+.d-box { fill: var(--subtle); stroke: var(--line); }
+.d-code { fill: var(--card); stroke: var(--fg); stroke-opacity: .35; }
+.d-llm { fill: var(--gold-soft); stroke: var(--line-strong); }
+.d-coach { fill: var(--gold-soft); stroke: var(--gold); }
+.d-log { fill: var(--subtle); stroke: var(--fg); stroke-opacity: .3; stroke-dasharray: 4 3; }
+.d-t { fill: var(--fg); font-family: var(--font-body); font-size: 13px; font-weight: 600; }
+.d-s { fill: var(--muted); font-family: var(--font-body); font-size: 11.5px; }
+.d-h { fill: var(--gold); font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: .08em; }
+.d-a { stroke: var(--muted); stroke-width: 1.4; fill: none; }
+.d-ah { fill: var(--muted); }
+.d-no { fill: var(--stop); font-family: var(--font-body); font-size: 12px; font-weight: 600; }
+/* timeline */
+.phases { display: grid; gap: 12px; margin: 16px 0; }
+.phase { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+.phase.rec { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+@media (max-width: 560px) { .phase { grid-template-columns: minmax(0,1fr); gap: 6px; } }
+.phase .when { font-size: 13px; color: var(--muted); }
+.phase .when b { display: block; font-size: 15px; color: var(--gold); }
+.phase h4 { margin: 0 0 4px; font-size: 16px; }
+.phase p { margin: 0; font-size: 14.5px; }
+.phase .done { color: var(--muted); font-size: 13.5px; margin-top: 6px; }
+.decisions { counter-reset: d; display: grid; gap: 12px; padding: 0; list-style: none; margin: 16px 0; }
+.decisions li { counter-increment: d; display: grid; grid-template-columns: 34px minmax(0,1fr); gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; max-width: none; }
+.decisions li::before { content: counter(d); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--gold-soft); color: var(--gold); font-weight: 700; font-size: 14px; }
+.sources { font-size: 13.5px; columns: 2 320px; column-gap: 28px; padding-left: 18px; }
+.sources li { break-inside: avoid; margin-bottom: 6px; }
+footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) { .fill { transition: width .6s ease; } }
+</style>
+
+<div class="shell">
+  <nav class="rail" aria-label="Contents">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#answer"><span>0</span>The short version</a></li>
+      <li><a href="#today"><span>1</span>What Qirat gives today</a></li>
+      <li><a href="#competitors"><span>2</span>Competitors</a></li>
+      <li><a href="#needs"><span>3</span>Unmet needs</a></li>
+      <li><a href="#evidence"><span>4</span>AI trading: the evidence</a></li>
+      <li><a href="#design"><span>5</span>Recommended system</a></li>
+      <li><a href="#validation"><span>6</span>Validation gates</a></li>
+      <li><a href="#legal"><span>7</span>Legal and costs</a></li>
+      <li><a href="#roadmap"><span>8</span>Ranked roadmap</a></li>
+      <li><a href="#plan"><span>9</span>Phased plan</a></li>
+      <li><a href="#decide"><span>10</span>Decisions for you</a></li>
+      <li><a href="#sources"><span>11</span>Sources</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="top">
+      <p class="eyebrow">Qirat · product research · 8 November 2026</p>
+      <h1>Protect and teach beginners before anyone trades</h1>
+      <p class="lede">A review of today's app, 30+ competitors, the evidence on AI trading agents, and Tunisian law, ending in a ranked roadmap and a phased plan. Written for Abdelkerim.</p>
+      <div class="meta">
+        <span class="chip gold">Proposal · nothing built yet</span>
+        <span class="chip">Not legal or financial advice</span>
+        <span class="chip">Sources in docs/strategy/research-2026-11/</span>
+      </div>
+    </header>
+
+    <section id="answer">
+      <h2><span class="n">0</span>The short version</h2>
+      <p class="sub">Your idea: accounts with holdings (or "here's $10, trade it for me"), and a team of AI agents that watch the market, research coins, follow news and politics, and give buy/sell actions at 24 hours, 1 week and 1 month, hoping for about 90% good trades.</p>
+
+      <h3>How often do real AI traders win a trade?</h3>
+      <div class="bars" role="img" aria-label="Win rates: Alpha Arena models 25 to 30 percent, real-money agent fleet 41 percent, retail benchmark 50 percent, best AI news signal 55 to 58 percent, hoped-for target 90 percent">
+        <div class="bar"><span>Alpha Arena AIs, real money (2025)</span><div class="track"><div class="fill stop" style="left:25%;width:5%"></div><div class="fill stop" style="width:25%;opacity:.35"></div></div><span class="val">25–30%</span></div>
+        <div class="bar"><span>500+ real-money AI agents (2026)</span><div class="track"><div class="fill stop" style="width:41%"></div></div><span class="val">41%</span></div>
+        <div class="bar"><span>Ordinary retail benchmark</span><div class="track"><div class="fill" style="width:50%"></div></div><span class="val">50%</span></div>
+        <div class="bar"><span>Best AI news signal on record</span><div class="track"><div class="fill go" style="width:55%"></div><div class="fill go" style="left:55%;width:3%;opacity:.5"></div></div><span class="val">55–58%</span></div>
+        <div class="bar"><span>The hoped-for target</span><div class="track"><div class="fill gold" style="width:90%"></div></div><span class="val">90%</span></div>
+        <div class="axis"><span></span><span class="ticks"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></span><span></span></div>
+      </div>
+      <p class="caption">Sources: Alpha Arena S1 via Protos/Forklog; Barton et al. 2026 (arXiv 2609.05663); Lopez-Lira &amp; Tang v6 (next-day drift, before costs). The 55–58% signal decayed to a Sharpe of 1.2 in 2.5 years and loses money at 0.2% round-trip fees.</p>
+
+      <div class="answer">
+        <div><span class="k">Finding</span><h4>Nobody gets near 90%</h4><p>Papers with huge numbers tested on dates the AI had already seen in training; once tested later or live, the edge mostly vanished (51–62% of the Sharpe lost).</p></div>
+        <div><span class="k">Finding</span><h4>90% always hides something</h4><p>Memory of the past, moves too fast to trade, or "win small often, lose big rarely" bots. One short-volatility fund had 85%+ winning months, then lost 96% in a day.</p></div>
+        <div><span class="k">Finding</span><h4>"Trade my $10" is the riskiest idea</h4><p>In Tunisia it combines four regulated things at once: buying crypto for residents, managing others' money, holding funds, AML duties. It is also the #1 scam script regulators describe.</p></div>
+        <div><span class="k">Finding</span><h4>Exchanges already sell it</h4><p>Binance, Bybit, Bitget and Coinbase offer chat-to-trade AI for $0–30/month. None publishes user results, none speaks Darija, users carry 100% of losses.</p></div>
+      </div>
+
+      <div class="callout">
+        <h3>What Qirat can win instead</h3>
+        <p style="margin:0 0 8px">Be the calm, neutral, Darija-speaking guide that protects beginners: a <b>scam check</b> (paste a WhatsApp pitch, link, token or platform), <b>my money in dinars</b> (a risk check of your own coins), <b>practice with $10</b> of paper money with a coach that spots FOMO, and a short daily <b>"what happened and why"</b>. Agents explain and protect; plain, testable rules decide and measure. Any trading strategy runs privately on paper and must pass gates before anyone sees it.</p>
+        <p style="margin:0"><b>The honest target</b> is not "90% wins" but better risk-adjusted results than simply holding Bitcoin: smaller drawdowns, a similar or better Sharpe, and probabilities that come true as often as they say.</p>
+      </div>
+    </section>
+
+    <section id="today">
+      <h2><span class="n">1</span>What Qirat gives today</h2>
+      <p class="sub">Checked on 8 Nov 2026 in the code and on qirat.tn (Today, Ask, Portfolio, Track record).</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Feature</th><th>How good</th><th>Gap for a beginner</th><th>Gap for a pro</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Market weather</strong> calm / choppy / stormy</td><td><span class="chip go">Strong</span> Built on the regime signal that held up: BTC above vs below its 50-day line (next 30 days +3.0% vs −2.1%).</td><td>Says what the market is, not what a careful person does in it.</td><td>No history, breadth or liquidity data.</td></tr>
+          <tr><td><strong>Karat grade</strong> 24K–10K</td><td><span class="chip warn">Modest</span> Rank IC +0.09 at 7 days, picked after seeing the data. In a storm 24K coins still fall.</td><td>"22K" reads like quality or "buy".</td><td>No screener, no API.</td></tr>
+          <tr><td><strong>Risk grade</strong> + rough month on 100 TND</td><td><span class="chip go">Strongest</span> Past volatility predicts next month's (IC 0.63, every month). TND framing is excellent.</td><td>"Low risk" means low <em>for crypto</em>; BTC can still drop 30% in a month.</td><td>No drawdown or correlation tools.</td></tr>
+          <tr><td><strong>What's moving</strong> news + trending</td><td><span class="chip warn">Off-brand</span> English headlines; trending showed micro-caps ranked #856 and #402.</td><td>A FOMO feed inside a calm app.</td><td>Generic.</td></tr>
+          <tr><td><strong>Ask Qirat</strong> AI brief + chat</td><td><span class="chip warn">Right rules, wrong voice</span> Grounded, refuses advice. Live answer was long and jargon-heavy; its table showed as raw pipes.</td><td>Too technical; Arabic is formal MSA, not Darija; no memory of level.</td><td>Sees only today's snapshot.</td></tr>
+          <tr><td><strong>Portfolio</strong></td><td><span class="chip warn">Basic</span> Holdings never move grades (keeps it impersonal).</td><td>No account (lost on a new phone), no TND, no whole-portfolio risk view.</td><td>No sync or lots.</td></tr>
+          <tr><td><strong>Track record tab</strong> + bot /record</td><td><span class="chip stop">Conflicts</span> Still says "Every call is logged, losses included" and shows the old ratings, against the 7 Nov "no public misses" decision.</td><td>—</td><td>—</td></tr>
+          <tr><td><strong>Telegram bot</strong> score, watch, market, daily, alerts</td><td><span class="chip go">Solid</span> Multilingual, alerts debounced.</td><td>Alerts are grade flips, not about <em>your</em> risk. No WhatsApp (about 5× Telegram's reach in Tunisia).</td><td>No price alerts (deliberate).</td></tr>
+          <tr><td><strong>Private measurement</strong> snapshots, shadow scorecard</td><td><span class="chip go">Best foundation</span> Forward-only, immutable, judged against the market: the base for honest paper trading.</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table></div>
+      <p>Also: the first load took about 6–8 seconds before grades appeared. <b>Bottom line:</b> Qirat's honest core is risk and weather, not picking winners. What's missing is what brings a beginner back daily: an account, money in TND, scam protection, a safe place to practise, and a coach in their language.</p>
+    </section>
+
+    <section id="competitors">
+      <h2><span class="n">2</span>Competitors</h2>
+      <p class="sub">Five groups, 30+ products. Details, prices and review quotes are in notes A, B and E.</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Group</th><th>Examples</th><th>Cheapest paid</th><th>Languages</th><th>What's missing for a Tunisian beginner</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Trackers</strong></td><td>CoinStats, Delta, CoinGecko, CoinMarketCap, Kubera. All added AI chat in 2025–26.</td><td class="num">$7–14/mo</td><td>Some Arabic, French common, no Darija</td><td>Calm guidance, TND, scam protection. Users complain of wrong P&amp;L and billing traps.</td></tr>
+          <tr><td><strong>Ratings &amp; research</strong></td><td>Token Metrics, Messari, Santiment, LunarCrush, Glassnode, TradingView</td><td class="num">$13–90/mo</td><td>Mostly English</td><td>A risk-first beginner grade. Token Metrics: 2.4★, inconsistent grades. Nobody publishes a record with losses.</td></tr>
+          <tr><td><strong>Exchange AI</strong></td><td>Binance Ai Pro, Bitget GetAgent, OKX, Bybit AI, Coinbase for Agents</td><td class="num">$0–30/mo</td><td>Arabic apps, AI languages undocumented</td><td>Neutrality: each pushes its own products and leverage.</td></tr>
+          <tr><td><strong>Bots &amp; copy trading</strong></td><td>3Commas, Cryptohopper, Kryll, Pionex, eToro</td><td class="num">$15–29/mo</td><td>Little</td><td>Any evidence users profit. 3Commas leaked API keys (2022, ~$15–20M stolen).</td></tr>
+          <tr><td><strong>MENA / FR</strong></td><td>Rain, BitOasis, Thndr, Cryptoast Academy, Finary, halal screeners</td><td class="num">$5–17/mo</td><td>MSA or English</td><td>Neutral Darija lessons, scam check, Tunisian legal clarity. Darija is under 10% of Tunisian crypto ads.</td></tr>
+        </tbody>
+      </table></div>
+      <ul class="tight">
+        <li><b>Everyone is adding AI</b>, all English-first and aimed at trading power. None is a calm coach in Darija.</li>
+        <li><b>"Why is it moving?" is now standard.</b> Qirat's daily brief has to win on tone and language.</li>
+        <li><b>Nobody offers a scam check.</b> CoinMarketCap's Trustpilot (1.3★) is full of fake-caller victims.</li>
+        <li><b>Regulators punish accuracy claims</b>, not neutral grades: the SEC sued "Cryptoaiml" in Sept 2026 over "98% accuracy" AI signals.</li>
+      </ul>
+    </section>
+
+    <section id="needs">
+      <h2><span class="n">3</span>What Tunisian and MENA beginners need</h2>
+      <p class="sub">Tunisia rose from 80th to 52nd in Chainalysis' 2025 adoption index (about 200,000 holders) while enforcement tightens: customs trained to seize crypto (Oct 2026), e-wallet caps (BCT Circular 2026-10), CMF scam warnings (Sept–Oct 2026).</p>
+      <div class="tbl"><table>
+        <thead><tr><th class="num">#</th><th>Need</th><th>Who serves it now</th><th>Qirat angle</th></tr></thead>
+        <tbody>
+          <tr><td class="rank">1</td><td><strong>"Is this a scam?"</strong> for pitches, links, tokens, platforms, P2P sellers, in Darija</td><td>English address/domain databases only</td><td>Red-flag checker + free APIs + curated CMF/AMMC warnings. <b>Strongest wedge.</b></td></tr>
+          <tr><td class="rank">2</td><td><strong>Safe buying and legal clarity</strong></td><td>Affiliate "how to buy" pages</td><td>A living, dated "crypto and the law in Tunisia" page; no referrals</td></tr>
+          <tr><td class="rank">3</td><td><strong>Neutral lessons in Darija</strong></td><td>Exchange academies, signal creators</td><td>Short lessons and glossary tied to live grades</td></tr>
+          <tr><td class="rank">4</td><td><strong>AI answers in their language</strong></td><td>Generic chatbots</td><td>Grounded Darija/FR coach, never buy/sell</td></tr>
+          <tr><td class="rank">5</td><td><strong>Halal notes per coin</strong></td><td>Paid, English-first screeners</td><td>Free notes citing screeners, no fatwas</td></tr>
+          <tr><td class="rank">6</td><td><strong>Practice before risking money</strong></td><td>Exchange demo accounts</td><td>Spot-only practice that scores behaviour</td></tr>
+          <tr><td class="rank">7</td><td><strong>Holdings in dinars</strong></td><td>Global trackers (TND unverified)</td><td>Manual "my coins" at the BCT rate</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="evidence">
+      <h2><span class="n">4</span>AI trading agents: the evidence</h2>
+      <p class="sub">The full 14-paper table with links and weaknesses is in note C.</p>
+
+      <h3>Alpha Arena Season 1: six AIs, $10,000 each, real money, 17 days</h3>
+      <div class="bars" role="img" aria-label="Alpha Arena season 1 returns: Qwen3 Max plus 22 percent, DeepSeek plus 5, Claude Sonnet 4.5 minus 42, Gemini 2.5 Pro minus 46, Grok 4 minus 58, GPT-5 minus 59">
+        <div class="bar"><span>Qwen3 Max</span><div class="track"><div class="marker" style="left:50%"></div><div class="fill go" style="left:50%;width:11.15%"></div></div><span class="val">+22%</span></div>
+        <div class="bar"><span>DeepSeek V3.1</span><div class="track"><div class="marker" style="left:50%"></div><div class="fill go" style="left:50%;width:2.45%"></div></div><span class="val">+5%</span></div>
+        <div class="bar"><span>Claude Sonnet 4.5</span><div class="track"><div class="marker" style="left:50%"></div><div class="fill stop" style="left:29%;width:21%"></div></div><span class="val">−42%</span></div>
+        <div class="bar"><span>Gemini 2.5 Pro</span><div class="track"><div class="marker" style="left:50%"></div><div class="fill stop" style="left:27.2%;width:22.8%"></div></div><span class="val">−46%</span></div>
+        <div class="bar"><span>Grok 4</span><div class="track"><div class="marker" style="left:50%"></div><div class="fill stop" style="left:21.05%;width:28.95%"></div></div><span class="val">−58%</span></div>
+        <div class="bar"><span>GPT-5</span><div class="track"><div class="marker" style="left:50%"></div><div class="fill stop" style="left:20.65%;width:29.35%"></div></div><span class="val">−59%</span></div>
+        <div class="axis"><span></span><span class="ticks"><span>−100%</span><span>−50%</span><span>0</span><span>+50%</span><span>+100%</span></span><span></span></div>
+      </div>
+      <p class="caption">Crypto perpetual futures on Hyperliquid, 18 Oct – 3 Nov 2025; final figures from the TradeRank snapshot (other outlets differ by a few points). Win rates were 25–30% for all six; fees ate over 13% of one model's capital. With leverage over 17 days, the ranking is indistinguishable from luck.</p>
+
+      <div class="tbl"><table>
+        <thead><tr><th>Evidence</th><th>Result</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td>TradingAgents, FinMem, FinCon (2023–24)</td><td>Backtest Sharpe up to 8.2 over 3–8 months, 3–8 stocks</td><td>Tested before or near the AI's training cutoff, no costs</td></tr>
+          <tr><td>CryptoTrade (EMNLP 2024)</td><td>Lost to holding in the bull run: BTC 28% vs 40%, SOL 115% vs 177%</td><td>News + on-chain agent still didn't beat holding</td></tr>
+          <tr><td>Profit Mirage (2025)</td><td>Agents lose 51–62% of Sharpe after the cutoff; AIs recall past market direction ~90% of the time</td><td>An LLM backtest on past dates is not evidence</td></tr>
+          <tr><td>DeepFund, StockBench, LiveTradeBench (2025)</td><td>8 of 9 lost; −2.8% to +2.5% vs +0.4% holding; general AI rank unrelated to trading</td><td>Smarter AI ≠ better trader</td></tr>
+          <tr><td>Agent fleet study (Sept 2026)</td><td>41% win rate, no edge, 5× leverage regardless of risk</td><td>The most realistic test so far</td></tr>
+          <tr><td>Crypto factor research</td><td>1–4 week momentum in larger coins and trend hold up before costs; sentiment and on-chain weak out of sample; ignoring dead coins inflates backtests ~62%/yr</td><td>Matches Qirat's own study: small tilts, not certainties</td></tr>
+          <tr><td>Retail outcomes</td><td>Median crypto-app user lost $431 of $900 (BIS 2023); 74–89% of leveraged retail accounts lose (ESMA)</td><td>Beginners who trade actively usually lose</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Honest targets</h3>
+      <p><b>Win rate is the wrong number.</b> With winners twice the size of losers, 34% wins already breaks even; good trend systems win only 35–45% of trades.</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Metric</th><th>Realistic</th><th>Exceptional</th><th>Not credible</th></tr></thead>
+        <tbody>
+          <tr><td>Direction hit rate, 1 day</td><td class="num">50–55%</td><td class="num">56–58% before costs</td><td class="num">90%</td></tr>
+          <tr><td>Ranking skill (rank IC, weekly)</td><td class="num">0.03–0.06</td><td class="num">≥ 0.08 for a year</td><td>—</td></tr>
+          <tr><td>Sharpe after costs</td><td class="num">0.5–1.0</td><td class="num">1.0–1.5</td><td class="num">&gt; 2 sustained</td></tr>
+          <tr><td>Versus holding BTC</td><td>Similar return, smaller drawdown</td><td>Sharpe +0.3 to +0.5</td><td>"Always beats BTC"</td></tr>
+          <tr><td>Calibration</td><td>"60%" calls true 55–65% of the time</td><td>Brier 0.23–0.24 on a 50/50 question</td><td>—</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="design">
+      <h2><span class="n">5</span>Recommended system: rules decide, agents explain and protect</h2>
+      <p class="sub">Numbers never come from the LLM. Every forecast is logged before its outcome. Same grade for everyone. No custody, no execution, no leverage. Plain Python jobs on the existing crons; no agent framework needed.</p>
+      <div class="diagram">
+        <svg viewBox="0 0 760 470" role="img" aria-label="Architecture: free data sources feed deterministic code (market watch, risk manager, strategy lab) and LLM helpers (news and macro, coin research, scam checker). Both write to immutable logs. A coach in Darija, French and English uses all of them and reaches users on the web app, Telegram and WhatsApp. It never says buy, sell, now or you should.">
+          <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="d-ah"/></marker></defs>
+          <rect x="20" y="14" width="720" height="62" rx="10" class="d-box"/>
+          <text x="36" y="36" class="d-h">DATA · FREE TIERS FIRST</text>
+          <text x="36" y="58" class="d-s">Binance klines · CoinGecko / CMC · Fear &amp; Greed · DefiLlama · RSS / GDELT · GoPlus · phishing lists · CMF / AMMC warnings</text>
+
+          <path d="M200 76 V108" class="d-a" marker-end="url(#ah)"/>
+          <path d="M560 76 V108" class="d-a" marker-end="url(#ah)"/>
+
+          <text x="36" y="104" class="d-h">CODE · NO LLM</text>
+          <rect x="20" y="112" width="350" height="44" rx="8" class="d-code"/>
+          <text x="34" y="132" class="d-t">Market watch</text><text x="34" y="148" class="d-s">karat, risk, weather, unusual moves (exists)</text>
+          <rect x="20" y="164" width="350" height="44" rx="8" class="d-code"/>
+          <text x="34" y="184" class="d-t">Risk manager</text><text x="34" y="200" class="d-s">your coins in TND, concentration, "BTC −30%", your rules</text>
+          <rect x="20" y="216" width="350" height="44" rx="8" class="d-code"/>
+          <text x="34" y="236" class="d-t">Strategy lab (private)</text><text x="34" y="252" class="d-s">paper decisions at 1 week / 1 month</text>
+
+          <text x="406" y="104" class="d-h">LLM HELPERS</text>
+          <rect x="390" y="112" width="350" height="44" rx="8" class="d-llm"/>
+          <text x="404" y="132" class="d-t">News &amp; macro</text><text x="404" y="148" class="d-s">tags events, writes the shared daily brief · Haiku → Sonnet</text>
+          <rect x="390" y="164" width="350" height="44" rx="8" class="d-llm"/>
+          <text x="404" y="184" class="d-t">Coin research</text><text x="404" y="200" class="d-s">one-page dossier, red flags · Sonnet 5.5</text>
+          <rect x="390" y="216" width="350" height="44" rx="8" class="d-llm"/>
+          <text x="404" y="236" class="d-t">Scam checker</text><text x="404" y="252" class="d-s">pitch, link, token, platform, screenshot · Haiku / Sonnet</text>
+
+          <path d="M195 260 V292" class="d-a" marker-end="url(#ah)"/>
+          <path d="M565 260 V292" class="d-a" marker-end="url(#ah)"/>
+          <rect x="120" y="296" width="520" height="40" rx="8" class="d-log"/>
+          <text x="380" y="321" text-anchor="middle" class="d-t">Immutable logs (Upstash, written once) · scored privately</text>
+
+          <path d="M380 336 V366" class="d-a" marker-end="url(#ah)"/>
+          <rect x="170" y="370" width="420" height="54" rx="10" class="d-coach"/>
+          <text x="380" y="393" text-anchor="middle" class="d-t">Coach · Darija / French / English · Haiku 5.5</text>
+          <text x="380" y="412" text-anchor="middle" class="d-s">web app · Telegram bot · WhatsApp channel</text>
+          <text x="380" y="452" text-anchor="middle" class="d-no">never says: buy · sell · now · you should</text>
+        </svg>
+      </div>
+
+      <h3>Profiles (need accounts)</h3>
+      <p>Telegram Login first (no passwords to store). Fields: language, level (short quiz), learning goal, optional holdings, and <b>"my rules"</b> written by the user ("never more than 10% in one coin", "no new buys in a storm"). <b>Not collected:</b> income, age, wealth or horizon, because collecting them makes outputs look "suitable for you", which is the legal definition of advice.</p>
+
+      <h3>Practice with $10</h3>
+      <ul class="tight">
+        <li>A virtual 10 USDT (shown in TND) at live prices, 0.1% fees plus spread, spot only, labelled "Simulation, not real money".</li>
+        <li>Modes: my picks · weekly DCA · follow a rule (e.g. two highest karats, cash in a storm) · always compared with just holding BTC.</li>
+        <li>The coach scores behaviour, not luck: "you bought after a +25% day", "you sold in a −10% day", "you broke your own rule".</li>
+        <li>Private progress only. No leaderboard: it rewards gambling and looks like a signal group.</li>
+        <li>Add-ons: risk doctor on real holdings in TND, a historical DCA simulator, and later "your agent vs you" once a strategy passes the gates.</li>
+      </ul>
+
+      <h3>AI cost at about 1,000 users</h3>
+      <p>Coach on Claude Haiku 5.5 ($0.10 / $0.50 per million tokens) and a shared daily brief on Sonnet 5.5 cost roughly <b>$5–15 a month</b>; data adds $0–35. A personalised brief would cost about $360/month on Sonnet and is legally riskier, so the brief stays shared. Before switching models, confirm the Anthropic key status (memory says it was blocked until 1 Aug 2026).</p>
+    </section>
+
+    <section id="validation">
+      <h2><span class="n">6</span>Validation: backtest, private paper trading, then gates</h2>
+      <div class="answer">
+        <div><span class="k">Stage A · ~2 weeks</span><h4>Backtest</h4><p>Walk-forward 2021–26 with 0.1% fees + 0.1% slippage, dead coins included, every variant counted (deflated Sharpe). Compared with holding BTC, an equal-weight top 18 and a BTC 50-day rule. LLM parts excluded.</p></div>
+        <div><span class="k">Stage B · 6+ months</span><h4>Private paper log</h4><p>Each call logged before the outcome in a new <code>paper:</code> namespace in <code>track_record.py</code>, scored at 7 and 30 days, reported only in the owner's weekly Telegram note.</p></div>
+        <div><span class="k">Stage C · ~May 2027</span><h4>Go / no-go</h4><p>Pass: may appear inside Practice as an education rule. Fail: retired quietly, lesson goes to the coach. Real money stays out until a lawyer confirms a licensed path.</p></div>
+      </div>
+      <div class="tbl"><table>
+        <thead><tr><th>Gate (all must pass)</th><th>Threshold</th></tr></thead>
+        <tbody>
+          <tr><td>Enough data</td><td>≥ 26 non-overlapping weeks (or ≥ 6 months)</td></tr>
+          <tr><td>Risk-adjusted return</td><td>Sharpe ≥ buy-and-hold BTC, after costs</td></tr>
+          <tr><td>Drawdown</td><td>Max drawdown ≤ 70% of BTC's</td></tr>
+          <tr><td>Ranking skill</td><td>Rank IC ≥ 0.05 with t ≥ 2</td></tr>
+          <tr><td>Calibration</td><td>"60%" calls true 55–65% of the time; Brier better than the base rate</td></tr>
+          <tr><td>Stability</td><td>Positive in 2 of 3 sub-periods; not driven by one coin</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="legal">
+      <h2><span class="n">7</span>Legal and cost constraints</h2>
+      <p class="sub">Desk research, not legal advice. Crypto is not money in Tunisia; buying or holding it without BCT authorisation is treated as a foreign-exchange violation. The new Code des changes cleared committee in April 2026 but is not law, and would still require declaration and BCT authorisation. On 28 Oct 2026 the CMF named an unlicensed firm for "portfolio management presented as investment advice" on social media.</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Feature</th><th>Verdict</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Education, impersonal grades, shared brief, scam check, bot</td><td><span class="chip go">Go</span></td><td>Talking about crypto isn't banned; impersonal, regular content is the safe side everywhere (MiCA, Lowe v. SEC)</td></tr>
+          <tr><td>Paper trading with virtual money</td><td><span class="chip go">Go</span></td><td>No funds or crypto change hands; label it a simulation</td></tr>
+          <tr><td>Self-reported holdings, user's own rules</td><td><span class="chip warn">Guardrails</span></td><td>Personal data; AI may explain but never "sell your X"</td></tr>
+          <tr><td>Personalised buy/sell suggestions</td><td><span class="chip stop">No</span></td><td>The textbook definition of advice (MiCA, UAE, US)</td></tr>
+          <tr><td>"Trade my $10 for me"</td><td><span class="chip stop">Hard no</span></td><td>FX law + third-party management + custody + AML at once</td></tr>
+          <tr><td>Pro revenue in crypto, RedotPay or Telegram Stars (TON)</td><td><span class="chip warn">Hold</span></td><td>The operator acquiring crypto may need BCT authorisation. Safer: TND via local rails, or foreign cards into a Startup Act FX account. Lawyer first.</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Guardrails:</b> no trade verbs in AI output (prompt + output filter, refusals logged); disclaimers in all languages including "not licensed by the CMF or BCT"; no affiliate links; minimal personal data; AI answers kept 12 months. Don't target Algeria or Egypt, which ban crypto promotion. <b>Data stack:</b> $0–35/month (CoinGecko, CMC Basic, Binance data-api, Fear &amp; Greed, DefiLlama, GoPlus, GDELT).</p>
+    </section>
+
+    <section id="roadmap">
+      <h2><span class="n">8</span>Ranked roadmap</h2>
+      <p class="sub">Effort: S under a week · M 1–3 weeks · L 3+ weeks, part-time. Cost at about 1,000 users.</p>
+      <div class="tbl"><table>
+        <thead><tr><th class="num">#</th><th>Feature</th><th>Impact</th><th>Effort</th><th>Risk</th><th class="num">Cost/mo</th></tr></thead>
+        <tbody>
+          <tr><td class="rank">1</td><td><strong>Clean-up</strong>: hide public Track record, "low risk for crypto", drop trending micro-caps, shorter chat, faster load</td><td>Medium</td><td>S</td><td><span class="chip go">Lowers it</span></td><td class="num">$0</td></tr>
+          <tr><td class="rank">2</td><td><strong>Scam check</strong> (web + /scamcheck)</td><td><b>High</b></td><td>M</td><td><span class="chip go">Low</span></td><td class="num">$0–5</td></tr>
+          <tr><td class="rank">3</td><td><strong>Accounts</strong> (Telegram Login) + synced coins</td><td>High (enabler)</td><td>M</td><td><span class="chip warn">Low–med</span></td><td class="num">$0</td></tr>
+          <tr><td class="rank">4</td><td><strong>Risk doctor in TND</strong></td><td><b>High</b></td><td>S–M</td><td><span class="chip go">Low</span></td><td class="num">$0</td></tr>
+          <tr><td class="rank">5</td><td><strong>Calm alerts</strong> (max 1/day)</td><td>Medium</td><td>S</td><td><span class="chip go">Low</span></td><td class="num">$0</td></tr>
+          <tr><td class="rank">6</td><td><strong>Darija coach</strong> + glossary + lessons</td><td><b>High</b></td><td>M</td><td><span class="chip warn">Low–med</span></td><td class="num">$5–15</td></tr>
+          <tr><td class="rank">7</td><td><strong>Practice with $10</strong></td><td><b>High</b></td><td>M–L</td><td><span class="chip go">Low</span></td><td class="num">$0–5</td></tr>
+          <tr><td class="rank">8</td><td><strong>Daily "what happened and why"</strong> (WhatsApp + Telegram)</td><td>Med–high</td><td>M</td><td><span class="chip go">Low</span></td><td class="num">$1–5</td></tr>
+          <tr><td class="rank">9</td><td><strong>Crypto and the law in Tunisia</strong> page</td><td>Medium</td><td>S</td><td><span class="chip warn">Medium</span></td><td class="num">$0</td></tr>
+          <tr><td class="rank">10</td><td><strong>DCA planner</strong> (historical, TND)</td><td>Medium</td><td>S</td><td><span class="chip warn">Low–med</span></td><td class="num">$0</td></tr>
+          <tr><td class="rank">11</td><td><strong>Coin dossier</strong></td><td>Medium</td><td>M</td><td><span class="chip go">Low</span></td><td class="num">$2–10</td></tr>
+          <tr><td class="rank">12</td><td><strong>Halal notes per coin</strong></td><td>Medium</td><td>M</td><td><span class="chip warn">Medium</span></td><td class="num">$0</td></tr>
+          <tr><td class="rank">13</td><td><strong>Strategy lab</strong> (private, gated)</td><td>Long-term</td><td>M</td><td><span class="chip go">Low</span></td><td class="num">$1–5</td></tr>
+          <tr><td class="rank">—</td><td><strong>Don't build:</strong> auto-trading, personalised buy/sell, signal alerts, leaderboards, exchange affiliates</td><td>—</td><td>—</td><td><span class="chip stop">Very high</span></td><td class="num">—</td></tr>
+        </tbody>
+      </table></div>
+      <p>Pro candidates for January 2027: unlimited coach, advanced practice modes, coin dossiers, deeper halal notes. Always free: grades, weather, scam check, basic risk doctor.</p>
+    </section>
+
+    <section id="plan">
+      <h2><span class="n">9</span>Phased plan</h2>
+      <div class="phases">
+        <div class="phase rec"><div class="when"><b>Phase 0</b>~1 week</div><div><h4>Clean-up <span class="chip gold">recommended first</span></h4><p>Roadmap item 1.</p><p class="done">Done when: Track record hidden publicly (still logged privately), labels fixed, chat answers short, first load faster.</p></div></div>
+        <div class="phase rec"><div class="when"><b>Phase 1</b>2–3 weeks</div><div><h4>Protect <span class="chip gold">recommended first</span></h4><p>Scam check v1 on web and Telegram (text, link, token, platform; screenshots in v1.1), curated Tunisia/Morocco warning list, legal-status page.</p><p class="done">Done when: 20 real scam examples all flagged, 20 legitimate ones not flagged, answers in Darija/FR/EN.</p></div></div>
+        <div class="phase"><div class="when"><b>Phase 2</b>~3 weeks</div><div><h4>My money</h4><p>Telegram Login accounts, synced holdings, risk doctor in TND, "my rules", calm alerts.</p><p class="done">Done when: data survives a phone change; risk maths match a hand-checked sheet.</p></div></div>
+        <div class="phase"><div class="when"><b>Phase 3</b>~4 weeks</div><div><h4>Learn and practise</h4><p>Coach on Haiku 5.5 with tools, glossary and lessons, Practice with $10, behaviour feedback.</p><p class="done">Done when: the output filter blocks all 50 "make it say buy" test prompts; paper fills match Binance ± spread.</p></div></div>
+        <div class="phase"><div class="when"><b>Phase 4</b>6+ months</div><div><h4>Agents and evidence</h4><p>News agent and shared daily brief; strategy lab backtest and private paper log; gate review around May 2027.</p><p class="done">Done when: the weekly owner report runs unattended and a gate verdict is written up.</p></div></div>
+      </div>
+      <p><b>Before charging in January 2027:</b> a one-hour opinion from a Tunisian fintech lawyer on TND subscriptions, foreign-card revenue via a Startup Act FX account, any crypto/RedotPay/Stars route, and INPDP data duties.</p>
+    </section>
+
+    <section id="decide">
+      <h2><span class="n">10</span>Decisions for you</h2>
+      <ol class="decisions">
+        <li><div><b>Which phase first?</b> Recommendation: Phase 0 + Phase 1 (Protect). Scam check is the strongest wedge, needs no accounts and feeds marketing. Alternative: Phase 3 (Practice with $10) if you want your idea first.</div></li>
+        <li><div><b>Drop "trade my $10 for me" and personalised buy/sell calls</b>, replaced by Practice mode and the private strategy lab.</div></li>
+        <li><div><b>Payments:</b> crypto, RedotPay and Stars revenue are flagged high risk for a Tunisian operator. Book a lawyer before January.</div></li>
+        <li><div><b>Hide the public Track record tab</b> to match "no public misses"; measurement continues privately.</div></li>
+      </ol>
+    </section>
+
+    <section id="sources">
+      <h2><span class="n">11</span>Key sources</h2>
+      <p class="sub">Every claim's URL is in the research notes (docs/strategy/research-2026-11/, files A–E).</p>
+      <ul class="sources">
+        <li><a href="https://arxiv.org/html/2304.07619v6">Lopez-Lira &amp; Tang, Can ChatGPT forecast stock prices? (v6)</a></li>
+        <li><a href="https://arxiv.org/html/2510.07920v1">Profit Mirage: look-ahead in LLM trading agents</a></li>
+        <li><a href="https://arxiv.org/abs/2601.13770">Look-Ahead-Bench (2026)</a></li>
+        <li><a href="https://arxiv.org/html/2412.20138v4">TradingAgents</a> · <a href="https://arxiv.org/html/2311.13743v2">FinMem</a> · <a href="https://arxiv.org/html/2407.06567v3">FinCon</a> · <a href="https://aclanthology.org/2024.emnlp-main.63/">CryptoTrade</a></li>
+        <li><a href="https://arxiv.org/abs/2505.11065">DeepFund</a> · <a href="https://arxiv.org/html/2510.02209v1">StockBench</a> · <a href="https://arxiv.org/html/2511.03628v1">LiveTradeBench</a></li>
+        <li><a href="https://arxiv.org/abs/2609.05663">Real-money agent fleet study (Sept 2026)</a></li>
+        <li><a href="https://protos.com/llm-crypto-trading-contest-finds-llms-cant-trade-crypto">Protos on Alpha Arena</a> · <a href="https://forklog.com/en/four-out-of-six-ai-models-suffer-losses-in-trading-tournament/">Forklog</a></li>
+        <li><a href="https://www.nber.org/papers/w25882">Liu, Tsyvinski &amp; Wu, crypto risk factors</a></li>
+        <li><a href="https://carmamaths.org/jon/backtest.pdf">Bailey et al., backtest overfitting</a></li>
+        <li><a href="https://www.bis.org/publ/bisbull69.htm">BIS Bulletin 69 (2023)</a> · <a href="https://www.esma.europa.eu/node/84933">ESMA CFD intervention</a></li>
+        <li><a href="https://www.cftc.gov/LearnandProtect/AdvisoriesAndArticles/AITradingBots.html">CFTC: AI won't turn bots into money machines</a></li>
+        <li><a href="https://www.leconomistemaghrebin.com/2026/10/28/cmf-attention-aux-arnaques-dinvestissement-sur-les-reseaux-sociaux/">CMF warning, 28 Oct 2026</a> · <a href="https://cmf.tn/sites/default/files/pdfs/documentation/guides/Guide%20fraude%20CMF.pdf">CMF fraud guide</a></li>
+        <li><a href="https://en.africanmanager.com/new-foreign-exchange-code-what-parliament-proposes-to-government/">Tunisian FX code status</a></li>
+        <li><a href="https://www.esma.europa.eu/publications-data/questions-answers/2882">ESMA Q&amp;A 2882 (MiCA advice)</a> · <a href="https://www.law.cornell.edu/supremecourt/text/472/181">Lowe v. SEC</a></li>
+        <li><a href="https://www.tuniscope.com/article/416261/business/economie/cryptomonnaies-231311">Chainalysis ranking for Tunisia</a></li>
+        <li><a href="https://gopluslabs.io/security-api">GoPlus Security API</a> · <a href="https://claude.com/pricing">Claude pricing</a></li>
+      </ul>
+    </section>
+
+    <footer>Prepared 8 Nov 2026 from five parallel research passes and a review of the Qirat codebase and live app. Markdown version: docs/strategy/product-research-2026-11.md. Not legal or financial advice.</footer>
+  </main>
+</div>
+
+</body>
+</html>
