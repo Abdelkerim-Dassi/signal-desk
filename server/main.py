@@ -36,7 +36,7 @@ from fastapi.staticfiles import StaticFiles
 from advisor_engine import build_market_brief, normalize_asset_ids, parse_holdings
 from notifications import format_market_alert, notification_status, send_notifications
 
-from . import ai, cards, telegram_bot, track_record
+from . import ai, cards, paper, telegram_bot, track_record
 from .cache import TTLCache, brief_cache
 from .ratelimit import check_ai_allowance
 from .schemas import AnalyzeRequest, BriefingRequest, ChatRequest, NotifyRequest
@@ -60,6 +60,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Practice with $10 (paper wallet): /api/paper/state and /api/paper/quote
+app.include_router(paper.router)
 
 
 def _ai_enabled() -> bool:
