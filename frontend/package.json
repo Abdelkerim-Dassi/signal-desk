@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "learn:darija": "node scripts/export-darija.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",

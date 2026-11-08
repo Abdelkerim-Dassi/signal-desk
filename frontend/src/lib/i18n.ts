@@ -16,6 +16,7 @@ const UI = {
   'nav.record': { en: 'Track record', fr: 'Historique', ar: 'السجل' },
   'nav.ask': { en: 'Ask', fr: 'Demander', ar: 'اسأل' },
   'nav.portfolio': { en: 'Portfolio', fr: 'Portefeuille', ar: 'المحفظة' },
+  'nav.learn': { en: 'Learn', fr: 'Apprendre', ar: 'تعلّم' },
   'top.help': { en: 'How Qirat works', fr: 'Comment marche Qirat', ar: 'كيف يعمل قيراط' },
   'top.theme': { en: 'Switch light / dark', fr: 'Thème clair / sombre', ar: 'الوضع الفاتح / الداكن' },
   'top.language': { en: 'Language', fr: 'Langue', ar: 'اللغة' },

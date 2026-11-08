@@ -4,6 +4,7 @@ import { effectiveTheme, setTheme } from '../lib/prefs'
 import { VIEWS } from '../lib/views'
 import type { View } from '../lib/views'
 import { IconHelp, IconMoon, IconSun } from './Icons'
+import { LearnKaratPip } from './LearnBadge'
 import Logo from './Logo'
 
 const iconButton =
@@ -34,17 +35,18 @@ export function TopBar({
         </button>
 
         {/* desktop tabs; phones use the bottom bar */}
-        <nav className="ms-6 hidden items-center gap-1 md:flex" aria-label="Main">
+        <nav className="ms-3 hidden items-center gap-0.5 md:flex lg:ms-6 lg:gap-1" aria-label="Main">
           {VIEWS.map(({ id, label }) => (
             <button
               key={id}
               onClick={() => onView(id)}
               aria-current={view === id ? 'page' : undefined}
-              className={`cursor-pointer rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
+              className={`flex cursor-pointer items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm font-medium whitespace-nowrap transition lg:px-3.5 ${
                 view === id ? 'bg-text text-bg' : 'text-muted hover:bg-subtle hover:text-text'
               }`}
             >
               {t(label)}
+              {id === 'learn' && <LearnKaratPip size="xs" />}
             </button>
           ))}
         </nav>
@@ -84,7 +86,7 @@ export function BottomNav({ view, onView }: { view: View; onView: (v: View) => v
       className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
       aria-label="Main"
     >
-      <div className="mx-auto grid max-w-md grid-cols-4">
+      <div className="mx-auto grid max-w-md" style={{ gridTemplateColumns: `repeat(${VIEWS.length}, minmax(0, 1fr))` }}>
         {VIEWS.map(({ id, label, Icon }) => (
           <button
             key={id}
@@ -94,7 +96,14 @@ export function BottomNav({ view, onView }: { view: View; onView: (v: View) => v
               view === id ? 'text-gold' : 'text-muted'
             }`}
           >
-            <Icon className="text-[22px]" />
+            <span className="relative">
+              <Icon className="text-[22px]" />
+              {id === 'learn' && (
+                <span className="absolute -top-1.5 left-3.5">
+                  <LearnKaratPip size="xs" />
+                </span>
+              )}
+            </span>
             {t(label)}
           </button>
         ))}
