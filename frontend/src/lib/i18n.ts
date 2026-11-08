@@ -117,6 +117,11 @@ const UI = {
   'risk.medium': { en: 'Medium risk', fr: 'Risque moyen', ar: 'مخاطرة متوسطة' },
   'risk.high': { en: 'High risk', fr: 'Risque élevé', ar: 'مخاطرة عالية' },
   'risk.title': { en: 'If it goes wrong', fr: 'Si ça tourne mal', ar: 'إذا ساءت الأمور' },
+  'risk.learn': {
+    en: 'What is a rough month? 2-minute lesson',
+    fr: 'C’est quoi un mauvais mois ? Leçon de 2 min',
+    ar: 'شنوّة الشهر الصعيب؟ درس في دقيقتين',
+  },
   'risk.day': { en: 'A typical day', fr: 'Une journée normale', ar: 'يوم عادي' },
   'risk.month': { en: 'A rough month (1 in 20)', fr: 'Un mauvais mois (1 sur 20)', ar: 'شهر سيئ (1 من 20)' },
   'risk.money': {

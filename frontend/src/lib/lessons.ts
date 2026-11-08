@@ -17,7 +17,7 @@ export type LiveLink =
   | { kind: 'risk' } // Bitcoin next to the riskiest coin in the user's list
   | { kind: 'weather' } // today's market weather and crowd mood
   | { kind: 'karat' } // the karat ladder with today's coins on it
-  | { kind: 'view'; view: 'today' | 'ask' | 'portfolio'; label: Text }
+  | { kind: 'view'; view: 'today' | 'ask' | 'portfolio' | 'practice' | 'scamcheck'; label: Text }
 
 export interface QuizQuestion {
   q: Text
@@ -80,7 +80,7 @@ export const LEARN_UI = {
   allLessons: { en: 'All lessons', fr: 'Toutes les leçons', ar: 'الدروس الكل' },
   minutes: { en: '{n} min read', fr: '{n} min de lecture', ar: 'قراية {n} دقايق' },
   start: { en: 'Start', fr: 'Commencer', ar: 'ابدا' },
-  read: { en: 'Read', fr: 'Lu', ar: 'تقرا' },
+  read: { en: 'Read', fr: 'Lu', ar: 'قريتو' },
   passed: { en: 'Passed', fr: 'Réussi', ar: 'نجحت' },
   comingSoon: { en: 'Coming soon', fr: 'Bientôt', ar: 'قريب' },
   inThisLesson: { en: 'What it will cover', fr: 'Au programme', ar: 'شنوّة باش يحكي' },
@@ -177,17 +177,17 @@ export const LESSONS: Lesson[] = [
     hook: {
       en: 'Money that lives on the internet, with no bank in the middle.',
       fr: 'De l’argent qui vit sur internet, sans banque au milieu.',
-      ar: 'فلوس تعيش في الإنترنت، من غير بنكة في الوسط.',
+      ar: 'فلوس تعيش في الإنترنت، من غير بانكة في الوسط.',
     },
     terms: ['crypto', 'blockchain', 'bitcoin', 'satoshi'],
     live: { kind: 'coin', symbol: 'BTC' },
     sections: [
       {
-        h: { en: 'Money with no bank in the middle', fr: 'De l’argent sans banque au milieu', ar: 'فلوس من غير بنكة في الوسط' },
+        h: { en: 'Money with no bank in the middle', fr: 'De l’argent sans banque au milieu', ar: 'فلوس من غير بانكة في الوسط' },
         p: {
           en: 'When you send money through a bank, the bank keeps the record of who owns what. Crypto replaces the bank with a shared notebook, copied on thousands of computers around the world. That notebook is called a blockchain. Nobody can secretly erase a line, because everyone has a copy.',
           fr: 'Quand vous envoyez de l’argent par la banque, c’est elle qui tient le registre de qui possède quoi. La crypto remplace la banque par un cahier partagé, copié sur des milliers d’ordinateurs dans le monde. Ce cahier s’appelle une blockchain. Personne ne peut effacer une ligne en douce, car tout le monde en a une copie.',
-          ar: 'كي تبعث فلوس بالبنكة، البنكة هي اللي تكتب شكون عندو قدّاش. الـ crypto تبدّل البنكة بكرّاس مشترك، منسوخ على آلاف الكمبيوترات في العالم الكل. الكرّاس هذا اسمو blockchain. حتى حدّ ما ينجّم يفسخ سطر بالخفية، خاطر الناس الكل عندها نسخة.',
+          ar: 'كي تبعث فلوس بالبانكة، البانكة هي اللي تكتب شكون عندو قدّاش. الـ crypto تبدّل البانكة بكرّاس مشترك، منسوخ على آلاف الـ PC في العالم الكل. الكرّاس هذا اسمو blockchain. حتى حدّ ما ينجّم يفسخ سطر بالخفية، خاطر الناس الكل عندها نسخة.',
         },
       },
       {
@@ -215,11 +215,11 @@ export const LESSONS: Lesson[] = [
         },
       },
       {
-        h: { en: 'What it is not', fr: 'Ce que ce n’est pas', ar: 'شنوّة موش هي' },
+        h: { en: 'What it is not', fr: 'Ce que ce n’est pas', ar: 'ردّ بالك' },
         p: {
           en: 'Crypto is not a savings account. No bank and no state guarantees its value. If the price drops, nobody pays you back.',
           fr: 'La crypto n’est pas un livret d’épargne. Aucune banque et aucun État ne garantit sa valeur. Si le prix chute, personne ne vous rembourse.',
-          ar: 'الـ crypto موش دفتر توفير. حتى بنكة وحتى دولة ما تضمن قيمتها. كان السوم طاح، حتى حدّ ما يرجّعلك فلوسك.',
+          ar: 'الـ crypto موش دفتر توفير. حتى بانكة وحتى دولة ما تضمن قيمتها. كان السوم طاح، حتى حدّ ما يرجّعلك فلوسك.',
         },
       },
     ],
@@ -232,11 +232,11 @@ export const LESSONS: Lesson[] = [
       {
         q: { en: 'What is a blockchain?', fr: 'C’est quoi une blockchain ?', ar: 'شنوّة هو الـ blockchain؟' },
         options: [
-          { en: 'A dollar account at a bank', fr: 'Un compte en dollars à la banque', ar: 'كونط بالدولار في البنكة' },
+          { en: 'A dollar account at a bank', fr: 'Un compte en dollars à la banque', ar: 'كونط بالدولار في البانكة' },
           {
             en: 'A shared record copied on many computers',
             fr: 'Un registre partagé copié sur beaucoup d’ordinateurs',
-            ar: 'كرّاس مشترك منسوخ على برشا كمبيوترات',
+            ar: 'كرّاس مشترك منسوخ على برشا PC',
           },
           { en: 'An app made by the Bitcoin company', fr: 'Une appli de la société Bitcoin', ar: 'تطبيقة متاع شركة Bitcoin' },
         ],
@@ -244,7 +244,7 @@ export const LESSONS: Lesson[] = [
         why: {
           en: 'It is a shared notebook. No single company or bank owns it, and there is no "Bitcoin company".',
           fr: 'C’est un cahier partagé. Aucune entreprise ni banque ne le possède seule, et il n’existe pas de « société Bitcoin ».',
-          ar: 'هو كرّاس مشترك. حتى شركة وحتى بنكة ما تملكو وحدها، وما فمّاش «شركة Bitcoin».',
+          ar: 'هو كرّاس مشترك. حتى شركة وحتى بانكة ما تملكو وحدها، وما فمّاش «شركة Bitcoin».',
         },
       },
       {
@@ -384,7 +384,7 @@ export const LESSONS: Lesson[] = [
         options: [
           { en: 'It is a big warning sign', fr: 'C’est un gros signal d’alarme', ar: 'علامة خطر كبيرة' },
           { en: 'It is a normal stablecoin rate', fr: 'C’est un taux normal pour un stablecoin', ar: 'هذا العادي في الـ stablecoins' },
-          { en: 'It is a good deal to take fast', fr: 'C’est une bonne affaire à saisir vite', ar: 'فرصة لازم تلحقها بالفيسع' },
+          { en: 'It is a good deal to take fast', fr: 'C’est une bonne affaire à saisir vite', ar: 'فرصة لازم تلحقها فيسع' },
         ],
         answer: 0,
         why: {
@@ -435,7 +435,7 @@ export const LESSONS: Lesson[] = [
         p: {
           en: 'Compared with gold or big company shares, most cryptos are small markets. When many people buy or sell at the same time, the price jumps or drops fast. A news story, a rumour, one big holder selling, or a single post can move it.',
           fr: 'Comparées à l’or ou aux actions des grandes entreprises, la plupart des cryptos sont de petits marchés. Quand beaucoup de gens achètent ou vendent en même temps, le prix bondit ou chute vite. Une info, une rumeur, un gros détenteur qui vend ou un seul post peuvent le faire bouger.',
-          ar: 'مقارنة بالذهب ولا بأسهم الشركات الكبار، أغلب الـ crypto أسواق صغيرة. كي برشا ناس يشريو ولا يبيعو في نفس الوقت، السوم يطير ولا يطيح بالفيسع. خبر، إشاعة، واحد عندو برشا يبيع، ولا post واحد، ينجّم يحرّكو.',
+          ar: 'مقارنة بالذهب ولا بأسهم الشركات الكبار، أغلب الـ crypto أسواق صغيرة. كي برشا ناس يشريو ولا يبيعو في نفس الوقت، السوم يطير ولا يطيح فيسع. خبر، إشاعة، واحد عندو برشا يبيع، ولا post واحد، ينجّم يحرّكو.',
         },
       },
       {
@@ -455,11 +455,19 @@ export const LESSONS: Lesson[] = [
         },
       },
       {
-        h: { en: 'The rough month on 100 TND', fr: 'Le mauvais mois sur 100 TND', ar: 'الشهر الصعيب على 100 دينار' },
+        h: { en: 'What is the “rough month”?', fr: 'C’est quoi le « mauvais mois » ?', ar: 'شنوّة «الشهر الصعيب»؟' },
         p: {
-          en: 'Every coin in Qirat has a Risk grade (low, medium or high) and a “rough month”: the kind of bad month that happened about 1 time in 20 in the past. If the rough month is −30%, then 100 TND could become about 70 TND in a month like that. It is the past, not a forecast, but it helps you picture the drop before it happens.',
-          fr: 'Chaque crypto dans Qirat a une note de Risque (faible, moyen ou élevé) et un « mauvais mois » : le genre de mois difficile arrivé environ 1 fois sur 20 dans le passé. Si le mauvais mois est à −30 %, alors 100 TND pourraient devenir environ 70 TND sur un mois comme ça. C’est le passé, pas une prévision, mais ça aide à imaginer la baisse avant qu’elle arrive.',
-          ar: 'كل coin في قيراط عندها درجة risk (منخفض، متوسط ولا عالي) و«شهر صعيب»: نوع الشهر الصعيب اللي صار قريب مرّة على 20 في اللي فات. كان الشهر الصعيب −30%، معناها 100 دينار تنجّم تولّي قريب 70 دينار في شهر كيما هكّا. هذا اللي فات موش توقّع، أما يعاونك تتخيّل الطيحة قبل ما تصير.',
+          en: 'Imagine you kept a coin for 20 months. Most months are ordinary: up a bit, down a bit. But about one month out of those 20 goes really badly. The “rough month” is how much you could lose in that one bad month. Qirat works it out from how much the coin has been moving lately, so a wild coin gets a deeper rough month than a calm one.',
+          fr: 'Imaginez que vous gardez une crypto pendant 20 mois. La plupart des mois sont ordinaires : un peu de hausse, un peu de baisse. Mais environ un mois sur ces 20 se passe vraiment mal. Le « mauvais mois », c’est ce que vous pourriez perdre pendant ce mois-là. Qirat le calcule à partir de ce que la crypto a bougé récemment : une crypto agitée a un mauvais mois plus profond qu’une crypto calme.',
+          ar: 'تخيّل إنك خلّيت coin عندك 20 شهر. أغلب الشهور عاديين: شويّة طلوع، شويّة هبوط. أما تقريب شهر واحد من العشرين يجي خايب برشا. «الشهر الصعيب» هو قدّاش تنجّم تخسر في الشهر الخايب هذاكا. قيراط يحسبو من قدّاش الـ coin تتحرّك في الوقت الأخير، يعني coin تتقلّب برشا يكون الشهر الصعيب متاعها أعمق من coin هادية.',
+        },
+      },
+      {
+        h: { en: 'An example in dinars', fr: 'Un exemple en dinars', ar: 'مثال بالدينار' },
+        p: {
+          en: 'Say a coin’s rough month is −30% and you put 100 TND in it. In a bad month like that, you could be left with about 70 TND. For a high-risk coin the rough month can be −50% or worse: 100 TND becomes 50. Two things to remember: it is not the worst that can happen, because crypto can fall even more, and it comes from the past, so it is not a forecast. Its job is to let you picture the drop before you put money in.',
+          fr: 'Disons que le mauvais mois d’une crypto est à −30 % et que vous y mettez 100 TND. Dans un mauvais mois comme ça, il pourrait vous rester environ 70 TND. Pour une crypto à risque élevé, le mauvais mois peut être à −50 % ou pire : 100 TND deviennent 50. Deux choses à retenir : ce n’est pas le pire possible, une crypto peut tomber encore plus bas, et ça vient du passé, ce n’est donc pas une prévision. Ça sert à imaginer la baisse avant de mettre de l’argent.',
+          ar: 'نقولو الشهر الصعيب متاع coin هو −30%، وحطّيت فيها 100 دينار. في شهر خايب كيما هكّا، تنجّم تلقى روحك بقريب 70 دينار. في coin الـ risk متاعها عالي، الشهر الصعيب ينجّم يكون −50% ولا أكثر: الـ 100 دينار تولّي 50. ردّ بالك من حاجتين: هذا موش أخيب حاجة تنجّم تصير، الـ crypto تنجّم تطيح أكثر، وهو محسوب من اللي فات، يعني موش توقّع. الفايدة منو إنك تتخيّل الطيحة قبل ما تحطّ فلوسك.',
         },
       },
       {
@@ -467,7 +475,7 @@ export const LESSONS: Lesson[] = [
         p: {
           en: 'If a −30% month would make you panic, a high-risk coin will be hard to live with. Knowing the swing in advance helps you stay calm when it comes.',
           fr: 'Si un mois à −30 % vous ferait paniquer, une crypto à risque élevé sera difficile à vivre. Connaître les variations à l’avance aide à rester calme quand elles arrivent.',
-          ar: 'كان شهر بـ −30% يخلّيك تتخلع، الـ coin اللي الـ risk متاعها عالي باش تكون صعيبة عليك. كي تعرف الحركة من قبل، تقعد مرتاح كي تجي.',
+          ar: 'كان شهر بـ −30% يخوّفك، الـ coin اللي الـ risk متاعها عالي باش تكون صعيبة عليك. كي تعرف الحركة من قبل، تقعد مرتاح كي تجي.',
         },
       },
     ],
@@ -524,7 +532,7 @@ export const LESSONS: Lesson[] = [
           ar: 'علاش سوم الـ crypto ينجّم يتحرّك في نصّ الليل؟',
         },
         options: [
-          { en: 'Banks change the prices at night', fr: 'Les banques changent les prix la nuit', ar: 'البنوك يبدّلو السوم في الليل' },
+          { en: 'Banks change the prices at night', fr: 'Les banques changent les prix la nuit', ar: 'البانكات يبدّلو السوم في الليل' },
           { en: 'It does not, only in the daytime', fr: 'Ils ne bougent pas, seulement le jour', ar: 'ما يتحرّكش، كان في النهار' },
           { en: 'Crypto trades 24/7', fr: 'La crypto s’échange 24 h/24, 7 j/7', ar: 'الـ crypto تتباع وتتشرى 24/7' },
         ],
@@ -554,11 +562,11 @@ export const LESSONS: Lesson[] = [
     terms: ['signals', 'ponzi', 'fake-platform', 'phishing', 'p2p'],
     live: {
       kind: 'view',
-      view: 'ask',
+      view: 'scamcheck',
       label: {
-        en: 'Got a strange message? Ask Qirat about it',
-        fr: 'Un message bizarre ? Demandez à Qirat',
-        ar: 'جاك ميساج غريب؟ اسأل قيراط عليه',
+        en: 'Got a strange message? Check it for red flags',
+        fr: 'Un message bizarre ? Vérifiez les signaux d’alerte',
+        ar: 'جاك ميساج غريب؟ فركسو في فحص الاحتيال',
       },
     },
     sections: [
@@ -567,7 +575,7 @@ export const LESSONS: Lesson[] = [
         p: {
           en: 'You get a message, or you find yourself added to a WhatsApp or Telegram group full of “members” posting screenshots of profits. Many are fake or paid accounts. The “coach” offers VIP signals for a fee, or asks you to send money so he can “manage” it for you.',
           fr: 'Vous recevez un message, ou vous vous retrouvez ajouté à un groupe WhatsApp ou Telegram plein de « membres » qui postent des captures de gains. Beaucoup sont des comptes faux ou payés. Le « coach » propose des signaux VIP payants, ou vous demande d’envoyer de l’argent pour le « gérer » à votre place.',
-          ar: 'جاك ميساج، ولا لقيت روحك مزيود في قروب WhatsApp ولا Telegram مليان «أعضاء» يحطّو screenshots متاع أرباح. برشا منهم حسابات فالصو ولا مخلّصين. «الكوتش» يعرض عليك signals VIP بالفلوس، ولا يطلب منك تبعثلو فلوس باش «يديرهالك».',
+          ar: 'جاك ميساج، ولا لقيت روحك مزيود في قروب WhatsApp ولا Telegram مليان «أعضاء» يحطّو screenshots متاع أرباح. برشا منهم حسابات فالصو ولا مخلّصين. «الكوتش» يعرض عليك signals VIP بالفلوس، ولا يطلب منك تبعثلو فلوس باش «يخدّمهملك».',
         },
       },
       {
@@ -599,7 +607,7 @@ export const LESSONS: Lesson[] = [
         p: {
           en: '1) They contacted you first. 2) They promise sure or fast profit. 3) They rush you (“today only”, “last places”). One flag is enough to stop. Qirat never messages you first and never asks you for money.',
           fr: '1) Ils vous ont contacté en premier. 2) Ils promettent un gain sûr ou rapide. 3) Ils vous pressent (« aujourd’hui seulement », « dernières places »). Un seul signal suffit pour s’arrêter. Qirat ne vous écrit jamais en premier et ne vous demande jamais d’argent.',
-          ar: '1) هوما اللي بعثولك الأوّلين. 2) يوعدوك بربح مضمون ولا سريع. 3) يزربوك («كان اليوم»، «آخر بلايص»). علامة وحدة تكفي باش توقف. قيراط عمرو ما يبعثلك هو الأوّل وعمرو ما يطلب منك فلوس.',
+          ar: '1) هوما اللي بعثولك الأوّلين. 2) يوعدوك بربح مضمون ولا سريع. 3) يزربوك («كان اليوم»). علامة وحدة تكفي باش توقف. قيراط عمرو ما يبعثلك هو الأوّل وعمرو ما يطلب منك فلوس.',
         },
       },
     ],
@@ -618,7 +626,7 @@ export const LESSONS: Lesson[] = [
         options: [
           { en: 'Send a small amount to test it', fr: 'Envoyer un petit montant pour tester', ar: 'تبعث مبلغ صغير تجرّب' },
           { en: 'Treat it as a red flag and leave', fr: 'Y voir un signal d’alarme et partir', ar: 'تعتبرها علامة حمراء وتخرج' },
-          { en: 'Join the VIP before places run out', fr: 'Rejoindre le VIP avant qu’il n’y ait plus de place', ar: 'تدخل الـ VIP قبل ما توفى البلايص' },
+          { en: 'Join the VIP before places run out', fr: 'Rejoindre le VIP avant qu’il n’y ait plus de place', ar: 'تدخل الـ VIP قبل ما تفوتك' },
         ],
         answer: 1,
         why: {
@@ -709,9 +717,9 @@ export const LESSONS: Lesson[] = [
       {
         h: { en: 'A calm routine', fr: 'Une routine calme', ar: 'روتين يهدّي' },
         p: {
-          en: 'Before any decision, wait 24 hours. Write down why you want it, and what you would do if it fell 30%. Look at its risk grade and its rough month. If the only reason is “everyone is buying”, that is FOMO talking.',
-          fr: 'Avant toute décision, attendez 24 heures. Écrivez pourquoi vous la voulez, et ce que vous feriez si elle perdait 30 %. Regardez sa note de risque et son mauvais mois. Si la seule raison est « tout le monde achète », c’est le FOMO qui parle.',
-          ar: 'قبل أي قرار، استنّى 24 ساعة. اكتب علاش تحبّها، وشنوّة باش تعمل كان طاحت 30%. شوف الـ risk متاعها والشهر الصعيب متاعها. كان السبب الوحيد «الناس الكل تشري»، هذاكا الـ FOMO اللي يحكي.',
+          en: 'Before any decision, wait 24 hours. Write down why you want it, and what you would do if it fell 30%. Look at its risk grade and its rough month (what you could lose in a bad month; see lesson 3). If the only reason is “everyone is buying”, that is FOMO talking.',
+          fr: 'Avant toute décision, attendez 24 heures. Écrivez pourquoi vous la voulez, et ce que vous feriez si elle perdait 30 %. Regardez sa note de risque et son mauvais mois (ce que vous pourriez perdre pendant un mauvais mois ; voir la leçon 3). Si la seule raison est « tout le monde achète », c’est le FOMO qui parle.',
+          ar: 'قبل أي قرار، استنّى 24 ساعة. اكتب علاش تحبّها، وشنوّة باش تعمل كان طاحت 30%. شوف الـ risk متاعها والشهر الصعيب متاعها (قدّاش تنجّم تخسر في شهر خايب، شوف الدرس 3). كان السبب الوحيد «الناس الكل تشري»، هذاكا الـ FOMO اللي يحكي.',
         },
       },
       {
@@ -758,7 +766,7 @@ export const LESSONS: Lesson[] = [
         why: {
           en: 'Fast rises pull in late buyers, and early buyers often take their profit. The price can fall back quickly.',
           fr: 'Les montées rapides attirent les retardataires, et les premiers prennent souvent leurs gains. Le prix peut vite redescendre.',
-          ar: 'الطلعات السريعة يجيبو المتأخرين، واللي دخلو بكري برشا مرّات ياخذو أرباحهم. السوم ينجّم يرجع لتالي بالفيسع.',
+          ar: 'الطلعات السريعة يجيبو المتأخرين، واللي دخلو بكري برشا مرّات ياخذو أرباحهم. السوم ينجّم يرجع لتالي فيسع.',
         },
       },
       {
@@ -924,7 +932,7 @@ export const LESSONS: Lesson[] = [
       {
         en: 'Money from a third party can cause trouble with your bank',
         fr: 'De l’argent venant d’un tiers peut causer des problèmes avec votre banque',
-        ar: 'فلوس جاية من طرف ثالث تنجّم تعملّك مشاكل مع البنكة',
+        ar: 'فلوس جاية من طرف ثالث تنجّم تعملّك مشاكل مع البانكة',
       },
     ],
   },
@@ -977,7 +985,7 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
     def: {
       en: 'Digital money or assets recorded on a blockchain, with no bank or state behind them.',
       fr: 'De l’argent ou des actifs numériques inscrits sur une blockchain, sans banque ni État derrière.',
-      ar: 'فلوس ولا أصول رقمية مكتوبة على blockchain، ما وراها حتى بنكة وحتى دولة.',
+      ar: 'فلوس ولا أصول رقمية مكتوبة على blockchain، ما وراها حتى بانكة وحتى دولة.',
     },
   },
   blockchain: {
@@ -985,7 +993,7 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
     def: {
       en: 'A shared record copied on thousands of computers. Nobody can secretly change past lines.',
       fr: 'Un registre partagé copié sur des milliers d’ordinateurs. Personne ne peut modifier les lignes passées en douce.',
-      ar: 'كرّاس مشترك منسوخ على آلاف الكمبيوترات. حتى حدّ ما ينجّم يبدّل السطور القدام بالخفية.',
+      ar: 'كرّاس مشترك منسوخ على آلاف الـ PC. حتى حدّ ما ينجّم يبدّل السطور القدام بالخفية.',
     },
   },
   bitcoin: {
@@ -1055,9 +1063,9 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
   'rough-month': {
     term: { en: 'Rough month', fr: 'Mauvais mois', ar: 'الشهر الصعيب' },
     def: {
-      en: 'A bad month that happened about 1 time in 20 in the past. Qirat shows it on 100 TND.',
-      fr: 'Un mois difficile arrivé environ 1 fois sur 20 dans le passé. Qirat le montre sur 100 TND.',
-      ar: 'شهر صعيب صار قريب مرّة على 20 في اللي فات. قيراط يورّيه على 100 دينار.',
+      en: 'How much you could lose in a bad month, the kind that comes about once in 20 months. Qirat shows it on 100 TND. It is not the worst case.',
+      fr: 'Ce que vous pourriez perdre pendant un mauvais mois, le genre qui arrive environ une fois tous les 20 mois. Qirat le montre sur 100 TND. Ce n’est pas le pire cas.',
+      ar: 'قدّاش تنجّم تخسر في شهر خايب، من النوع اللي يجي تقريب مرّة كل 20 شهر. قيراط يورّيه على 100 دينار. موش هو أخيب حاجة تنجّم تصير.',
     },
   },
   liquidity: {

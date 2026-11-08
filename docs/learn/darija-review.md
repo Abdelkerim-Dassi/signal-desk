@@ -13,13 +13,13 @@ Edit those files, not this one, then run the script again.
   شنوّة الـ crypto؟ نبداو بـ Bitcoin
 
 - [ ] **2. L1 hook** · _Money that lives on the internet, with no bank in the middle._  
-  فلوس تعيش في الإنترنت، من غير بنكة في الوسط.
+  فلوس تعيش في الإنترنت، من غير بانكة في الوسط.
 
 - [ ] **3. L1 section 1 heading** · _Money with no bank in the middle_  
-  فلوس من غير بنكة في الوسط
+  فلوس من غير بانكة في الوسط
 
 - [ ] **4. L1 section 1 text** · _When you send money through a bank, the bank keeps the record of who owns what. Crypto replaces the bank with a shared notebook, copied on thousands of computers around the world. That notebook is called a blockchain. Nobody can secretly erase a line, because everyone has a copy._  
-  كي تبعث فلوس بالبنكة، البنكة هي اللي تكتب شكون عندو قدّاش. الـ crypto تبدّل البنكة بكرّاس مشترك، منسوخ على آلاف الكمبيوترات في العالم الكل. الكرّاس هذا اسمو blockchain. حتى حدّ ما ينجّم يفسخ سطر بالخفية، خاطر الناس الكل عندها نسخة.
+  كي تبعث فلوس بالبانكة، البانكة هي اللي تكتب شكون عندو قدّاش. الـ crypto تبدّل البانكة بكرّاس مشترك، منسوخ على آلاف الـ PC في العالم الكل. الكرّاس هذا اسمو blockchain. حتى حدّ ما ينجّم يفسخ سطر بالخفية، خاطر الناس الكل عندها نسخة.
 
 - [ ] **5. L1 section 2 heading** · _Bitcoin, the first one_  
   Bitcoin، الأوّل
@@ -40,10 +40,10 @@ Edit those files, not this one, then run the script again.
   اليوم فمّا آلاف الـ coins الأخرين. شويّة منهم كبار ومعروفين. الأغلبية صغار، وبرشا منهم يندثرو. جديد ما يعنيش خير.
 
 - [ ] **11. L1 section 5 heading** · _What it is not_  
-  شنوّة موش هي
+  ردّ بالك
 
 - [ ] **12. L1 section 5 text** · _Crypto is not a savings account. No bank and no state guarantees its value. If the price drops, nobody pays you back._  
-  الـ crypto موش دفتر توفير. حتى بنكة وحتى دولة ما تضمن قيمتها. كان السوم طاح، حتى حدّ ما يرجّعلك فلوسك.
+  الـ crypto موش دفتر توفير. حتى بانكة وحتى دولة ما تضمن قيمتها. كان السوم طاح، حتى حدّ ما يرجّعلك فلوسك.
 
 - [ ] **13. L1 takeaway** · _Crypto is a shared record of who owns what. Its price is only what people will pay for it today._  
   الـ crypto هي كرّاس مشترك يكتب شكون يملك شنوّة. والسوم متاعها هو كان اللي الناس قابلين يخلّصوه اليوم.
@@ -52,16 +52,16 @@ Edit those files, not this one, then run the script again.
   شنوّة هو الـ blockchain؟
 
 - [ ] **15. L1 Q1 option A** · _A dollar account at a bank_  
-  كونط بالدولار في البنكة
+  كونط بالدولار في البانكة
 
 - [ ] **16. L1 Q1 option B ✓** · _A shared record copied on many computers_  
-  كرّاس مشترك منسوخ على برشا كمبيوترات
+  كرّاس مشترك منسوخ على برشا PC
 
 - [ ] **17. L1 Q1 option C** · _An app made by the Bitcoin company_  
   تطبيقة متاع شركة Bitcoin
 
 - [ ] **18. L1 Q1 explanation** · _It is a shared notebook. No single company or bank owns it, and there is no "Bitcoin company"._  
-  هو كرّاس مشترك. حتى شركة وحتى بنكة ما تملكو وحدها، وما فمّاش «شركة Bitcoin».
+  هو كرّاس مشترك. حتى شركة وحتى بانكة ما تملكو وحدها، وما فمّاش «شركة Bitcoin».
 
 - [ ] **19. L1 Q2** · _How many bitcoins can ever exist?_  
   قدّاش من bitcoin ينجّم يكون في الكل؟
@@ -159,7 +159,7 @@ Edit those files, not this one, then run the script again.
   هذا العادي في الـ stablecoins
 
 - [ ] **50. L2 Q2 option C** · _It is a good deal to take fast_  
-  فرصة لازم تلحقها بالفيسع
+  فرصة لازم تلحقها فيسع
 
 - [ ] **51. L2 Q2 explanation** · _USDT is built not to grow. High fixed returns are how scams pull people in._  
   USDT مصنوعة باش ما تكبرش. الأرباح الكبار والثابتة هي الطُعم متاع التحيّل.
@@ -194,7 +194,7 @@ Edit those files, not this one, then run the script again.
   سوق صغير، وناس برشا
 
 - [ ] **61. L3 section 1 text** · _Compared with gold or big company shares, most cryptos are small markets. When many people buy or sell at the same time, the price jumps or drops fast. A news story, a rumour, one big holder selling, or a single post can move it._  
-  مقارنة بالذهب ولا بأسهم الشركات الكبار، أغلب الـ crypto أسواق صغيرة. كي برشا ناس يشريو ولا يبيعو في نفس الوقت، السوم يطير ولا يطيح بالفيسع. خبر، إشاعة، واحد عندو برشا يبيع، ولا post واحد، ينجّم يحرّكو.
+  مقارنة بالذهب ولا بأسهم الشركات الكبار، أغلب الـ crypto أسواق صغيرة. كي برشا ناس يشريو ولا يبيعو في نفس الوقت، السوم يطير ولا يطيح فيسع. خبر، إشاعة، واحد عندو برشا يبيع، ولا post واحد، ينجّم يحرّكو.
 
 - [ ] **62. L3 section 2 heading** · _Open 24/7_  
   محلول 24 ساعة على 24
@@ -208,703 +208,709 @@ Edit those files, not this one, then run the script again.
 - [ ] **65. L3 section 3 text** · _Volatility means how much a price usually moves. Qirat shows it as “a typical day”: ±2% means that on a normal day the price goes up or down about 2%. A small coin can move ±8% on a normal day._  
   الـ volatility معناها قدّاش السوم يتحرّك عادةً. قيراط يورّيها «نهار عادي»: ±2% معناها في نهار عادي السوم يطلع ولا يهبط قريب 2%. coin صغيرة تنجّم تتحرّك ±8% في نهار عادي.
 
-- [ ] **66. L3 section 4 heading** · _The rough month on 100 TND_  
-  الشهر الصعيب على 100 دينار
+- [ ] **66. L3 section 4 heading** · _What is the “rough month”?_  
+  شنوّة «الشهر الصعيب»؟
 
-- [ ] **67. L3 section 4 text** · _Every coin in Qirat has a Risk grade (low, medium or high) and a “rough month”: the kind of bad month that happened about 1 time in 20 in the past. If the rough month is −30%, then 100 TND could become about 70 TND in a month like that. It is the past, not a forecast, but it helps you picture the drop before it happens._  
-  كل coin في قيراط عندها درجة risk (منخفض، متوسط ولا عالي) و«شهر صعيب»: نوع الشهر الصعيب اللي صار قريب مرّة على 20 في اللي فات. كان الشهر الصعيب −30%، معناها 100 دينار تنجّم تولّي قريب 70 دينار في شهر كيما هكّا. هذا اللي فات موش توقّع، أما يعاونك تتخيّل الطيحة قبل ما تصير.
+- [ ] **67. L3 section 4 text** · _Imagine you kept a coin for 20 months. Most months are ordinary: up a bit, down a bit. But about one month out of those 20 goes really badly. The “rough month” is how much you could lose in that one bad month. Qirat works it out from how much the coin has been moving lately, so a wild coin gets a deeper rough month than a calm one._  
+  تخيّل إنك خلّيت coin عندك 20 شهر. أغلب الشهور عاديين: شويّة طلوع، شويّة هبوط. أما تقريب شهر واحد من العشرين يجي خايب برشا. «الشهر الصعيب» هو قدّاش تنجّم تخسر في الشهر الخايب هذاكا. قيراط يحسبو من قدّاش الـ coin تتحرّك في الوقت الأخير، يعني coin تتقلّب برشا يكون الشهر الصعيب متاعها أعمق من coin هادية.
 
-- [ ] **68. L3 section 5 heading** · _Why it matters_  
+- [ ] **68. L3 section 5 heading** · _An example in dinars_  
+  مثال بالدينار
+
+- [ ] **69. L3 section 5 text** · _Say a coin’s rough month is −30% and you put 100 TND in it. In a bad month like that, you could be left with about 70 TND. For a high-risk coin the rough month can be −50% or worse: 100 TND becomes 50. Two things to remember: it is not the worst that can happen, because crypto can fall even more, and it comes from the past, so it is not a forecast. Its job is to let you picture the drop before you put money in._  
+  نقولو الشهر الصعيب متاع coin هو −30%، وحطّيت فيها 100 دينار. في شهر خايب كيما هكّا، تنجّم تلقى روحك بقريب 70 دينار. في coin الـ risk متاعها عالي، الشهر الصعيب ينجّم يكون −50% ولا أكثر: الـ 100 دينار تولّي 50. ردّ بالك من حاجتين: هذا موش أخيب حاجة تنجّم تصير، الـ crypto تنجّم تطيح أكثر، وهو محسوب من اللي فات، يعني موش توقّع. الفايدة منو إنك تتخيّل الطيحة قبل ما تحطّ فلوسك.
+
+- [ ] **70. L3 section 6 heading** · _Why it matters_  
   علاش هذا مهم
 
-- [ ] **69. L3 section 5 text** · _If a −30% month would make you panic, a high-risk coin will be hard to live with. Knowing the swing in advance helps you stay calm when it comes._  
-  كان شهر بـ −30% يخلّيك تتخلع، الـ coin اللي الـ risk متاعها عالي باش تكون صعيبة عليك. كي تعرف الحركة من قبل، تقعد مرتاح كي تجي.
+- [ ] **71. L3 section 6 text** · _If a −30% month would make you panic, a high-risk coin will be hard to live with. Knowing the swing in advance helps you stay calm when it comes._  
+  كان شهر بـ −30% يخوّفك، الـ coin اللي الـ risk متاعها عالي باش تكون صعيبة عليك. كي تعرف الحركة من قبل، تقعد مرتاح كي تجي.
 
-- [ ] **70. L3 takeaway** · _Look at the risk before the price. Ask yourself: could I live with the rough month on my amount?_  
+- [ ] **72. L3 takeaway** · _Look at the risk before the price. Ask yourself: could I live with the rough month on my amount?_  
   شوف الـ risk قبل السوم. واسأل روحك: نجّم نعيش مع الشهر الصعيب على المبلغ متاعي؟
 
-- [ ] **71. L3 Q1** · _A coin shows “±6% on a typical day”. What does that mean?_  
+- [ ] **73. L3 Q1** · _A coin shows “±6% on a typical day”. What does that mean?_  
   coin مكتوب عليها «±6% في نهار عادي». شنوّة معناها؟
 
-- [ ] **72. L3 Q1 option A** · _It gains 6% every day_  
+- [ ] **74. L3 Q1 option A** · _It gains 6% every day_  
   تربح 6% كل نهار
 
-- [ ] **73. L3 Q1 option B ✓** · _It moves up or down about 6% on a normal day_  
+- [ ] **75. L3 Q1 option B ✓** · _It moves up or down about 6% on a normal day_  
   تطلع ولا تهبط قريب 6% في نهار عادي
 
-- [ ] **74. L3 Q1 option C** · _It is 6% cheaper today_  
+- [ ] **76. L3 Q1 option C** · _It is 6% cheaper today_  
   أرخص بـ 6% اليوم
 
-- [ ] **75. L3 Q1 explanation** · _A typical day is the usual size of the move, in either direction. It is not a gain._  
+- [ ] **77. L3 Q1 explanation** · _A typical day is the usual size of the move, in either direction. It is not a gain._  
   النهار العادي هو قدّاش تتحرّك عادةً، لفوق ولا للوطا. موش ربح.
 
-- [ ] **76. L3 Q2** · _The rough month is −40%. On 100 TND, a month like that could leave you with about…_  
+- [ ] **78. L3 Q2** · _The rough month is −40%. On 100 TND, a month like that could leave you with about…_  
   الشهر الصعيب −40%. على 100 دينار، شهر كيما هكّا ينجّم يخلّيلك قريب…
 
-- [ ] **77. L3 Q2 option A ✓** · _60 TND_  
+- [ ] **79. L3 Q2 option A ✓** · _60 TND_  
   60 دينار
 
-- [ ] **78. L3 Q2 option B** · _140 TND_  
+- [ ] **80. L3 Q2 option B** · _140 TND_  
   140 دينار
 
-- [ ] **79. L3 Q2 option C** · _96 TND_  
+- [ ] **81. L3 Q2 option C** · _96 TND_  
   96 دينار
 
-- [ ] **80. L3 Q2 explanation** · _100 TND minus 40% is 60 TND. That is the kind of month to picture before you put money in._  
+- [ ] **82. L3 Q2 explanation** · _100 TND minus 40% is 60 TND. That is the kind of month to picture before you put money in._  
   100 دينار ناقص 40% تعمل 60 دينار. هذا نوع الشهر اللي لازم تتخيّلو قبل ما تحطّ فلوس.
 
-- [ ] **81. L3 Q3** · _Why can crypto prices move in the middle of the night?_  
+- [ ] **83. L3 Q3** · _Why can crypto prices move in the middle of the night?_  
   علاش سوم الـ crypto ينجّم يتحرّك في نصّ الليل؟
 
-- [ ] **82. L3 Q3 option A** · _Banks change the prices at night_  
-  البنوك يبدّلو السوم في الليل
+- [ ] **84. L3 Q3 option A** · _Banks change the prices at night_  
+  البانكات يبدّلو السوم في الليل
 
-- [ ] **83. L3 Q3 option B** · _It does not, only in the daytime_  
+- [ ] **85. L3 Q3 option B** · _It does not, only in the daytime_  
   ما يتحرّكش، كان في النهار
 
-- [ ] **84. L3 Q3 option C ✓** · _Crypto trades 24/7_  
+- [ ] **86. L3 Q3 option C ✓** · _Crypto trades 24/7_  
   الـ crypto تتباع وتتشرى 24/7
 
-- [ ] **85. L3 Q3 explanation** · _Crypto markets never close, so people trade at any hour, in every time zone._  
+- [ ] **87. L3 Q3 explanation** · _Crypto markets never close, so people trade at any hour, in every time zone._  
   أسواق الـ crypto عمرها ما تسكّر، الناس تتعامل في أي ساعة ومن كل بلاصة في العالم.
 
 ## Lesson 4: How scammers find you (`#learn-scams`)
 
-- [ ] **86. L4 title** · _How scammers find you_  
+- [ ] **88. L4 title** · _How scammers find you_  
   كيفاش يلقاوك المتحيّلين
 
-- [ ] **87. L4 hook** · _They don’t wait for you. They message first, promise big, and rush you._  
+- [ ] **89. L4 hook** · _They don’t wait for you. They message first, promise big, and rush you._  
   ما يستنّاوكش. يبعثولك هوما الأوّلين، يوعدوك بالبرشا، ويزربوك.
 
-- [ ] **88. L4 section 1 heading** · _The VIP group_  
+- [ ] **90. L4 section 1 heading** · _The VIP group_  
   القروب الـ VIP
 
-- [ ] **89. L4 section 1 text** · _You get a message, or you find yourself added to a WhatsApp or Telegram group full of “members” posting screenshots of profits. Many are fake or paid accounts. The “coach” offers VIP signals for a fee, or asks you to send money so he can “manage” it for you._  
-  جاك ميساج، ولا لقيت روحك مزيود في قروب WhatsApp ولا Telegram مليان «أعضاء» يحطّو screenshots متاع أرباح. برشا منهم حسابات فالصو ولا مخلّصين. «الكوتش» يعرض عليك signals VIP بالفلوس، ولا يطلب منك تبعثلو فلوس باش «يديرهالك».
+- [ ] **91. L4 section 1 text** · _You get a message, or you find yourself added to a WhatsApp or Telegram group full of “members” posting screenshots of profits. Many are fake or paid accounts. The “coach” offers VIP signals for a fee, or asks you to send money so he can “manage” it for you._  
+  جاك ميساج، ولا لقيت روحك مزيود في قروب WhatsApp ولا Telegram مليان «أعضاء» يحطّو screenshots متاع أرباح. برشا منهم حسابات فالصو ولا مخلّصين. «الكوتش» يعرض عليك signals VIP بالفلوس، ولا يطلب منك تبعثلو فلوس باش «يخدّمهملك».
 
-- [ ] **90. L4 section 2 heading** · _“Guaranteed profit”_  
+- [ ] **92. L4 section 2 heading** · _“Guaranteed profit”_  
   «ربح مضمون»
 
-- [ ] **91. L4 section 2 text** · _“5% a day.” “Double your money in a week.” “Zero risk.” Nobody can guarantee crypto profits: a promise like that is the scam itself. Often the first members are paid with the money of those who joined later (a Ponzi scheme), until the whole thing collapses._  
+- [ ] **93. L4 section 2 text** · _“5% a day.” “Double your money in a week.” “Zero risk.” Nobody can guarantee crypto profits: a promise like that is the scam itself. Often the first members are paid with the money of those who joined later (a Ponzi scheme), until the whole thing collapses._  
   «ربح 5% كل نهار»، «ضاعف فلوسك في جمعة»، «ما فمّا حتى risk». حتى حدّ ما ينجّم يضمن أرباح في الـ crypto: وعد كيما هذا هو التحيّل بيدو. برشا مرّات الأوائل يتخلّصو بفلوس اللي جاو بعدهم (Ponzi)، حتى تطيح القصّة الكل.
 
-- [ ] **92. L4 section 3 heading** · _Fake platforms_  
+- [ ] **94. L4 section 3 heading** · _Fake platforms_  
   منصّات فالصو
 
-- [ ] **93. L4 section 3 text** · _A slick website or app shows your balance growing. When you try to withdraw, they ask for a “tax” or an “unlock fee” first. Then another one. The money was never there. Some fake login pages also copy a real exchange to steal your password. Before anything, check the name against the CMF’s warnings and search for “name + arnaque”._  
+- [ ] **95. L4 section 3 text** · _A slick website or app shows your balance growing. When you try to withdraw, they ask for a “tax” or an “unlock fee” first. Then another one. The money was never there. Some fake login pages also copy a real exchange to steal your password. Before anything, check the name against the CMF’s warnings and search for “name + arnaque”._  
   موقع ولا تطبيقة شابّة تورّيك الرصيد متاعك يكبر. كي تحب تسحب، يطلبو منك «أداء» ولا «frais de déblocage» قبل. ومن بعد واحد آخر. الفلوس عمرها ما كانت موجودة. وفمّا زادة صفحات login فالصو تقلّد منصّة معروفة باش تسرق الـ password متاعك. قبل كل شي، فركس الإسم في تحذيرات الـ CMF ولوّج على «الإسم + arnaque».
 
-- [ ] **94. L4 section 4 heading** · _P2P meetups_  
+- [ ] **96. L4 section 4 heading** · _P2P meetups_  
   لقاءات الـ P2P
 
-- [ ] **95. L4 section 4 text** · _“Cheap USDT, meet me in person and bring cash.” In Tunisia, some of these meetups turned into robberies. A price far below the market is the bait._  
+- [ ] **97. L4 section 4 text** · _“Cheap USDT, meet me in person and bring cash.” In Tunisia, some of these meetups turned into robberies. A price far below the market is the bait._  
   «USDT رخيص، نتلاقاو وجهاً لوجه وجيب الكاش.» في تونس، شويّة من اللقاءات هاذي ولّات براكاج. سوم أرخص برشا من السوق هو الطُعم.
 
-- [ ] **96. L4 section 5 heading** · _The 3 red flags_  
+- [ ] **98. L4 section 5 heading** · _The 3 red flags_  
   الثلاثة علامات الحمراء
 
-- [ ] **97. L4 section 5 text** · _1) They contacted you first. 2) They promise sure or fast profit. 3) They rush you (“today only”, “last places”). One flag is enough to stop. Qirat never messages you first and never asks you for money._  
-  1) هوما اللي بعثولك الأوّلين. 2) يوعدوك بربح مضمون ولا سريع. 3) يزربوك («كان اليوم»، «آخر بلايص»). علامة وحدة تكفي باش توقف. قيراط عمرو ما يبعثلك هو الأوّل وعمرو ما يطلب منك فلوس.
+- [ ] **99. L4 section 5 text** · _1) They contacted you first. 2) They promise sure or fast profit. 3) They rush you (“today only”, “last places”). One flag is enough to stop. Qirat never messages you first and never asks you for money._  
+  1) هوما اللي بعثولك الأوّلين. 2) يوعدوك بربح مضمون ولا سريع. 3) يزربوك («كان اليوم»). علامة وحدة تكفي باش توقف. قيراط عمرو ما يبعثلك هو الأوّل وعمرو ما يطلب منك فلوس.
 
-- [ ] **98. L4 takeaway** · _A message from a stranger + a promise + a rush = stop. Real investing comes with no guarantees._  
+- [ ] **100. L4 takeaway** · _A message from a stranger + a promise + a rush = stop. Real investing comes with no guarantees._  
   ميساج من غريب + وعد + زربة = وقّف. الاستثمار الحقيقي ما فيهش ضمانات.
 
-- [ ] **99. L4 Q1** · _A stranger adds you to a Telegram group with daily profit screenshots. What is the safest reaction?_  
+- [ ] **101. L4 Q1** · _A stranger adds you to a Telegram group with daily profit screenshots. What is the safest reaction?_  
   واحد ما تعرفوش زادك لقروب Telegram فيه screenshots أرباح كل نهار. شنوّة أسلم حاجة تعملها؟
 
-- [ ] **100. L4 Q1 option A** · _Send a small amount to test it_  
+- [ ] **102. L4 Q1 option A** · _Send a small amount to test it_  
   تبعث مبلغ صغير تجرّب
 
-- [ ] **101. L4 Q1 option B ✓** · _Treat it as a red flag and leave_  
+- [ ] **103. L4 Q1 option B ✓** · _Treat it as a red flag and leave_  
   تعتبرها علامة حمراء وتخرج
 
-- [ ] **102. L4 Q1 option C** · _Join the VIP before places run out_  
-  تدخل الـ VIP قبل ما توفى البلايص
+- [ ] **104. L4 Q1 option C** · _Join the VIP before places run out_  
+  تدخل الـ VIP قبل ما تفوتك
 
-- [ ] **103. L4 Q1 explanation** · _Screenshots are easy to fake, and a “small test” deposit is how many people get hooked._  
+- [ ] **105. L4 Q1 explanation** · _Screenshots are easy to fake, and a “small test” deposit is how many people get hooked._  
   الـ screenshots ساهلين باش يتفبركو، و«المبلغ الصغير للتجربة» هو كيفاش برشا ناس يطيحو في الفخ.
 
-- [ ] **104. L4 Q2** · _A platform says you must pay a fee before you can withdraw your profits. What is most likely going on?_  
+- [ ] **106. L4 Q2** · _A platform says you must pay a fee before you can withdraw your profits. What is most likely going on?_  
   منصّة تقلّك لازم تخلّص frais قبل ما تسحب أرباحك. شنوّة الأرجح؟
 
-- [ ] **105. L4 Q2 option A** · _A normal bank tax_  
+- [ ] **107. L4 Q2 option A** · _A normal bank tax_  
   أداء بنكي عادي
 
-- [ ] **106. L4 Q2 option B** · _A Bitcoin rule_  
+- [ ] **108. L4 Q2 option B** · _A Bitcoin rule_  
   قانون متاع Bitcoin
 
-- [ ] **107. L4 Q2 option C ✓** · _A scam that will keep asking for more_  
+- [ ] **109. L4 Q2 option C ✓** · _A scam that will keep asking for more_  
   تحيّل باش يقعد يطلب أكثر
 
-- [ ] **108. L4 Q2 explanation** · _Fake platforms invent fees to squeeze out more money. The “profits” on screen were never real._  
+- [ ] **110. L4 Q2 explanation** · _Fake platforms invent fees to squeeze out more money. The “profits” on screen were never real._  
   المنصّات الفالصو يخترعو frais باش ياخذو أكثر. «الأرباح» اللي على الشاشة عمرها ما كانت حقيقية.
 
-- [ ] **109. L4 Q3** · _Which of these is a red flag?_  
+- [ ] **111. L4 Q3** · _Which of these is a red flag?_  
   شكون فيهم علامة حمراء؟
 
-- [ ] **110. L4 Q3 option A ✓** · _“Guaranteed 5% a day”_  
+- [ ] **112. L4 Q3 option A ✓** · _“Guaranteed 5% a day”_  
   «5% مضمونة كل نهار»
 
-- [ ] **111. L4 Q3 option B** · _“Prices can go down”_  
+- [ ] **113. L4 Q3 option B** · _“Prices can go down”_  
   «السوم ينجّم يهبط»
 
-- [ ] **112. L4 Q3 option C** · _“Only put in what you can lose”_  
+- [ ] **114. L4 Q3 option C** · _“Only put in what you can lose”_  
   «ما تحطّ كان اللي تنجّم تخسرو»
 
-- [ ] **113. L4 Q3 explanation** · _Nobody can guarantee a crypto return. The other two are honest warnings._  
+- [ ] **115. L4 Q3 explanation** · _Nobody can guarantee a crypto return. The other two are honest warnings._  
   حتى حدّ ما ينجّم يضمن ربح في الـ crypto. الزوز الأخرين تحذيرات صادقة.
 
-- [ ] **114. L4 live button** · _Got a strange message? Ask Qirat about it_  
-  جاك ميساج غريب؟ اسأل قيراط عليه
+- [ ] **116. L4 live button** · _Got a strange message? Check it for red flags_  
+  جاك ميساج غريب؟ فركسو في فحص الاحتيال
 
 ## Lesson 5: FOMO: why buying after a big jump hurts (`#learn-fomo`)
 
-- [ ] **115. L5 title** · _FOMO: why buying after a big jump hurts_  
+- [ ] **117. L5 title** · _FOMO: why buying after a big jump hurts_  
   الـ FOMO: علاش الشراية بعد طلعة كبيرة توجع
 
-- [ ] **116. L5 hook** · _When everyone is talking about a coin, most of the move has often already happened._  
+- [ ] **118. L5 hook** · _When everyone is talking about a coin, most of the move has often already happened._  
   كي الناس الكل تحكي على coin، برشا مرّات أغلب الطلعة تكون فاتت.
 
-- [ ] **117. L5 section 1 heading** · _What FOMO is_  
+- [ ] **119. L5 section 1 heading** · _What FOMO is_  
   شنوّة الـ FOMO
 
-- [ ] **118. L5 section 1 text** · _Fear Of Missing Out: the feeling you get when a coin is up 50% this week, your friends are all posting about it, and you feel you have to get in right now._  
+- [ ] **120. L5 section 1 text** · _Fear Of Missing Out: the feeling you get when a coin is up 50% this week, your friends are all posting about it, and you feel you have to get in right now._  
   Fear Of Missing Out: الخوف لا يفوتك القطار. كي coin طلعت 50% هالجمعة، صحابك الكل يحكيو عليها، وتحسّ لازمك تدخل توّا.
 
-- [ ] **119. L5 section 2 heading** · _Why it hurts_  
+- [ ] **121. L5 section 2 heading** · _Why it hurts_  
   علاش يوجع
 
-- [ ] **120. L5 section 2 text** · _Big jumps attract late buyers, and early buyers often sell to them. After a fast rise, sharp drops are common: the price can fall back soon after you buy, and then fear pushes you to sell low. Buying high and selling low is the opposite of what anyone wants._  
+- [ ] **122. L5 section 2 text** · _Big jumps attract late buyers, and early buyers often sell to them. After a fast rise, sharp drops are common: the price can fall back soon after you buy, and then fear pushes you to sell low. Buying high and selling low is the opposite of what anyone wants._  
   الطلعات الكبار يجيبو الناس اللي يدخلو متأخرين، واللي دخلو بكري برشا مرّات يبيعولهم. بعد طلعة سريعة، الطيحات القوية تولّي عادية: السوم ينجّم يرجع لتالي شويّة بعد ما تشري، ومن بعد الخوف يخلّيك تبيع رخيص. تشري غالي وتبيع رخيص: العكس متاع اللي يحب عليه أي واحد.
 
-- [ ] **121. L5 section 3 heading** · _The crowd’s mood_  
+- [ ] **123. L5 section 3 heading** · _The crowd’s mood_  
   مزاج الناس
 
-- [ ] **122. L5 section 3 text** · _Qirat’s market weather and the Fear & Greed index measure the crowd’s mood. When greed is extreme, pullbacks have tended to come more often. That is when the weather can turn “choppy” even while prices are still rising._  
+- [ ] **124. L5 section 3 text** · _Qirat’s market weather and the Fear & Greed index measure the crowd’s mood. When greed is extreme, pullbacks have tended to come more often. That is when the weather can turn “choppy” even while prices are still rising._  
   الطقس متاع السوق في قيراط ومؤشّر Fear & Greed يقيسو مزاج الناس. كي الطمع يوصل للآخر، الرجوع لتالي عادةً يجي أكثر. وقتها الطقس ينجّم يولّي «مغيّم» حتى كان السوم مازال طالع.
 
-- [ ] **123. L5 section 4 heading** · _A calm routine_  
+- [ ] **125. L5 section 4 heading** · _A calm routine_  
   روتين يهدّي
 
-- [ ] **124. L5 section 4 text** · _Before any decision, wait 24 hours. Write down why you want it, and what you would do if it fell 30%. Look at its risk grade and its rough month. If the only reason is “everyone is buying”, that is FOMO talking._  
-  قبل أي قرار، استنّى 24 ساعة. اكتب علاش تحبّها، وشنوّة باش تعمل كان طاحت 30%. شوف الـ risk متاعها والشهر الصعيب متاعها. كان السبب الوحيد «الناس الكل تشري»، هذاكا الـ FOMO اللي يحكي.
+- [ ] **126. L5 section 4 text** · _Before any decision, wait 24 hours. Write down why you want it, and what you would do if it fell 30%. Look at its risk grade and its rough month (what you could lose in a bad month; see lesson 3). If the only reason is “everyone is buying”, that is FOMO talking._  
+  قبل أي قرار، استنّى 24 ساعة. اكتب علاش تحبّها، وشنوّة باش تعمل كان طاحت 30%. شوف الـ risk متاعها والشهر الصعيب متاعها (قدّاش تنجّم تخسر في شهر خايب، شوف الدرس 3). كان السبب الوحيد «الناس الكل تشري»، هذاكا الـ FOMO اللي يحكي.
 
-- [ ] **125. L5 section 5 heading** · _Missing out is fine_  
+- [ ] **127. L5 section 5 heading** · _Missing out is fine_  
   فاتتك؟ عادي
 
-- [ ] **126. L5 section 5 text** · _There will always be another coin and another week. A jump you missed costs you nothing. Chasing one can cost you a lot._  
+- [ ] **128. L5 section 5 text** · _There will always be another coin and another week. A jump you missed costs you nothing. Chasing one can cost you a lot._  
   ديما باش يكون فمّا coin أخرى وجمعة أخرى. طلعة فاتتك ما تكلّفك شي. أما كي تجري وراها، تنجّم تكلّفك برشا.
 
-- [ ] **127. L5 takeaway** · _Big jump + loud crowd = slow down. A move you missed costs you nothing._  
+- [ ] **129. L5 takeaway** · _Big jump + loud crowd = slow down. A move you missed costs you nothing._  
   طلعة كبيرة + ناس تعيّط = خفّف. حركة فاتتك ما تكلّفك حتى شي.
 
-- [ ] **128. L5 Q1** · _Which thought is FOMO talking?_  
+- [ ] **130. L5 Q1** · _Which thought is FOMO talking?_  
   أما فكرة هي الـ FOMO اللي يحكي؟
 
-- [ ] **129. L5 Q1 option A** · _“Let me check its rough month first”_  
+- [ ] **131. L5 Q1 option A** · _“Let me check its rough month first”_  
   «خلّيني نشوف الشهر الصعيب متاعها قبل»
 
-- [ ] **130. L5 Q1 option B** · _“I’ll wait 24 hours”_  
+- [ ] **132. L5 Q1 option B** · _“I’ll wait 24 hours”_  
   «باش نستنّى 24 ساعة»
 
-- [ ] **131. L5 Q1 option C ✓** · _“I must get in now before it’s too late”_  
+- [ ] **133. L5 Q1 option C ✓** · _“I must get in now before it’s too late”_  
   «لازم ندخل توّا قبل ما يفوت الوقت»
 
-- [ ] **132. L5 Q1 explanation** · _Urgency with no reason except “it’s going up” is the signature of FOMO._  
+- [ ] **134. L5 Q1 explanation** · _Urgency with no reason except “it’s going up” is the signature of FOMO._  
   الزربة بلا سبب كان «راهي طالعة» هي الإمضاء متاع الـ FOMO.
 
-- [ ] **133. L5 Q2** · _What often happens after a very fast rise?_  
+- [ ] **135. L5 Q2** · _What often happens after a very fast rise?_  
   شنوّة يصير برشا مرّات بعد طلعة سريعة برشا؟
 
-- [ ] **134. L5 Q2 option A ✓** · _Sharp drops become more common_  
+- [ ] **136. L5 Q2 option A ✓** · _Sharp drops become more common_  
   الطيحات القوية تولّي أكثر
 
-- [ ] **135. L5 Q2 option B** · _Prices always keep rising_  
+- [ ] **137. L5 Q2 option B** · _Prices always keep rising_  
   السوم ديما يكمّل يطلع
 
-- [ ] **136. L5 Q2 option C** · _The price gets frozen_  
+- [ ] **138. L5 Q2 option C** · _The price gets frozen_  
   السوم يتجمّد
 
-- [ ] **137. L5 Q2 explanation** · _Fast rises pull in late buyers, and early buyers often take their profit. The price can fall back quickly._  
-  الطلعات السريعة يجيبو المتأخرين، واللي دخلو بكري برشا مرّات ياخذو أرباحهم. السوم ينجّم يرجع لتالي بالفيسع.
+- [ ] **139. L5 Q2 explanation** · _Fast rises pull in late buyers, and early buyers often take their profit. The price can fall back quickly._  
+  الطلعات السريعة يجيبو المتأخرين، واللي دخلو بكري برشا مرّات ياخذو أرباحهم. السوم ينجّم يرجع لتالي فيسع.
 
-- [ ] **138. L5 Q3** · _What does missing a big jump cost you?_  
+- [ ] **140. L5 Q3** · _What does missing a big jump cost you?_  
   طلعة كبيرة فاتتك، قدّاش تكلّفك؟
 
-- [ ] **139. L5 Q3 option A** · _A fee_  
+- [ ] **141. L5 Q3 option A** · _A fee_  
   frais
 
-- [ ] **140. L5 Q3 option B ✓** · _Nothing_  
+- [ ] **142. L5 Q3 option B ✓** · _Nothing_  
   حتى شي
 
-- [ ] **141. L5 Q3 option C** · _Your account_  
+- [ ] **143. L5 Q3 option C** · _Your account_  
   الكونط متاعك
 
-- [ ] **142. L5 Q3 explanation** · _You lose no money by missing a move. Chasing it is what can cost you._  
+- [ ] **144. L5 Q3 explanation** · _You lose no money by missing a move. Chasing it is what can cost you._  
   ما تخسر حتى فلوس كي تفوتك حركة. اللي ينجّم يكلّفك هو كي تجري وراها.
 
 ## Lesson 6: What a karat means (`#learn-karat`) · outline
 
-- [ ] **143. L6 title** · _What a karat means_  
+- [ ] **145. L6 title** · _What a karat means_  
   شنوّة معناها قيراط؟
 
-- [ ] **144. L6 hook** · _The way a goldsmith weighs gold, Qirat weighs coins._  
+- [ ] **146. L6 hook** · _The way a goldsmith weighs gold, Qirat weighs coins._  
   كيما الصايغي يوزن الذهب، قيراط يوزن الـ coins.
 
-- [ ] **145. L6 outline 1** · _24K = calm and climbing · 10K = wild or sliding_  
+- [ ] **147. L6 outline 1** · _24K = calm and climbing · 10K = wild or sliding_  
   24K = باهية وطالعة · 10K = متقلّبة ولا هابطة
 
-- [ ] **146. L6 outline 2** · _It compares each coin with 18 big coins: calm, and the 90-day trend_  
+- [ ] **148. L6 outline 2** · _It compares each coin with 18 big coins: calm, and the 90-day trend_  
   يقارن كل coin مع 18 coin كبار: الهدوء والاتجاه متاع 90 يوم
 
-- [ ] **147. L6 outline 3** · _In a stormy market, even 24K coins usually fall_  
+- [ ] **149. L6 outline 3** · _In a stormy market, even 24K coins usually fall_  
   في سوق خايب، حتى الـ 24K عادةً يهبطو
 
-- [ ] **148. L6 outline 4** · _A karat is never an instruction to buy or sell_  
+- [ ] **150. L6 outline 4** · _A karat is never an instruction to buy or sell_  
   القيراط عمرو ما هو أمر باش تشري ولا تبيع
 
 ## Lesson 7: Only put in what you can lose (`#learn-only-what-you-can-lose`) · outline
 
-- [ ] **149. L7 title** · _Only put in what you can lose_  
+- [ ] **151. L7 title** · _Only put in what you can lose_  
   ما تحطّ كان اللي تنجّم تخسرو
 
-- [ ] **150. L7 hook** · _Dinar examples, before you put in a single millime._  
+- [ ] **152. L7 hook** · _Dinar examples, before you put in a single millime._  
   أمثلة بالدينار، قبل ما تحطّ حتى مليم.
 
-- [ ] **151. L7 outline 1** · _Rent, food and an emergency fund come first_  
+- [ ] **153. L7 outline 1** · _Rent, food and an emergency fund come first_  
   الكراء، الماكلة وفلوس الطوارئ قبل كل شي
 
-- [ ] **152. L7 outline 2** · _On a 1,200 TND salary: 50 TND you could forget is not 1,000 TND borrowed_  
+- [ ] **154. L7 outline 2** · _On a 1,200 TND salary: 50 TND you could forget is not 1,000 TND borrowed_  
   على شهرية 1,200 دينار: 50 دينار تنجّم تنساها موش كيما 1,000 دينار متسلّفة
 
-- [ ] **153. L7 outline 3** · _Never borrow, and never sell the family gold, to put money into crypto_  
+- [ ] **155. L7 outline 3** · _Never borrow, and never sell the family gold, to put money into crypto_  
   عمرك ما تتسلّف، ولا تبيع ذهب الدار، باش تحطّ فلوس في الـ crypto
 
-- [ ] **154. L7 outline 4** · _Ask yourself: if this amount halved, would my life change?_  
+- [ ] **156. L7 outline 4** · _Ask yourself: if this amount halved, would my life change?_  
   اسأل روحك: كان المبلغ هذا طاح للنصّ، حياتي تتبدّل؟
 
 ## Lesson 8: Wallets and secret keys (`#learn-wallets`) · outline
 
-- [ ] **155. L8 title** · _Wallets and secret keys_  
+- [ ] **157. L8 title** · _Wallets and secret keys_  
   الـ wallets والمفاتيح السرّية
 
-- [ ] **156. L8 hook** · _Whoever has the 12 words has the money._  
+- [ ] **158. L8 hook** · _Whoever has the 12 words has the money._  
   اللي عندو الـ 12 كلمة، عندو الفلوس.
 
-- [ ] **157. L8 outline 1** · _A wallet on a platform vs a wallet you hold yourself_  
+- [ ] **159. L8 outline 1** · _A wallet on a platform vs a wallet you hold yourself_  
   wallet في منصّة ولا wallet عندك انت
 
-- [ ] **158. L8 outline 2** · _The seed phrase: 12 or 24 words that restore your wallet_  
+- [ ] **160. L8 outline 2** · _The seed phrase: 12 or 24 words that restore your wallet_  
   الـ seed phrase: 12 ولا 24 كلمة يرجّعولك الـ wallet
 
-- [ ] **159. L8 outline 3** · _No honest person ever asks for it, not even “support”_  
+- [ ] **161. L8 outline 3** · _No honest person ever asks for it, not even “support”_  
   حتى حدّ نظيف ما يطلبها منك، حتى «الـ support»
 
-- [ ] **160. L8 outline 4** · _Write it on paper, never in a screenshot_  
+- [ ] **162. L8 outline 4** · _Write it on paper, never in a screenshot_  
   اكتبها على ورقة، عمرك ما تعمللها screenshot
 
 ## Lesson 9: Buying from strangers (P2P) (`#learn-p2p`) · outline
 
-- [ ] **161. L9 title** · _Buying from strangers (P2P)_  
+- [ ] **163. L9 title** · _Buying from strangers (P2P)_  
   الشراء من عند ناس ما تعرفهمش (P2P)
 
-- [ ] **162. L9 hook** · _How P2P works and where the danger hides._  
+- [ ] **164. L9 hook** · _How P2P works and where the danger hides._  
   كيفاش يخدم الـ P2P ووين يتخبّى الخطر.
 
-- [ ] **163. L9 outline 1** · _What P2P is, and how platform escrow works_  
+- [ ] **165. L9 outline 1** · _What P2P is, and how platform escrow works_  
   شنوّة الـ P2P، وكيفاش يخدم الـ escrow في المنصّات
 
-- [ ] **164. L9 outline 2** · _Why in-person cash meetups are dangerous_  
+- [ ] **166. L9 outline 2** · _Why in-person cash meetups are dangerous_  
   علاش اللقاءات وجهاً لوجه بالكاش خطيرة
 
-- [ ] **165. L9 outline 3** · _Compare the rate with the official rate_  
+- [ ] **167. L9 outline 3** · _Compare the rate with the official rate_  
   قارن السوم مع السوم الرسمي
 
-- [ ] **166. L9 outline 4** · _Money from a third party can cause trouble with your bank_  
-  فلوس جاية من طرف ثالث تنجّم تعملّك مشاكل مع البنكة
+- [ ] **168. L9 outline 4** · _Money from a third party can cause trouble with your bank_  
+  فلوس جاية من طرف ثالث تنجّم تعملّك مشاكل مع البانكة
 
 ## Lesson 10: Crypto and the law in Tunisia (`#learn-law-tunisia`) · outline
 
-- [ ] **167. L10 title** · _Crypto and the law in Tunisia_  
+- [ ] **169. L10 title** · _Crypto and the law in Tunisia_  
   الـ crypto والقانون في تونس
 
-- [ ] **168. L10 hook** · _Facts only, with dates. No advice._  
+- [ ] **170. L10 hook** · _Facts only, with dates. No advice._  
   وقائع برك، بالتواريخ. بلا نصايح.
 
-- [ ] **169. L10 outline 1** · _The central bank (BCT) said in 2023 that crypto is not money_  
+- [ ] **171. L10 outline 1** · _The central bank (BCT) said in 2023 that crypto is not money_  
   البنك المركزي (BCT) قال في 2023 إنّو الـ crypto موش عملة
 
-- [ ] **170. L10 outline 2** · _The foreign-exchange law (76-18) and how it has been applied_  
+- [ ] **172. L10 outline 2** · _The foreign-exchange law (76-18) and how it has been applied_  
   قانون الصرف (76-18) وكيفاش تطبّق
 
-- [ ] **171. L10 outline 3** · _The new exchange code: where it stands (Nov 2026: not law yet)_  
+- [ ] **173. L10 outline 3** · _The new exchange code: where it stands (Nov 2026: not law yet)_  
   مجلّة الصرف الجديدة: وين وصلت (نوفمبر 2026: مازالت موش قانون)
 
-- [ ] **172. L10 outline 4** · _This page is not legal advice_  
+- [ ] **174. L10 outline 4** · _This page is not legal advice_  
   الصفحة هاذي موش نصيحة قانونية
 
 ## Glossary
 
-- [ ] **173. crypto: term** · _Crypto_  
+- [ ] **175. crypto: term** · _Crypto_  
   crypto
 
-- [ ] **174. crypto: definition** · _Digital money or assets recorded on a blockchain, with no bank or state behind them._  
-  فلوس ولا أصول رقمية مكتوبة على blockchain، ما وراها حتى بنكة وحتى دولة.
+- [ ] **176. crypto: definition** · _Digital money or assets recorded on a blockchain, with no bank or state behind them._  
+  فلوس ولا أصول رقمية مكتوبة على blockchain، ما وراها حتى بانكة وحتى دولة.
 
-- [ ] **175. blockchain: term** · _Blockchain_  
+- [ ] **177. blockchain: term** · _Blockchain_  
   blockchain
 
-- [ ] **176. blockchain: definition** · _A shared record copied on thousands of computers. Nobody can secretly change past lines._  
-  كرّاس مشترك منسوخ على آلاف الكمبيوترات. حتى حدّ ما ينجّم يبدّل السطور القدام بالخفية.
+- [ ] **178. blockchain: definition** · _A shared record copied on thousands of computers. Nobody can secretly change past lines._  
+  كرّاس مشترك منسوخ على آلاف الـ PC. حتى حدّ ما ينجّم يبدّل السطور القدام بالخفية.
 
-- [ ] **177. bitcoin: term** · _Bitcoin (BTC)_  
+- [ ] **179. bitcoin: term** · _Bitcoin (BTC)_  
   Bitcoin (BTC)
 
-- [ ] **178. bitcoin: definition** · _The first crypto, started in 2009. There will never be more than 21 million._  
+- [ ] **180. bitcoin: definition** · _The first crypto, started in 2009. There will never be more than 21 million._  
   أوّل crypto، بدات في 2009. عمرها ما باش تفوت 21 مليون.
 
-- [ ] **179. satoshi: term** · _Satoshi_  
+- [ ] **181. satoshi: term** · _Satoshi_  
   satoshi
 
-- [ ] **180. satoshi: definition** · _The smallest piece of a bitcoin: 0.00000001 BTC._  
+- [ ] **182. satoshi: definition** · _The smallest piece of a bitcoin: 0.00000001 BTC._  
   أصغر طرف من الـ bitcoin: ‎0.00000001 BTC.
 
-- [ ] **181. stablecoin: term** · _Stablecoin_  
+- [ ] **183. stablecoin: term** · _Stablecoin_  
   stablecoin
 
-- [ ] **182. stablecoin: definition** · _A crypto designed to stay at a fixed price, usually 1 US dollar._  
+- [ ] **184. stablecoin: definition** · _A crypto designed to stay at a fixed price, usually 1 US dollar._  
   crypto مصمّمة باش تقعد على سوم ثابت، عادةً 1 دولار أمريكي.
 
-- [ ] **183. usdt: term** · _USDT (Tether)_  
+- [ ] **185. usdt: term** · _USDT (Tether)_  
   USDT (Tether)
 
-- [ ] **184. usdt: definition** · _The biggest stablecoin, issued by the company Tether. It aims to stay at $1._  
+- [ ] **186. usdt: definition** · _The biggest stablecoin, issued by the company Tether. It aims to stay at $1._  
   أكبر stablecoin، تطلّعها شركة Tether. تحاول تقعد على 1$.
 
-- [ ] **185. depeg: term** · _Depeg_  
+- [ ] **187. depeg: term** · _Depeg_  
   depeg
 
-- [ ] **186. depeg: definition** · _When a stablecoin falls away from its $1 target._  
+- [ ] **188. depeg: definition** · _When a stablecoin falls away from its $1 target._  
   كي الـ stablecoin تطيح وتبعد على الـ 1$ متاعها.
 
-- [ ] **187. p2p: term** · _P2P_  
+- [ ] **189. p2p: term** · _P2P_  
   P2P
 
-- [ ] **188. p2p: definition** · _Buying or selling directly with another person instead of through an exchange._  
+- [ ] **190. p2p: definition** · _Buying or selling directly with another person instead of through an exchange._  
   تشري ولا تبيع مباشرة مع شخص آخر، موش عن طريق منصّة.
 
-- [ ] **189. volatility: term** · _Volatility_  
+- [ ] **191. volatility: term** · _Volatility_  
   volatility
 
-- [ ] **190. volatility: definition** · _How much a price usually moves. Qirat shows it as “a typical day”._  
+- [ ] **192. volatility: definition** · _How much a price usually moves. Qirat shows it as “a typical day”._  
   قدّاش السوم يتحرّك عادةً. قيراط يورّيها «نهار عادي».
 
-- [ ] **191. risk-grade: term** · _Risk grade_  
+- [ ] **193. risk-grade: term** · _Risk grade_  
   درجة الـ risk
 
-- [ ] **192. risk-grade: definition** · _Qirat’s low, medium or high, based on how much the coin swung over the past 30 days._  
+- [ ] **194. risk-grade: definition** · _Qirat’s low, medium or high, based on how much the coin swung over the past 30 days._  
   منخفض، متوسط ولا عالي في قيراط، حسب قدّاش الـ coin تحرّكت في الـ 30 يوم اللي فاتو.
 
-- [ ] **193. rough-month: term** · _Rough month_  
+- [ ] **195. rough-month: term** · _Rough month_  
   الشهر الصعيب
 
-- [ ] **194. rough-month: definition** · _A bad month that happened about 1 time in 20 in the past. Qirat shows it on 100 TND._  
-  شهر صعيب صار قريب مرّة على 20 في اللي فات. قيراط يورّيه على 100 دينار.
+- [ ] **196. rough-month: definition** · _How much you could lose in a bad month, the kind that comes about once in 20 months. Qirat shows it on 100 TND. It is not the worst case._  
+  قدّاش تنجّم تخسر في شهر خايب، من النوع اللي يجي تقريب مرّة كل 20 شهر. قيراط يورّيه على 100 دينار. موش هو أخيب حاجة تنجّم تصير.
 
-- [ ] **195. liquidity: term** · _Liquidity_  
+- [ ] **197. liquidity: term** · _Liquidity_  
   liquidity
 
-- [ ] **196. liquidity: definition** · _How easily a coin can be bought or sold without moving its price. Small coins have little._  
+- [ ] **198. liquidity: definition** · _How easily a coin can be bought or sold without moving its price. Small coins have little._  
   قدّاش ساهل تشري ولا تبيع coin من غير ما يتحرّك السوم متاعها. الـ coins الصغار عندهم شويّة.
 
-- [ ] **197. signals: term** · _Signals_  
+- [ ] **199. signals: term** · _Signals_  
   signals
 
-- [ ] **198. signals: definition** · _Paid “buy now / sell now” tips sold in groups. Often the first step of a scam._  
+- [ ] **200. signals: definition** · _Paid “buy now / sell now” tips sold in groups. Often the first step of a scam._  
   نصايح بالفلوس «اشري توّا / بيع توّا» يبيعوها في القروبات. برشا مرّات أوّل خطوة في تحيّل.
 
-- [ ] **199. ponzi: term** · _Ponzi scheme_  
+- [ ] **201. ponzi: term** · _Ponzi scheme_  
   Ponzi
 
-- [ ] **200. ponzi: definition** · _A scheme that pays early members with newer members’ money, until it collapses._  
+- [ ] **202. ponzi: definition** · _A scheme that pays early members with newer members’ money, until it collapses._  
   نظام يخلّص الأوائل بفلوس اللي جاو بعدهم، حتى يطيح.
 
-- [ ] **201. fake-platform: term** · _Fake platform_  
+- [ ] **203. fake-platform: term** · _Fake platform_  
   منصّة فالصو
 
-- [ ] **202. fake-platform: definition** · _A site or app that shows a fake growing balance, then blocks withdrawals or asks for “fees”._  
+- [ ] **204. fake-platform: definition** · _A site or app that shows a fake growing balance, then blocks withdrawals or asks for “fees”._  
   موقع ولا تطبيقة تورّيك رصيد فالصو يكبر، ومن بعد تسكّر السحب ولا تطلب «frais».
 
-- [ ] **203. phishing: term** · _Phishing_  
+- [ ] **205. phishing: term** · _Phishing_  
   phishing
 
-- [ ] **204. phishing: definition** · _A fake page or message that copies a real service to steal your password or keys._  
+- [ ] **206. phishing: definition** · _A fake page or message that copies a real service to steal your password or keys._  
   صفحة ولا ميساج فالصو يقلّد خدمة حقيقية باش يسرق الـ password ولا المفاتيح متاعك.
 
-- [ ] **205. fomo: term** · _FOMO_  
+- [ ] **207. fomo: term** · _FOMO_  
   FOMO
 
-- [ ] **206. fomo: definition** · _Fear Of Missing Out: the urge to jump in because a price is rising and everyone is talking about it._  
+- [ ] **208. fomo: definition** · _Fear Of Missing Out: the urge to jump in because a price is rising and everyone is talking about it._  
   Fear Of Missing Out: الرغبة باش تدخل خاطر السوم طالع والناس الكل تحكي عليه.
 
-- [ ] **207. fear-greed: term** · _Fear & Greed index_  
+- [ ] **209. fear-greed: term** · _Fear & Greed index_  
   مؤشّر Fear & Greed
 
-- [ ] **208. fear-greed: definition** · _A daily score from 0 (extreme fear) to 100 (extreme greed) of the crypto crowd’s mood._  
+- [ ] **210. fear-greed: definition** · _A daily score from 0 (extreme fear) to 100 (extreme greed) of the crypto crowd’s mood._  
   نتيجة كل نهار من 0 (خوف كبير) لـ 100 (طمع كبير) تقيس مزاج ناس الـ crypto.
 
-- [ ] **209. pullback: term** · _Pullback_  
+- [ ] **211. pullback: term** · _Pullback_  
   رجوع لتالي
 
-- [ ] **210. pullback: definition** · _A drop in price after a rise._  
+- [ ] **212. pullback: definition** · _A drop in price after a rise._  
   هبطة في السوم بعد طلعة.
 
-- [ ] **211. karat: term** · _Karat (24K–10K)_  
+- [ ] **213. karat: term** · _Karat (24K–10K)_  
   قيراط (24K–10K)
 
-- [ ] **212. karat: definition** · _Qirat’s grade for a coin: 24K = calm and climbing, 10K = wild or sliding, compared with big coins._  
+- [ ] **214. karat: definition** · _Qirat’s grade for a coin: 24K = calm and climbing, 10K = wild or sliding, compared with big coins._  
   الدرجة متاع قيراط للـ coin: 24K = باهية وطالعة، 10K = متقلّبة ولا هابطة، مقارنة بالـ coins الكبار.
 
-- [ ] **213. wallet: term** · _Wallet_  
+- [ ] **215. wallet: term** · _Wallet_  
   wallet
 
-- [ ] **214. wallet: definition** · _Where your crypto is kept. It can be on a platform, or one you control yourself._  
+- [ ] **216. wallet: definition** · _Where your crypto is kept. It can be on a platform, or one you control yourself._  
   البلاصة اللي تتخبّى فيها الـ crypto متاعك. تنجّم تكون في منصّة، ولا wallet تتحكّم فيه انت.
 
-- [ ] **215. seed-phrase: term** · _Seed phrase_  
+- [ ] **217. seed-phrase: term** · _Seed phrase_  
   seed phrase
 
-- [ ] **216. seed-phrase: definition** · _12 or 24 words that open your wallet. Whoever has them has your crypto. Never share them._  
+- [ ] **218. seed-phrase: definition** · _12 or 24 words that open your wallet. Whoever has them has your crypto. Never share them._  
   12 ولا 24 كلمة يحلّو الـ wallet متاعك. اللي عندو الكلمات، عندو الـ crypto متاعك. عمرك ما تعطيهم لحدّ.
 
-- [ ] **217. exchange: term** · _Exchange_  
+- [ ] **219. exchange: term** · _Exchange_  
   منصّة (exchange)
 
-- [ ] **218. exchange: definition** · _A company where people buy and sell crypto. Qirat does not recommend any._  
+- [ ] **220. exchange: definition** · _A company where people buy and sell crypto. Qirat does not recommend any._  
   شركة وين الناس تشري وتبيع الـ crypto. قيراط ما ينصح بحتى وحدة.
 
-- [ ] **219. escrow: term** · _Escrow_  
+- [ ] **221. escrow: term** · _Escrow_  
   escrow
 
-- [ ] **220. escrow: definition** · _A platform holds the crypto during a P2P deal until both sides confirm._  
+- [ ] **222. escrow: definition** · _A platform holds the crypto during a P2P deal until both sides confirm._  
   المنصّة تشدّ الـ crypto في صفقة P2P حتى الزوز يأكّدو.
 
-- [ ] **221. bct: term** · _BCT_  
+- [ ] **223. bct: term** · _BCT_  
   BCT
 
-- [ ] **222. bct: definition** · _Banque Centrale de Tunisie, the central bank. It said in 2023 that crypto is not money._  
+- [ ] **224. bct: definition** · _Banque Centrale de Tunisie, the central bank. It said in 2023 that crypto is not money._  
   البنك المركزي التونسي. قال في 2023 إنّو الـ crypto موش عملة.
 
 ## Learn screen
 
-- [ ] **223. nav.learn (top bar and bottom bar)** · _Learn_  
+- [ ] **225. nav.learn (top bar and bottom bar)** · _Learn_  
   تعلّم
 
-- [ ] **224. title** · _Learn_  
+- [ ] **226. title** · _Learn_  
   تعلّم
 
-- [ ] **225. subtitle** · _Two-minute lessons on crypto, scams and risk. No hype, no tips._  
+- [ ] **227. subtitle** · _Two-minute lessons on crypto, scams and risk. No hype, no tips._  
   دروس في دقيقتين على الـ crypto، التحيّل والـ risk. بلا تهويل وبلا نصايح.
 
-- [ ] **226. yourKarat** · _Your karat_  
+- [ ] **228. yourKarat** · _Your karat_  
   القيراط متاعك
 
-- [ ] **227. karatHint** · _You start at 10K. Read lessons and pass their quizzes to rise toward 24K._  
+- [ ] **229. karatHint** · _You start at 10K. Read lessons and pass their quizzes to rise toward 24K._  
   تبدا من 10K. اقرا الدروس ونجح في الكويز متاعهم باش تطلع لـ 24K.
 
-- [ ] **228. toNext** · _{n} more steps to {k}K_  
+- [ ] **230. toNext** · _{n} more steps to {k}K_  
   مازالو {n} خطوات للـ {k}K
 
-- [ ] **229. maxed** · _Pure gold. New lessons are on the way._  
+- [ ] **231. maxed** · _Pure gold. New lessons are on the way._  
   ذهب صافي. دروس جدد في الطريق.
 
-- [ ] **230. lessonsDone** · _{d} of {n} lessons passed_  
+- [ ] **232. lessonsDone** · _{d} of {n} lessons passed_  
   {d} دروس ناجحة من {n}
 
-- [ ] **231. level10** · _Just starting_  
+- [ ] **233. level10** · _Just starting_  
   توّا بديت
 
-- [ ] **232. level14** · _Starting to shine_  
+- [ ] **234. level14** · _Starting to shine_  
   بديت تلمع
 
-- [ ] **233. level18** · _Solid gold_  
+- [ ] **235. level18** · _Solid gold_  
   ذهب صحيح
 
-- [ ] **234. level22** · _Almost pure_  
+- [ ] **236. level22** · _Almost pure_  
   قريب للصافي
 
-- [ ] **235. level24** · _Pure gold_  
+- [ ] **237. level24** · _Pure gold_  
   ذهب صافي
 
-- [ ] **236. today** · _Today’s lesson_  
+- [ ] **238. today** · _Today’s lesson_  
   درس اليوم
 
-- [ ] **237. allLessons** · _All lessons_  
+- [ ] **239. allLessons** · _All lessons_  
   الدروس الكل
 
-- [ ] **238. minutes** · _{n} min read_  
+- [ ] **240. minutes** · _{n} min read_  
   قراية {n} دقايق
 
-- [ ] **239. start** · _Start_  
+- [ ] **241. start** · _Start_  
   ابدا
 
-- [ ] **240. read** · _Read_  
-  تقرا
+- [ ] **242. read** · _Read_  
+  قريتو
 
-- [ ] **241. passed** · _Passed_  
+- [ ] **243. passed** · _Passed_  
   نجحت
 
-- [ ] **242. comingSoon** · _Coming soon_  
+- [ ] **244. comingSoon** · _Coming soon_  
   قريب
 
-- [ ] **243. inThisLesson** · _What it will cover_  
+- [ ] **245. inThisLesson** · _What it will cover_  
   شنوّة باش يحكي
 
-- [ ] **244. back** · _All lessons_  
+- [ ] **246. back** · _All lessons_  
   الدروس الكل
 
-- [ ] **245. lessonN** · _Lesson {n}_  
+- [ ] **247. lessonN** · _Lesson {n}_  
   الدرس {n}
 
-- [ ] **246. takeaway** · _The short version_  
+- [ ] **248. takeaway** · _The short version_  
   الزبدة
 
-- [ ] **247. tryLive** · _See it live in Qirat_  
+- [ ] **249. tryLive** · _See it live in Qirat_  
   شوفها على الحقيقة في قيراط
 
-- [ ] **248. openCoins** · _Open all coins_  
+- [ ] **250. openCoins** · _Open all coins_  
   شوف الـ coins الكل
 
-- [ ] **249. liveLoading** · _Loading today’s data…_  
+- [ ] **251. liveLoading** · _Loading today’s data…_  
   نجيبو في معطيات اليوم…
 
-- [ ] **250. liveTypicalDay** · _A typical day_  
+- [ ] **252. liveTypicalDay** · _A typical day_  
   نهار عادي
 
-- [ ] **251. liveRoughMonth** · _A rough month_  
+- [ ] **253. liveRoughMonth** · _A rough month_  
   شهر صعيب
 
-- [ ] **252. liveOn100** · _100 TND could become about {v} TND_  
+- [ ] **254. liveOn100** · _100 TND could become about {v} TND_  
   100 دينار تنجّم تولّي قريب {v} دينار
 
-- [ ] **253. liveRiskiest** · _Riskiest in your list_  
+- [ ] **255. liveRiskiest** · _Riskiest in your list_  
   الأكثر risk في الليستة متاعك
 
-- [ ] **254. liveMood** · _Crowd mood (Fear & Greed)_  
+- [ ] **256. liveMood** · _Crowd mood (Fear & Greed)_  
   مزاج الناس (Fear & Greed)
 
-- [ ] **255. weatherCalm** · _Calm_  
+- [ ] **257. weatherCalm** · _Calm_  
   صاحي
 
-- [ ] **256. weatherChoppy** · _Choppy_  
+- [ ] **258. weatherChoppy** · _Choppy_  
   مغيّم
 
-- [ ] **257. weatherStormy** · _Stormy_  
+- [ ] **259. weatherStormy** · _Stormy_  
   خايب
 
-- [ ] **258. weatherToday** · _Market weather today_  
+- [ ] **260. weatherToday** · _Market weather today_  
   طقس السوق اليوم
 
-- [ ] **259. karatToday** · _Today’s coins by karat_  
+- [ ] **261. karatToday** · _Today’s coins by karat_  
   الـ coins متاع اليوم بالقيراط
 
-- [ ] **260. quiz** · _Quick quiz_  
+- [ ] **262. quiz** · _Quick quiz_  
   كويز صغير
 
-- [ ] **261. quizHint** · _Get 2 of 3 right to pass and raise your karat._  
+- [ ] **263. quizHint** · _Get 2 of 3 right to pass and raise your karat._  
   جاوب صحيح على 2 من 3 باش تنجح ويطلع القيراط متاعك.
 
-- [ ] **262. questionN** · _Question {n} of {m}_  
+- [ ] **264. questionN** · _Question {n} of {m}_  
   السؤال {n} من {m}
 
-- [ ] **263. right** · _Right!_  
+- [ ] **265. right** · _Right!_  
   صحيح!
 
-- [ ] **264. wrong** · _Not quite._  
+- [ ] **266. wrong** · _Not quite._  
   موش هي.
 
-- [ ] **265. next** · _Next question_  
+- [ ] **267. next** · _Next question_  
   السؤال اللي بعدو
 
-- [ ] **266. seeScore** · _See my score_  
+- [ ] **268. seeScore** · _See my score_  
   ورّيني النتيجة
 
-- [ ] **267. score** · _{s} of {m} right_  
+- [ ] **269. score** · _{s} of {m} right_  
   {s} صحاح من {m}
 
-- [ ] **268. passMsg** · _Passed. Your karat went up._  
+- [ ] **270. passMsg** · _Passed. Your karat went up._  
   نجحت. القيراط متاعك طلع.
 
-- [ ] **269. passAgainMsg** · _Passed again. Nice._  
+- [ ] **271. passAgainMsg** · _Passed again. Nice._  
   نجحت مرّة أخرى. برافو.
 
-- [ ] **270. failMsg** · _Almost. Reread the lesson and try again: it only takes a minute._  
+- [ ] **272. failMsg** · _Almost. Reread the lesson and try again: it only takes a minute._  
   قريب. عاود اقرا الدرس وجرّب مرّة أخرى: دقيقة برك.
 
-- [ ] **271. retry** · _Try again_  
+- [ ] **273. retry** · _Try again_  
   عاود
 
-- [ ] **272. nextLesson** · _Next lesson_  
+- [ ] **274. nextLesson** · _Next lesson_  
   الدرس اللي بعدو
 
-- [ ] **273. terms** · _Words in this lesson_  
+- [ ] **275. terms** · _Words in this lesson_  
   الكلمات متاع الدرس
 
-- [ ] **274. glossary** · _Glossary_  
+- [ ] **276. glossary** · _Glossary_  
   القاموس
 
-- [ ] **275. glossaryHint** · _Every crypto word from the lessons, in plain language._  
+- [ ] **277. glossaryHint** · _Every crypto word from the lessons, in plain language._  
   كلمات الـ crypto الكل اللي في الدروس، بالكلام الساهل.
 
-- [ ] **276. search** · _Search a word_  
+- [ ] **278. search** · _Search a word_  
   لوّج على كلمة
 
-- [ ] **277. noMatch** · _No word matches that._  
+- [ ] **279. noMatch** · _No word matches that._  
   ما لقينا حتى كلمة.
 
-- [ ] **278. fromLesson** · _From: {t}_  
+- [ ] **280. fromLesson** · _From: {t}_  
   من درس: {t}
 
-- [ ] **279. copyLink** · _Copy link_  
+- [ ] **281. copyLink** · _Copy link_  
   انسخ اللينك
 
-- [ ] **280. copied** · _Link copied_  
+- [ ] **282. copied** · _Link copied_  
   اللينك تنسخ
 
-- [ ] **281. notAdvice** · _Education only. Not financial advice. Qirat never tells you to buy or sell._  
+- [ ] **283. notAdvice** · _Education only. Not financial advice. Qirat never tells you to buy or sell._  
   تعليم برك. موش نصيحة مالية. قيراط عمرو ما يقلّك اشري ولا بيع.
 
-- [ ] **282. reset** · _Reset my progress_  
+- [ ] **284. reset** · _Reset my progress_  
   رجّع التقدّم متاعي للصفر
 
-- [ ] **283. resetConfirm** · _Start again from 10K?_  
+- [ ] **285. resetConfirm** · _Start again from 10K?_  
   تحب تعاود من 10K؟
 
-- [ ] **284. savedHere** · _Progress is saved on this device only, for now._  
+- [ ] **286. savedHere** · _Progress is saved on this device only, for now._  
   التقدّم متاعك محفوظ في الجهاز هذا برك، للتوّا.
 
 ## Telegram `/learn`
 
-- [ ] **285. bot lesson title bitcoin** · _What is crypto? Start with Bitcoin_  
+- [ ] **287. bot lesson title bitcoin** · _What is crypto? Start with Bitcoin_  
   شنوّة الـ crypto؟ نبداو بـ Bitcoin
 
-- [ ] **286. bot lesson title usdt** · _USDT, the “digital dollar”_  
+- [ ] **288. bot lesson title usdt** · _USDT, the “digital dollar”_  
   USDT، «الدولار الرقمي»
 
-- [ ] **287. bot lesson title price-swings** · _Why crypto prices swing so much_  
+- [ ] **289. bot lesson title price-swings** · _Why crypto prices swing so much_  
   علاش سوم الـ crypto يطلع ويهبط برشا؟
 
-- [ ] **288. bot lesson title scams** · _How scammers find you_  
+- [ ] **290. bot lesson title scams** · _How scammers find you_  
   كيفاش يلقاوك المتحيّلين
 
-- [ ] **289. bot lesson title fomo** · _FOMO: why buying after a big jump hurts_  
+- [ ] **291. bot lesson title fomo** · _FOMO: why buying after a big jump hurts_  
   الـ FOMO: علاش الشراية بعد طلعة كبيرة توجع
 
-- [ ] **290. bot learn_text** · _📚 <b>Today’s lesson</b> ⏎ {title} ⏎  ⏎ A 2-minute read and 3 quick questions. Your karat rises as you learn. ⏎  ⏎ <i>Education only. Not financial advice.</i>_  
+- [ ] **292. bot learn_text** · _📚 <b>Today’s lesson</b> ⏎ {title} ⏎  ⏎ A 2-minute read and 3 quick questions. Your karat rises as you learn. ⏎  ⏎ <i>Education only. Not financial advice.</i>_  
   📚 <b>درس اليوم</b> ⏎ {title} ⏎  ⏎ قراية دقيقتين و3 أسئلة صغار. القيراط متاعك يطلع كل ما تتعلّم. ⏎  ⏎ <i>تعليم برك. موش نصيحة مالية.</i>
 
-- [ ] **291. bot learn_btn** · _Read the lesson_  
+- [ ] **293. bot learn_btn** · _Read the lesson_  
   اقرا الدرس
 
-- [ ] **292. bot learn_all** · _All lessons_  
+- [ ] **294. bot learn_all** · _All lessons_  
   الدروس الكل

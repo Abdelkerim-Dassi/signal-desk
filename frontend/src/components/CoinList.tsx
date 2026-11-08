@@ -75,7 +75,10 @@ function ScoreDetails({ item }: { item: Opportunity }) {
               <span className="num font-semibold text-down" dir="ltr">{g.rough_month_pct.toFixed(0)}%</span>
             </div>
             <p className="border-t border-border pt-1.5 text-xs text-muted">
-              {t('risk.money', { v: Math.abs(Math.round(g.rough_month_pct)) })}
+              {t('risk.money', { v: Math.abs(Math.round(g.rough_month_pct)) })}{' '}
+              <a href="#learn-price-swings" className="font-medium text-gold underline underline-offset-2">
+                {t('risk.learn')}
+              </a>
             </p>
           </div>
           <p className="mt-2 text-xs text-muted">{t('risk.note')}</p>
