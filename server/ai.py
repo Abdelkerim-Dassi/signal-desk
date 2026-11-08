@@ -137,7 +137,10 @@ CHAT_SYSTEM_PROMPT = (
 LANGUAGES = {
     "en": "English",
     "fr": "French",
-    "ar": "Modern Standard Arabic",
+    # Tunisian Darija, matching the app and the social posts (2026-11).
+    "ar": ("Tunisian Darija (the everyday Tunisian dialect, written in Arabic script, "
+           "not Modern Standard Arabic). Keep words like crypto, coin, Bitcoin, risk "
+           "and wallet in Latin letters, and write every number with Western digits (0-9)"),
 }
 
 
