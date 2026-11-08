@@ -504,6 +504,17 @@ const ENGLISH_RATING: Record<string, string> = { STRONG: 'Strong', NEUTRAL: 'Neu
 const STORAGE_KEY = 'qirat.lang'
 
 export function initialLang(): Lang {
+  // A link like qirat.tn/?lang=ar (used in our Darija social bios) wins over
+  // the phone's language, and is remembered for the next visit.
+  try {
+    const fromUrl = new URLSearchParams(window.location.search).get('lang')
+    if (fromUrl === 'en' || fromUrl === 'fr' || fromUrl === 'ar') {
+      saveLang(fromUrl)
+      return fromUrl
+    }
+  } catch {
+    // no URL access: fall through
+  }
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
     if (saved === 'en' || saved === 'fr' || saved === 'ar') return saved
