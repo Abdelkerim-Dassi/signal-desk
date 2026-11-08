@@ -19,6 +19,7 @@ const UI = {
   'nav.practice': { en: 'Practice', fr: 'Entraînement', ar: 'تدريب' },
   'nav.learn': { en: 'Learn', fr: 'Apprendre', ar: 'تعلّم' },
   'nav.scamcheck': { en: 'Scam check', fr: 'Arnaque ?', ar: 'فحص احتيال' },
+  'nav.more': { en: 'More', fr: 'Plus', ar: 'المزيد' },
   'top.help': { en: 'How Qirat works', fr: 'Comment marche Qirat', ar: 'كيف يعمل قيراط' },
   'top.theme': { en: 'Switch light / dark', fr: 'Thème clair / sombre', ar: 'الوضع الفاتح / الداكن' },
   'top.language': { en: 'Language', fr: 'Langue', ar: 'اللغة' },
