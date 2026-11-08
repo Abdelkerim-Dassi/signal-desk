@@ -3,6 +3,7 @@ import AskView from './components/AskView'
 import CoinList from './components/CoinList'
 import FeedbackModal, { FeedbackPrompt } from './components/FeedbackModal'
 import GuideModal from './components/GuideModal'
+import LearnView from './components/LearnView'
 import MarketMoves from './components/MarketMoves'
 import { IconTelegram } from './components/Icons'
 import { BottomNav, TopBar } from './components/Navigation'
@@ -22,6 +23,8 @@ const TELEGRAM_URL = 'https://t.me/getqirat'
 
 function viewFromHash(): View {
   const id = window.location.hash.replace('#', '')
+  // lessons have their own shareable links: #learn-<slug>
+  if (id.startsWith('learn-')) return 'learn'
   return VIEWS.some((v) => v.id === id) ? (id as View) : 'today'
 }
 
@@ -93,6 +96,7 @@ export default function App() {
         )}
         {view === 'record' && <TrackRecord />}
         {view === 'practice' && <PracticeView onToast={setToast} />}
+        {view === 'learn' && <LearnView brief={brief} onView={go} />}
         {view === 'ask' && <AskView brief={brief} aiEnabled={Boolean(statusQuery.data?.ai_enabled)} />}
         {view === 'portfolio' && (
           <PortfolioView

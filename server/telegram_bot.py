@@ -24,7 +24,7 @@ import os
 import re
 import threading
 import time
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -568,6 +568,54 @@ def app_button(lang: str, view: str = "") -> dict[str, Any]:
     return {"text": t(lang, "open_app"), "url": APP_URL + (f"/#{view}" if view else "")}
 
 
+# ── /learn: today's lesson ──────────────────────────────────────────────────
+# LEARN-DARIJA-START (listed in docs/learn/darija-review.md)
+# Mirrors the written lessons in frontend/src/lib/lessons.ts, same order.
+LEARN_LESSONS: list[tuple[str, dict[str, str]]] = [
+    ("bitcoin", {"en": "What is crypto? Start with Bitcoin", "fr": "C’est quoi la crypto ? On commence par le Bitcoin", "ar": "شنوّة الـ crypto؟ نبداو بـ Bitcoin"}),
+    ("usdt", {"en": "USDT, the “digital dollar”", "fr": "L’USDT, le « dollar numérique »", "ar": "USDT، «الدولار الرقمي»"}),
+    ("price-swings", {"en": "Why crypto prices swing so much", "fr": "Pourquoi les prix crypto bougent autant", "ar": "علاش سوم الـ crypto يطلع ويهبط برشا؟"}),
+    ("scams", {"en": "How scammers find you", "fr": "Comment les arnaqueurs vous trouvent", "ar": "كيفاش يلقاوك المتحيّلين"}),
+    ("fomo", {"en": "FOMO: why buying after a big jump hurts", "fr": "Le FOMO : pourquoi acheter après une grosse hausse fait mal", "ar": "الـ FOMO: علاش الشراية بعد طلعة كبيرة توجع"}),
+]
+LEARN_T: dict[str, dict[str, str]] = {
+    "en": {
+        "learn_text": "📚 <b>Today’s lesson</b>\n{title}\n\nA 2-minute read and 3 quick questions. Your karat rises as you learn.\n\n<i>Education only. Not financial advice.</i>",
+        "learn_btn": "Read the lesson",
+        "learn_all": "All lessons",
+    },
+    "fr": {
+        "learn_text": "📚 <b>La leçon du jour</b>\n{title}\n\n2 minutes de lecture et 3 petites questions. Votre carat monte à mesure que vous apprenez.\n\n<i>Éducation uniquement. Pas un conseil financier.</i>",
+        "learn_btn": "Lire la leçon",
+        "learn_all": "Toutes les leçons",
+    },
+    "ar": {
+        "learn_text": "📚 <b>درس اليوم</b>\n{title}\n\nقراية دقيقتين و3 أسئلة صغار. القيراط متاعك يطلع كل ما تتعلّم.\n\n<i>تعليم برك. موش نصيحة مالية.</i>",
+        "learn_btn": "اقرا الدرس",
+        "learn_all": "الدروس الكل",
+    },
+}
+# LEARN-DARIJA-END
+
+
+def todays_lesson(today: date | None = None) -> tuple[str, dict[str, str]]:
+    """Same rotation as todaysLesson() in the web app: days since 1970-01-01."""
+    today = today or datetime.now(timezone.utc).date()
+    return LEARN_LESSONS[(today - date(1970, 1, 1)).days % len(LEARN_LESSONS)]
+
+
+def learn_message(lang: str) -> tuple[str, list[list[dict[str, Any]]]]:
+    lang = lang if lang in LEARN_T else "en"
+    slug, title = todays_lesson()
+    strings = LEARN_T[lang]
+    text = strings["learn_text"].format(title=esc(title[lang]))
+    buttons = [[
+        {"text": strings["learn_btn"], "url": f"{APP_URL}/#learn-{slug}"},
+        {"text": strings["learn_all"], "url": f"{APP_URL}/#learn"},
+    ]]
+    return text, buttons
+
+
 def watch_buttons(lang: str, data: dict[str, Any]) -> list[list[dict[str, Any]]]:
     on, off = "✅", "⬜"
     rows = [[
@@ -705,6 +753,8 @@ def handle_message(msg: dict[str, Any]) -> None:
             send(chat_id, record_text(lang), [[app_button(lang, "record")]])
         elif is_private:
             send(chat_id, t(lang, "help"), [[app_button(lang)]])
+    elif cmd == "learn":
+        send(chat_id, *learn_message(lang))
     elif cmd == "language":
         send(chat_id, t(lang, "lang_pick"), _language_buttons())
     elif cmd in ("watch", "list"):
