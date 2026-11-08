@@ -270,3 +270,23 @@ body {
 .briefing-md strong {
   font-weight: 600;
 }
+.briefing-md .md-table {
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+.briefing-md table {
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  width: 100%;
+}
+.briefing-md th,
+.briefing-md td {
+  text-align: start;
+  vertical-align: top;
+  padding: 0.35rem 0.6rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.briefing-md th {
+  font-weight: 600;
+  color: var(--color-muted);
+}

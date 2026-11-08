@@ -305,8 +305,20 @@ def _load_backtest() -> dict | None:
         return None
 
 
+def _track_record_public() -> bool:
+    """Whether the track record is served to everyone. Off by default: since
+    2026-11-07 results are measured privately and only scheduled jobs (or local
+    dev) can read them. PUBLIC_TRACK_RECORD=1 brings the public view back."""
+    return os.getenv("PUBLIC_TRACK_RECORD", "0").strip().lower() in ("1", "true", "yes", "on")
+
+
+_PRIVATE = {"ok": False, "error": "not public"}
+
+
 @app.get("/api/track-record")
-async def get_track_record() -> JSONResponse:
+async def get_track_record(request: Request) -> JSONResponse:
+    if not (_track_record_public() or _job_authorized(request)):
+        return JSONResponse(_PRIVATE, status_code=404)
     cached = track_cache.get("track")
     if cached is not None:
         return JSONResponse(cached)
@@ -444,7 +456,9 @@ async def card_today(lang: str = "en") -> Response:
 
 
 @app.get("/api/card/report.png")
-async def card_report(lang: str = "en") -> Response:
+async def card_report(request: Request, lang: str = "en") -> Response:
+    if not (_track_record_public() or _job_authorized(request)):
+        return JSONResponse(_PRIVATE, status_code=404)
     live = await asyncio.to_thread(track_record.summary)
     resolved = live.get("latest_resolved")
     if not resolved:

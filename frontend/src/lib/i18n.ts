@@ -107,7 +107,9 @@ const UI = {
     fr: 'Trop récente pour un carat : il faut 3 mois d’historique.',
     ar: 'أحدث من أن تُعطى عياراً: تحتاج 3 أشهر من البيانات.',
   },
-  'risk.low': { en: 'Low risk', fr: 'Risque faible', ar: 'مخاطرة منخفضة' },
+  // "Low" is relative to other coins: even the calmest crypto swings far more
+  // than savings or gold, so the label says so.
+  'risk.low': { en: 'Low risk for crypto', fr: 'Risque faible pour une crypto', ar: 'مخاطرة منخفضة (للكريبتو)' },
   'risk.medium': { en: 'Medium risk', fr: 'Risque moyen', ar: 'مخاطرة متوسطة' },
   'risk.high': { en: 'High risk', fr: 'Risque élevé', ar: 'مخاطرة عالية' },
   'risk.title': { en: 'If it goes wrong', fr: 'Si ça tourne mal', ar: 'إذا ساءت الأمور' },
@@ -119,9 +121,9 @@ const UI = {
     ar: 'على 100 دينار، قد يعني شهر سيئ خسارة نحو {v} دينار.',
   },
   'risk.note': {
-    en: 'Past swings, not a forecast. Risk is the part of the grade that has been most reliable.',
-    fr: 'Ce sont les variations passées, pas une prévision. Le risque est la partie la plus fiable de la note.',
-    ar: 'هذه تقلبات سابقة وليست توقعاً. المخاطرة هي الجزء الأكثر موثوقية في التقييم.',
+    en: 'Past swings, not a forecast. Risk is the part of the grade that has been most reliable. "Low" means low compared with other coins: crypto still swings far more than savings or gold.',
+    fr: 'Ce sont les variations passées, pas une prévision. Le risque est la partie la plus fiable de la note. « Faible » veut dire faible par rapport aux autres cryptos : une crypto bouge toujours bien plus qu’une épargne ou que l’or.',
+    ar: 'هذه تقلبات سابقة وليست توقعاً. المخاطرة هي الجزء الأكثر موثوقية في التقييم. «منخفضة» تعني مقارنةً بالعملات الأخرى: الكريبتو تتقلب دائماً أكثر بكثير من الادخار أو الذهب.',
   },
 
   'coins.title': { en: 'Your coins', fr: 'Vos cryptos', ar: 'عملاتك' },

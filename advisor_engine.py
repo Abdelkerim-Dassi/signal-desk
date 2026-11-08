@@ -563,7 +563,7 @@ def get_grade_reference() -> dict[str, Any] | None:
             except Exception:
                 return None
 
-        with ThreadPoolExecutor(max_workers=8) as pool:
+        with ThreadPoolExecutor(max_workers=len(GRADE_UNIVERSE)) as pool:
             rows = [r for r in pool.map(one, GRADE_UNIVERSE) if r]
         vols = [r["vol30"] for r in rows]
         moms = [r["mom90"] for r in rows if r["mom90"] is not None]
@@ -931,14 +931,13 @@ def score_binance_symbols(
     into roughly one batch.
     """
     holding_map = holding_map or {}
-    try:
-        reference = get_grade_reference()
-    except Exception:
-        reference = None
+    analyses = []
+    errors = []
+    if not symbols:
+        return analyses, errors
 
-    def score(symbol: str) -> dict[str, Any]:
-        ticker = get_binance_24hr(symbol)
-        klines = get_binance_klines(symbol, limit=GRADE_HISTORY)
+    def score(symbol: str, ticker: dict[str, Any], klines: list[list[Any]],
+              reference: dict[str, Any] | None) -> dict[str, Any]:
         market = binance_ticker_to_market(ticker, klines, quote_asset)
         chart = binance_klines_to_chart(klines)
         analysis = analyze_asset(market, chart, sentiment, holding_map.get(symbol), regime)
@@ -946,15 +945,20 @@ def score_binance_symbols(
         analysis["grade"] = grade_closes(closes, reference)
         return analysis
 
-    analyses = []
-    errors = []
-    if not symbols:
-        return analyses, errors
-    with ThreadPoolExecutor(max_workers=min(8, len(symbols))) as pool:
-        futures = [(symbol, pool.submit(score, symbol)) for symbol in symbols]
-        for symbol, future in futures:
+    # Both requests per coin go out at once, while the grade reference loads.
+    with ThreadPoolExecutor(max_workers=min(16, 2 * len(symbols))) as pool:
+        jobs = [
+            (symbol, pool.submit(get_binance_24hr, symbol),
+             pool.submit(get_binance_klines, symbol, limit=GRADE_HISTORY))
+            for symbol in symbols
+        ]
+        try:
+            reference = get_grade_reference()
+        except Exception:
+            reference = None
+        for symbol, ticker_job, klines_job in jobs:
             try:
-                analyses.append(future.result())
+                analyses.append(score(symbol, ticker_job.result(), klines_job.result(), reference))
             except Exception as exc:
                 row = {"symbol": symbol, "error": str(exc)}
                 # Binance answers 400 "Invalid symbol" for pairs it doesn't list
@@ -973,9 +977,27 @@ def build_binance_market_brief(
     holding_map = {infer_binance_symbol(holding.coin_id, quote_asset): holding for holding in holdings}
     holding_symbols = [infer_binance_symbol(holding.coin_id, quote_asset) for holding in holdings]
     symbols = normalize_binance_symbols(assets + holding_symbols, quote_asset)
-    sentiment = get_fear_greed()
-    regime = get_market_regime()
-    analyses, errors = score_binance_symbols(symbols, sentiment, regime, quote_asset, holding_map)
+    # The market-wide inputs don't depend on each other: fetch them at once
+    # instead of one after another (a cold brief took ~5 s, mostly waiting).
+    # The grade reference and funding calls only warm their caches, so the
+    # scoring and weather below reuse the results instead of fetching again.
+    # Headlines only need each coin's ticker and name, which are known up front.
+    watch_names = []
+    for symbol in symbols:
+        base, _ = split_binance_symbol(symbol, quote_asset)
+        watch_names.append({"symbol": base, "name": BINANCE_BASE_NAMES.get(base, base)})
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        sentiment_job = pool.submit(get_fear_greed)
+        regime_job = pool.submit(get_market_regime)
+        global_job = pool.submit(get_global_market)
+        news_job = pool.submit(get_news, watchlist=watch_names)
+        pool.submit(get_grade_reference)
+        pool.submit(get_avg_funding)
+        sentiment = sentiment_job.result()
+        regime = regime_job.result()
+        analyses, errors = score_binance_symbols(symbols, sentiment, regime, quote_asset, holding_map)
+        global_market = global_job.result()
+        news = news_job.result()
 
     # A list made only of coins Binance doesn't list is a user typo, not an outage:
     # return an empty brief with the errors so the app can say which coin to fix.
@@ -992,12 +1014,14 @@ def build_binance_market_brief(
         "sentiment": sentiment,
         "regime": regime,
         "weather": get_market_weather(sentiment),
-        "global": get_global_market(),
-        "trending": get_trending(),
+        "global": global_market,
+        # CoinGecko "trending searches" are mostly hyped micro-caps: a FOMO feed
+        # that doesn't fit a calm app, and one less call on every brief.
+        "trending": [],
         "assets": analyses,
         "opportunities": opportunities,
         "portfolio": portfolio,
-        "news": get_news(watchlist=opportunities),
+        "news": news,
         "errors": errors,
         "disclaimer": (
             "Ratings use Binance Spot market data plus public sentiment/news. "
@@ -1045,7 +1069,9 @@ def build_market_brief(
         "sentiment": sentiment,
         "regime": regime,
         "global": global_market,
-        "trending": get_trending(),
+        # CoinGecko "trending searches" are mostly hyped micro-caps: a FOMO feed
+        # that doesn't fit a calm app, and one less call on every brief.
+        "trending": [],
         "assets": analyses,
         "opportunities": opportunities,
         "portfolio": portfolio,

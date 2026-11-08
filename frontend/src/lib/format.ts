@@ -66,7 +66,8 @@ export function formatDuration(totalSeconds: number): string {
   return minutes <= 0 ? `${rest}s` : `${minutes}m ${String(rest).padStart(2, '0')}s`
 }
 
-/** Minimal, escape-first markdown renderer for the AI briefing (headings, bold, bullets). */
+/** Minimal, escape-first markdown renderer for the AI briefing and chat
+ * (headings, bold, italics, bullets, and pipe tables). */
 export function briefingHtml(markdown: string): string {
   const escaped = markdown
     .replaceAll('&', '&amp;')
@@ -74,20 +75,44 @@ export function briefingHtml(markdown: string): string {
     .replaceAll('>', '&gt;')
   const lines = escaped.split('\n')
   const out: string[] = []
+  const fmt = (text: string) =>
+    text
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/(^|[^*\w])\*([^*\s][^*]*?)\*(?!\w)/g, '$1<em>$2</em>')
   let inList = false
+  let table: string[][] | null = null
   const closeList = () => {
     if (inList) {
       out.push('</ul>')
       inList = false
     }
   }
+  const closeTable = () => {
+    if (!table) return
+    const [head, ...body] = table
+    const cells = (row: string[], tag: 'th' | 'td') => row.map((c) => `<${tag}>${fmt(c)}</${tag}>`).join('')
+    out.push(
+      `<div class="md-table"><table><thead><tr>${cells(head, 'th')}</tr></thead><tbody>${body
+        .map((r) => `<tr>${cells(r, 'td')}</tr>`)
+        .join('')}</tbody></table></div>`,
+    )
+    table = null
+  }
   for (const raw of lines) {
     const line = raw.trim()
+    if (/^\|.*\|$/.test(line)) {
+      closeList()
+      const row = line.slice(1, -1).split('|').map((c) => c.trim())
+      if (row.every((c) => /^:?-{2,}:?$/.test(c))) continue // the |---|---| separator
+      ;(table ??= []).push(row)
+      continue
+    }
+    closeTable()
     if (!line) {
       closeList()
       continue
     }
-    const inline = line.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    const inline = fmt(line)
     if (/^#{1,4}\s/.test(line)) {
       closeList()
       out.push(`<h3>${inline.replace(/^#{1,4}\s*/, '')}</h3>`)
@@ -106,6 +131,7 @@ export function briefingHtml(markdown: string): string {
       out.push(`<p>${inline}</p>`)
     }
   }
+  closeTable()
   closeList()
   return out.join('')
 }

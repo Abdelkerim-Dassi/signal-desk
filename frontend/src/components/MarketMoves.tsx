@@ -10,13 +10,13 @@ function sourceName(source?: string): string {
 export default function MarketMoves({ brief }: { brief: Brief | undefined }) {
   const { t } = useI18n()
   const news = brief?.news ?? []
-  const trending = brief?.trending ?? []
-  if (news.length === 0 && trending.length === 0) return null
+  // Trending searches were removed (2026-11): mostly hyped micro-caps.
+  if (news.length === 0) return null
 
   return (
     <section className="space-y-3">
       <h2 className="px-1 text-lg font-semibold">{t('moves.title')}</h2>
-      <div className="grid gap-3 lg:grid-cols-[1.6fr_1fr]">
+      <div className="grid gap-3">
         {news.length > 0 && (
           <div className="card p-4">
             <p className="tick-label mb-1">{t('moves.news')}</p>
@@ -41,29 +41,6 @@ export default function MarketMoves({ brief }: { brief: Brief | undefined }) {
                     {timeAgo(item.published_at) ? ` · ${timeAgo(item.published_at)}` : ''}
                   </p>
                 </a>
-              ))}
-            </div>
-          </div>
-        )}
-        {trending.length > 0 && (
-          <div className="card p-4">
-            <p className="tick-label mb-3">{t('moves.trending')}</p>
-            <div className="flex flex-wrap gap-2">
-              {trending.slice(0, 8).map((coin, i) => (
-                <span
-                  key={`${coin.symbol}-${i}`}
-                  className="inline-flex items-center gap-2 rounded-full bg-subtle py-1 ps-1 pe-3 text-sm"
-                >
-                  {coin.thumb ? (
-                    <img src={coin.thumb} alt="" className="size-6 rounded-full" />
-                  ) : (
-                    <span className="size-6 rounded-full bg-gold-soft" />
-                  )}
-                  <span className="font-medium">{coin.symbol}</span>
-                  {coin.market_cap_rank != null && (
-                    <span className="num text-xs text-muted">#{coin.market_cap_rank}</span>
-                  )}
-                </span>
               ))}
             </div>
           </div>

@@ -80,7 +80,7 @@ def api(method: str, **params: Any) -> dict[str, Any]:
 T: dict[str, dict[str, str]] = {
     "en": {
         "welcome": "<b>Welcome to Qirat</b> 💎\nEvery coin has a karat. I grade crypto coins like gold: 24K = calm and climbing, 10K = wild or sliding, and I tell you how risky each one is.\n\nTry it: send <code>BTC</code> or tap a button.",
-        "help": "<b>How Qirat works</b>\n• /score BTC ETH: each coin's karat (24K best, 10K weakest) and its risk\n• /watch: your coin list, daily briefing and alerts\n• /market: today's market weather\n• /record: our track record\n• /language: change language\n\nKarats compare coins with each other. The weather tells you how the whole market feels: in a storm even 24K coins usually fall.",
+        "help": "<b>How Qirat works</b>\n• /score BTC ETH: each coin's karat (24K best, 10K weakest) and its risk\n• /watch: your coin list, daily briefing and alerts\n• /market: today's market weather\n• /language: change language\n\nKarats compare coins with each other. The weather tells you how the whole market feels: in a storm even 24K coins usually fall.",
         "w_calm": "☀️ Market: calm",
         "w_choppy": "🌤 Market: choppy",
         "w_stormy": "⛈ Market: stormy",
@@ -88,7 +88,7 @@ T: dict[str, dict[str, str]] = {
         "w_dip_body": "Bitcoin slipped {pct} below its 50-day average but holds its 200-day line. Expect bigger swings.",
         "w_hot_body": "Bitcoin is above its 50-day average but the crowd is overheated. Pullbacks get more likely.",
         "w_stormy_body": "Bitcoin is below its 50-day and 200-day averages. In storms most coins fall, even 24K ones.",
-        "risk_low": "🟢 Low risk",
+        "risk_low": "🟢 Low risk for crypto",
         "risk_medium": "🟠 Medium risk",
         "risk_high": "🔴 High risk",
         "young": "Too new for a karat (needs 3 months)",
@@ -141,7 +141,7 @@ T: dict[str, dict[str, str]] = {
     },
     "fr": {
         "welcome": "<b>Bienvenue sur Qirat</b> 💎\nChaque crypto a son carat. Je note les cryptos comme l'or : 24K = calme et en hausse, 10K = agitée ou en baisse, et je vous dis à quel point chacune est risquée.\n\nEssayez : envoyez <code>BTC</code> ou touchez un bouton.",
-        "help": "<b>Comment marche Qirat</b>\n• /score BTC ETH : le carat de chaque crypto (24K le meilleur, 10K le plus faible) et son risque\n• /watch : votre liste, le briefing quotidien et les alertes\n• /market : la météo du marché\n• /record : notre historique\n• /language : changer de langue\n\nLes carats comparent les cryptos entre elles. La météo dit comment va tout le marché : dans l'orage, même les 24K baissent souvent.",
+        "help": "<b>Comment marche Qirat</b>\n• /score BTC ETH : le carat de chaque crypto (24K le meilleur, 10K le plus faible) et son risque\n• /watch : votre liste, le briefing quotidien et les alertes\n• /market : la météo du marché\n• /language : changer de langue\n\nLes carats comparent les cryptos entre elles. La météo dit comment va tout le marché : dans l'orage, même les 24K baissent souvent.",
         "w_calm": "☀️ Marché : calme",
         "w_choppy": "🌤 Marché : agité",
         "w_stormy": "⛈ Marché : orageux",
@@ -149,7 +149,7 @@ T: dict[str, dict[str, str]] = {
         "w_dip_body": "Le bitcoin est passé {pct} sous sa moyenne 50 jours mais tient sa moyenne 200 jours. Attendez-vous à des remous.",
         "w_hot_body": "Le bitcoin est au-dessus de sa moyenne 50 jours mais la foule surchauffe. Les replis deviennent plus probables.",
         "w_stormy_body": "Le bitcoin est sous ses moyennes 50 et 200 jours. Dans l'orage, la plupart des cryptos baissent, même les 24K.",
-        "risk_low": "🟢 Risque faible",
+        "risk_low": "🟢 Risque faible pour une crypto",
         "risk_medium": "🟠 Risque moyen",
         "risk_high": "🔴 Risque élevé",
         "young": "Trop récente pour un carat (3 mois requis)",
@@ -202,7 +202,7 @@ T: dict[str, dict[str, str]] = {
     },
     "ar": {
         "welcome": "<b>مرحباً بك في قيراط</b> 💎\nلكل عملة قيراطها. أقيّم العملات المشفرة مثل الذهب: عيار 24 = هادئة وصاعدة، عيار 10 = متقلبة أو هابطة، وأخبرك بمدى خطورة كل عملة.\n\nجرّب: أرسل <code>BTC</code> أو اضغط زراً.",
-        "help": "<b>كيف يعمل قيراط</b>\n• /score BTC ETH: عيار كل عملة (24 الأفضل، 10 الأضعف) ومخاطرتها\n• /watch: قائمتك والموجز اليومي والتنبيهات\n• /market: طقس السوق اليوم\n• /record: سجلنا\n• /language: تغيير اللغة\n\nالعيار يقارن العملات ببعضها. والطقس يخبرك بحال السوق كله: في العاصفة تنخفض حتى عملات عيار 24 غالباً.",
+        "help": "<b>كيف يعمل قيراط</b>\n• /score BTC ETH: عيار كل عملة (24 الأفضل، 10 الأضعف) ومخاطرتها\n• /watch: قائمتك والموجز اليومي والتنبيهات\n• /market: طقس السوق اليوم\n• /language: تغيير اللغة\n\nالعيار يقارن العملات ببعضها. والطقس يخبرك بحال السوق كله: في العاصفة تنخفض حتى عملات عيار 24 غالباً.",
         "w_calm": "☀️ السوق: هادئ",
         "w_choppy": "🌤 السوق: متقلّب",
         "w_stormy": "⛈ السوق: عاصف",
@@ -210,7 +210,7 @@ T: dict[str, dict[str, str]] = {
         "w_dip_body": "نزل البيتكوين {pct} تحت متوسطه لـ50 يوماً لكنه فوق خط الـ200 يوم. توقّع تقلبات أكبر.",
         "w_hot_body": "البيتكوين فوق متوسطه لـ50 يوماً لكن السوق في حالة اندفاع. احتمال التراجع أكبر.",
         "w_stormy_body": "البيتكوين تحت متوسطيه لـ50 و200 يوم. في العاصفة تنخفض معظم العملات، حتى عيار 24.",
-        "risk_low": "🟢 مخاطرة منخفضة",
+        "risk_low": "🟢 مخاطرة منخفضة (للكريبتو)",
         "risk_medium": "🟠 مخاطرة متوسطة",
         "risk_high": "🔴 مخاطرة عالية",
         "young": "أحدث من أن تُعطى عياراً (تحتاج 3 أشهر)",
@@ -700,7 +700,11 @@ def handle_message(msg: dict[str, Any]) -> None:
     elif cmd == "market":
         send(chat_id, market_text(lang), [[app_button(lang)]])
     elif cmd == "record":
-        send(chat_id, record_text(lang), [[app_button(lang, "record")]])
+        # Results are private for now (see public_track_record); only the owner sees them.
+        if public_track_record() or marketing.owner() == str(chat_id):
+            send(chat_id, record_text(lang), [[app_button(lang, "record")]])
+        elif is_private:
+            send(chat_id, t(lang, "help"), [[app_button(lang)]])
     elif cmd == "language":
         send(chat_id, t(lang, "lang_pick"), _language_buttons())
     elif cmd in ("watch", "list"):
@@ -930,6 +934,12 @@ def post_channel_today() -> dict[str, Any]:
     png = cards.today_card(rows, weather, today["day"], lang)
     res = send_photo(CHANNEL, png, "\n".join(lines), [[app_button(lang)]])
     return {"posted": bool(res.get("ok")), "error": res.get("description")}
+
+
+def public_track_record() -> bool:
+    """Whether /record answers everyone. Off by default, like the web Track
+    record tab: results are measured privately and only the owner sees them."""
+    return os.getenv("PUBLIC_TRACK_RECORD", "0").strip().lower() in ("1", "true", "yes", "on")
 
 
 def public_report_card() -> bool:
