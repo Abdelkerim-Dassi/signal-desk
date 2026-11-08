@@ -36,10 +36,10 @@ from fastapi.staticfiles import StaticFiles
 from advisor_engine import build_market_brief, normalize_asset_ids, parse_holdings
 from notifications import format_market_alert, notification_status, send_notifications
 
-from . import ai, cards, paper, telegram_bot, track_record
+from . import ai, cards, paper, scamcheck, telegram_bot, track_record
 from .cache import TTLCache, brief_cache
-from .ratelimit import check_ai_allowance
-from .schemas import AnalyzeRequest, BriefingRequest, ChatRequest, NotifyRequest
+from .ratelimit import RateLimiter, check_ai_allowance
+from .schemas import AnalyzeRequest, BriefingRequest, ChatRequest, NotifyRequest, ScamCheckRequest
 
 ROOT = Path(__file__).resolve().parent.parent
 STATIC_DIR = ROOT / "frontend" / "dist"
@@ -299,6 +299,50 @@ async def ai_chat(req: ChatRequest, request: Request) -> Response:
             "X-Accel-Buffering": "no",  # ask reverse proxies not to buffer SSE
         },
     )
+
+
+# The scam check calls free third-party APIs (GoPlus: 150 calls/min for the
+# whole app), so it has its own per-IP window on top of the AI limits.
+scam_limiter = RateLimiter(
+    max_requests=int(os.getenv("SCAMCHECK_RATE_LIMIT", "20")),
+    window_seconds=60,
+)
+
+
+@app.post("/api/scamcheck")
+async def scam_check(req: ScamCheckRequest, request: Request) -> JSONResponse:
+    """Red flags for a pasted message, link, token/wallet address or platform name.
+    Never says something is safe; see server/scamcheck.py."""
+    limited = _ai_rate_limited(request)
+    if limited is not None:
+        return limited
+    ip = _client_ip(request)
+    if scam_limiter.max_requests > 0 and not scam_limiter.allow(ip):
+        retry = scam_limiter.retry_after(ip)
+        return JSONResponse(
+            {"ok": False, "error": f"Too many checks — try again in ~{retry}s."},
+            status_code=429,
+            headers={"Retry-After": str(retry)},
+        )
+    fields = {
+        "text": (req.text or "").strip() or None,
+        "url": (req.url or "").strip() or None,
+        "address": (req.address or "").strip() or None,
+        "chain": (req.chain or "").strip() or None,
+        "platform": (req.platform or "").strip() or None,
+    }
+    if not any(fields[k] for k in ("text", "url", "address", "platform")):
+        return JSONResponse({"ok": False, "error": "Nothing to check."}, status_code=400)
+    try:
+        result = await asyncio.to_thread(lambda: scamcheck.check(**fields, language=req.language))
+    except Exception as exc:
+        log.exception("scamcheck failed")
+        return JSONResponse({"ok": False, "error": str(exc)}, status_code=502)
+    if not result.get("ok"):
+        return JSONResponse(result, status_code=400)
+    source_text = "\n".join(v for v in (fields["text"], fields["url"], fields["platform"]) if v)
+    result["explanation"] = await scamcheck.explain(source_text, result) if req.explain else None
+    return JSONResponse(result, headers={"Cache-Control": "no-store"})
 
 
 def _load_backtest() -> dict | None:

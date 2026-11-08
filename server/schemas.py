@@ -50,3 +50,17 @@ class ChatRequest(BaseModel):
     brief: dict[str, Any] | None = None
     history: list[ChatMessage] = Field(default_factory=list)
     language: str = "en"
+
+
+class ScamCheckRequest(BaseModel):
+    """Anything a user wants checked; every field is optional. ``text`` may be a
+    pasted message, a link, a contract/wallet address or a platform name: the
+    server detects which."""
+
+    text: str | None = Field(default=None, max_length=8000)
+    url: str | None = Field(default=None, max_length=2000)
+    address: str | None = Field(default=None, max_length=120)
+    chain: str | None = Field(default=None, max_length=20)
+    platform: str | None = Field(default=None, max_length=200)
+    language: str = "en"
+    explain: bool = True

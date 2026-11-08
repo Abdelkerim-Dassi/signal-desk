@@ -9,6 +9,7 @@ import { IconTelegram } from './components/Icons'
 import { BottomNav, TopBar } from './components/Navigation'
 import PortfolioView from './components/PortfolioView'
 import PracticeView from './components/PracticeView'
+import ScamCheckView from './components/ScamCheckView'
 import TodayHero from './components/TodayHero'
 import TrackRecord from './components/TrackRecord'
 import { DEFAULT_CONFIG, useAppStatus, useBrief } from './hooks/useBrief'
@@ -97,6 +98,7 @@ export default function App() {
         {view === 'record' && <TrackRecord />}
         {view === 'practice' && <PracticeView onToast={setToast} />}
         {view === 'learn' && <LearnView brief={brief} onView={go} />}
+        {view === 'scamcheck' && <ScamCheckView />}
         {view === 'ask' && <AskView brief={brief} aiEnabled={Boolean(statusQuery.data?.ai_enabled)} />}
         {view === 'portfolio' && (
           <PortfolioView

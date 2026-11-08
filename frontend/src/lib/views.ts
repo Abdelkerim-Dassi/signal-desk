@@ -1,10 +1,10 @@
 import type { ComponentType, SVGProps } from 'react'
 import { IconPractice } from '../components/PracticeView'
-import { IconAsk, IconRecord, IconToday, IconWallet } from '../components/Icons'
+import { IconAsk, IconRecord, IconShield, IconToday, IconWallet } from '../components/Icons'
 import { IconLearn } from '../components/LearnBadge'
 import type { UIKey } from './i18n'
 
-export type View = 'today' | 'record' | 'ask' | 'portfolio' | 'practice' | 'learn'
+export type View = 'today' | 'record' | 'ask' | 'portfolio' | 'practice' | 'learn' | 'scamcheck'
 
 // The Track record tab is hidden since 2026-11-07: results are measured
 // privately (the API answers only scheduled jobs). Build with
@@ -18,4 +18,5 @@ export const VIEWS: { id: View; label: UIKey; Icon: ComponentType<SVGProps<SVGSV
   { id: 'ask' as const, label: 'nav.ask' as const, Icon: IconAsk },
   { id: 'portfolio' as const, label: 'nav.portfolio' as const, Icon: IconWallet },
   { id: 'practice' as const, label: 'nav.practice' as const, Icon: IconPractice },
+  { id: 'scamcheck' as const, label: 'nav.scamcheck' as const, Icon: IconShield },
 ].filter((v) => v.id !== 'record' || PUBLIC_RECORD)
