@@ -80,7 +80,7 @@ def api(method: str, **params: Any) -> dict[str, Any]:
 T: dict[str, dict[str, str]] = {
     "en": {
         "welcome": "<b>Welcome to Qirat</b> 💎\nEvery coin has a karat. I grade crypto coins like gold: 24K = calm and climbing, 10K = wild or sliding, and I tell you how risky each one is.\n\nTry it: send <code>BTC</code> or tap a button.",
-        "help": "<b>How Qirat works</b>\n• /score BTC ETH: each coin's karat (24K best, 10K weakest) and its risk\n• /watch: your coin list, daily briefing and alerts\n• /market: today's market weather\n• /record: our track record\n• /language: change language\n\nKarats compare coins with each other. The weather tells you how the whole market feels: in a storm even 24K coins usually fall.",
+        "help": "<b>How Qirat works</b>\n• /score BTC ETH: each coin's karat (24K best, 10K weakest) and its risk\n• /watch: your coin list, daily briefing and alerts\n• /market: today's market weather\n• /scamcheck: paste a message, link or platform name to see its red flags\n• /record: our track record\n• /language: change language\n\nKarats compare coins with each other. The weather tells you how the whole market feels: in a storm even 24K coins usually fall.",
         "w_calm": "☀️ Market: calm",
         "w_choppy": "🌤 Market: choppy",
         "w_stormy": "⛈ Market: stormy",
@@ -141,7 +141,7 @@ T: dict[str, dict[str, str]] = {
     },
     "fr": {
         "welcome": "<b>Bienvenue sur Qirat</b> 💎\nChaque crypto a son carat. Je note les cryptos comme l'or : 24K = calme et en hausse, 10K = agitée ou en baisse, et je vous dis à quel point chacune est risquée.\n\nEssayez : envoyez <code>BTC</code> ou touchez un bouton.",
-        "help": "<b>Comment marche Qirat</b>\n• /score BTC ETH : le carat de chaque crypto (24K le meilleur, 10K le plus faible) et son risque\n• /watch : votre liste, le briefing quotidien et les alertes\n• /market : la météo du marché\n• /record : notre historique\n• /language : changer de langue\n\nLes carats comparent les cryptos entre elles. La météo dit comment va tout le marché : dans l'orage, même les 24K baissent souvent.",
+        "help": "<b>Comment marche Qirat</b>\n• /score BTC ETH : le carat de chaque crypto (24K le meilleur, 10K le plus faible) et son risque\n• /watch : votre liste, le briefing quotidien et les alertes\n• /market : la météo du marché\n• /scamcheck : collez un message, un lien ou un nom de plateforme pour voir les signaux d'alerte\n• /record : notre historique\n• /language : changer de langue\n\nLes carats comparent les cryptos entre elles. La météo dit comment va tout le marché : dans l'orage, même les 24K baissent souvent.",
         "w_calm": "☀️ Marché : calme",
         "w_choppy": "🌤 Marché : agité",
         "w_stormy": "⛈ Marché : orageux",
@@ -202,7 +202,7 @@ T: dict[str, dict[str, str]] = {
     },
     "ar": {
         "welcome": "<b>مرحباً بك في قيراط</b> 💎\nلكل عملة قيراطها. أقيّم العملات المشفرة مثل الذهب: عيار 24 = هادئة وصاعدة، عيار 10 = متقلبة أو هابطة، وأخبرك بمدى خطورة كل عملة.\n\nجرّب: أرسل <code>BTC</code> أو اضغط زراً.",
-        "help": "<b>كيف يعمل قيراط</b>\n• /score BTC ETH: عيار كل عملة (24 الأفضل، 10 الأضعف) ومخاطرتها\n• /watch: قائمتك والموجز اليومي والتنبيهات\n• /market: طقس السوق اليوم\n• /record: سجلنا\n• /language: تغيير اللغة\n\nالعيار يقارن العملات ببعضها. والطقس يخبرك بحال السوق كله: في العاصفة تنخفض حتى عملات عيار 24 غالباً.",
+        "help": "<b>كيف يعمل قيراط</b>\n• /score BTC ETH: عيار كل عملة (24 الأفضل، 10 الأضعف) ومخاطرتها\n• /watch: قائمتك والموجز اليومي والتنبيهات\n• /market: طقس السوق اليوم\n• /scamcheck: الصق رسالة أو رابطاً أو اسم منصة لترى علامات التحذير\n• /record: سجلنا\n• /language: تغيير اللغة\n\nالعيار يقارن العملات ببعضها. والطقس يخبرك بحال السوق كله: في العاصفة تنخفض حتى عملات عيار 24 غالباً.",
         "w_calm": "☀️ السوق: هادئ",
         "w_choppy": "🌤 السوق: متقلّب",
         "w_stormy": "⛈ السوق: عاصف",
@@ -652,6 +652,21 @@ def add_coin(lang: str, data: dict[str, Any], coin: str) -> str:
     return t(lang, "added", coin=coin)
 
 
+def handle_scamcheck(chat_id: int, lang: str, text: str) -> None:
+    """Red flags for a message, link, token or platform name (never "safe")."""
+    from . import scamcheck
+
+    if not text.strip():
+        send(chat_id, scamcheck.TG_TEXT["usage"][lang], [[app_button(lang, "scamcheck")]])
+        return
+    api("sendChatAction", chat_id=chat_id, action="typing")
+    try:
+        result = scamcheck.run_sync(text, language=lang)
+    except Exception:  # a failing lookup must not leave the user without an answer
+        result = scamcheck.check(text=text, language=lang, network=False)
+    send(chat_id, scamcheck.telegram_text(result), [[app_button(lang, "scamcheck")]])
+
+
 def handle_message(msg: dict[str, Any]) -> None:
     chat = msg["chat"]
     user = msg.get("from")
@@ -697,6 +712,9 @@ def handle_message(msg: dict[str, Any]) -> None:
         send(chat_id, t(lang, "help"), [[app_button(lang), {"text": t(lang, "channel"), "url": CHANNEL_URL}]])
     elif cmd == "score":
         handle_score(chat_id, lang, data, parse_tickers(args))
+    elif cmd in ("scamcheck", "scam", "check"):
+        reply = msg.get("reply_to_message") or {}
+        handle_scamcheck(chat_id, lang, args or reply.get("text") or reply.get("caption") or "")
     elif cmd == "market":
         send(chat_id, market_text(lang), [[app_button(lang)]])
     elif cmd == "record":

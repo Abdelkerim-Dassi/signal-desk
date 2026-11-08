@@ -84,7 +84,7 @@ export function BottomNav({ view, onView }: { view: View; onView: (v: View) => v
       className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
       aria-label="Main"
     >
-      <div className="mx-auto grid max-w-md grid-cols-4">
+      <div className="mx-auto grid max-w-md" style={{ gridTemplateColumns: `repeat(${VIEWS.length}, minmax(0, 1fr))` }}>
         {VIEWS.map(({ id, label, Icon }) => (
           <button
             key={id}

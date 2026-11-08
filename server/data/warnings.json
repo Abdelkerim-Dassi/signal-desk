@@ -1,0 +1,160 @@
+{
+  "_about": "Curated regulator and press warnings for Qirat's scam check. Add an entry only with a public source URL. 'entities' are named warnings (matched against what the user pastes); 'alerts' describe a scam pattern and back the red-flag rules. match: 'contains' = the name may appear inside a longer text; 'exact' = only when the user types the name itself (for generic words).",
+  "updated": "2026-11-08",
+  "entities": [
+    {
+      "id": "elinoja-patrimoine",
+      "name": "ELINOJA PATRIMOINE",
+      "aliases": ["elinoja patrimoine", "elinoja"],
+      "match": "contains",
+      "regulator": "CMF",
+      "country": "TN",
+      "date": "2026-10-28",
+      "summary": {
+        "en": "Tunisia's market regulator (CMF) warned that this entity offered to manage people's portfolios on social media, presented as investment advice, without any approval. Managing money for others is reserved to licensed brokers, management companies and banks.",
+        "fr": "Le CMF a mis en garde contre cette entité qui proposait sur les réseaux sociaux de gérer des portefeuilles, présentée comme du conseil en investissement, sans aucun agrément. La gestion pour le compte de tiers est réservée aux intermédiaires en Bourse, sociétés de gestion et banques agréés.",
+        "ar": "حذّرت هيئة السوق المالية التونسية من هذه الجهة التي عرضت على مواقع التواصل إدارة محافظ الناس، تحت غطاء النصيحة الاستثمارية، دون أي ترخيص. إدارة أموال الغير حكر على الوسطاء وشركات التصرف والبنوك المرخّص لها."
+      },
+      "source_name": "L'Économiste Maghrébin (CMF warning)",
+      "source_url": "https://www.leconomistemaghrebin.com/2026/10/28/cmf-attention-aux-arnaques-dinvestissement-sur-les-reseaux-sociaux/"
+    },
+    {
+      "id": "lua-myriam-trabelsi",
+      "name": "Lua Myriam Trabelsi",
+      "aliases": ["lua myriam trabelsi", "myriam trabelsi"],
+      "match": "contains",
+      "regulator": "CMF",
+      "country": "TN",
+      "date": "2026-09-11",
+      "summary": {
+        "en": "The CMF warned that documents circulating under this name used the CMF's identity to make investment offers look approved. The CMF said it never validated them and would file a criminal complaint.",
+        "fr": "Le CMF a averti que des documents diffusés sous ce nom usurpaient son identité pour faire passer des offres d'investissement pour agréées. Le CMF ne les a jamais validées et annonce une plainte pénale.",
+        "ar": "نبّهت هيئة السوق المالية إلى أن وثائق متداولة بهذا الاسم انتحلت صفتها لتجعل عروض استثمار تبدو مرخّصة. الهيئة لم تصادق عليها أبداً وأعلنت تقديم شكوى جزائية."
+      },
+      "source_name": "Managers.tn (CMF warning)",
+      "source_url": "https://managers.tn/2026/09/11/cmf-une-pretendue-lua-myriam-trabelsi-fait-circuler-de-faux-documents-pour-pieger-des-investisseurs/"
+    },
+    {
+      "id": "startup-fund-tn",
+      "name": "startup-fund.tn",
+      "aliases": ["startup-fund.tn", "startup fund tn"],
+      "match": "contains",
+      "regulator": "CMF",
+      "country": "TN",
+      "date": "2019-11-19",
+      "summary": {
+        "en": "The CMF warned that this website invited savers to invest as an 'equity crowdfunding platform' with no legal status to offer securities, and falsely claimed a link with the CMF.",
+        "fr": "Le CMF a mis en garde contre ce site qui invitait les épargnants à investir comme « plateforme d'equity crowdfunding » sans statut légal pour offrir des titres, et revendiquait à tort un partenariat avec le CMF.",
+        "ar": "حذّرت هيئة السوق المالية من هذا الموقع الذي دعا المدّخرين للاستثمار بصفته «منصة تمويل تشاركي» دون صفة قانونية، وادّعى زوراً شراكة مع الهيئة."
+      },
+      "source_name": "WebManagerCenter (CMF warning)",
+      "source_url": "https://www.webmanagercenter.com/2019/11/19/441455/tunisie-mise-en-garde-du-cmf/"
+    },
+    {
+      "id": "cbex",
+      "name": "CBEX",
+      "aliases": ["cbex"],
+      "match": "contains",
+      "regulator": "press",
+      "country": "Africa",
+      "date": "2025-07-01",
+      "summary": {
+        "en": "A crypto Ponzi that promised about 100% a month from 'AI trading' through Telegram, changed domains several times, collapsed in April 2025, then victims were targeted again by 'recovery fee' scams.",
+        "fr": "Une pyramide crypto qui promettait environ 100 % par mois grâce au « trading par IA » via Telegram, a changé plusieurs fois de domaine, s'est effondrée en avril 2025, puis les victimes ont été visées par des arnaques aux « frais de récupération ».",
+        "ar": "مخطط بونزي للعملات الرقمية وعد بحوالي 100% شهرياً عبر «تداول بالذكاء الاصطناعي» على تيليغرام، وغيّر نطاقه عدة مرات، ثم انهار في أفريل 2025، وبعدها استُهدف الضحايا بعمليات احتيال «رسوم الاسترجاع»."
+      },
+      "source_name": "Le360 Afrique / AFP",
+      "source_url": "https://afrique.le360.ma/afrique-de-louest/la-crypto-arnaque-cbex-une-pyramide-de-ponzi-ayant-ruine-de-nombreux-africains_AO7B2ORNKZAR7GAL4OERH4TYCE"
+    },
+    {
+      "id": "al-khair-tontine",
+      "name": "Al Khaïr (Morocco tontine)",
+      "aliases": ["al khair", "al khaïr", "alkhair"],
+      "match": "exact",
+      "regulator": "press",
+      "country": "MA",
+      "date": "2024-10-01",
+      "summary": {
+        "en": "A WhatsApp 'tontine' in Morocco: pay 1,800 MAD, get 10,000 MAD after recruiting two more people. About 720 million MAD were reported lost. Influencers and preachers promoted it.",
+        "fr": "Une « tontine » WhatsApp au Maroc : payer 1 800 MAD, recevoir 10 000 MAD après avoir recruté deux personnes. Environ 720 millions de MAD de pertes rapportées. Des influenceurs et prédicateurs en faisaient la promotion.",
+        "ar": "«جمعية» على واتساب في المغرب: تدفع 1800 درهم وتأخذ 10000 درهم بعد أن تجلب شخصين. أُبلغ عن خسائر بحوالي 720 مليون درهم، وروّج لها مؤثرون ووعّاظ."
+      },
+      "source_name": "Challenge.ma",
+      "source_url": "https://www.challenge.ma/tout-ce-quil-faut-savoir-sur-la-plus-grosse-fraude-de-ponzi-de-lhistoire-du-maroc-288369"
+    }
+  ],
+  "alerts": [
+    {
+      "id": "cmf-fake-approvals",
+      "regulator": "CMF",
+      "country": "TN",
+      "date": "2026-09-09",
+      "title": "CMF: fake approval documents using the CMF's name",
+      "source_url": "https://www.webdo.tn/fr/actualite/national/le-cmf-alerte-sur-de-faux-agrements-utilises-pour-proposer-des-investissements-fictifs/403808/"
+    },
+    {
+      "id": "cmf-fraud-guide",
+      "regulator": "CMF",
+      "country": "TN",
+      "date": "2026-10-05",
+      "title": "CMF guide: prevent online fraud and invest with care",
+      "source_url": "https://cmf.tn/sites/default/files/pdfs/documentation/guides/Guide%20fraude%20CMF.pdf"
+    },
+    {
+      "id": "cmf-social-media",
+      "regulator": "CMF",
+      "country": "TN",
+      "date": "2026-10-28",
+      "title": "CMF: unlicensed portfolio management on social media",
+      "source_url": "https://www.leconomistemaghrebin.com/2026/10/28/cmf-attention-aux-arnaques-dinvestissement-sur-les-reseaux-sociaux/"
+    },
+    {
+      "id": "ammc-fake-platforms",
+      "regulator": "AMMC",
+      "country": "MA",
+      "date": "2026-09-16",
+      "title": "AMMC: fake investment platforms (ads → WhatsApp group → fake dashboard → blocked withdrawal → fee)",
+      "source_url": "https://fr.hespress.com/488684-investissement-lammc-met-en-garde-contre-les-plateformes-frauduleuses.html"
+    },
+    {
+      "id": "ammc-unauthorised-advice",
+      "regulator": "AMMC",
+      "country": "MA",
+      "date": "2025-12-22",
+      "title": "AMMC: unauthorised investment advice and fraudulent trading platforms",
+      "source_url": "https://medias24.com/2025/12/22/lammc-met-en-garde-contre-le-conseil-en-investissement-illegal-et-les-plateformes-de-trading-frauduleuses-1601028/"
+    },
+    {
+      "id": "bclcc-activation-packs",
+      "regulator": "BCLCC",
+      "country": "TN",
+      "date": "2026-01-15",
+      "title": "Tunisian cybercrime brigade: fake platforms selling paid 'activation packs'",
+      "source_url": "https://www.leconomistemaghrebin.com/?p=685700"
+    },
+    {
+      "id": "tasks-recharge",
+      "regulator": "press",
+      "country": "TN",
+      "date": "2026-05-26",
+      "title": "La Presse: 'earn by tasks' scams that ask for top-ups",
+      "source_url": "https://fr.allafrica.com/stories/202605270239.html"
+    },
+    {
+      "id": "manouba-meetups",
+      "regulator": "press",
+      "country": "TN",
+      "date": "2026-04-05",
+      "title": "La Presse: 'cheap crypto' meetups in Manouba that were armed robberies",
+      "source_url": "https://www.lapresse.tn/2026/04/05/arnaque-a-la-cryptomonnaie-a-la-manouba-une-femme-a-la-tete-dun-reseau-criminel-demantelearnaque-a-la-cryptomonnaie-a-la-manouba-une-femme-a-la-tete-dun-reseau-criminel-demantele/"
+    },
+    {
+      "id": "binance-p2p-safety",
+      "regulator": "exchange",
+      "country": "global",
+      "date": "2025-01-01",
+      "title": "Binance: common P2P scams (fake 'paid' marks, fake receipts, third-party payments)",
+      "source_url": "https://www.binance.com/en/blog/p2p/5812573865681778876"
+    }
+  ]
+}
