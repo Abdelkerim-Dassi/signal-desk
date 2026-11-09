@@ -6,7 +6,9 @@ import { useI18n } from '../lib/i18n'
 import { GLOSSARY, LEARN_UI, LESSONS, isReady, lessonsForTerm, todaysLesson } from '../lib/lessons'
 import type { LearnKey, Lesson, LiveLink, Text } from '../lib/lessons'
 import { markRead, recordQuiz, resetProgress, useLearnProgress } from '../lib/learnProgress'
+import { track } from '../lib/source'
 import type { View } from '../lib/views'
+import BotInvite from './BotInvite'
 import { UserKaratIngot } from './LearnBadge'
 import { GemMark } from './Logo'
 import { CoinIcon, KaratBadge, RiskChip } from './Rating'
@@ -286,6 +288,8 @@ function LessonPage({ lesson, brief, onView }: { lesson: Lesson; brief: Brief | 
   const ready = isReady(lesson)
   const endRef = useRef<HTMLDivElement>(null)
 
+  useEffect(() => track('lesson_open'), [lesson.slug])
+
   // reaching the takeaway counts as having read the lesson
   useEffect(() => {
     const el = endRef.current
@@ -435,6 +439,7 @@ function Quiz({ lesson }: { lesson: Lesson }) {
   const advance = () => {
     if (last) {
       const passed = recordQuiz(lesson.slug, score)
+      if (passed && !wasPassed) track('lesson_pass')
       setResult({ score, passed, wasPassed })
       return
     }
@@ -468,6 +473,11 @@ function Quiz({ lesson }: { lesson: Lesson }) {
           >
             {lt('retry')}
           </button>
+          {result.passed && (
+            <div className="mt-5">
+              <BotInvite place="quiz" inset />
+            </div>
+          )}
         </div>
       ) : (
         <>

@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react'
+import { arrive, inTunisia } from './source'
 
 export type Lang = 'en' | 'fr' | 'ar'
 export const LANGS: { code: Lang; label: string; short: string }[] = [
@@ -311,12 +312,7 @@ const UI = {
     ar: 'بلاش في فترة التجربة. تقييمات بقواعد ثابتة، كيف كيف للناس الكل. موش نصيحة مالية.',
   },
   'foot.data': { en: 'Market data', fr: 'Données', ar: 'المعطيات' },
-  'foot.telegram': { en: 'Join us on Telegram', fr: 'Rejoignez-nous sur Telegram', ar: 'انضمّ لينا في Telegram' },
-  'foot.telegramHint': {
-    en: 'Today’s karats every morning, the market weather, and a place to ask questions.',
-    fr: 'Les carats du jour chaque matin, la météo du marché, et un endroit pour poser vos questions.',
-    ar: 'القيراطات متاع اليوم كل صباح، طقس السوق، وبلاصة تسأل فيها.',
-  },
+  'foot.channel': { en: 'Telegram channel', fr: 'Canal Telegram', ar: 'القناة في Telegram' },
   'foot.feedback': { en: 'Give feedback', fr: 'Donner mon avis', ar: 'قلّنا رأيك' },
   'foot.feedbackHint': {
     en: 'Testing Qirat? 30 seconds, anonymous. It shapes what gets built next.',
@@ -521,8 +517,13 @@ export function initialLang(): Lang {
   } catch {
     // storage blocked: fall through to the browser language
   }
-  const nav = (navigator.language || 'en').slice(0, 2)
-  return nav === 'fr' || nav === 'ar' ? nav : 'en'
+  // No choice made yet. A visit through a platform address (qirat.tn/t, /i,
+  // /f, /w) comes from a Darija post, so it opens in Darija.
+  if (arrive().source) return 'ar'
+  const nav = (navigator.language || 'en').slice(0, 2).toLowerCase()
+  if (nav === 'fr' || nav === 'ar') return nav
+  // Many phones in Tunisia are set to English; the audience still reads Darija.
+  return inTunisia() ? 'ar' : 'en'
 }
 
 export function saveLang(lang: Lang): void {

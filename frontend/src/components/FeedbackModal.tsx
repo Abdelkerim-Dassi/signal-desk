@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react'
 import {
   feedbackFormUrl,
-  feedbackHandled,
   feedbackPreview,
-  feedbackVisible,
   markFeedbackHandled,
   submitFeedback,
   type FeedbackAnswers,
 } from '../lib/feedback'
-import { useI18n } from '../lib/i18n'
 
 /* ⚠️ `value` is posted verbatim to a multiple-choice question in the live Google
    Form, which accepts an exact option string and rejects everything else — and
@@ -285,59 +282,6 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
           </>
         )}
       </div>
-    </div>
-  )
-}
-
-/**
- * A quiet nudge in the bottom corner. Held back for a while on purpose —
- * asking "what's missing?" before someone has read a single score gets you
- * nothing useful. Shows once per visitor until they answer or dismiss it.
- */
-export function FeedbackPrompt({
-  onOpen,
-  // short in preview so you don't sit waiting to see it
-  delayMs = feedbackPreview ? 4_000 : 45_000,
-}: {
-  onOpen: () => void
-  delayMs?: number
-}) {
-  const { t } = useI18n()
-  const [show, setShow] = useState(false)
-
-  useEffect(() => {
-    if (!feedbackVisible || feedbackHandled()) return
-    const t = window.setTimeout(() => setShow(true), delayMs)
-    return () => window.clearTimeout(t)
-  }, [delayMs])
-
-  if (!show) return null
-
-  return (
-    // on phones, sit above the bottom navigation bar instead of covering it
-    <div className="rise fixed right-4 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-40 flex max-w-[calc(100vw-2rem)] items-stretch gap-px overflow-hidden rounded-xl shadow-[0_16px_50px_-12px_rgba(94,234,212,0.55)] md:bottom-4">
-      <button
-        onClick={() => {
-          setShow(false)
-          onOpen()
-        }}
-        // same glow + sheen as the header's "How to use" CTA — this is the one
-        // thing we actively want a visitor to notice
-        className="guide-cta flex cursor-pointer items-center gap-2 bg-teal px-4 py-2.5 font-display text-sm font-bold tracking-widest text-ink uppercase transition sm:gap-2.5 sm:px-5 sm:py-3.5 sm:text-lg"
-      >
-        <span aria-hidden className="text-lg leading-none">✎</span>
-        {t('foot.feedback')}
-      </button>
-      <button
-        onClick={() => {
-          markFeedbackHandled('dismissed')
-          setShow(false)
-        }}
-        aria-label="Dismiss feedback prompt"
-        className="cursor-pointer bg-teal px-3 text-lg text-ink/50 transition hover:text-ink"
-      >
-        ×
-      </button>
     </div>
   )
 }

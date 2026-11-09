@@ -25,6 +25,7 @@ import {
   withCurvePoint,
   withTrade,
 } from '../lib/practice'
+import BotInvite from './BotInvite'
 import { CoinIcon, KaratBadge, RiskChip } from './Rating'
 
 /** Tab icon: a coin on a practice target. */
@@ -161,6 +162,11 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
             <div className="order-3">
               <CoachCard last={lastNotes?.trade ?? null} />
             </div>
+            {ledger.trades.length > 0 && (
+              <div className="order-3">
+                <BotInvite place="practice" />
+              </div>
+            )}
           </div>
         </div>
       )}

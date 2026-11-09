@@ -5,18 +5,34 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#f6f4ef" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0f1013" media="(prefers-color-scheme: dark)" />
+    <!-- light on every phone by default; lib/prefs.ts updates this when dark is chosen -->
+    <meta name="theme-color" content="#f6f4ef" />
     <meta
       name="description"
-      content="Qirat grades every crypto coin like gold: how strong its trend is, how risky it is and how the market feels today, explained in plain words. Free, in English, French and Arabic. Not financial advice."
+      content="قيراط: الصق ميساج WhatsApp ولا Telegram، لينك ولا اسم منصّة، وشوف علامات الخطر. بلاش. · Qirat : collez un message, un lien ou un nom de plateforme et voyez les signaux d’arnaque. Gratuit, en darija, français et anglais."
     />
-    <meta property="og:title" content="Qirat · Every coin has a karat" />
+    <!-- What WhatsApp, Telegram and Facebook show when the address is pasted.
+         The audience is Tunisian, so the preview speaks Darija first.
+         Image: marketing/assets/brand/og_image.py -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Qirat · قيراط" />
+    <meta property="og:url" content="https://qirat.tn/" />
+    <meta property="og:locale" content="ar_TN" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:title" content="قيراط · هذا تحيّل؟ فركس الميساج بلاش" />
     <meta
       property="og:description"
-      content="Every coin has a karat. Clear grades for trend and risk, explained in plain words. Free, no sign-up."
+      content="الصق ميساج WhatsApp ولا Telegram، لينك ولا اسم منصّة. قيراط يورّيك علامات الخطر. عمرو ما يبعثلك هو الأوّل، وعمرو ما يطلب منك فلوس."
     />
-    <title>Qirat · Every coin has a karat</title>
+    <meta property="og:image" content="https://qirat.tn/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="قيراط: هذا تحيّل؟ فركس متاعك بلاش. qirat.tn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://qirat.tn/og-image.png" />
+    <link rel="canonical" href="https://qirat.tn/" />
+    <title>Qirat · قيراط · Scam ولا لا؟</title>
   </head>
   <body>
     <div id="root"></div>

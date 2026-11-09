@@ -35,6 +35,7 @@ from advisor_engine import (
 )
 
 from . import cards, track_record, upstash
+from . import stats as usage
 from .labels import te
 from .cache import TTLCache
 
@@ -375,6 +376,9 @@ def ensure_chat(chat: dict[str, Any], user: dict[str, Any] | None) -> dict[str, 
             "joined": datetime.now(timezone.utc).date().isoformat(),
         }
         save_chat(chat["id"], data)
+        # counted once per chat, so the total only grows (the chat list
+        # shrinks when someone blocks the bot)
+        usage.bump("bot_new_chat")
     return data
 
 
@@ -712,13 +716,21 @@ def handle_scamcheck(chat_id: int, lang: str, text: str) -> None:
         result = scamcheck.run_sync(text, language=lang)
     except Exception:  # a failing lookup must not leave the user without an answer
         result = scamcheck.check(text=text, language=lang, network=False)
+    usage.bump(f"scamcheck_bot:{result.get('level', 'none')}")
     send(chat_id, scamcheck.telegram_text(result), [[app_button(lang, "scamcheck")]])
+
+
+def looks_like_a_message(text: str) -> bool:
+    """A pasted or forwarded message, as opposed to a short word the bot does
+    not understand: a sentence's worth of text, or anything holding a link."""
+    return len(text) >= 25 or "http" in text.lower() or "www." in text.lower()
 
 
 def handle_message(msg: dict[str, Any]) -> None:
     chat = msg["chat"]
     user = msg.get("from")
-    text = (msg.get("text") or "").strip()
+    # a forwarded picture carries its words in the caption
+    text = (msg.get("text") or msg.get("caption") or "").strip()
     chat_id = chat["id"]
     data = ensure_chat(chat, user)
     lang = data["lang"]
@@ -739,6 +751,9 @@ def handle_message(msg: dict[str, Any]) -> None:
         tickers = parse_tickers(text)
         if tickers and len(text) <= 60:
             handle_score(chat_id, lang, data, tickers)
+        elif looks_like_a_message(text):
+            # pasting or forwarding a message is the natural way to ask "is this a scam?"
+            handle_scamcheck(chat_id, lang, text)
         else:
             send(chat_id, t(lang, "help"), [[app_button(lang)]])
         return
@@ -750,6 +765,9 @@ def handle_message(msg: dict[str, Any]) -> None:
     if marketing.handle_command(chat_id, is_private, cmd, args):
         return
     if cmd == "start":
+        if is_private:
+            # the site's buttons open t.me/getqirat_bot?start=<source>-<place>
+            usage.bump(usage.bot_start_field(args))
         send(chat_id, t(lang, "welcome"), [
             [{"text": t(lang, "score_btc"), "callback_data": "score:BTC"},
              {"text": t(lang, "my_list"), "callback_data": "watch"}],

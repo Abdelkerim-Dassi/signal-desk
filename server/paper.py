@@ -43,6 +43,8 @@ from advisor_engine import (
     percent_change,
 )
 
+from . import stats
+
 # ── the rules of the game ───────────────────────────────────────────────────
 START_USDT = 10.0
 FEE_RATE = 0.001  # 0.1% per trade, like a Binance spot taker fee
@@ -464,6 +466,7 @@ async def paper_quote(req: QuoteRequest) -> JSONResponse:
             fill, after = apply_sell(wallet, base, coin["price"], _num(req.fraction, 0.0))
     except TradeError as exc:
         return _error(exc.code, str(exc))
+    await asyncio.to_thread(stats.bump, "practice_trade")
     now_ms = time.time() * 1000
     notes = coach(req.side, base, coin, m["weather"], after, prices, req.recent_ts, now_ms)
     return JSONResponse(

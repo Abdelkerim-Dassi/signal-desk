@@ -39,11 +39,12 @@ export function toAnalyzeParams(config: AdvisorConfig): AnalyzeParams {
 }
 
 /** Polls the free heuristic endpoint only — the AI endpoints are never polled. */
-export function useBrief(config: AdvisorConfig) {
+export function useBrief(config: AdvisorConfig, enabled = true) {
   const params = toAnalyzeParams(config)
   return useQuery({
     queryKey: ['brief', params],
     queryFn: () => analyze(params),
+    enabled,
     refetchInterval: config.live ? config.intervalMs : false,
     refetchOnWindowFocus: false,
     staleTime: 60_000,

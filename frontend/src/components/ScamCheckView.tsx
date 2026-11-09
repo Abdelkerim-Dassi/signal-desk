@@ -1,12 +1,20 @@
 import { useRef, useState } from 'react'
 import { useI18n } from '../lib/i18n'
 import type { Lang } from '../lib/i18n'
+import { INVITE } from '../lib/invite'
 import { detectKind, isEvmAddress, scamCheck } from '../lib/scamcheck'
 import type { InputKind, Level, ScamResult, Severity } from '../lib/scamcheck'
+import { track } from '../lib/source'
 import { IconShield } from './Icons'
 
 // Strings live here (not in lib/i18n.ts) so this view stays self-contained.
 const S = {
+  // Says what Qirat is to someone who has just arrived from a video.
+  lead: {
+    en: 'Qirat checks a message for scam signs before you lose money. Free.',
+    fr: 'Qirat vérifie un message avant que vous ne perdiez de l’argent. Gratuit.',
+    ar: 'قيراط يفركسلك الميساج قبل ما تخسر فلوسك. بلاش.',
+  },
   title: { en: 'Is this a scam?', fr: 'Est-ce une arnaque ?', ar: 'هذا تحيّل؟' },
   intro: {
     en: 'Paste a WhatsApp or Telegram message, a link, a platform name or a token address. Qirat lists the warning signs and what to check. It never says something is safe.',
@@ -86,7 +94,7 @@ function shareText(r: ScamResult, s: (k: Key) => string): string {
   for (const f of r.flags.filter((f) => f.severity === 'high' || f.severity === 'medium').slice(0, 4)) {
     lines.push(`• ${f.title}`)
   }
-  lines.push('', r.disclaimer, `${s('shareFoot')}: https://qirat.tn/#scamcheck`)
+  lines.push('', r.disclaimer, `${s('shareFoot')}: https://qirat.tn/w`)
   return lines.join('\n')
 }
 
@@ -146,6 +154,7 @@ export default function ScamCheckView() {
 
   const share = async () => {
     if (!result) return
+    track('share', 'scam')
     const text = shareText(result, s)
     try {
       if (navigator.share) {
@@ -182,6 +191,7 @@ export default function ScamCheckView() {
   return (
     <div className="space-y-5">
       <section className="card hero-wash rise p-5">
+        <p className="mb-2 text-sm font-medium text-gold">{s('lead')}</p>
         <h1 className="flex items-center gap-2 text-xl font-semibold">
           <IconShield className="text-gold" /> {s('title')}
         </h1>
@@ -261,6 +271,7 @@ export default function ScamCheckView() {
           </div>
         )}
         {error && <p className="mt-3 text-sm text-warn">{error}</p>}
+        <p className="mt-4 border-t border-border pt-3 text-xs text-muted">{INVITE.trust[lang]}</p>
       </section>
 
       {result && (
@@ -384,6 +395,7 @@ export default function ScamCheckView() {
                 href={`https://wa.me/?text=${encodeURIComponent(shareText(result, s))}`}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => track('share', 'scam')}
                 className="rounded-full border border-border px-4 py-2 text-sm font-medium transition hover:border-border-strong"
               >
                 WhatsApp

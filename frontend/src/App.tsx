@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import AskView from './components/AskView'
+import BotInvite from './components/BotInvite'
 import CoinList from './components/CoinList'
-import FeedbackModal, { FeedbackPrompt } from './components/FeedbackModal'
+import FeedbackModal from './components/FeedbackModal'
 import GuideModal from './components/GuideModal'
 import LearnView from './components/LearnView'
 import MarketMoves from './components/MarketMoves'
-import { IconTelegram } from './components/Icons'
 import { BottomNav, TopBar } from './components/Navigation'
 import PortfolioView from './components/PortfolioView'
 import PracticeView from './components/PracticeView'
@@ -17,10 +17,11 @@ import type { AdvisorConfig } from './hooks/useBrief'
 import { feedbackVisible } from './lib/feedback'
 import { useI18n } from './lib/i18n'
 import { loadConfig, saveConfig } from './lib/prefs'
+import { arrive, track } from './lib/source'
 import { VIEWS } from './lib/views'
 import type { View } from './lib/views'
 
-const TELEGRAM_URL = 'https://t.me/getqirat'
+const CHANNEL_URL = 'https://t.me/getqirat'
 
 function viewFromHash(): View {
   const id = window.location.hash.replace('#', '')
@@ -31,7 +32,12 @@ function viewFromHash(): View {
 
 export default function App() {
   const { t } = useI18n()
-  const [view, setView] = useState<View>(viewFromHash)
+  // A first visit, or one through a platform address (qirat.tn/t, /i, /f, /w),
+  // opens on Scam check: arrive() puts #scamcheck in the address for those.
+  const [view, setView] = useState<View>(() => {
+    arrive()
+    return viewFromHash()
+  })
   const [config, setConfig] = useState<AdvisorConfig>(() => loadConfig(DEFAULT_CONFIG))
   // Draft config: typing in a form shouldn't refetch per keystroke. The
   // query key only changes when the debounced config settles.
@@ -55,7 +61,15 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const briefQuery = useBrief(config)
+  useEffect(() => track('view', view), [view])
+
+  // Scam check and Practice don't use the market brief, so a visitor who
+  // lands there doesn't wait for it (or pay for it on mobile data). It loads
+  // the first time a screen that shows it is opened, and stays on after that.
+  const showsBrief = view !== 'scamcheck' && view !== 'practice'
+  const [briefOn, setBriefOn] = useState(showsBrief)
+  if (showsBrief && !briefOn) setBriefOn(true)
+  const briefQuery = useBrief(config, briefOn)
   const statusQuery = useAppStatus()
   const [toast, setToast] = useState<string | null>(null)
   const [showGuide, setShowGuide] = useState(false)
@@ -110,26 +124,18 @@ export default function App() {
           />
         )}
 
-        <a
-          href={TELEGRAM_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="card flex items-center gap-4 p-4 transition hover:border-border-strong"
-        >
-          <span className="grid size-11 shrink-0 place-items-center rounded-full bg-[#229ED9] text-xl text-white">
-            <IconTelegram />
-          </span>
-          <span className="min-w-0">
-            <span className="block font-semibold">{t('foot.telegram')}</span>
-            <span className="block text-sm text-muted">{t('foot.telegramHint')}</span>
-          </span>
-          <span className="ms-auto shrink-0 text-sm font-medium text-gold" dir="ltr">
-            t.me/getqirat
-          </span>
-        </a>
+        {/* On Scam check this sits right under the result, so it carries that tag.
+            Learn and Practice show their own after a passed quiz or a trade. */}
+        {view !== 'learn' && view !== 'practice' && <BotInvite place={view === 'scamcheck' ? 'scam' : 'footer'} />}
 
         <footer className="space-y-2 pt-4 pb-2 text-center text-xs text-muted">
           <p>{t('foot.disclaimer')}</p>
+          <p>
+            {t('foot.channel')}:{' '}
+            <a href={CHANNEL_URL} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-gold" dir="ltr">
+              t.me/getqirat
+            </a>
+          </p>
           <p dir="ltr">
             {t('foot.data')}: Binance ·{' '}
             <a
@@ -167,7 +173,6 @@ export default function App() {
       <BottomNav view={view} onView={go} />
       <GuideModal open={showGuide} onClose={() => setShowGuide(false)} />
       <FeedbackModal open={showFeedback} onClose={() => setShowFeedback(false)} />
-      <FeedbackPrompt onOpen={() => setShowFeedback(true)} />
 
       {toast && (
         <div className="card rise fixed bottom-24 left-1/2 z-50 -translate-x-1/2 px-4 py-2 text-sm md:bottom-6">

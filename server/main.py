@@ -36,10 +36,12 @@ from fastapi.staticfiles import StaticFiles
 from advisor_engine import build_market_brief, normalize_asset_ids, parse_holdings
 from notifications import format_market_alert, notification_status, send_notifications
 
-from . import ai, cards, paper, scamcheck, telegram_bot, track_record
+from . import ai, cards, paper, scamcheck, stats, telegram_bot, track_record
 from .cache import TTLCache, brief_cache
 from .ratelimit import RateLimiter, check_ai_allowance
-from .schemas import AnalyzeRequest, BriefingRequest, ChatRequest, NotifyRequest, ScamCheckRequest
+from .schemas import (
+    AnalyzeRequest, BriefingRequest, ChatRequest, NotifyRequest, ScamCheckRequest, StatsEvent,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 STATIC_DIR = ROOT / "frontend" / "dist"
@@ -279,6 +281,7 @@ async def ai_chat(req: ChatRequest, request: Request) -> Response:
         return JSONResponse({"ok": False, "error": "Empty question."}, status_code=400)
 
     history = [{"role": m.role, "content": m.content} for m in req.history]
+    await asyncio.to_thread(stats.bump, "ask")
 
     async def event_stream():
         # SSE frames: data: {"text": ...} per chunk, then data: {"done": true}.
@@ -340,6 +343,10 @@ async def scam_check(req: ScamCheckRequest, request: Request) -> JSONResponse:
         return JSONResponse({"ok": False, "error": str(exc)}, status_code=502)
     if not result.get("ok"):
         return JSONResponse(result, status_code=400)
+    # The app asks twice for a flagged result (rules first, then the plain-words
+    # explanation); only the first call counts as a check.
+    if not req.explain:
+        await asyncio.to_thread(stats.bump, f"scamcheck:{result.get('level', 'none')}")
     source_text = "\n".join(v for v in (fields["text"], fields["url"], fields["platform"]) if v)
     result["explanation"] = await scamcheck.explain(source_text, result) if req.explain else None
     return JSONResponse(result, headers={"Cache-Control": "no-store"})
@@ -453,6 +460,31 @@ async def cron_telegram_alerts(request: Request) -> JSONResponse:
         return JSONResponse({"ok": False, "error": "bot not configured"}, status_code=503)
     result = await asyncio.to_thread(telegram_bot.check_alerts)
     return JSONResponse({"ok": True, **result})
+
+
+# ── private usage counters ───────────────────────────────────────────────────
+# Daily totals only (see server/stats.py). The browser reports a few named
+# events; everything else is counted where it happens on the server.
+
+stats_limiter = RateLimiter(max_requests=60, window_seconds=60)
+
+
+@app.post("/api/stats/event")
+async def stats_event(req: StatsEvent, request: Request) -> JSONResponse:
+    field = stats.client_field(req.event, req.value)
+    if field and stats_limiter.allow(_client_ip(request)):
+        await asyncio.to_thread(stats.bump, field)
+    # Always the same answer: a counter is never worth an error on the page.
+    return JSONResponse({"ok": True}, headers={"Cache-Control": "no-store"})
+
+
+@app.get("/api/stats")
+async def get_stats(request: Request, days: int = 30) -> JSONResponse:
+    """Counters for the last N days. Private: same secret as the scheduled jobs."""
+    if not _job_authorized(request):
+        return JSONResponse(_UNAUTHORIZED, status_code=401)
+    data = await asyncio.to_thread(stats.read, days)
+    return JSONResponse(data, status_code=200 if data.get("ok") else 503, headers={"Cache-Control": "no-store"})
 
 
 @app.get("/api/marketing/queue")

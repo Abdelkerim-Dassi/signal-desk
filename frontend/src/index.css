@@ -44,7 +44,9 @@
   --color-avoid: var(--color-warn);
 }
 
-/* dark theme: explicit choice, or the system preference when none is set */
+/* Dark theme: only when the visitor picks it. Light is the default on every
+   phone, whatever its system setting: visitors arrive from cream-coloured
+   videos, and black and gold is the look of the trading accounts Qirat is not. */
 :root[data-theme='dark'] {
   --color-bg: #0f1013;
   --color-card: #17191d;
@@ -63,27 +65,6 @@
   --color-weak: #f87171;
   --color-warn: #fbbf24;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --color-bg: #0f1013;
-    --color-card: #17191d;
-    --color-subtle: #1f2126;
-    --color-border: rgba(255, 255, 255, 0.08);
-    --color-border-strong: rgba(227, 181, 81, 0.4);
-    --color-text: #ecedef;
-    --color-muted: #9a9ea6;
-    --color-gold: #e3b551;
-    --color-gold-bright: #f0c768;
-    --color-gold-soft: rgba(227, 181, 81, 0.12);
-    --color-up: #34d399;
-    --color-down: #f87171;
-    --color-strong: #34d399;
-    --color-neutral: #94a3b8;
-    --color-weak: #f87171;
-    --color-warn: #fbbf24;
-  }
-}
-
 html {
   -webkit-text-size-adjust: 100%;
 }

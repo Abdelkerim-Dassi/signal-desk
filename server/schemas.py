@@ -64,3 +64,11 @@ class ScamCheckRequest(BaseModel):
     platform: str | None = Field(default=None, max_length=200)
     language: str = "en"
     explain: bool = True
+
+
+class StatsEvent(BaseModel):
+    """One anonymous usage event from the app, e.g. ``{"event": "visit", "value": "t"}``.
+    Only the names listed in ``server/stats.py`` are counted."""
+
+    event: str = Field(max_length=24)
+    value: str | None = Field(default=None, max_length=24)

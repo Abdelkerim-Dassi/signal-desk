@@ -254,7 +254,13 @@ def handle_callback(cb: dict[str, Any]) -> bool:
 
 
 def handle_command(chat_id: int, is_private: bool, cmd: str, args: str) -> bool:
-    """/claim and /queue. Returns True when the command was handled here."""
+    """/claim, /queue and /stats. Returns True when the command was handled here."""
+    if cmd == "stats" and str(chat_id) == owner():
+        from . import stats
+
+        days = int(args) if args.strip().isdigit() else 7
+        bot.send(chat_id, bot.esc(stats.owner_report(max(1, min(days, 90)))))
+        return True
     if cmd == "claim" and is_private:
         ok = claim_owner(chat_id)
         bot.send(chat_id, "✅ You'll get the daily posts to approve here every morning."

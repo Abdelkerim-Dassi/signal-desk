@@ -19,8 +19,12 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/index.py" },
-    { "src": "/assets/(.*)", "dest": "/frontend/assets/$1" },
-    { "src": "/(favicon\\.svg|favicon\\.png|icons\\.svg|qirat-mark\\.png|apple-touch-icon\\.png|icon-512\\.png)", "dest": "/frontend/$1" },
+    {
+      "src": "/assets/(.*)",
+      "headers": { "Cache-Control": "public, max-age=31536000, immutable" },
+      "dest": "/frontend/assets/$1"
+    },
+    { "src": "/(favicon\\.svg|favicon\\.png|icons\\.svg|qirat-mark\\.png|apple-touch-icon\\.png|icon-512\\.png|og-image\\.png|robots\\.txt|sitemap\\.xml)", "dest": "/frontend/$1" },
     { "src": "/((?!_vercel/).*)", "dest": "/frontend/index.html" }
   ]
 }

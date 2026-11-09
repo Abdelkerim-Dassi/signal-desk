@@ -27,18 +27,26 @@ function write(key: string, value: string): void {
 
 export function effectiveTheme(): Theme {
   const attr = document.documentElement.dataset.theme
-  if (attr === 'light' || attr === 'dark') return attr
-  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  return attr === 'dark' ? 'dark' : 'light'
 }
 
-/** Apply a saved explicit theme on boot; with none saved, the system preference rules. */
+const BAR_COLOR: Record<Theme, string> = { light: '#f6f4ef', dark: '#0f1013' }
+
+function apply(theme: Theme): void {
+  document.documentElement.dataset.theme = theme
+  // keep the browser's own bar the same colour as the page
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', BAR_COLOR[theme])
+}
+
+/** Apply a saved explicit theme on boot. With none saved the app is light,
+ *  whatever the phone's system setting (see index.css). */
 export function applySavedTheme(): void {
   const saved = read(THEME_KEY)
-  if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved
+  if (saved === 'light' || saved === 'dark') apply(saved)
 }
 
 export function setTheme(theme: Theme): void {
-  document.documentElement.dataset.theme = theme
+  apply(theme)
   write(THEME_KEY, theme)
 }
 
