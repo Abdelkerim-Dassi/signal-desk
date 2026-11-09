@@ -54,11 +54,13 @@ export function loadConfig(fallback: AdvisorConfig): AdvisorConfig {
   const raw = read(CONFIG_KEY)
   if (!raw) return fallback
   try {
-    const saved = JSON.parse(raw) as Partial<AdvisorConfig>
+    const saved = JSON.parse(raw) as Partial<AdvisorConfig> & { marketSource?: string }
+    // Binance is the only source now. A list saved under the old CoinGecko
+    // option uses names the app no longer reads, so it starts fresh.
+    if (saved.marketSource === 'coingecko') return fallback
     return {
       ...fallback,
-      marketSource: typeof saved.marketSource === 'string' ? saved.marketSource : fallback.marketSource,
-      quoteAsset: typeof saved.quoteAsset === 'string' ? saved.quoteAsset : fallback.quoteAsset,
+      quoteAsset: saved.quoteAsset === 'USDC' ? 'USDC' : 'USDT',
       assetsRaw: typeof saved.assetsRaw === 'string' && saved.assetsRaw.trim() ? saved.assetsRaw : fallback.assetsRaw,
       holdings: Array.isArray(saved.holdings) ? saved.holdings : fallback.holdings,
     }
@@ -68,6 +70,6 @@ export function loadConfig(fallback: AdvisorConfig): AdvisorConfig {
 }
 
 export function saveConfig(config: AdvisorConfig): void {
-  const { marketSource, quoteAsset, assetsRaw, holdings } = config
-  write(CONFIG_KEY, JSON.stringify({ marketSource, quoteAsset, assetsRaw, holdings }))
+  const { quoteAsset, assetsRaw, holdings } = config
+  write(CONFIG_KEY, JSON.stringify({ quoteAsset, assetsRaw, holdings }))
 }

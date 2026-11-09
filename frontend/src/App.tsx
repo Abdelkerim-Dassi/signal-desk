@@ -12,7 +12,7 @@ import PracticeView from './components/PracticeView'
 import ScamCheckView from './components/ScamCheckView'
 import TodayHero from './components/TodayHero'
 import TrackRecord from './components/TrackRecord'
-import { DEFAULT_CONFIG, useAppStatus, useBrief } from './hooks/useBrief'
+import { DEFAULT_CONFIG, toAnalyzeParams, useAppStatus, useBrief } from './hooks/useBrief'
 import type { AdvisorConfig } from './hooks/useBrief'
 import { feedbackVisible } from './lib/feedback'
 import { useI18n } from './lib/i18n'
@@ -113,14 +113,14 @@ export default function App() {
         {view === 'practice' && <PracticeView onToast={setToast} />}
         {view === 'learn' && <LearnView brief={brief} onView={go} />}
         {view === 'scamcheck' && <ScamCheckView />}
-        {view === 'ask' && <AskView brief={brief} aiEnabled={Boolean(statusQuery.data?.ai_enabled)} />}
+        {view === 'ask' && (
+          <AskView brief={brief} watchlist={toAnalyzeParams(config)} aiEnabled={Boolean(statusQuery.data?.ai_enabled)} />
+        )}
         {view === 'portfolio' && (
           <PortfolioView
             brief={brief}
             config={draft}
             onConfigChange={setDraft}
-            status={statusQuery.data}
-            onToast={setToast}
           />
         )}
 

@@ -3,7 +3,6 @@ import { analyze, getStatus } from '../lib/api'
 import type { AnalyzeParams, HoldingInput } from '../lib/api'
 
 export interface AdvisorConfig {
-  marketSource: string
   quoteAsset: string
   assetsRaw: string
   holdings: HoldingInput[]
@@ -12,7 +11,6 @@ export interface AdvisorConfig {
 }
 
 export const DEFAULT_CONFIG: AdvisorConfig = {
-  marketSource: 'binance',
   quoteAsset: 'USDT',
   assetsRaw: 'BTCUSDT, ETHUSDT, SOLUSDT',
   holdings: [],
@@ -22,7 +20,6 @@ export const DEFAULT_CONFIG: AdvisorConfig = {
 
 export function toAnalyzeParams(config: AdvisorConfig): AnalyzeParams {
   return {
-    market_source: config.marketSource,
     quote_asset: config.quoteAsset,
     assets: config.assetsRaw
       .split(',')

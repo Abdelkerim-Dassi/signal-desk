@@ -13,43 +13,38 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 
-class HoldingIn(BaseModel):
-    coin_id: str = ""
-    amount: float | str | None = None
-    average_buy_price: float | str | None = None
+class Watchlist(BaseModel):
+    """Which coins a request is about. Binance Spot is the only market source;
+    ``market_source`` is still accepted from older copies of the app and ignored.
+    The server caps the list (see ``MAX_ASSETS`` in main.py)."""
+
+    quote_asset: str = Field(default="USDT", max_length=10)
+    # Accept either a comma-separated string or a list of tickers.
+    assets: str | list[str] | None = Field(default=None, max_length=2000)
+    holdings: list[dict[str, Any]] | None = Field(default=None, max_length=50)
 
 
-class AnalyzeRequest(BaseModel):
-    market_source: str = "coingecko"
-    quote_asset: str = "USDT"
-    # Accept either a comma-separated string or a list of tickers/ids.
-    assets: str | list[str] | None = None
-    holdings: list[dict[str, Any]] | None = None
+class AnalyzeRequest(Watchlist):
+    pass
 
 
-class NotifyRequest(BaseModel):
-    channels: list[str] | None = None
-    message: str | None = None
-    brief: dict[str, Any] | None = None
+class BriefingRequest(Watchlist):
+    """Ask the AI for a narrative over the user's watchlist. The market data is
+    built on the server: nothing the browser sends reaches the prompt as data."""
 
-
-class BriefingRequest(BaseModel):
-    """Ask Claude to write a narrative over an already-computed brief."""
-
-    brief: dict[str, Any] = Field(..., description="A brief dict from /api/analyze")
-    language: str = "en"  # en | fr | ar — the language the narrative is written in
+    language: str = Field(default="en", max_length=5)  # en | fr | ar
 
 
 class ChatMessage(BaseModel):
-    role: str  # "user" | "assistant"
-    content: str
+    role: str = Field(max_length=10)  # "user" | "assistant"
+    content: str = Field(max_length=4000)
 
 
-class ChatRequest(BaseModel):
-    question: str
-    brief: dict[str, Any] | None = None
-    history: list[ChatMessage] = Field(default_factory=list)
-    language: str = "en"
+class ChatRequest(Watchlist):
+    question: str = Field(max_length=600)
+    # The app sends the last few turns; the model sees at most 12 of them.
+    history: list[ChatMessage] = Field(default_factory=list, max_length=24)
+    language: str = Field(default="en", max_length=5)
 
 
 class ScamCheckRequest(BaseModel):

@@ -66,6 +66,18 @@ def webhook_secret() -> str:
     return hashlib.sha256(("qirat-webhook:" + (_token() or "")).encode()).hexdigest()[:48]
 
 
+def scrub(text: str) -> str:
+    """Take the bot token out of an error message.
+
+    The address of every Telegram call contains the token, and the requests
+    library prints that address in its connection errors. Those messages end up
+    in logs, in the owner's chat and in saved post statuses, so the token must
+    never ride along: whoever holds it can message every bot user as Qirat.
+    """
+    token = _token()
+    return text.replace(token, "<bot token>") if token else text
+
+
 def api(method: str, **params: Any) -> dict[str, Any]:
     try:
         resp = requests.post(
@@ -73,7 +85,7 @@ def api(method: str, **params: Any) -> dict[str, Any]:
         )
         return resp.json()
     except Exception as exc:  # network trouble shouldn't crash a webhook or a job
-        return {"ok": False, "description": str(exc)}
+        return {"ok": False, "description": scrub(str(exc))}
 
 
 # ── text ────────────────────────────────────────────────────────────────────
@@ -549,7 +561,7 @@ def send_photo(
         )
         return resp.json()
     except Exception as exc:
-        return {"ok": False, "description": str(exc)}
+        return {"ok": False, "description": scrub(str(exc))}
 
 
 def score_caption(lang: str, a: dict[str, Any], weather: dict[str, Any]) -> str:

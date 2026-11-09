@@ -34,13 +34,12 @@ from fastapi.responses import JSONResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
 from advisor_engine import build_market_brief, normalize_asset_ids, parse_holdings
-from notifications import format_market_alert, notification_status, send_notifications
 
 from . import ai, cards, paper, scamcheck, stats, telegram_bot, track_record
 from .cache import TTLCache, brief_cache
 from .ratelimit import RateLimiter, check_ai_allowance, check_scam_allowance
 from .schemas import (
-    AnalyzeRequest, BriefingRequest, ChatRequest, NotifyRequest, ScamCheckRequest, StatsEvent,
+    AnalyzeRequest, BriefingRequest, ChatRequest, ScamCheckRequest, StatsEvent,
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -67,6 +66,9 @@ app.add_middleware(
 app.include_router(paper.router)
 
 
+_AI_DOWN = "The AI helper could not answer just now. Please try again in a minute."
+
+
 def _ai_enabled() -> bool:
     return ai.ai_enabled()
 
@@ -90,68 +92,81 @@ def _ai_rate_limited(request: Request) -> JSONResponse | None:
     )
 
 
-def _brief_key(assets: list[str], holdings_raw: object, market_source: str, quote_asset: str) -> str:
+# Binance Spot is the only market source. A watchlist is capped, and the quote
+# currency is one of two, so a request can't make the server fetch (and cache)
+# an unbounded number of coins or pairs.
+MAX_ASSETS = 20
+QUOTES = ("USDT", "USDC")
+
+# Fields of the retired 0-100 score. They are still computed for the private
+# daily snapshot, but the app shows karat, risk and weather only, and a second,
+# different verdict has no place in a public response.
+_OLD_SCORE_FIELDS = ("score", "rating", "reasons", "risks", "score_breakdown", "risk_level")
+
+
+def _quote(raw: object) -> str:
+    quote = str(raw or "USDT").strip().upper()
+    return quote if quote in QUOTES else "USDT"
+
+
+def _watchlist(assets: object, holdings: object) -> tuple[list[str], list | None]:
+    """The coins and holdings a request may ask about, capped."""
+    held = holdings[:MAX_ASSETS] if isinstance(holdings, list) else None
+    return normalize_asset_ids(assets)[:MAX_ASSETS], held  # type: ignore[arg-type]
+
+
+def _brief_key(assets: list[str], holdings_raw: object, quote_asset: str) -> str:
     """Stable cache key. Holdings change the brief, so they're part of the key."""
-    payload = {
-        "assets": assets,
-        "holdings": holdings_raw,
-        "market_source": market_source,
-        "quote_asset": quote_asset,
-    }
+    payload = {"assets": assets, "holdings": holdings_raw, "quote_asset": quote_asset}
     return json.dumps(payload, sort_keys=True, default=str)
 
 
-async def _build_brief(
-    assets: list[str],
-    holdings_raw: object,
-    market_source: str,
-    quote_asset: str,
-) -> dict:
+async def _build_brief(assets: list[str], holdings_raw: object, quote_asset: str) -> dict:
     """Build (or fetch cached) a market brief off the event loop."""
-    key = _brief_key(assets, holdings_raw, market_source, quote_asset)
+    key = _brief_key(assets, holdings_raw, quote_asset)
     cached = brief_cache.get(key)
     if cached is not None:
         return cached
 
     holdings = parse_holdings(holdings_raw)
-    brief = await asyncio.to_thread(
-        build_market_brief,
-        assets,
-        holdings,
-        market_source,
-        quote_asset,
-    )
+    brief = await asyncio.to_thread(build_market_brief, assets, holdings, "binance", quote_asset)
     brief_cache.set(key, brief)
     return brief
 
 
+def _public_brief(brief: dict) -> dict:
+    """The brief as the app receives it: without the retired score fields.
+    Builds new rows, because the cached brief is shared between requests."""
+    def clean(rows: object) -> list:
+        return [
+            {k: v for k, v in row.items() if k not in _OLD_SCORE_FIELDS} if isinstance(row, dict) else row
+            for row in (rows if isinstance(rows, list) else [])
+        ]
+
+    return {**brief, **{k: clean(brief.get(k)) for k in ("assets", "opportunities", "portfolio")}}
+
+
 @app.get("/api/status")
 async def status() -> dict:
-    return {"notifications": notification_status(), "ai_enabled": _ai_enabled()}
+    return {"ai_enabled": _ai_enabled()}
 
 
 @app.post("/api/analyze")
 async def analyze(req: AnalyzeRequest) -> JSONResponse:
-    market_source = str(req.market_source or "coingecko").lower()
-    quote_asset = str(req.quote_asset or "USDT").upper()
-    assets = normalize_asset_ids(req.assets)
+    assets, holdings = _watchlist(req.assets, req.holdings)
     try:
-        brief = await _build_brief(assets, req.holdings, market_source, quote_asset)
-        return JSONResponse({"ok": True, "brief": brief})
+        brief = await _build_brief(assets, holdings, _quote(req.quote_asset))
+        return JSONResponse({"ok": True, "brief": _public_brief(brief)})
     except Exception as exc:  # upstream/data errors → 502, surfaced to the UI
         return JSONResponse({"ok": False, "error": str(exc)}, status_code=502)
 
 
 @app.get("/api/brief")
-async def brief(
-    assets: str | None = None,
-    market_source: str = "coingecko",
-    quote_asset: str = "USDT",
-) -> JSONResponse:
-    normalized = normalize_asset_ids(assets)
+async def brief(assets: str | None = None, quote_asset: str = "USDT") -> JSONResponse:
+    normalized, _ = _watchlist(assets, None)
     try:
-        result = await _build_brief(normalized, None, market_source.lower(), quote_asset.upper())
-        return JSONResponse({"ok": True, "brief": result})
+        result = await _build_brief(normalized, None, _quote(quote_asset))
+        return JSONResponse({"ok": True, "brief": _public_brief(result)})
     except Exception as exc:
         return JSONResponse({"ok": False, "error": str(exc)}, status_code=502)
 
@@ -220,7 +235,7 @@ def _load_coins(quote: str) -> list[dict]:
 @app.get("/api/coins")
 async def coins(quote: str = "USDT") -> JSONResponse:
     """The coins a watchlist may contain, so the app picks from real pairs."""
-    q = quote.upper()
+    q = _quote(quote)
     cached = coins_cache.get(q)
     if cached is None:
         try:
@@ -253,24 +268,32 @@ async def symbol_exists(symbol: str) -> JSONResponse:
 async def ai_briefing(req: BriefingRequest, request: Request) -> JSONResponse:
     if not _ai_enabled():
         return JSONResponse(
-            {"ok": False, "error": "AI is not configured (ANTHROPIC_API_KEY unset)."},
+            {"ok": False, "error": "The AI helper is not set up on this server."},
             status_code=503,
         )
     limited = _ai_rate_limited(request)
     if limited is not None:
         return limited
     try:
-        result = await ai.generate_briefing(req.brief, req.language)
+        # The market data in the prompt is built here, never taken from the
+        # browser: a doctored brief could otherwise put a stranger's words in
+        # "Qirat's briefing" and, through the shared cache, in front of others.
+        assets, holdings = _watchlist(req.assets, req.holdings)
+        market = await _build_brief(assets, holdings, _quote(req.quote_asset))
+        result = await ai.generate_briefing(market, req.language)
         return JSONResponse(result)
-    except Exception as exc:
-        return JSONResponse({"ok": False, "error": str(exc)}, status_code=502)
+    except Exception:
+        # The provider's own error (billing notes, internal addresses) is for the
+        # log, not for a visitor.
+        log.exception("AI briefing failed")
+        return JSONResponse({"ok": False, "error": _AI_DOWN}, status_code=502)
 
 
 @app.post("/api/ai/chat")
 async def ai_chat(req: ChatRequest, request: Request) -> Response:
     if not _ai_enabled():
         return JSONResponse(
-            {"ok": False, "error": "AI is not configured (ANTHROPIC_API_KEY unset)."},
+            {"ok": False, "error": "The AI helper is not set up on this server."},
             status_code=503,
         )
     limited = _ai_rate_limited(request)
@@ -281,6 +304,11 @@ async def ai_chat(req: ChatRequest, request: Request) -> Response:
         return JSONResponse({"ok": False, "error": "Empty question."}, status_code=400)
 
     history = [{"role": m.role, "content": m.content} for m in req.history]
+    assets, holdings = _watchlist(req.assets, req.holdings)
+    try:
+        market: dict | None = await _build_brief(assets, holdings, _quote(req.quote_asset))
+    except Exception:
+        market = None  # the chat still answers, and says the data is unavailable
     await asyncio.to_thread(stats.bump, "ask")
 
     async def event_stream():
@@ -288,11 +316,12 @@ async def ai_chat(req: ChatRequest, request: Request) -> Response:
         # Errors mid-stream can't change the status code anymore, so they're
         # delivered as a {"error": ...} event the client renders inline.
         try:
-            async for chunk in ai.stream_chat(question, req.brief, history, req.language):
+            async for chunk in ai.stream_chat(question, market, history, req.language):
                 yield f"data: {json.dumps({'text': chunk})}\n\n"
             yield 'data: {"done": true}\n\n'
-        except Exception as exc:
-            yield f"data: {json.dumps({'error': str(exc)})}\n\n"
+        except Exception:
+            log.exception("AI chat failed")
+            yield f"data: {json.dumps({'error': _AI_DOWN})}\n\n"
 
     return StreamingResponse(
         event_stream(),
@@ -392,13 +421,20 @@ async def get_track_record(request: Request) -> JSONResponse:
     return JSONResponse(payload)
 
 
+def _deployed() -> bool:
+    """True on Vercel (its functions run on AWS Lambda), false on a local run."""
+    return any(os.getenv(name) for name in ("VERCEL", "VERCEL_ENV", "AWS_LAMBDA_FUNCTION_NAME"))
+
+
 def _job_authorized(request: Request) -> bool:
     """Scheduled jobs authenticate with a bearer secret: CRON_SECRET is what
     Vercel Cron sends, JOBS_SECRET is what the GitHub Actions schedule sends.
-    With neither configured (local dev) jobs are open."""
+    With neither configured, jobs are open on a local run and refused when deployed."""
     secrets = [s for s in (os.getenv("CRON_SECRET"), os.getenv("JOBS_SECRET")) if s]
     if not secrets:
-        return True
+        # No secret set: fine on a developer's machine, never on the deployed
+        # app, where an open job would let anyone send messages to every chat.
+        return not _deployed()
     return request.headers.get("authorization") in {f"Bearer {s}" for s in secrets}
 
 
@@ -544,17 +580,6 @@ async def card_report(request: Request, lang: str = "en") -> Response:
     stats = (live.get("horizons", {}).get(f"{resolved['horizon']}d") or {}).get("ratings", {})
     card = (live.get("scorecard") or {}).get(f"{resolved['horizon']}d")
     return _png(await asyncio.to_thread(cards.report_card, resolved, stats, lang, card))
-
-
-@app.post("/api/notify")
-async def notify(req: NotifyRequest) -> JSONResponse:
-    channels = req.channels if isinstance(req.channels, list) else None
-    message = req.message
-    if not isinstance(message, str) or not message.strip():
-        message = format_market_alert(req.brief or {})
-    results = await asyncio.to_thread(send_notifications, message, channels)
-    ok = any(r.get("ok") for r in results)
-    return JSONResponse({"ok": ok, "results": results})
 
 
 # Static front-end last, so /api/* routes take precedence. html=True serves

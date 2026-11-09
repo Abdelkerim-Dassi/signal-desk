@@ -70,16 +70,20 @@ def is_video(item: dict[str, Any]) -> bool:
 
 
 def owner() -> str | None:
-    return bot._get("mk:owner")
+    """The owner's private chat id.
+
+    OWNER_CHAT_ID is the source of truth. The chat that claimed the bot before
+    that setting existed is still honoured, so nothing breaks while it is unset.
+    """
+    return (os.getenv("OWNER_CHAT_ID") or "").strip() or bot._get("mk:owner")
 
 
 def claim_owner(chat_id: int | str) -> bool:
-    """The first private chat to send /claim becomes the owner; later claims fail."""
-    current = owner()
-    if current:
-        return current == str(chat_id)
-    bot._set("mk:owner", str(chat_id))
-    return True
+    """Whether this chat is the owner. Nobody can become the owner by sending
+    /claim any more: "the first chat to ask" meant that if the saved owner was
+    ever lost, any stranger could take the private reports and the post
+    approvals. The owner is set with OWNER_CHAT_ID."""
+    return owner() == str(chat_id)
 
 
 def status(item_id: str) -> dict[str, Any] | None:
@@ -92,10 +96,17 @@ def set_status(item_id: str, value: str, **extra: Any) -> None:
     bot._set(f"mk:status:{item_id}", json.dumps(data))
 
 
+def _public_state(state: dict[str, Any] | None) -> dict[str, Any] | None:
+    """Only whether and when a post was handled. The saved ``result`` holds
+    raw replies from Telegram and Facebook, which stay private."""
+    return {"status": state.get("status"), "at": state.get("at")} if state else None
+
+
 def queue_with_status(day: str | None = None) -> list[dict[str, Any]]:
-    """Queue items (optionally for one day) with their approval status attached."""
+    """Queue items (optionally for one day) with their approval status attached.
+    Served by a public endpoint, so it carries nothing private."""
     return [
-        {**item, "media_url": media_url(item), "state": status(item["id"])}
+        {**item, "media_url": media_url(item), "state": _public_state(status(item["id"]))}
         for item in load_queue()
         if day is None or item.get("date") == day
     ]
@@ -136,7 +147,7 @@ def send_drafts(day: str | None = None, force: bool = False) -> dict[str, Any]:
     day = day or datetime.now(timezone.utc).date().isoformat()
     chat = owner()
     if not chat:
-        return {"sent": 0, "reason": "no owner yet: send /claim to the bot"}
+        return {"sent": 0, "reason": "no owner yet: set OWNER_CHAT_ID"}
     items = [i for i in load_queue() if i.get("date") == day and not status(i["id"])]
     if not items:
         return {"sent": 0, "reason": "nothing queued"}
@@ -262,9 +273,13 @@ def handle_command(chat_id: int, is_private: bool, cmd: str, args: str) -> bool:
         bot.send(chat_id, bot.esc(stats.owner_report(max(1, min(days, 90)))))
         return True
     if cmd == "claim" and is_private:
-        ok = claim_owner(chat_id)
-        bot.send(chat_id, "✅ You'll get the daily posts to approve here every morning."
-                 if ok else "This bot already has an owner.")
+        if claim_owner(chat_id):
+            bot.send(chat_id, "✅ This chat is the owner. Private reports and posts to approve arrive here.")
+        elif owner():
+            bot.send(chat_id, "This bot already has an owner.")
+        else:
+            bot.send(chat_id, f"No owner is set. This chat's id is <code>{bot.esc(chat_id)}</code>. "
+                              "The owner is whoever's id is in the OWNER_CHAT_ID setting.")
         return True
     if cmd == "queue" and str(chat_id) == owner():
         day = args.strip() or datetime.now(timezone.utc).date().isoformat()

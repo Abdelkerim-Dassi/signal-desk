@@ -1033,51 +1033,14 @@ def build_binance_market_brief(
 def build_market_brief(
     asset_ids: list[str],
     holdings: list[Holding] | None = None,
-    market_source: str = "coingecko",
+    market_source: str = "binance",
     quote_asset: str = "USDT",
 ) -> dict[str, Any]:
-    if market_source.lower() == "binance":
-        return build_binance_market_brief(asset_ids, holdings, quote_asset)
+    """The market brief for a watchlist, from Binance Spot.
 
-    holdings = holdings or []
-    holding_map = {holding.coin_id: holding for holding in holdings}
-    combined_assets = normalize_asset_ids(asset_ids + [holding.coin_id for holding in holdings])
-    sentiment = get_fear_greed()
-    regime = get_market_regime()
-    # Fetch before the per-asset chart loop drains the CoinGecko rate budget.
-    global_market = get_global_market()
-    markets = get_market_prices(combined_assets)
-    analyses = []
-
-    for market in markets:
-        coin_id = market.get("id")
-        chart = None
-        try:
-            chart = get_market_chart(coin_id)
-            time.sleep(0.12)
-        except Exception:
-            chart = None
-        analyses.append(analyze_asset(market, chart, sentiment, holding_map.get(coin_id), regime))
-
-    opportunities = sorted(analyses, key=lambda row: row["score"], reverse=True)
-    portfolio = [row for row in analyses if row.get("holding")]
-    return {
-        "generated_at": _now_iso(),
-        "market_source": "coingecko",
-        "exchange_label": "CoinGecko",
-        "quote_asset": "USD",
-        "sentiment": sentiment,
-        "regime": regime,
-        "global": global_market,
-        # CoinGecko "trending searches" are mostly hyped micro-caps: a FOMO feed
-        # that doesn't fit a calm app, and one less call on every brief.
-        "trending": [],
-        "assets": analyses,
-        "opportunities": opportunities,
-        "portfolio": portfolio,
-        "news": get_news(watchlist=opportunities),
-        "disclaimer": (
-            "Ratings are rule-based scores, identical for every user — not financial advice. "
-            "Do your own research and size your own risk."
-        ),
-    }
+    Binance is the only source. The old CoinGecko brief had no karat, no risk
+    grade and no weather, so a visitor who chose it saw an app that never
+    finished loading. ``market_source`` is kept so older callers don't break;
+    its value is ignored.
+    """
+    return build_binance_market_brief(asset_ids, holdings, quote_asset)

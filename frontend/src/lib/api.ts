@@ -19,24 +19,6 @@ export interface HoldingInfo {
   note?: string
 }
 
-export interface ScoreComponent {
-  label: string
-  delta: number
-}
-
-export interface ScoreCap {
-  value: number
-  reason: string
-}
-
-export interface ScoreBreakdown {
-  base: number
-  components: ScoreComponent[]
-  raw?: number
-  final: number
-  cap?: ScoreCap | null
-}
-
 export interface Regime {
   state: 'risk_on' | 'risk_off' | 'unknown'
   label: string
@@ -79,19 +61,12 @@ export interface Opportunity {
   pair?: string
   source?: string
   market_cap_rank?: number
-  rating?: string
-  score?: number
-  score_breakdown?: ScoreBreakdown
-  risk_level?: string
   current_price?: number
   change_24h?: number
   change_7d?: number
   change_30d?: number
-  sparkline?: number[]
   /** Binance only: [open_time_ms, open, high, low, close] per day, last 30 days */
   candles?: number[][]
-  reasons?: string[]
-  risks?: string[]
   holding?: HoldingInfo
 }
 
@@ -176,15 +151,14 @@ export interface HoldingInput {
   average_buy_price: number | ''
 }
 
+/** The watchlist a request is about. The server builds all market data itself. */
 export interface AnalyzeParams {
-  market_source: string
   quote_asset: string
   assets: string[]
   holdings: { coin_id: string; amount: number; average_buy_price: number | null }[]
 }
 
 export interface AppStatus {
-  notifications: { discord: boolean; whatsapp: boolean }
   ai_enabled: boolean
 }
 
@@ -244,27 +218,15 @@ export async function getStatus(): Promise<AppStatus> {
 }
 
 export async function generateBriefing(
-  brief: Brief,
+  watchlist: AnalyzeParams,
   language = 'en',
 ): Promise<{ text: string; cached: boolean }> {
   const res = await fetch('/api/ai/briefing', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ brief, language }),
+    body: JSON.stringify({ ...watchlist, language }),
   })
   return asJson<{ text: string; cached: boolean }>(res)
-}
-
-export async function sendAlert(
-  brief: Brief,
-  channels: string[],
-): Promise<{ ok: boolean; results: { ok: boolean }[] }> {
-  const res = await fetch('/api/notify', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ brief, channels }),
-  })
-  return res.json()
 }
 
 /**
@@ -273,7 +235,7 @@ export async function sendAlert(
  */
 export async function streamChat(
   question: string,
-  brief: Brief | null,
+  watchlist: AnalyzeParams,
   history: ChatMessage[],
   onChunk: (text: string) => void,
   language = 'en',
@@ -282,7 +244,13 @@ export async function streamChat(
   const res = await fetch('/api/ai/chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ question, brief, history, language }),
+    // the server reads at most the last 12 turns and refuses oversized ones
+    body: JSON.stringify({
+      ...watchlist,
+      question,
+      history: history.slice(-12).map((m) => ({ role: m.role, content: m.content.slice(0, 4000) })),
+      language,
+    }),
     signal,
   })
   if (!res.ok) {

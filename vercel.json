@@ -10,7 +10,7 @@
     {
       "src": "api/index.py",
       "use": "@vercel/python",
-      "config": { "includeFiles": ["server/**", "advisor_engine.py", "notifications.py"] }
+      "config": { "includeFiles": ["server/**", "advisor_engine.py"] }
     }
   ],
   "crons": [

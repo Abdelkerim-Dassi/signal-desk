@@ -10,11 +10,10 @@ export function parseAssets(raw: string): string[] {
     .filter(Boolean)
 }
 
-/** "sol" → "SOLUSDT" on Binance; CoinGecko takes ids as typed. */
-export function toAsset(input: string, source: string, quote: string): string {
+/** "sol" becomes "SOLUSDT": the pair Binance lists. */
+export function toAsset(input: string, quote: string): string {
   const raw = input.trim()
   if (!raw) return ''
-  if (source !== 'binance') return raw.toLowerCase()
   const up = raw.toUpperCase().replace(/[/\-_\s]/g, '')
   const hasQuote = QUOTES.some((q) => up.endsWith(q) && up.length > q.length)
   return hasQuote ? up : `${up}${quote}`

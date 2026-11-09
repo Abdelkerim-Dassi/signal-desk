@@ -8,9 +8,6 @@ __pycache__
 *.pyc
 .env
 
-# Docs / Render-only artifacts not needed by the Vercel build.
+# Docs are not needed by the Vercel build.
 docs
-Dockerfile
-.dockerignore
-render.yaml
 ai_prompt.txt

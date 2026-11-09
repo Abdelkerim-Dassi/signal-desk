@@ -13,10 +13,9 @@ server/
   ai.py              Claude briefing (cached) + streaming chat (SSE), claude-opus-4-8
   cache.py           TTL caches: market briefs (~75s), AI narratives (~5min)
   ratelimit.py       per-IP rate limit on the AI endpoints
-advisor_engine.py    rule-based scoring engine (Binance/CoinGecko, Fear & Greed, BTC regime, news)
+advisor_engine.py    rule-based scoring engine (Binance Spot, Fear & Greed, BTC regime, news)
 server/track_record.py  daily immutable log of ratings for 18 coins + forward-return summary
 scripts/backtest.py  replays the engine on 2021–present history → server/data/backtest.json
-notifications.py     Discord webhook + Twilio WhatsApp alerts
 ```
 
 The 2-minute dashboard poll only ever hits the free heuristic endpoint. Claude is called exclusively on explicit user action (generate briefing / chat), with a narrative cache so near-identical market snapshots never trigger repeat spend.
@@ -25,12 +24,11 @@ The 2-minute dashboard poll only ever hits the free heuristic endpoint. Claude i
 
 | Method | Path | Purpose |
 |---|---|---|
-| GET | `/api/status` | notification channels + `ai_enabled` |
+| GET | `/api/status` | `ai_enabled` |
 | POST | `/api/analyze` | heuristic brief (cached, free, polled) |
 | GET | `/api/brief` | query-param variant |
 | POST | `/api/ai/briefing` | Claude narrative over a brief (rate-limited) |
 | POST | `/api/ai/chat` | streaming SSE chat grounded in the brief (rate-limited) |
-| POST | `/api/notify` | send Discord/WhatsApp alert |
 | GET | `/api/track-record` | live log summary + backtest (logs today's snapshot if missing) |
 | GET | `/api/cron/snapshot` | daily snapshot trigger (Vercel Cron, 00:05 UTC; `CRON_SECRET` bearer if set) |
 
@@ -85,31 +83,9 @@ On a **persistent host (Render)** any enabled limit works out of the box. On **s
 
 Note: Groq's free tier has its own per-minute rate limits — if a traffic burst trips them, set `AI_RATE_LIMIT` to a modest number (e.g. `20`) to smooth bursts without capping normal use.
 
-## Optional alerts
+## Market source
 
-```
-DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/...
-TWILIO_ACCOUNT_SID=AC...
-TWILIO_AUTH_TOKEN=...
-TWILIO_WHATSAPP_FROM=whatsapp:+14155238886
-TWILIO_WHATSAPP_TO=whatsapp:+216...
-```
-
-## Market sources
-
-Defaults to **Binance Spot** with the `INJUSDT, OGUSDT` watchlist; also accepts CoinGecko IDs (`injective-protocol`, `og-fan-token`) and can switch to CoinGecko entirely. Public market data only — no trading, no account access.
-
-> Note: Binance geo-blocks many cloud-provider IPs (HTTP 451). On a public deploy, prefer the CoinGecko source; Binance works fully when running locally.
-
-CoinGecko's free tier rate-limits bursts: requests retry on 429/5xx with backoff, and the global market stats are memoized for 5 minutes (last-known-good is served if a refresh fails), so one brief rebuild stays within budget.
-
-## Deploy (Render)
-
-`render.yaml` + the multi-stage `Dockerfile` build the frontend and run uvicorn as one **persistent** service — the in-process brief/narrative caches and the AI rate limiter all work as designed. This is the recommended host.
-
-1. Push the repo to GitHub.
-2. Render → New → Blueprint → connect the repo.
-3. Set `GROQ_API_KEY` (or `ANTHROPIC_API_KEY`) and optional Discord/Twilio vars in the service's Environment.
+**Binance Spot** only: public market data, no trading, no account access. A watchlist holds at most 20 coins, quoted in USDT or USDC. CoinGecko is used for coin names and global market stats (retried on 429/5xx, memoized for 5 minutes).
 
 ## Deploy (Vercel)
 
@@ -117,15 +93,9 @@ CoinGecko's free tier rate-limits bursts: requests retry on 429/5xx with backoff
 
 1. Push the repo to GitHub.
 2. `npm i -g vercel`, then `vercel` (links the project) and `vercel --prod` to deploy. (Or import the repo in the Vercel dashboard — the build settings come from `vercel.json`.)
-3. Set env vars: `vercel env add GROQ_API_KEY production` (plus any `DISCORD_WEBHOOK_URL` / `TWILIO_*`), then redeploy. Remove any old `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` you no longer want billed: `vercel env rm OPENAI_API_KEY production`.
+3. Set env vars: `vercel env add GROQ_API_KEY production`, then redeploy. Remove any old `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` you no longer want billed: `vercel env rm OPENAI_API_KEY production`.
 
 > ⚠️ **Serverless caveat.** Vercel functions are stateless, so the `brief_cache` and `narrative_cache` do **not** persist across invocations — meaning more CoinGecko calls (closer to rate limits) and more repeat generations. With the free Groq provider this only costs latency, not money. Back the caches/limits with a shared store (e.g. [Upstash Redis](https://upstash.com/)) for a smoother experience, or use the Render deploy above.
-
-## CLI prompt mode
-
-```powershell
-python ai_crypto_advisor.py   # writes ai_prompt.txt for manual LLM pasting
-```
 
 ## Testing
 

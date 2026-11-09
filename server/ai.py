@@ -114,9 +114,8 @@ CHAT_SYSTEM_PROMPT = (
     "Rules:\n"
     "- Answer from the provided market data, the conversation, and the scoring "
     "methodology described below. Never invent prices, coins, figures, or news "
-    "that are not present — but you MAY explain how the scoring engine works, how "
-    "a specific score was composed (use its `score_breakdown`), and what a coin "
-    "would need to score higher or reach 100.\n"
+    "that are not present — but you MAY explain how the grades work, why a coin "
+    "has its karat (use its `grade`), and what would change it.\n"
     "- If a question falls outside all of that, say so plainly and suggest what "
     "the user could check instead. If asked where scoring is documented, point "
     'them to the in-app "How Qirat works" guide.\n'
@@ -238,8 +237,12 @@ def _narrative_key(brief: dict[str, Any], language: str = "en") -> str:
         for o in brief.get("opportunities", [])
     ]
     sentiment = round(float((brief.get("sentiment") or {}).get("score") or 50) / 5)
+    # A briefing over someone's holdings quotes their amounts, so the amounts are
+    # part of the key: it is never served to another visitor who holds the same coins.
     holdings = sorted(
-        (o.get("symbol") for o in brief.get("portfolio", []) if o.get("symbol"))
+        (str(o.get("symbol")), json.dumps(o.get("holding"), sort_keys=True, default=str))
+        for o in brief.get("portfolio", [])
+        if o.get("symbol")
     )
     regime = (brief.get("weather") or {}).get("state")
     raw = json.dumps([ranked, sentiment, holdings, regime, language], sort_keys=True, default=str)

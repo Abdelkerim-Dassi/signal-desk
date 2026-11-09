@@ -9,24 +9,16 @@ import { useI18n } from '../lib/i18n'
 import { IconChevron, IconPlus, IconX } from './Icons'
 import { CoinIcon, KaratBadge, RiskChip } from './Rating'
 import CandleChart from './CandleChart'
-import Sparkline from './Sparkline'
 
 function ScoreDetails({ item }: { item: Opportunity }) {
   const { t } = useI18n()
   const g = item.grade
-  const up = Number(item.change_7d ?? 0) >= 0
   return (
     <div className="mt-4 space-y-4 border-t border-border pt-4">
-      {(item.candles?.length ?? 0) >= 2 ? (
+      {(item.candles?.length ?? 0) >= 2 && (
         <div>
           <p className="mb-1 text-xs text-muted">{t('chart.title')}</p>
           <CandleChart candles={item.candles} />
-        </div>
-      ) : (
-        // CoinGecko source has no daily candles: keep the 7-day line
-        <div>
-          <p className="mb-1 text-xs text-muted">{t('coin.7d')}</p>
-          <Sparkline points={item.sparkline} up={up} />
         </div>
       )}
 
@@ -155,12 +147,10 @@ function WatchlistEditor({
   const [unknown, setUnknown] = useState<string | null>(null)
   const assets = parseAssets(config.assetsRaw)
   const setAssets = (next: string[]) => onConfigChange({ ...config, assetsRaw: next.join(', ') })
-  const binance = config.marketSource === 'binance'
   // the real list of tradable coins: the picker only offers these
   const coinsQuery = useQuery({
     queryKey: ['coins', config.quoteAsset],
     queryFn: () => getCoins(config.quoteAsset),
-    enabled: binance,
     staleTime: 6 * 3600_000,
     retry: 1,
   })
@@ -177,7 +167,7 @@ function WatchlistEditor({
   const add = async (raw: string, known = false) => {
     setUnknown(null)
     if (!raw.trim()) return
-    if (binance && coins && !known) {
+    if (coins && !known) {
       // pick from the real list; Enter only adds an exact ticker or the only match,
       // otherwise the suggestions stay open so "X" doesn't silently become XRP
       const q = raw.trim().toUpperCase().replace(/USDT$/, '')
@@ -187,13 +177,13 @@ function WatchlistEditor({
       else if (matches.length === 0) setUnknown(raw.trim())
       return
     }
-    const asset = toAsset(raw, config.marketSource, config.quoteAsset)
+    const asset = toAsset(raw, config.quoteAsset)
     if (!asset || assets.includes(asset)) {
       setInput('')
       return
     }
     // list unavailable: check the pair first, so a typo never breaks the coin list
-    if (!known && binance) {
+    if (!known) {
       setChecking(true)
       const exists = await symbolExists(asset)
       setChecking(false)
@@ -210,7 +200,7 @@ function WatchlistEditor({
       <div className="flex flex-wrap gap-2">
         {assets.map((a) => (
           <span key={a} className="inline-flex items-center gap-1 rounded-full bg-subtle py-1 ps-3 pe-1 text-sm">
-            {config.marketSource === 'binance' ? baseOf(a) : a}
+            {baseOf(a)}
             <button
               onClick={() => setAssets(assets.filter((x) => x !== a))}
               aria-label={t('coins.remove', { coin: a })}
@@ -234,7 +224,7 @@ function WatchlistEditor({
             setInput(e.target.value)
             setUnknown(null)
           }}
-          placeholder={binance && coins ? t('coins.search') : t('coins.addPlaceholder')}
+          placeholder={coins ? t('coins.search') : t('coins.addPlaceholder')}
           aria-invalid={unknown ? true : undefined}
           autoComplete="off"
           spellCheck={false}
@@ -254,7 +244,7 @@ function WatchlistEditor({
           )}
         </button>
       </form>
-      {binance && coins && input.trim() && matches.length > 0 && (
+      {coins && input.trim() && matches.length > 0 && (
         <ul className="divide-y divide-border overflow-hidden rounded-2xl border border-border" role="listbox">
           {matches.map((c) => {
             const added = present.has(c.base)
@@ -277,7 +267,7 @@ function WatchlistEditor({
           })}
         </ul>
       )}
-      {binance && coins && input.trim() && matches.length === 0 && !unknown && (
+      {coins && input.trim() && matches.length === 0 && !unknown && (
         <p className="px-1 text-sm text-muted">{t('coins.noMatch', { q: input.trim() })}</p>
       )}
       {unknown && (
@@ -285,22 +275,20 @@ function WatchlistEditor({
           {coins ? t('coins.noMatch', { q: unknown }) : t('coins.unknown', { coin: unknown })}
         </p>
       )}
-      {binance && (
-        <div>
-          <p className="mb-1.5 text-xs text-muted">{t('coins.popular')}</p>
-          <div className="flex flex-wrap gap-1.5">
-            {POPULAR.filter((p) => !present.has(p) && (!listed || listed.has(p))).map((p) => (
-              <button
-                key={p}
-                onClick={() => add(p, true)}
-                className="cursor-pointer rounded-full border border-border px-3 py-1 text-xs font-medium transition hover:border-border-strong hover:text-gold"
-              >
-                + {p}
-              </button>
-            ))}
-          </div>
+      <div>
+        <p className="mb-1.5 text-xs text-muted">{t('coins.popular')}</p>
+        <div className="flex flex-wrap gap-1.5">
+          {POPULAR.filter((p) => !present.has(p) && (!listed || listed.has(p))).map((p) => (
+            <button
+              key={p}
+              onClick={() => add(p, true)}
+              className="cursor-pointer rounded-full border border-border px-3 py-1 text-xs font-medium transition hover:border-border-strong hover:text-gold"
+            >
+              + {p}
+            </button>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   )
 }

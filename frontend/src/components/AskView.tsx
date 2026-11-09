@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import type { Brief, ChatMessage } from '../lib/api'
+import type { AnalyzeParams, Brief, ChatMessage } from '../lib/api'
 import { generateBriefing, streamChat } from '../lib/api'
 import { briefingHtml } from '../lib/format'
 import { useI18n } from '../lib/i18n'
@@ -7,7 +7,7 @@ import { IconSend, IconSparkle } from './Icons'
 
 const THROTTLE_MS = 5 * 60 * 1000 // client-side guard; the server narrative cache is the real one
 
-function Briefing({ brief }: { brief: Brief | undefined }) {
+function Briefing({ brief, watchlist }: { brief: Brief | undefined; watchlist: AnalyzeParams }) {
   const { t, lang } = useI18n()
   const [text, setText] = useState<string | null>(null)
   const [textLang, setTextLang] = useState(lang)
@@ -26,7 +26,7 @@ function Briefing({ brief }: { brief: Brief | undefined }) {
     setLoading(true)
     setError(null)
     try {
-      const result = await generateBriefing(brief, lang)
+      const result = await generateBriefing(watchlist, lang)
       setText(result.text)
       setTextLang(lang)
       lastRunRef.current = Date.now()
@@ -72,7 +72,7 @@ function Briefing({ brief }: { brief: Brief | undefined }) {
   )
 }
 
-function Chat({ brief }: { brief: Brief | undefined }) {
+function Chat({ brief, watchlist }: { brief: Brief | undefined; watchlist: AnalyzeParams }) {
   const { t, lang } = useI18n()
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
@@ -97,7 +97,7 @@ function Chat({ brief }: { brief: Brief | undefined }) {
     try {
       await streamChat(
         question,
-        brief ?? null,
+        watchlist,
         history,
         (chunk) => {
           setMessages((m) => {
@@ -176,6 +176,7 @@ function Chat({ brief }: { brief: Brief | undefined }) {
           onChange={(e) => setInput(e.target.value)}
           placeholder={t('ask.placeholder')}
           disabled={streaming}
+          maxLength={600}
           dir="auto"
           className="min-w-0 flex-1 rounded-full border border-border bg-subtle/60 px-4 py-2.5 text-[15px] outline-none transition focus:border-border-strong disabled:opacity-50"
         />
@@ -192,13 +193,22 @@ function Chat({ brief }: { brief: Brief | undefined }) {
   )
 }
 
-export default function AskView({ brief, aiEnabled }: { brief: Brief | undefined; aiEnabled: boolean }) {
+export default function AskView({
+  brief,
+  watchlist,
+  aiEnabled,
+}: {
+  brief: Brief | undefined
+  /** The coins the answers are about; the server fetches their data itself. */
+  watchlist: AnalyzeParams
+  aiEnabled: boolean
+}) {
   const { t } = useI18n()
   if (!aiEnabled) return <div className="card p-6 text-center text-sm text-muted">{t('ask.off')}</div>
   return (
     <div className="space-y-4">
-      <Briefing brief={brief} />
-      <Chat brief={brief} />
+      <Briefing brief={brief} watchlist={watchlist} />
+      <Chat brief={brief} watchlist={watchlist} />
     </div>
   )
 }
