@@ -160,3 +160,43 @@ def check_ai_allowance(ip: str) -> tuple[bool, str, int]:
     if AI_DAILY_LIMIT > 0 and not _daily_counter.allow():
         return False, "Daily AI budget reached", _seconds_until_utc_midnight()
     return True, "", 0
+
+
+# ── Scam check ───────────────────────────────────────────────────────────────
+# The check itself is rules plus free lookups, so it is not an AI call and has
+# its own two windows, both per minute:
+#   * per address: generous, because phones on one mobile carrier share an
+#     address. A TikTok post can send dozens of real people through one of them.
+#   * whole app: the ceiling that protects the free lookups (GoPlus allows
+#     150 calls a minute for everyone together; most checks are plain text and
+#     make none).
+# 0 turns a window off. With Redis the counts hold across server copies.
+SCAMCHECK_RATE_LIMIT = int(os.getenv("SCAMCHECK_RATE_LIMIT", "120"))
+SCAMCHECK_GLOBAL_LIMIT = int(os.getenv("SCAMCHECK_GLOBAL_LIMIT", "900"))
+_SCAM_WINDOW = 60
+
+_scam_ip_limiter = RateLimiter(max_requests=SCAMCHECK_RATE_LIMIT, window_seconds=_SCAM_WINDOW)
+_scam_all_limiter = RateLimiter(max_requests=SCAMCHECK_GLOBAL_LIMIT, window_seconds=_SCAM_WINDOW)
+
+
+def check_scam_allowance(ip: str) -> tuple[bool, int]:
+    """Gate one scam check. Returns (allowed, retry_after_seconds)."""
+    if SCAMCHECK_RATE_LIMIT <= 0 and SCAMCHECK_GLOBAL_LIMIT <= 0:
+        return True, 0
+    if upstash.enabled():
+        window = int(time.time() // _SCAM_WINDOW)
+        ip_key, all_key = f"sc:ip:{ip}:{window}", f"sc:all:{window}"
+        ttl = str(2 * _SCAM_WINDOW)
+        res = upstash.pipeline([["INCR", ip_key], ["EXPIRE", ip_key, ttl], ["INCR", all_key], ["EXPIRE", all_key, ttl]])
+        if res is not None:
+            over_ip = SCAMCHECK_RATE_LIMIT > 0 and int(res[0]) > SCAMCHECK_RATE_LIMIT
+            over_all = SCAMCHECK_GLOBAL_LIMIT > 0 and int(res[2]) > SCAMCHECK_GLOBAL_LIMIT
+            if over_ip or over_all:
+                return False, _SCAM_WINDOW - int(time.time() % _SCAM_WINDOW) + 1
+            return True, 0
+        # Redis did not answer: use this server copy's own count rather than none
+    if SCAMCHECK_RATE_LIMIT > 0 and not _scam_ip_limiter.allow(ip):
+        return False, _scam_ip_limiter.retry_after(ip)
+    if SCAMCHECK_GLOBAL_LIMIT > 0 and not _scam_all_limiter.allow("all"):
+        return False, _scam_all_limiter.retry_after("all")
+    return True, 0

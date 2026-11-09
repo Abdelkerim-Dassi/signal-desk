@@ -38,7 +38,7 @@ from notifications import format_market_alert, notification_status, send_notific
 
 from . import ai, cards, paper, scamcheck, stats, telegram_bot, track_record
 from .cache import TTLCache, brief_cache
-from .ratelimit import RateLimiter, check_ai_allowance
+from .ratelimit import RateLimiter, check_ai_allowance, check_scam_allowance
 from .schemas import (
     AnalyzeRequest, BriefingRequest, ChatRequest, NotifyRequest, ScamCheckRequest, StatsEvent,
 )
@@ -304,24 +304,19 @@ async def ai_chat(req: ChatRequest, request: Request) -> Response:
     )
 
 
-# The scam check calls free third-party APIs (GoPlus: 150 calls/min for the
-# whole app), so it has its own per-IP window on top of the AI limits.
-scam_limiter = RateLimiter(
-    max_requests=int(os.getenv("SCAMCHECK_RATE_LIMIT", "20")),
-    window_seconds=60,
-)
-
-
 @app.post("/api/scamcheck")
 async def scam_check(req: ScamCheckRequest, request: Request) -> JSONResponse:
     """Red flags for a pasted message, link, token/wallet address or platform name.
     Never says something is safe; see server/scamcheck.py."""
-    limited = _ai_rate_limited(request)
-    if limited is not None:
-        return limited
-    ip = _client_ip(request)
-    if scam_limiter.max_requests > 0 and not scam_limiter.allow(ip):
-        retry = scam_limiter.retry_after(ip)
+    # Only the plain-words explanation calls the AI. The check itself (rules and
+    # lookups) must not spend the AI allowance: phones on one mobile carrier
+    # share an address, and a busy evening would lock real people out.
+    if req.explain and _ai_enabled():
+        limited = _ai_rate_limited(request)
+        if limited is not None:
+            return limited
+    allowed, retry = await asyncio.to_thread(check_scam_allowance, _client_ip(request))
+    if not allowed:
         return JSONResponse(
             {"ok": False, "error": f"Too many checks — try again in ~{retry}s."},
             status_code=429,
@@ -466,7 +461,8 @@ async def cron_telegram_alerts(request: Request) -> JSONResponse:
 # Daily totals only (see server/stats.py). The browser reports a few named
 # events; everything else is counted where it happens on the server.
 
-stats_limiter = RateLimiter(max_requests=60, window_seconds=60)
+# generous: phones on one mobile carrier share an address
+stats_limiter = RateLimiter(max_requests=600, window_seconds=60)
 
 
 @app.post("/api/stats/event")

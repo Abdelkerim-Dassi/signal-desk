@@ -89,6 +89,102 @@ LEGIT = [
 ]
 
 
+# The 2026-11-09 audit pasted these and got "no warning signs". They are the
+# shapes Tunisians actually receive: fake jobs with an activation fee, Darija
+# typed in Latin letters, soft pitches with no "guaranteed", and the messages
+# behind the «Scam ولا لا؟» video series. Each maps to the flag it must raise.
+LOCAL_SCAMS = [
+    ("Gagnez 80 a 300 TND par jour en likant des videos. Payez les frais d'activation de 45 TND par D17 puis contactez notre manager sur WhatsApp.", "advance_fee"),
+    ("Gagnez 80 à 300 TND par jour en likant des vidéos. Payez les frais d’activation de 45 TND par D17.", "task_scam"),
+    ("Offre d'emploi à domicile : payez 30 DT de frais d'inscription pour commencer à travailler dès demain.", "advance_fee"),
+    ("sahbi a3tini 500 dinar nrajja3houlek 1000 fi jom3a, rib7 madhmoun 100%", "fixed_returns"),
+    ("sahbi a3tini 500 dinar nrajja3houlek 1000 fi jom3a, rib7 madhmoun 100%", "guaranteed_returns"),
+    ("5alles 50 dinar bech tebda te5dem m3ana, terba7 40 dinar fil nhar", "advance_fee"),
+    ("ad5el lel groupe vip, blayes ma7douda, ezreb", "vip_signals"),
+    ("Investis 200 DT aujourd'hui et retire 600 DT dans 3 jours. Ecris moi sur WhatsApp", "fixed_returns"),
+    ("Invest $200 today and withdraw $600 in 3 days, message me on WhatsApp", "fixed_returns"),
+    ("حط 200 دينار اليوم وخوذ 600 دينار بعد 3 أيام", "fixed_returns"),
+    ("I made $4,000 last week with this trader. DM her, she helped me.", "testimonial_bait"),
+    ("خدمة من الدار، 30 دينار في النهار، خلّص 20 دينار باش تبدا", "advance_fee"),
+    ("خدمة من الدار، 30 دينار في النهار", "income_promise"),
+    ("تسرقولك فلوسك؟ نرجّعوهملك، خلّص 10% مسبّق", "advance_fee"),
+    ("تسرقولك فلوسك؟ نرجّعوهملك، خلّص 10% مسبّق", "recovery_scam"),
+    ("مبروك، ربحت iPhone! خلّص 9 دينارات livraison", "advance_fee"),
+    ("الكولي متاعك واقف، خلّص 3.5 دينار", "advance_fee"),
+    ("Votre colis est en attente, payez 3,5 DT de frais pour le recevoir", "advance_fee"),
+    ("عندك تعويض من Binance، ادخل للينك هذا", "impersonation"),
+    ("نخدمولك فلوسك، ربح 20% في الشهر مضمون", "guaranteed_returns"),
+    ("ادخل بالـ lien متاعي وجيب 3 صحابك، تربح 200 دينار", "recruit"),
+    ("حوّل 50 دولار لـ 5000 في جمعة بـ leverage 1:200", "high_leverage"),
+]
+
+# Ordinary messages the audit saw flagged as "strong warning signs".
+ORDINARY = [
+    "Can you send the package to my address tomorrow?",
+    "How do I transfer USDT from Binance to my own wallet?",
+    "Comment envoyer des USDT vers mon propre wallet ?",
+    "سلام خويا، غدوة نتقابلو في القهوة مع 5 متاع العشية؟",
+    "Merci.je reviens dans 5 minutes",
+    "Les frais d'inscription à la fac sont de 50 DT cette année.",
+    "J'ai payé les frais de livraison du colis hier.",
+    "Il faut payer la facture STEG avant vendredi, 85 dinars.",
+    "sa7bi chnowa 7welek, net9ablou ghodwa fil 9ahwa?",
+]
+
+
+@pytest.mark.parametrize("text,flag", LOCAL_SCAMS)
+def test_local_scams_raise_the_right_flag(text: str, flag: str) -> None:
+    res = scamcheck.check(text=text, network=False)
+    ids = [f["id"] for f in res["flags"]]
+    assert flag in ids, f"{flag} missing for {text!r} → {ids}"
+    assert res["level"] in ("high", "medium")
+
+
+@pytest.mark.parametrize("text", ORDINARY)
+def test_ordinary_messages_are_not_alarms(text: str) -> None:
+    res = scamcheck.check(text=text, network=False)
+    assert res["level"] in ("none", "unsure"), f"{text!r} → {res['level']} {[f['id'] for f in res['flags']]}"
+
+
+def test_a_plain_money_request_is_unsure_not_clean() -> None:
+    res = scamcheck.check(text="Il faut payer la facture STEG avant vendredi, 85 dinars.", language="fr", network=False)
+    assert res["level"] == "unsure"
+    assert res["verdict"] == "Nous n'avons pas pu juger celui-ci"
+    assert [f["id"] for f in res["flags"]] == ["money_request"]
+    # and a message that asks for nothing still reads as "nothing found"
+    calm = scamcheck.check(text="سلام خويا، غدوة نتقابلو في القهوة مع 5 متاع العشية؟", network=False)
+    assert calm["level"] == "none" and calm["flags"][0]["id"] == "no_known_flags"
+
+
+def test_advice_not_to_pay_is_not_a_money_request() -> None:
+    res = scamcheck.check(text="Never send money to someone you only know from Telegram.", network=False)
+    assert res["level"] == "none"
+
+
+def test_latin_letter_darija_is_called_out() -> None:
+    res = scamcheck.check(text="sa7bi chnowa 7welek, net9ablou ghodwa fil 9ahwa?", network=False)
+    assert "arabizi_partial" in [f["id"] for f in res["flags"]]
+
+
+@pytest.mark.parametrize("address", ["bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh", "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"])
+def test_bitcoin_address_is_unsure_not_a_platform_name(address: str) -> None:
+    res = scamcheck.check(text=address, network=False)
+    assert res["kinds"] == ["address"]
+    assert res["level"] == "unsure"
+    assert "address_unsupported" in [f["id"] for f in res["flags"]]
+
+
+@pytest.mark.parametrize("text", ["Merci.je reviens", "facebook.Il faut payer", "Ok.on se voit demain"])
+def test_missing_space_is_not_a_link(text: str) -> None:
+    assert scamcheck.find_links(text) == []
+
+
+def test_short_word_endings_still_work_as_links() -> None:
+    assert scamcheck.find_links("t.me/qiratvip") == ["t.me"]
+    assert scamcheck.find_links("wa.me") == ["wa.me"]
+    assert scamcheck.find_links("ouvre https://promo.me maintenant") == ["promo.me"]
+
+
 @pytest.mark.parametrize("text", SCAMS)
 def test_scams_raise_flags(text: str) -> None:
     res = scamcheck.check(text=text, network=False)
@@ -146,6 +242,17 @@ def test_lookalikes(host: str, brand: str) -> None:
 @pytest.mark.parametrize("host", ["binance.com", "accounts.binance.com", "cmf.tn", "investigate.com", "coingecko.com", "bct.gov.tn", "ledgerinsights.com"])
 def test_not_lookalikes(host: str) -> None:
     assert scamcheck.lookalike_brand(host) is None
+
+
+# Real sites the audit saw flagged as imitations of an exchange or wallet.
+@pytest.mark.parametrize("host", ["finance.com", "hedger.io", "coinmarketcal.com", "blockchain.info", "ledger.fr", "kraken.pro", "coinbene.com"])
+def test_real_sites_are_not_lookalikes(host: str) -> None:
+    assert scamcheck.lookalike_brand(host) is None
+
+
+@pytest.mark.parametrize("host,brand", [("ledger.xyz", "ledger"), ("b1nance.com", "binance"), ("binnance.com", "binance"), ("kraken-login.pro", "kraken")])
+def test_imitations_still_caught_after_tightening(host: str, brand: str) -> None:
+    assert scamcheck.lookalike_brand(host) == brand
 
 
 def test_link_detection_in_text() -> None:
@@ -296,11 +403,43 @@ def test_endpoint_rate_limited(monkeypatch: pytest.MonkeyPatch) -> None:
 
     from server import main
 
+    real_check = scamcheck.check
+    monkeypatch.setattr(scamcheck, "check", lambda **kw: real_check(**{**kw, "network": False}))
+    monkeypatch.setattr(main.ai, "ai_enabled", lambda: True)
     monkeypatch.setattr(main, "check_ai_allowance", lambda ip: (False, "Rate limit reached", 30))
     client = TestClient(main.app)
-    r = client.post("/api/scamcheck", json={"text": "hello"})
+    # the plain-words explanation is an AI call, so it is held back…
+    r = client.post("/api/scamcheck", json={"text": "hello", "explain": True})
     assert r.status_code == 429
     assert r.headers["Retry-After"] == "30"
+    # …but the check itself is rules and lookups, and still answers
+    r = client.post("/api/scamcheck", json={"text": "hello", "explain": False})
+    assert r.status_code == 200 and r.json()["level"] == "none"
+
+
+def test_endpoint_has_its_own_limit(monkeypatch: pytest.MonkeyPatch) -> None:
+    from fastapi.testclient import TestClient
+
+    from server import main
+
+    monkeypatch.setattr(main, "check_scam_allowance", lambda ip: (False, 12))
+    r = TestClient(main.app).post("/api/scamcheck", json={"text": "hello", "explain": False})
+    assert r.status_code == 429 and r.headers["Retry-After"] == "12"
+
+
+def test_scam_allowance_counts_per_address_and_for_everyone(monkeypatch: pytest.MonkeyPatch) -> None:
+    from server import ratelimit
+
+    monkeypatch.setattr(ratelimit.upstash, "enabled", lambda: False)
+    monkeypatch.setattr(ratelimit, "SCAMCHECK_RATE_LIMIT", 2)
+    monkeypatch.setattr(ratelimit, "SCAMCHECK_GLOBAL_LIMIT", 3)
+    monkeypatch.setattr(ratelimit, "_scam_ip_limiter", ratelimit.RateLimiter(2, 60))
+    monkeypatch.setattr(ratelimit, "_scam_all_limiter", ratelimit.RateLimiter(3, 60))
+    assert ratelimit.check_scam_allowance("1.1.1.1")[0]
+    assert ratelimit.check_scam_allowance("1.1.1.1")[0]
+    assert not ratelimit.check_scam_allowance("1.1.1.1")[0]  # third from one address
+    assert ratelimit.check_scam_allowance("2.2.2.2")[0]  # another address still passes
+    assert not ratelimit.check_scam_allowance("3.3.3.3")[0]  # the whole-app ceiling
 
 
 # ── Telegram ────────────────────────────────────────────────────────────────

@@ -1,7 +1,10 @@
 // Scam check API client and input-type detection. Mirrors server/scamcheck.py.
 
 export type Severity = 'high' | 'medium' | 'low' | 'info'
-export type Level = 'high' | 'medium' | 'low' | 'none'
+// 'unsure': nothing matched, but something stopped a real judgement (a plain
+// request for money, a lookup that did not answer, an address type we can't
+// check). It must never look like a clean result.
+export type Level = 'high' | 'medium' | 'low' | 'none' | 'unsure'
 export type InputKind = 'message' | 'link' | 'address' | 'platform'
 
 export interface ScamFlag {
@@ -38,13 +41,14 @@ export interface ScamResult {
 const EVM = /^0x[a-fA-F0-9]{40}$/
 const TRON = /^T[1-9A-HJ-NP-Za-km-z]{33}$/
 const SOL = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/
+const BTC = /^(?:bc1[ac-hj-np-z02-9]{25,62}|[13][a-km-zA-HJ-NP-Z1-9]{25,33})$/
 const LINK = /^(?:https?:\/\/)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,24}(?:[/?#]\S*)?$/i
 
 /** What the user pasted, guessed locally so the UI can label it as they type. */
 export function detectKind(raw: string): InputKind | null {
   const s = raw.trim()
   if (!s) return null
-  if (EVM.test(s) || TRON.test(s) || (SOL.test(s) && /\d/.test(s) && /[a-z]/.test(s) && /[A-Z]/.test(s))) return 'address'
+  if (EVM.test(s) || TRON.test(s) || BTC.test(s) || (SOL.test(s) && /\d/.test(s) && /[a-z]/.test(s) && /[A-Z]/.test(s))) return 'address'
   if (!/\s/.test(s) && LINK.test(s)) return 'link'
   if (s.length <= 40 && s.split(/\s+/).length <= 4 && !/[.!?؟]$/.test(s)) return 'platform'
   return 'message'

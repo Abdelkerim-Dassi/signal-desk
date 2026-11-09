@@ -96,7 +96,9 @@ MONTH = r"(?:month|monthly|mois|mensuel\w*|شهر|شهريا)"
 PERIOD = rf"(?:ال)?(?:{DAY}|{WEEK}|{MONTH})"
 PER = r"(?:per|a|an|/|par|every|each|chaque|tous les|في|كل|ف)"
 CRYPTO = r"(?:usdt|usdc|btc|eth|bnb|trx|sol|crypto\w*|bitcoin|tether|token|coins?|عمله|عملات|كريبتو|بيتكوين)"
-SEND = r"(?:send|transfer|deposit|pay|envoye[rz]?|envoie|envoyer|transfere[rz]?|depose[rz]?|verse[rz]?|ابعث|ابعثلي|بعث|ارسل|حول|خلص|اودع|ادفع|ab3ath|ba3ath)"
+CUR = r"(?:\$|usd|usdt|dt|tnd|dinars?|dh|mad|euros?|€|dollars?|دينار|دنانير|دولار|درهم)"
+# The last few are Darija typed in Latin letters ("ab3athli", "5alles", "7awel").
+SEND = r"(?:send|transfer|deposit|pay|envoye[rz]?|envoie|envoyer|transfere[rz]?|depose[rz]?|verse[rz]?|ابعث|ابعثلي|بعث|ارسل|حول|خلص|اودع|ادفع|ab3ath\w*|eb3ath\w*|ib3ath\w*|ba3ath\w*|b3ath\w*|5alles\w*|khalles\w*|7awel\w*)"
 NEGATION = re.compile(_fold(r"(?:never|don'?t|do not|not|no one|nobody|jamais|ne |n'|aucun|personne ne|لا |ما |ليس|ليست|غير |عمرك|ابدا|متعطيش|ما تعطيش|موش)"), re.I)
 WARNING_WORDS = _rx(
     r"\b(?:warns?|warning|alert|caution|beware|fake|false|fraud\w*|scam\w*|impersonat\w*)\b",
@@ -120,9 +122,14 @@ RULES: dict[str, tuple[str, list[re.Pattern[str]]]] = {
         r"\bsans (?:aucun )?risque\b|\bzero risque\b|\b100 ?% (?:sur|securise|garanti)",
         r"(?:ربح|ارباح|فايده|فائده|مدخول|دخل|فلوس|مرابيح)\s*\S*\s*مضمون",
         r"مضمون\S*\s*(?:100|ميه بالميه|مية بالمية)",
+        r"(?:ربح|ارباح|مرابيح)\S*\s.{0,25}مضمون",
         r"(?:بدون (?:اي )?مخاطر|بلاش (?:ريسك|risk|مخاطر)|ما فماش (?:ريسك|risk)|بدون ريسك)",
         rf"{NUM}\s*%\s*(?:accurate|accuracy|win ?rate|success rate|de reussite|de precision|نجاح|دقه)\b.{{0,40}}(?:signal|trade|trading|bot|توصي|صفق)",
         rf"(?:signal|trade|trading|bot|توصي|صفق).{{0,40}}{NUM}\s*%\s*(?:accurate|accuracy|win ?rate|success rate|de reussite|de precision|نجاح|دقه)",
+        # Darija in Latin letters: "rib7 madhmoun", "madhmoun 100%", "bla risque"
+        r"\b(?:rib7|reb7|rbe7|rba7|arba7|marbou7|mad5oul|flous\w*)\b.{0,25}\bma[dt]h?moun\w*",
+        r"\bma[dt]h?moun\w*\b.{0,15}(?:100|mia|miya)",
+        r"\bbla (?:risk|risque|5atar|khatar)\b",
     )),
     "fixed_returns": ("high", _rx(
         rf"{NUM}\s*{PCT}\s*(?:of\s+)?(?:(?:profit|return|gain|interest|benefice|rendement|ربح|ارباح|فائده|فايده)s?\s*)?{PER}?\s*(?:the\s+|le\s+|la\s+)?{PERIOD}\b",
@@ -136,19 +143,46 @@ RULES: dict[str, tuple[str, list[re.Pattern[str]]]] = {
         r"(?:فلوسك|اموالك|راس مالك)\s*\S*\s*(?:تتضاعف|fois)",
         r"\bfois (?:deux|dix|\d+)\b.{0,30}(?:jours?|ايام|يوم|نهار|شهر|semaines?)",
         r"(?:تربح|تخرج|ترجعلك|ترجع)\s*\S*\s*(?:fois|مرات|اضعاف)",
+        # "put in 200, take out 600 in 3 days": a set payout with no word like "guaranteed"
+        rf"\b(?:investi\w*|place[zr]?|depose[zr]?|mets|mettez|mise[zr]?)\s+(?:\w+\s+)?{NUM}\s*{CUR}?.{{0,40}}\b(?:retire\w*|recois|recevez|recupere\w*|gagne\w*|obtiens|obtenez|encaisse\w*)\s+{NUM}\s*{CUR}?.{{0,25}}\b(?:dans|en|sous|apres)\s+\d+\s*(?:jours?|heures?|h|semaines?|mois)\b",
+        rf"\b(?:invest|deposit|put in|send)\s+(?:just\s+|only\s+)?\$?\s?{NUM}\s*{CUR}?.{{0,40}}\b(?:get|receive|withdraw|earn|make|cash out)\s+\$?\s?{NUM}\s*{CUR}?.{{0,25}}\b(?:in|within|after)\s+\d+\s*(?:days?|hours?|hrs?|weeks?|months?)\b",
+        rf"(?:حط|استثمر|ابعث|اودع)\S*\s*{NUM}.{{0,40}}(?:تاخذ|خوذ|ترجعلك|تربح|توصلك|تسحب)\S*\s*{NUM}.{{0,25}}(?:في|بعد)\s*\d*\s*(?:ايام|يوم|نهار|جمعه|اسبوع|شهر|ساعات|ساعه)",
+        # Darija in Latin letters: "a3tini 500 nrajja3houlek 1000", "ndha3foulek flousek"
+        r"\b(?:a3ti\w*|ab3ath\w*|eb3ath\w*|ib3ath\w*|b3ath\w*|7ott?\w*|hott?\w*)\b.{0,40}\bn?(?:rajja?3|rajj3|raj3)\w*",
+        r"\b[nty]?dha3[ae]?f\w*\b.{0,20}\b(?:flous\w*|capital)",
     )),
     "send_to_wallet": ("high", []),  # combined rule, see _send_to_wallet
     "unlock_fee": ("high", _rx(
         r"\b(?:unlock|withdrawal|withdraw|release|activation|verification|clearance|liquidity|upgrade|unfreez\w*)\s*(?:fee|fees|tax|taxes|charge|deposit|payment)\b",
         r"\b(?:pay|deposit|send|top[- ]?up)\b.{0,40}\b(?:to|before (?:you )?(?:can )?|in order to|first to|so you can)\s*(?:withdraw|unlock|release|receive your|get your|cash out)",
         r"\btax\b.{0,20}\b(?:before|to)\b.{0,10}\bwithdraw",
-        r"\bfrais\s+(?:de\s+)?(?:retrait|deblocage|activation|liberation|deverrouillage|verification|deblocage)",
-        r"\b(?:payer|verser|deposer|regler|envoyer)\b.{0,40}\b(?:pour|avant de|afin de)\s+(?:retirer|debloquer|recuperer|liberer)",
+        r"\bfrais\s+(?:d(?:e\s+|'\s*|u\s+|es\s+)|de\s+l'\s*)?(?:retrait|deblocage|liberation|deverrouillage|verification)",
+        r"\b(?:paye[rz]|verse[rz]|depose[rz]|regle[rz]|envoye[rz])\b.{0,40}\b(?:pour|avant de|afin de)\s+(?:retirer|debloquer|recuperer|liberer)",
         r"\btaxe\s+(?:de|sur le|sur les)\s+(?:retrait|gains)",
         r"\bpacks?\s+(?:d'?activation|vip|premium)\b|\bactivation packs?\b",
         r"رسوم\s*(?:ال)?(?:سحب|فك|تفعيل|تحرير|ضريبه)",
         r"(?:ادفع|خلص|اودع|حول|ابعث)\S*\b.{0,40}(?:باش|لكي|حتى|قبل ما|قبل)\s*(?:تسحب|تنجم تسحب|تفك|نسحب|تستلم|تخرج فلوسك)",
         r"ضريبه\s*.{0,15}سحب|باقه\s*(?:ال)?تفعيل",
+    )),
+    # Pay first to start a job, to start earning, or to receive a prize or a
+    # parcel: the fake-job and fake-delivery messages the Tunisian press reports.
+    "advance_fee": ("high", _rx(
+        r"\b(?:pay|send|deposit|transfer)\b.{0,50}\b(?:to|before you (?:can )?|in order to)\s*(?:start|begin|activate|join|get|receive|claim|confirm|secure)\s+(?:\w+\s+){0,3}(?:working|earning|job|position|tasks?|account|prize|reward|gift|parcel|package|loan)\b",
+        r"\b(?:registration|processing|training|insurance|activation|admin\w*)\s+fees?\b.{0,80}\b(?:job|work|earn\w*|start|position|hired|salary|loan|prize)\b",
+        r"\b(?:job|work|earn\w*|position|hired|salary|loan|prize)\b.{0,80}\b(?:registration|processing|training|insurance|activation|admin\w*)\s+fees?\b",
+        r"\bfrais\s+(?:d'\s*|de\s+)activation\b",
+        r"\b(?:paye[rz]|verse[rz]|envoye[rz]|regle[rz])\b.{0,50}\b(?:pour|avant de|afin de)\s+(?:commencer|debuter|demarrer|activer|recevoir|obtenir|valider|confirmer|travailler)\b",
+        r"\bfrais\s+(?:d'\s*|de\s+)(?:inscription|dossier|formation|adhesion)\b.{0,80}\b(?:travail\w*|emploi|poste|job|gagne\w*|commenc\w*|salaire|recrut\w*)",
+        r"\b(?:travail\w*|emploi|poste|job|gagne\w*|salaire|recrut\w*)\b.{0,80}\bfrais\s+(?:d'\s*|de\s+)(?:inscription|dossier|formation|adhesion)\b",
+        r"(?:خلص|ادفع|ابعث|حول)\S*\s.{0,40}(?:باش|قبل ما)\s*(?:تبدا|تخدم|تربح|يتفعل|تتفعل|توصلك|يوصلك|تاخذ|تستلم)",
+        r"(?:خلص|ادفع)\S*\s*.{0,25}(?:مسبق|مسبقا|بالمسبق|avance)",
+        r"\b(?:5alles\w*|khalles\w*|5allas\w*|khallas\w*|edfa3\w*|ab3ath\w*|eb3ath\w*)\b.{0,40}\b(?:bech|bch|besh|bach|9bal ma|kbal ma)\s+(?:tebda|tabda|te5dem|tekhdem|ta5dem|terba7|tarba7|yetfa3el|twaslek|ta5ou|te5ou)",
+        # "you won" or "your parcel is held": a small fee to receive it
+        r"\b(?:you(?:'ve| have)? won|congratulations|winner)\b.{0,100}\b(?:pay|fee|fees|shipping|delivery|customs)\b",
+        r"\b(?:vous avez gagne|felicitations|gagnant)\b.{0,100}\b(?:paye[rz]|frais|livraison|douane)\b",
+        r"(?:مبروك|ربحت|رابح)\S*\s.{0,80}(?:خلص|ادفع|frais|livraison|توصيل|ديوانه)",
+        r"\b(?:parcel|package|colis)\b.{0,60}\b(?:held|on hold|pending|suspended|bloque|en attente|retenu|suspendu)\b.{0,60}\b(?:pay|paye[rz]|regle[rz]|fee|frais)\b",
+        r"(?:كولي|الكولي|طرد|الطرد|colis)\S*\s.{0,40}(?:واقف|موقوف|محجوز|مبلوكي|bloque).{0,40}(?:خلص|ادفع|paye)",
     )),
     "recruit": ("high", _rx(
         r"\b(?:invite|recruit|refer|bring|add)\s+(?:\w+\s+){0,3}(?:friends|people|members|persons|relatives)\b",
@@ -157,6 +191,7 @@ RULES: dict[str, tuple[str, list[re.Pattern[str]]]] = {
         r"\b(?:downline|upline|multi[- ]?level|mlm|matrix plan|level [123] commission|commission de niveau)\b",
         r"(?:جيب|جيبلي|جيبو|ادع|ادعو|ادعي|استدعي|زيد)\s*(?:\S+\s*){0,2}(?:صحابك|اصحابك|اصدقاءك|اصدقائك|اصدقاء|اشخاص|عباد|ناس|افراد|اعضاء|عايلتك)",
         r"(?:عموله|نسبه|ربح|تربح)\s*(?:على|عن|من)\s*(?:كل\s*)?(?:شخص|عضو|واحد|فرد|عبد)",
+        r"\b(?:jib|jibli|jibou|zid)\s+(?:\w+\s+){0,2}(?:s7abek|as7abek|a7bebek|3bed|ness|nes)\b",
     )),
     "managed_money": ("high", _rx(
         r"\b(?:we|our (?:team|experts?|traders?|bot|robot|ai)|i|my team)\s+(?:will\s+|can\s+)?(?:trade|invest|manage|grow)\s+(?:\w+\s+){0,2}(?:for you|on your behalf|your (?:money|funds|capital|account|portfolio|crypto))",
@@ -181,6 +216,7 @@ RULES: dict[str, tuple[str, list[re.Pattern[str]]]] = {
         r"\b(?:fund|crypto|asset)s? recovery (?:service|expert|agent|team)\b",
         r"\brecuper\w*\s+(?:vos|ton|tes|votre)\s+(?:\w+\s+)?(?:fonds|argent|crypto\w*|investissement)",
         r"(?:استرجاع|استرداد)\s*(?:اموالك|فلوسك|عملاتك)|(?:نرجعلك|نرجعولك|نرجعو)\s*فلوسك",
+        r"(?:تسرقولك|سرقولك|ضاعولك|خسرت)\S*\s.{0,40}(?:نرجعوهملك|نرجعوهالك|نرجعهملك|نرجعوهم|نرجعولك)",
     )),
     "p2p_meetup": ("high", _rx(
         r"\b(?:meet|meetup|in person|face to face|hand to hand|rencontr\w*|en personne|main a main|rendez-vous)\b.{0,60}\b(?:cash|crypto\w*|usdt|btc|bitcoin|especes|liquide)\b",
@@ -199,21 +235,42 @@ RULES: dict[str, tuple[str, list[re.Pattern[str]]]] = {
         r"\b(?:like|rate|review|follow)\s+(?:\w+\s+)?(?:videos|posts|products|hotels|apps)\b.{0,50}\b(?:earn|paid|commission|\$|usdt)",
         r"\b(?:liker|noter|evaluer)\s+(?:des\s+)?(?:videos|produits|hotels|applications)\b.{0,50}\b(?:gagne\w*|remuner\w*|commission|usdt)",
         r"(?:مهام|مهمه|تاسك|تاسكات)\s*.{0,40}(?:ربح|عموله|تربح|خلاص|شحن|usdt)",
+        # "earn 80 to 300 TND a day by liking videos", in either word order
+        r"\b(?:earn|get paid|make|paid)\b.{0,60}\b(?:by\s+|for\s+)?(?:liking|rating|reviewing|watching|following|sharing)\s+(?:\w+\s+)?(?:videos|posts|products|ads|pages)\b",
+        r"\b(?:gagne\w*|remuner\w*|paye\w*|revenu\w*|salaire)\b.{0,70}\ben\s+(?:likant|aimant|notant|regardant|visionnant|partageant|commentant)\b",
+        r"\b(?:likant|liker|regarder|visionner)\s+(?:des\s+|les\s+)?(?:videos|publications|posts|produits)\b.{0,60}\b(?:gagne\w*|remuner\w*|paye\w*|\d+\s*(?:tnd|dt|dinars?|€|euros?|usdt))",
+        r"(?:لايك|لايكات|جام|like|likes|تقييم)\S*\s.{0,40}(?:تربح|ربح|خلاص|دينار|فلوس|يخلصوك|نخلصوك)",
+        r"(?:تربح|ربح|يخلصوك|نخلصوك)\S*\s.{0,40}(?:لايك|لايكات|جام|like|likes)",
     )),
     "impersonation": ("medium", _rx(
         r"\b(?:your|votre|ton) (?:account|compte|wallet|portefeuille)\b.{0,20}\b(?:will be|has been|a ete|sera|is|est)\s+(?:\w+\s+)?(?:suspended|blocked|locked|frozen|closed|restricted|suspendu|bloque|gele|ferme|restreint)\b",
         r"\b(?:binance|metamask|trust ?wallet|coinbase|okx|bybit|kucoin|bitget)\s+(?:support|team|admin|agent|service client|customer service|security)\b.{0,60}\b(?:dm|contact|whatsapp|telegram|verify|click|send|account)",
         r"حسابك\s*(?:سيتم|تم|باش يتسكر|باش يتبلوكا|مجمد|موقوف|سيغلق)",
+        # after a hack: "your compensation from Binance is ready"
+        r"\b(?:binance|bybit|okx|kucoin|bitget|coinbase)\b.{0,40}\b(?:compensation|refund|indemni\w+|rembours\w+|dedommage\w+)\b",
+        r"\b(?:compensation|refund|indemni\w+|rembours\w+|dedommage\w+)\b.{0,40}\b(?:binance|bybit|okx|kucoin|bitget|coinbase)\b",
+        r"(?:تعويض|تعويضات)\S*\s.{0,25}(?:binance|باينانس|بينانس)|(?:binance|باينانس|بينانس)\S*\s.{0,25}(?:تعويض|تعويضات)",
     )),
     "vip_signals": ("medium", _rx(
         r"\bvip\b.{0,25}\b(?:group|channel|signals?|groupe|canal|club|room)\b",
-        r"\b(?:group|groupe|canal|channel|club)\s+vip\b",
+        r"\b(?:group|groupe|canal|channel|club|9roup|grp)\s+vip\b",
         r"\b(?:signals? (?:group|channel)|pump (?:group|signal)\w*|groupe de signaux|canal de signaux|insider (?:group|tips|info))\b",
         r"(?:قروب|مجموعه|قناه|جروب)\s*(?:ال)?vip|vip\s*(?:قروب|مجموعه|قناه|جروب)",
         r"(?:توصيات|اشارات|سينيالات)\s*(?:\S+\s*){0,2}(?:مضمون|يوميه|vip|مجانيه|ربح|ذهبيه)",
     )),
+    # A stranger's "I made $4,000, message her" story.
+    "testimonial_bait": ("medium", _rx(
+        r"\bi (?:made|earned|got|received|withdrew)\b.{0,40}\d.{0,90}\b(?:dm|message|contact|inbox|text|write to|reach out to)\s+(?:him|her|them|this|my|mr|mrs|miss)\b",
+        r"\b(?:dm|inbox|message|contact|text|write to)\s+(?:him|her)\b.{0,50}\b(?:helped|changed my life|trader|expert|mentor|manager)\b",
+        r"\bj'ai (?:gagne|recu|retire|encaisse)\b.{0,40}\d.{0,90}\b(?:contacte[zr]?|ecri[sv]\w*)[- ](?:le|la|lui|les)\b",
+        r"ربحت\S*\s.{0,40}\d.{0,90}(?:كلمو|كلمها|ابعثلو|ابعثلها|راسلو|راسلها)",
+    )),
     "income_promise": ("medium", _rx(
-        rf"\b(?:earn|make|gagne[rz]?|win)\s+(?:up to |jusqu'a |about |environ )?\$?\s?{NUM}\s*(?:k\b)?\s*(?:\$|usd|usdt|dt|tnd|dinars?|dh|mad|euros?|€|dollars?)?\s*{PER}?\s*{PERIOD}\b",
+        rf"\b(?:earn|make|gagne[rz]?|win)\s+(?:up to |jusqu'a |about |environ |de |from )?\$?\s?{NUM}(?:\s*(?:a|to|-|–|et|ou)\s*\$?\s?{NUM})?\s*(?:k\b)?\s*(?:\$|usd|usdt|dt|tnd|dinars?|dh|mad|euros?|€|dollars?)?\s*{PER}?\s*{PERIOD}\b",
+        # a daily wage for "work from home", in Darija in both scripts
+        rf"(?:خدمه|تخدم|نخدمو|شغل)\S*\s.{{0,60}}{NUM}\s*(?:دينار|دنانير|دولار|درهم|د)\s*(?:في|كل|ف)\s*(?:ال)?(?:نهار|يوم)",
+        rf"\b(?:5edma|khedma|5idma|khidma|te5dem|tekhdem)\b.{{0,60}}{NUM}\s*(?:tnd|dt|d|dinars?)\s*(?:fil?|kol|par)\s*(?:e?n+har|youm|jour)\b",
+        rf"\b(?:terba7|tarba7|arba7|trab7ou|tod5ol|ted5el)\b.{{0,15}}{NUM}.{{0,12}}(?:dinars?|dt|tnd|dollars?|\$|euros?).{{0,15}}\b(?:fil?|kol|par)\s*(?:e?n+har|youm|jom3a|chhar|jour|semaine|mois)\b",
         rf"(?:تربح|اربح|تخرج|ربح|مدخول|دخل)\s*(?:حتى\s*)?{NUM}\s*(?:دينار|دولار|درهم|د|dt|\$|usdt)?\s*(?:{PER}\s*)?{PERIOD}",
         r"\b(?:passive income|revenu passif|work from home and earn|travail a domicile)\b|دخل (?:سلبي|يومي|قار)",
     )),
@@ -221,6 +278,7 @@ RULES: dict[str, tuple[str, list[re.Pattern[str]]]] = {
         r"\b(?:only today|today only|last chance|limited (?:spots|places|seats|time|offer)|hurry|act now|don'?t miss|before it'?s too late|ends (?:tonight|today)|only \d+ (?:spots|places|seats) left|within \d+ ?(?:hours|hrs|h|minutes|mins))\b",
         r"\b(?:derniere chance|places limitees|offre limitee|aujourd'hui seulement|seulement aujourd'hui|depeche[sz]?-?(?:vous|toi)|faites vite|fais vite|ne ratez pas|avant qu'il ne soit trop tard|dans les \d+ ?h(?:eures)?)\b",
         r"(?:عرض محدود|اخر فرصه|فرصه اخيره|بسرعه|اسرع|ما تفوتش|متفوتش|لا تفوت|اماكن محدوده|بلايص محدوده|اليوم فقط|غير اليوم|قبل ما يفوت|الوقت محدود|الفرصه ما تتعاودش)",
+        r"\b(?:fi?ssa3|ezreb|ezrab|a5er forsa|akher forsa|blayes ma7douda|ken lyoum|lyoum bark)\b",
     )),
     "high_leverage": ("medium", _rx(
         r"\b(?:leverage|levier|effet de levier)\b.{0,15}\b1\s*:\s*(?:100|200|300|400|500|1000|2000)\b",
@@ -279,16 +337,49 @@ def _negated_before(text: str, pos: int) -> bool:
     return bool(NEGATION.search(text[max(0, pos - 30):pos]))
 
 
+_HOWTO_RX = _rx(
+    r"\bhow (?:do|can|to|should)\b|\bcomment (?:faire|puis|je|on|envoyer|transferer)\b|\bmy own\b|\bmon propre\b|\bma propre\b",
+    r"(?:كيفاش|كيف نجم|كيف ننجم)",
+    r"\b(?:kifech|kifeh|kifach)\b",
+)
+
+
 def _send_to_wallet(t: str, has_address: bool) -> re.Match[str] | None:
     send = _search(_SEND_RX, t)
     if not send:
         return None
     theirs = _search(_THEIR_WALLET_RX, t)
-    if theirs and _search(_YOUR_WALLET_RX, t) and not has_address:
-        return None  # "send USDT to your own wallet": a how-to, not a pitch
-    if (theirs or has_address) and (_search(_CRYPTO_RX, t) or theirs):
+    if not has_address and (_search(_YOUR_WALLET_RX, t) or _search(_HOWTO_RX, t)):
+        return None  # "how do I send USDT to my own wallet": a how-to, not a pitch
+    # "send … to my address" alone could be about a parcel; it needs a crypto
+    # word or an actual wallet address in the message to count
+    if (theirs or has_address) and (_search(_CRYPTO_RX, t) or has_address):
         return theirs or send
     return None
+
+
+# A plain request to send or pay money that matches no known scam pattern.
+# It is not a flag: it only stops the result from reading "no warning signs".
+_MONEY_ASK_RX = _rx(
+    r"\b(?:pay|send|transfer|deposit|wire)\b.{0,40}(?:\d|\b(?:money|fee|fees|payment|cash)\b)",
+    r"\b(?:paye[rz]|verse[rz]|envoye[rz]|envoie|regle[rz]|transfere[rz]|virement)\b.{0,40}(?:\d|\b(?:argent|frais|somme|montant)\b)",
+    r"(?:ابعث|ابعثلي|خلص|ادفع|حول|حوللي|اودع|اعطيني)\S*\s.{0,40}(?:\d|فلوس|دينار|مبلغ)",
+    r"\b(?:ab3ath\w*|eb3ath\w*|ib3ath\w*|b3athli|5alles\w*|khalles\w*|edfa3\w*|7awel\w*|a3tini)\b.{0,40}(?:\d|\bflous\w*|\bdinars?\b|\bdt\b)",
+)
+# Darija typed in Latin letters uses digits as letters: sa7bi, 3andek, 5alles, 9bal.
+_ARABIZI_RX = re.compile(r"\b(?:[a-z]+[3579][a-z]+|[3579][a-z]{2,}|[a-z]{2,}[37])\b")
+
+
+def _asks_for_money(t: str) -> bool:
+    for rx in _MONEY_ASK_RX:
+        for m in rx.finditer(t):
+            if not _negated_before(t, m.start()):
+                return True
+    return False
+
+
+def _looks_arabizi(t: str) -> bool:
+    return len(_ARABIZI_RX.findall(t)) >= 2
 
 
 def _secret_phrase(t: str) -> re.Match[str] | None:
@@ -380,6 +471,14 @@ BRANDS: dict[str, set[str]] = {
 KNOWN_SITES = {
     "crypto.com": "Crypto.com", "gate.io": "Gate", "gate.com": "Gate", "htx.com": "HTX", "bct.gov.tn": "BCT",
     "sec.gov": "SEC", "amf-france.org": "AMF", "gemini.com": "Gemini", "exodus.com": "Exodus",
+    # long-standing sites whose names sit one letter away from a brand
+    "blockchain.info": "Blockchain.com", "coinmarketcal.com": "CoinMarketCal",
+}
+# Two-letter endings that are also everyday words. "Merci.je reviens" and
+# "facebook.Il faut" are sentences with a missing space, not links.
+WORD_TLDS = {
+    "je", "il", "tu", "on", "la", "le", "de", "en", "et", "un", "ce", "ma", "me", "se", "sa", "te", "ne", "si", "au", "du",
+    "to", "is", "it", "in", "at", "as", "be", "by", "do", "go", "he", "my", "no", "of", "so", "us", "we", "am", "an",
 }
 # Brand names that are also ordinary words only match as a whole token.
 GENERIC_BRANDS = {"ledger", "phantom", "blockchain", "kraken", "trezor"}
@@ -442,6 +541,10 @@ def find_links(text: str) -> list[str]:
             continue
         if not explicit and re.fullmatch(r"[\d.]+", host):
             continue
+        # a bare "word.xx" whose ending is an ordinary word only counts as a
+        # link when it has a path or is the whole input
+        if not explicit and tld in WORD_TLDS and "/" not in token and token.strip() != text.strip():
+            continue
         if host not in hosts:
             hosts.append(host)
     return hosts[:MAX_LINKS]
@@ -471,16 +574,29 @@ def lookalike_brand(host: str) -> str | None:
             if brand in joined.replace("-", ""):
                 return brand
         elif brand in tokens:
+            # An ordinary word alone on a mainstream ending (ledger.fr,
+            # kraken.pro) is not proof of imitation; with extra words
+            # (ledger-wallet.com) or a throwaway ending (ledger.xyz) it is.
+            if brand in GENERIC_BRANDS and tokens == [brand] and host.rsplit(".", 1)[-1] not in RISKY_TLDS:
+                continue
             return brand
     main = reg.split(".")[0]
-    candidates = {main, main.translate(HOMOGLYPHS), main.replace("rn", "m").replace("vv", "w").translate(HOMOGLYPHS)}
-    candidates |= {c.replace("-", "") for c in candidates}
+    if main in BRANDS:
+        return None  # the exact brand name: decided by the rules above
+    swapped = {main.translate(HOMOGLYPHS), main.replace("rn", "m").replace("vv", "w").translate(HOMOGLYPHS)}
+    swapped |= {c.replace("-", "") for c in swapped}
+    typed = {main, main.replace("-", "")}
     for brand in BRANDS:
         if len(brand) < 5 or brand in ("blockchain",):
             continue
-        limit = 1 if len(brand) < 8 else 2
-        for c in candidates:
-            if c == brand or (abs(len(c) - len(brand)) <= limit and _levenshtein(c, brand) <= limit):
+        # look-alike characters (b1nance, coinbáse) that spell the brand exactly
+        if brand in swapped:
+            return brand
+        # One wrong, missing or extra letter. Typosquats keep the first letter
+        # (blnance, coinbasse); a different first letter is usually another
+        # word (finance, hedger).
+        for c in typed | swapped:
+            if c[:1] == brand[0] and abs(len(c) - len(brand)) <= 1 and _levenshtein(c, brand) <= 1:
                 return brand
     return None
 
@@ -600,6 +716,10 @@ def domain_age_days(reg: str) -> int | None:
 EVM_RX = re.compile(r"\b0x[a-fA-F0-9]{40}\b")
 TRON_RX = re.compile(r"\bT[1-9A-HJ-NP-Za-km-z]{33}\b")
 SOL_RX = re.compile(r"^[1-9A-HJ-NP-Za-km-z]{32,44}$")
+# Bitcoin: bech32 (bc1…) anywhere; the older 1…/3… form only as the whole input,
+# because a run of base58 letters inside a sentence could be anything.
+BTC_BECH32_RX = re.compile(r"\bbc1[ac-hj-np-z02-9]{25,62}\b")
+BTC_LEGACY_RX = re.compile(r"^[13][a-km-zA-HJ-NP-Z1-9]{25,33}$")
 CHAINS = {
     "eth": "1", "ethereum": "1", "erc20": "1", "1": "1",
     "bsc": "56", "bnb": "56", "bep20": "56", "56": "56",
@@ -622,7 +742,11 @@ def find_addresses(text: str) -> list[tuple[str, str | None]]:
         found.append((m.group(0), None))
     for m in TRON_RX.finditer(text):
         found.append((m.group(0), "tron"))
+    for m in BTC_BECH32_RX.finditer(text):
+        found.append((m.group(0), "bitcoin"))
     stripped = text.strip()
+    if not found and BTC_LEGACY_RX.match(stripped):
+        found.append((stripped, "bitcoin"))
     if not found and SOL_RX.match(stripped) and re.search(r"\d", stripped) and re.search(r"[a-z]", stripped) and re.search(r"[A-Z]", stripped):
         found.append((stripped, "solana"))
     seen: set[str] = set()
@@ -774,6 +898,14 @@ FLAG_TEXT: dict[str, tuple[L, L]] = {
     "unlock_fee": (
         {"en": "Asks for a fee before you can withdraw", "fr": "Demande des frais avant de pouvoir retirer", "ar": "يطلب frais قبل ما تنجّم تسحب"},
         {"en": "'Pay a tax / unlock fee / activation pack to withdraw' is the last step of fake platforms. After you pay, they ask again. Real fees come out of your balance.", "fr": "« Payez une taxe / des frais de déblocage / un pack d'activation pour retirer » est la dernière étape des fausses plateformes. Après paiement, ils redemandent. Les vrais frais sont prélevés sur le solde.", "ar": "«خلّص ضريبة ولا frais de déblocage ولا pack d’activation باش تسحب» هي آخر خطوة في المنصّات الفالصو. كي تخلّص يطلبو مرّة أخرى. الـ frais الحقيقية تتنحّى من الرصيد متاعك."},
+    ),
+    "advance_fee": (
+        {"en": "Asks you to pay first to start earning or to receive something", "fr": "Demande de payer d'abord pour commencer à gagner ou pour recevoir quelque chose", "ar": "يطلب منك تخلّص قبل، باش تبدا تربح ولا باش توصلك حاجة"},
+        {"en": "A real job pays you; it never asks you to pay to start. 'Activation fee', 'registration fee', 'pay 10% first', 'pay the delivery to get your prize': after you pay, they ask again or disappear.", "fr": "Un vrai travail vous paie ; il ne demande jamais de payer pour commencer. « Frais d'activation », « frais d'inscription », « payez 10 % d'avance », « payez la livraison pour recevoir votre lot » : après le paiement, ils redemandent ou disparaissent.", "ar": "الخدمة الحقيقية هي اللي تخلّصك، وعمرها ما تطلب منك تخلّص باش تبدا. «frais d’activation»، «frais d’inscription»، «خلّص 10% مسبّق»، «خلّص الـ livraison باش توصلك الهدية»: كي تخلّص، يطلبو مرّة أخرى ولا يغيبو."},
+    ),
+    "testimonial_bait": (
+        {"en": "A success story that sends you to a 'trader'", "fr": "Un témoignage de gains qui vous envoie vers un « trader »", "ar": "حكاية ربح تبعثك لـ«trader»"},
+        {"en": "'I made $4,000, message her' posts are written by the scammers themselves, often from stolen accounts. The 'trader' then asks for a deposit.", "fr": "Les messages « j'ai gagné 4 000 $, écris-lui » sont écrits par les escrocs eux-mêmes, souvent depuis des comptes volés. Le « trader » demande ensuite un dépôt.", "ar": "الميساجات متاع «ربحت 4000 دولار، ابعثلها» يكتبوهم المتحيّلين بيدهم، وبرشا مرّات من كونطات مسروقة. ومن بعد الـ«trader» يطلب منك إيداع."},
     ),
     "recruit": (
         {"en": "Pays you to recruit friends", "fr": "Vous paie pour recruter des proches", "ar": "يخلّصك باش تجيب صحابك"},
@@ -947,6 +1079,23 @@ FLAG_TEXT: dict[str, tuple[L, L]] = {
         {"en": "Nothing on the lists we checked", "fr": "Rien sur les listes vérifiées", "ar": "حتى شي في الليستات اللي فركسناها"},
         {"en": "That only means nobody has reported it yet. New scams appear every day.", "fr": "Cela veut seulement dire que personne ne l'a encore signalé. De nouvelles arnaques apparaissent chaque jour.", "ar": "هذا معناها برك إنّو حتى حدّ ما بلّغ عليه توّا. تحيّل جديد يطلع كل نهار."},
     ),
+    # The next four explain an "unsure" result: why Qirat cannot say more.
+    "money_request": (
+        {"en": "Asks you to send or pay money", "fr": "Vous demande d'envoyer ou de payer de l'argent", "ar": "يطلب منك تبعث ولا تخلّص فلوس"},
+        {"en": "It matches no scam pattern we know, so we can't say more. If you don't know the sender, or they want payment before you get anything, treat that as a warning sign.", "fr": "Cela ne correspond à aucun schéma d'arnaque que nous connaissons, nous ne pouvons donc pas en dire plus. Si vous ne connaissez pas l'expéditeur, ou s'il veut être payé avant que vous receviez quoi que ce soit, prenez-le comme un signal d'alerte.", "ar": "ما يشبه لحتى طريقة تحيّل نعرفوها، وما ننجّموش نقولو أكثر. كان ما تعرفش اللي بعثلك، ولا يحب يتخلّص قبل ما توصلك حتى حاجة، اعتبرها علامة خطر."},
+    ),
+    "lookup_unavailable": (
+        {"en": "Some checks did not answer", "fr": "Certaines vérifications n'ont pas répondu", "ar": "فمّا فحوصات ما جاوبوش"},
+        {"en": "We could not reach: {names}. This result is incomplete. Try again in a minute.", "fr": "Nous n'avons pas pu joindre : {names}. Ce résultat est incomplet. Réessayez dans une minute.", "ar": "ما نجّمناش نوصلو لـ: {names}. النتيجة هاذي ناقصة. عاود بعد دقيقة."},
+    ),
+    "address_unsupported": (
+        {"en": "We can't look up this kind of address yet", "fr": "Nous ne savons pas encore vérifier ce type d'adresse", "ar": "مازلنا ما ننجّموش نفركسو النوع هذا من العناوين"},
+        {"en": "We can check Ethereum-style (0x…), TRON and Solana addresses. For a Bitcoin address we have no list to check against, so this result tells you nothing about it.", "fr": "Nous savons vérifier les adresses de type Ethereum (0x…), TRON et Solana. Pour une adresse Bitcoin, nous n'avons aucune liste à consulter : ce résultat ne dit donc rien sur elle.", "ar": "ننجّمو نفركسو عناوين Ethereum (0x…)، TRON وSolana. عنوان Bitcoin ما عندناش ليستة نفركسوه فيها، يعني النتيجة هاذي ما تقول عليه حتى شي."},
+    ),
+    "arabizi_partial": (
+        {"en": "Darija written in Latin letters", "fr": "Darija écrite en lettres latines", "ar": "دارجة مكتوبة بحروف لاتينية"},
+        {"en": "Our rules only partly read Darija typed like this (sa7bi, 5alles, 9bal). We may have missed something, so read the checks below.", "fr": "Nos règles ne lisent qu'en partie la darija écrite ainsi (sa7bi, 5alles, 9bal). Nous avons peut-être manqué quelque chose : lisez les vérifications ci-dessous.", "ar": "القواعد متاعنا تقرا كان شويّة من الدارجة المكتوبة هكّا (sa7bi، 5alles، 9bal). ممكن فاتتنا حاجة، اقرا الفحوصات اللي لوطة."},
+    ),
 }
 
 CHECK_TEXT: dict[str, L] = {
@@ -964,6 +1113,7 @@ CHECK_TEXT: dict[str, L] = {
     "licence_number": {"en": "Ask for their licence number and check it on the regulator's own website, not on a certificate they send.", "fr": "Demandez leur numéro d'agrément et vérifiez-le sur le site du régulateur, pas sur un certificat qu'ils envoient.", "ar": "اطلب نومرو الترخيص وفركسو في السيت متاع الهيئة بيدها، موش من شهادة يبعثوهالك."},
     "fees_from_balance": {"en": "Real platforms take fees out of your balance. They never ask you to send more money to get your money out.", "fr": "Les vraies plateformes prélèvent les frais sur le solde. Elles ne demandent jamais d'envoyer plus pour récupérer votre argent.", "ar": "المنصّات الحقيقية تنحّي الـ frais من الرصيد متاعك، وعمرها ما تطلب تبعث فلوس زايدة باش تسحب فلوسك."},
     "p2p_safety": {"en": "Never meet strangers to swap cash for crypto. In P2P, only release after the money is really in your account, from the buyer's own name.", "fr": "Ne rencontrez jamais d'inconnus pour échanger espèces contre crypto. En P2P, ne libérez qu'une fois l'argent vraiment reçu, au nom de l'acheteur.", "ar": "عمرك ما تتلاقى مع ناس ما تعرفهمش باش تبدّل كاش بـ crypto. وفي الـ P2P ما تطلقش الـ crypto كان كي الفلوس توصل بالحقّ لكونطك، باسم الشاري بيدو."},
+    "pay_first": {"en": "A real job or a real prize never asks you to pay first. Don't pay an 'activation', 'registration' or 'delivery' fee to someone you don't know.", "fr": "Un vrai travail ou un vrai lot ne demande jamais de payer d'abord. Ne payez pas de frais « d'activation », « d'inscription » ou « de livraison » à un inconnu.", "ar": "الخدمة الحقيقية ولا الربح الحقيقي عمرهم ما يطلبو منك تخلّص قبل. ما تخلّصش frais متاع «activation» ولا «inscription» ولا «livraison» لواحد ما تعرفوش."},
     "report": {"en": "If you already paid: stop paying, keep screenshots, and report it to the police (in Tunisia, the cybercrime brigade).", "fr": "Si vous avez déjà payé : arrêtez de payer, gardez les captures et portez plainte (en Tunisie, la brigade de lutte contre la cybercriminalité).", "ar": "كان خلّصت قبل: وقّف الخلاص، خبّي الـ screenshots، واشكي للبوليس (في تونس، فرقة مكافحة الجرائم الإلكترونية)."},
 }
 
@@ -972,6 +1122,8 @@ UI_TEXT: dict[str, L] = {
     "verdict_medium": {"en": "Some warning signs", "fr": "Quelques signaux d'alerte", "ar": "شويّة علامات خطر"},
     "verdict_low": {"en": "Minor warning signs", "fr": "Signaux d'alerte mineurs", "ar": "علامات خطر خفاف"},
     "verdict_none": {"en": "No known warning signs found", "fr": "Aucun signal d'alerte connu trouvé", "ar": "ما لقينا حتى علامة خطر معروفة"},
+    # Not "no warning signs": something stopped us from judging (see check()).
+    "verdict_unsure": {"en": "We could not judge this one", "fr": "Nous n'avons pas pu juger celui-ci", "ar": "ما نجّمناش نحكمو على هذا"},
     "disclaimer": {"en": "No check can prove something is safe. We list warning signs and what to verify; the decision is yours.", "fr": "Aucune vérification ne peut prouver qu'une chose est sûre. Nous listons les signaux d'alerte et quoi vérifier ; la décision vous appartient.", "ar": "حتى فحص ما ينجّم يثبت إنّو حاجة مضمونة. نورّيوك علامات الخطر وشنوّة لازمك تثبّت؛ والقرار متاعك."},
 }
 
@@ -987,7 +1139,11 @@ SOURCE_INFO: dict[str, tuple[str, str]] = {
     "lookalike": ("Qirat lookalike check (major exchanges and wallets)", ""),
 }
 
+# When one of these did not answer, a result with no flags is "unsure", not clean.
+KEY_LOOKUPS = {"scamsniffer", "metamask", "goplus_site", "goplus_token", "goplus_address"}
+
 RULE_SOURCES = {
+    "advance_fee": "tasks-recharge",
     "fake_regulator": "cmf-fake-approvals",
     "fake_platform_pattern": "ammc-fake-platforms",
     "unlock_fee": "bclcc-activation-packs",
@@ -1021,6 +1177,7 @@ class _Result:
         self.checks: list[str] = []
         self.sources: dict[str, str] = {}  # source id -> status ("checked" | "unavailable" | "match")
         self.kinds: list[str] = []
+        self.unsupported_address = False  # an address type no lookup covers (Bitcoin)
 
     def flag(self, fid: str, severity: str, evidence: str | None = None, source: dict[str, str] | None = None, **kw: Any) -> None:
         if any(f["id"] == fid and f.get("_key") == kw.get("_key") for f in self.flags):
@@ -1078,6 +1235,8 @@ def _message_rules(text: str, res: _Result, has_address: bool) -> None:
         res.flag("fake_platform_pattern", "high", " → ".join(steps), _alert("ammc-fake-platforms"))
         hits.add("fake_platform_pattern")
     # what to verify, driven by what fired
+    if hits & {"advance_fee"}:
+        res.check("pay_first")
     if hits & {"unlock_fee", "fake_platform_pattern", "task_scam"}:
         res.check("small_withdrawal")
         res.check("fees_from_balance")
@@ -1167,6 +1326,11 @@ def _check_link(host: str, res: _Result, network: bool) -> None:
 
 
 def _check_address(address: str, chain_hint: str | None, res: _Result, network: bool) -> None:
+    if chain_hint == "bitcoin":
+        res.kind("address")
+        res.check("address_never")
+        res.unsupported_address = True
+        return
     res.check("token_official")
     res.check("address_never")
     res.check("clean_not_safe")
@@ -1316,8 +1480,28 @@ def check(
     res.flags.sort(key=lambda f: SEVERITY_ORDER[f["severity"]])
     worst = res.flags[0]["severity"] if res.flags else None
     level = worst if worst in ("high", "medium", "low") else "none"
+    is_message = "message" in res.kinds
+    folded = _norm(text) if is_message else ""
     if level == "none":
-        res.flag("no_known_flags", "info", None)
+        # "No known warning signs" is only honest when we could actually look.
+        # Otherwise say so: an unsure result must never read as a clean one.
+        why: list[tuple[str, dict[str, Any]]] = []
+        if res.unsupported_address:
+            why.append(("address_unsupported", {}))
+        down = [SOURCE_INFO[s][0] for s, status in res.sources.items() if status == "unavailable" and s in KEY_LOOKUPS]
+        if down:
+            why.append(("lookup_unavailable", {"names": ", ".join(down)}))
+        if is_message and _asks_for_money(folded):
+            why.append(("money_request", {}))
+            res.check("pay_first")
+        if why:
+            level = "unsure"
+            for fid, kw in why:
+                res.flag(fid, "info", None, **kw)
+        else:
+            res.flag("no_known_flags", "info", None)
+    if level in ("none", "unsure") and is_message and _looks_arabizi(folded):
+        res.flag("arabizi_partial", "info", None)
     for f in res.flags:
         f.pop("_key", None)
 
@@ -1474,7 +1658,7 @@ TG_TEXT: dict[str, L] = {
     "sources": {"en": "Checked with", "fr": "Vérifié avec", "ar": "فركسنا في"},
     "more": {"en": "+{n} more in the app", "fr": "+{n} de plus dans l'app", "ar": "+{n} أخرين في التطبيق"},
 }
-TG_ICON = {"high": "🔴", "medium": "🟠", "low": "🟡", "info": "ℹ️", "none": "⚪️"}
+TG_ICON = {"high": "🔴", "medium": "🟠", "low": "🟡", "info": "ℹ️", "none": "⚪️", "unsure": "❔"}
 MAX_TG_FLAGS = 6
 
 

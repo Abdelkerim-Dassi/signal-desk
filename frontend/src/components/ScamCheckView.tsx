@@ -80,6 +80,7 @@ const LEVEL_STYLE: Record<Level, { band: string; icon: string; tint: string }> =
   medium: { band: 'bg-warn', icon: 'text-warn', tint: 'bg-warn/8' },
   low: { band: 'bg-gold-bright', icon: 'text-gold', tint: 'bg-gold-soft' },
   none: { band: 'bg-gold-bright', icon: 'text-gold', tint: 'bg-gold-soft' },
+  unsure: { band: 'bg-neutral', icon: 'text-muted', tint: 'bg-subtle' },
 }
 
 const SEV_DOT: Record<Severity, string> = {
@@ -288,22 +289,6 @@ export default function ScamCheckView() {
               </div>
             </div>
 
-            {(result.explanation || explaining) && (
-              <div className="rounded-2xl bg-subtle p-4">
-                <p className="tick-label">{s('inPlainWords')}</p>
-                {result.explanation ? (
-                  <p className="mt-1 text-[15px] whitespace-pre-line" dir="auto">
-                    {result.explanation}
-                  </p>
-                ) : (
-                  <p className="mt-1 text-sm text-muted">
-                    {s('explaining')}
-                    <span className="caret">▋</span>
-                  </p>
-                )}
-              </div>
-            )}
-
             {result.flags.length > 0 && (
               <div>
                 <h3 className="tick-label">{s('flags')}</h3>
@@ -331,6 +316,22 @@ export default function ScamCheckView() {
                     </li>
                   ))}
                 </ul>
+              </div>
+            )}
+
+            {(result.explanation || explaining) && (
+              <div className="rounded-2xl bg-subtle p-4">
+                <p className="tick-label">{s('inPlainWords')}</p>
+                {result.explanation ? (
+                  <p className="mt-1 text-[15px] whitespace-pre-line" dir="auto">
+                    {result.explanation}
+                  </p>
+                ) : (
+                  <p className="mt-1 text-sm text-muted">
+                    {s('explaining')}
+                    <span className="caret">▋</span>
+                  </p>
+                )}
               </div>
             )}
 
