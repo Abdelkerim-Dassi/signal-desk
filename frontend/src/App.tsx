@@ -33,7 +33,8 @@ function viewFromHash(): View {
 export default function App() {
   const { t } = useI18n()
   // A first visit, or one through a platform address (qirat.tn/t, /i, /f, /w),
-  // opens on Scam check: arrive() puts #scamcheck in the address for those.
+  // opens on Learn with its "start here" strip: arrive() puts #learn in the
+  // address for those. Today and Scam check stay one tap away.
   const [view, setView] = useState<View>(() => {
     arrive()
     return viewFromHash()

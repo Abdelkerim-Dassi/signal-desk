@@ -6,7 +6,7 @@ import { useI18n } from '../lib/i18n'
 import { GLOSSARY, LEARN_UI, LESSONS, isReady, lessonsForTerm, todaysLesson } from '../lib/lessons'
 import type { LearnKey, Lesson, LiveLink, Text } from '../lib/lessons'
 import { markRead, recordQuiz, resetProgress, useLearnProgress } from '../lib/learnProgress'
-import { track } from '../lib/source'
+import { arrive, track } from '../lib/source'
 import type { View } from '../lib/views'
 import BotInvite from './BotInvite'
 import { UserKaratIngot } from './LearnBadge'
@@ -60,7 +60,53 @@ export default function LearnView({ brief, onView }: { brief: Brief | undefined;
 
   if (route.page === 'lesson') return <LessonPage key={route.lesson.slug} lesson={route.lesson} brief={brief} onView={onView} />
   if (route.page === 'glossary') return <GlossaryPage />
-  return <Hub />
+  return <Hub onView={onView} />
+}
+
+// ---------------------------------------------------------------------------
+// Start here: the first thing a first visit sees (most arrive from a video)
+// ---------------------------------------------------------------------------
+
+let startCounted = false // one "shown" per page load, however often the hub is reopened
+
+function StartHere({ onView }: { onView: (v: View) => void }) {
+  const { lt } = useLearnText()
+  useEffect(() => {
+    if (startCounted) return
+    startCounted = true
+    track('start', 'shown')
+  }, [])
+  const first = LESSONS.find(isReady) ?? LESSONS[0]
+  return (
+    <section className="card rise border-border-strong p-5" aria-label={lt('startTitle')}>
+      <p className="tick-label text-gold">{lt('startTitle')}</p>
+      <p className="mt-1.5 text-[15px] leading-relaxed font-medium">{lt('startBody')}</p>
+      <div className="mt-4 flex flex-wrap gap-2">
+        <a
+          href={`#learn-${first.slug}`}
+          onClick={(e) => {
+            e.preventDefault()
+            track('start', 'lesson')
+            openRoute(`learn-${first.slug}`)
+          }}
+          className="rounded-full bg-text px-5 py-2.5 text-sm font-semibold text-bg transition hover:opacity-90"
+        >
+          {lt('startLesson')}
+        </a>
+        <button
+          type="button"
+          onClick={() => {
+            track('start', 'practice')
+            onView('practice')
+          }}
+          className="cursor-pointer rounded-full border border-border-strong px-5 py-2.5 text-sm font-medium text-gold transition hover:bg-gold-soft"
+        >
+          {lt('startPractice')}
+        </button>
+      </div>
+      <p className="mt-3 text-xs text-muted">{lt('startNote')}</p>
+    </section>
+  )
 }
 
 // ---------------------------------------------------------------------------
@@ -141,13 +187,14 @@ function LessonRow({ lesson }: { lesson: Lesson }) {
   )
 }
 
-function Hub() {
+function Hub({ onView }: { onView: (v: View) => void }) {
   const { tx, lt } = useLearnText()
   const today = todaysLesson()
   const ready = LESSONS.filter(isReady)
   const soon = LESSONS.filter((l) => !isReady(l))
   return (
     <div className="space-y-6">
+      {arrive().firstVisit && <StartHere onView={onView} />}
       <section className="card hero-wash rise overflow-hidden p-5 sm:p-6">
         <div className="flex items-start gap-3">
           <div className="min-w-0 flex-1">

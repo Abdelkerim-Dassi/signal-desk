@@ -25,11 +25,15 @@ KEEP_DAYS = 400  # long enough to compare this Ramadan with the next
 SOURCES = {"t": "TikTok", "i": "Instagram", "f": "Facebook", "w": "WhatsApp", "direct": "Direct"}
 VIEWS = {"today", "learn", "practice", "scamcheck", "ask", "portfolio", "record"}
 PLACES = {"scam", "quiz", "practice", "footer"}
+# The "start here" strip a first visit sees on Learn: shown, then which of its
+# two buttons was tapped (lesson 1, or the practice wallet).
+START = {"shown", "lesson", "practice"}
 
 # What the browser may report, and the values each event accepts.
 CLIENT_EVENTS: dict[str, set[str] | None] = {
     "visit": set(SOURCES),
     "view": VIEWS,
+    "start": START,
     "lesson_open": None,
     "lesson_pass": None,
     "bot_click": PLACES,
@@ -147,6 +151,8 @@ def owner_report(days: int = 7) -> str:
         f"Qirat, last {days} days ({data['from']} → {data['to']})",
         "",
         f"Visits: {_sum(t, 'visit')}  ({_by(t, 'visit', SOURCES)})",
+        f"Start here shown: {t.get('start:shown', 0)} · lesson 1 tapped: {t.get('start:lesson', 0)}"
+        f" · practice tapped: {t.get('start:practice', 0)}",
         f"Scam checks on the site: {_sum(t, 'scamcheck')}  ({_by(t, 'scamcheck')})",
         f"Scam checks in the bot: {_sum(t, 'scamcheck_bot')}",
         f"Results shared: {_sum(t, 'share')}",

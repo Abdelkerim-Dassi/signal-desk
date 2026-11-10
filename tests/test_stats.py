@@ -36,6 +36,10 @@ def test_read_ignores_days_outside_the_window():
         ("visit", "t", "visit:t"),
         ("visit", "direct", "visit:direct"),
         ("view", "scamcheck", "view:scamcheck"),
+        ("view", "learn", "view:learn"),
+        ("start", "shown", "start:shown"),
+        ("start", "lesson", "start:lesson"),
+        ("start", "practice", "start:practice"),
         ("lesson_pass", None, "lesson_pass"),
         ("lesson_pass", "anything", "lesson_pass"),
         ("bot_click", "scam", "bot_click:scam"),
@@ -52,6 +56,8 @@ def test_client_events_that_count(event, value, field):
         ("visit", "x"),
         ("visit", None),
         ("view", "admin"),
+        ("start", "scam"),
+        ("start", None),
         ("scamcheck", "high"),  # counted on the server, not reported by the browser
         ("bot_start", "t-scam"),
         ("made_up", None),
@@ -86,8 +92,12 @@ def test_owner_report_reads_like_a_note():
     stats.bump("visit:i")
     stats.bump("scamcheck:high")
     stats.bump("bot_start:t-scam")
+    stats.bump("start:shown")
+    stats.bump("start:shown")
+    stats.bump("start:lesson")
     report = stats.owner_report(7)
     assert "Visits: 2" in report and "TikTok 1" in report and "Instagram 1" in report
+    assert "Start here shown: 2 · lesson 1 tapped: 1 · practice tapped: 0" in report
     assert "Scam checks on the site: 1" in report
     assert "Bot starts: 1" in report
 

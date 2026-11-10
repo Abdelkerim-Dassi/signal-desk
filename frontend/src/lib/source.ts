@@ -72,11 +72,13 @@ export function arrive(): Arrival {
     write('session', VISIT_KEY, label)
   }
 
-  // Scam videos promise a scam check, so that is the screen a new or tagged
-  // visitor lands on (see entryView in App.tsx). Put it in the address too.
+  // The videos teach trading from zero, so a new or tagged visitor lands on
+  // Learn, where a first visit also gets the "start here" strip (LearnView).
+  // Put it in the address too. A link that names a screen (#scamcheck,
+  // #practice, a lesson) is left alone.
   const { search, hash } = window.location
-  const wantsScam = (source !== null || firstVisit) && hash.length <= 1
-  if (wantsScam) window.history.replaceState(null, '', `${window.location.pathname}${search}#scamcheck`)
+  const wantsStart = (source !== null || firstVisit) && hash.length <= 1
+  if (wantsStart) window.history.replaceState(null, '', `${window.location.pathname}${search}#learn`)
 
   if (source) {
     // Tidy the address so a copied link doesn't pass "came from TikTok" on to

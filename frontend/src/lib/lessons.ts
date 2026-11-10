@@ -54,6 +54,22 @@ export const LEARN_UI = {
     fr: 'Des leçons de deux minutes sur la crypto, les arnaques et le risque. Sans hype, sans conseils.',
     ar: 'دروس في دقيقتين على الـ crypto، التحيّل والـ risk. بلا تهويل وبلا نصايح.',
   },
+  // The "start here" strip a first visit sees on top of the hub. The Darija
+  // reuses wording already on the site: the Learn subtitle, the Practice intro
+  // and title, the footer's "free in the beta" and the "never buy or sell" line.
+  startTitle: { en: 'Start here', fr: 'Commencez ici', ar: 'ابدا من هنا' },
+  startBody: {
+    en: 'Qirat teaches you trading from zero: two-minute lessons, a practice wallet with 10 pretend dollars at real prices, and an honest risk grade for every coin.',
+    fr: 'Qirat vous apprend le trading à partir de zéro : des leçons de deux minutes, un portefeuille d’entraînement de 10 dollars fictifs aux prix réels, et une note de risque honnête pour chaque crypto.',
+    ar: 'قيراط يعلّمك الـ trading من الصفر: دروس في دقيقتين، wallet تجريبي فيه 10 دولار بالسوامات الحقيقية، والـ risk متاع كل coin.',
+  },
+  startLesson: { en: 'Start lesson 1', fr: 'Commencer la leçon 1', ar: 'ابدا الدرس 1' },
+  startPractice: { en: 'Practice with $10', fr: 'S’entraîner avec 10 $', ar: 'تدرّب بـ 10 دولار' },
+  startNote: {
+    en: 'Free during the beta. Qirat never tells you to buy or sell.',
+    fr: 'Gratuit pendant la bêta. Qirat ne vous dit jamais d’acheter ou de vendre.',
+    ar: 'بلاش في فترة التجربة. قيراط عمرو ما يقلّك اشري ولا بيع.',
+  },
   yourKarat: { en: 'Your karat', fr: 'Votre carat', ar: 'القيراط متاعك' },
   karatHint: {
     en: 'You start at 10K. Read lessons and pass their quizzes to rise toward 24K.',
