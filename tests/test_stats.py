@@ -123,6 +123,22 @@ def test_stats_are_private_when_a_secret_is_set(client, monkeypatch):
     assert ok.status_code == 200 and ok.json()["ok"] is True
 
 
+def test_owner_read_key_opens_the_counters_and_nothing_else(client, monkeypatch):
+    import hashlib
+
+    from server import main
+
+    monkeypatch.setenv("JOBS_SECRET", "s3cret")
+    monkeypatch.delenv("CRON_SECRET", raising=False)
+    monkeypatch.setattr(main, "STATS_READER_SHA256", hashlib.sha256(b"reader-key").hexdigest())
+    assert client.get("/api/stats", headers={"X-Stats-Key": "wrong"}).status_code == 401
+    assert client.get("/api/stats", headers={"X-Stats-Key": ""}).status_code == 401
+    ok = client.get("/api/stats?days=3", headers={"X-Stats-Key": "reader-key"})
+    assert ok.status_code == 200 and ok.json()["ok"] is True
+    # the read key is not a job key: scheduled jobs still need their own secret
+    assert client.get("/api/cron/snapshot", headers={"X-Stats-Key": "reader-key"}).status_code == 401
+
+
 @pytest.mark.parametrize(
     "text,expected",
     [

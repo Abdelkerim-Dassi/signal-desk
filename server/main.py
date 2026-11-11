@@ -17,6 +17,8 @@ front-end), only the ``/api/*`` routes are mounted.
 from __future__ import annotations
 
 import asyncio
+import hashlib
+import hmac
 import json
 import logging
 import os
@@ -440,6 +442,18 @@ def _job_authorized(request: Request) -> bool:
 
 _UNAUTHORIZED = {"ok": False, "error": "unauthorized"}
 
+# The owner reads the visit counters from his own machine with a key the app
+# never stores: only the SHA-256 of that key lives here. The key is 32 random
+# bytes kept in the owner's .env (STATS_READ_KEY), so its hash gives nothing
+# away, and it opens the read-only counters and nothing else (never a job).
+STATS_READER_SHA256 = "74cef8bccacc73d3ffc5a33bbbf782c84d565c6f9f262b177165190f61d371d4"
+
+
+def _stats_reader(request: Request) -> bool:
+    key = request.headers.get("x-stats-key") or ""
+    digest = hashlib.sha256(key.encode("utf-8")).hexdigest()
+    return bool(key) and hmac.compare_digest(digest, STATS_READER_SHA256)
+
 
 @app.get("/api/cron/snapshot")
 async def cron_snapshot(request: Request) -> JSONResponse:
@@ -512,8 +526,8 @@ async def stats_event(req: StatsEvent, request: Request) -> JSONResponse:
 
 @app.get("/api/stats")
 async def get_stats(request: Request, days: int = 30) -> JSONResponse:
-    """Counters for the last N days. Private: same secret as the scheduled jobs."""
-    if not _job_authorized(request):
+    """Counters for the last N days. Private: the scheduled jobs' secret, or the owner's read-only key."""
+    if not (_job_authorized(request) or _stats_reader(request)):
         return JSONResponse(_UNAUTHORIZED, status_code=401)
     data = await asyncio.to_thread(stats.read, days)
     return JSONResponse(data, status_code=200 if data.get("ok") else 503, headers={"Cache-Control": "no-store"})
