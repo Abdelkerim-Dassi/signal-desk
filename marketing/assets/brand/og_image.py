@@ -5,11 +5,11 @@ Usage: python og_image.py <repo_root>
 Writes frontend/public/og-image.png. Run with the qirat-media environment
 (Pillow, arabic_reshaper, python-bidi) and PYTHONIOENCODING=utf-8.
 
-Every Darija line here already exists in the app or in a posted video, so
-nothing on the image is new wording:
-  - «هذا تحيّل؟»                       the Scam check title
-  - «فركس متاعك بلاش»                  the line under a shared result
-  - «قيراط عمرو ما يبعثلك ميساج قبلك»  the promise from the scam quiz
+The image carries the one promise the videos make (trading from zero, in Darija).
+The Darija comes from the app where possible:
+  - «تعلّم»                                  the Learn tab
+  - «من الصفر، بالدارجة»                     the "start here" strip on Learn
+  - «تدرّب بـ 10 دولار» · «تجربة، موش فلوس حقيقية»   the Practice title and its label
 """
 import os
 import sys
@@ -61,14 +61,14 @@ bar = bar.resize((size, int(bar.height * size / bar.width)), Image.LANCZOS)
 im.alpha_composite(bar, (60, (H - bar.height) // 2 + 6))
 
 # headline on a gold marker stroke
-head_font = ImageFont.truetype(AR_BOLD, 118)
-head = ar("هذا تحيّل؟")
+head_font = ImageFont.truetype(AR_BOLD, 100)
+head = ar("تعلّم الـ trading")
 hw = d.textlength(head, font=head_font)
-d.rounded_rectangle((RIGHT - hw - 18, 208, RIGHT + 18, 262), radius=14, fill=MARKER)
-draw_right(d, head, 108, head_font, INK)
+d.rounded_rectangle((RIGHT - hw - 18, 196, RIGHT + 18, 246), radius=14, fill=MARKER)
+draw_right(d, head, 112, head_font, INK)
 
-draw_right(d, ar("فركس متاعك بلاش"), 286, ImageFont.truetype(AR_BOLD, 62), INK)
-draw_right(d, ar("قيراط عمرو ما يبعثلك ميساج قبلك"), 392, ImageFont.truetype(AR_SEMI, 34), MUTED)
+draw_right(d, ar("من الصفر، بالدارجة"), 282, ImageFont.truetype(AR_BOLD, 62), INK)
+draw_right(d, ar("تدرّب بـ 10 دولار · تجربة، موش فلوس حقيقية"), 392, ImageFont.truetype(AR_SEMI, 32), MUTED)
 
 # the address, large enough to read in a small preview
 url_font = latin(52, 700)
