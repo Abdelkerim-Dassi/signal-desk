@@ -563,6 +563,118 @@ export const LESSONS: Lesson[] = [
   },
 
   {
+    slug: 'candles',
+    minutes: 2,
+    title: {
+      en: 'Red and green candles: how to read a chart',
+      fr: 'Bougies rouges et vertes : lire un graphique',
+      ar: 'الشمعة الحمراء والخضراء: كيفاش تقرا chart',
+    },
+    hook: {
+      en: 'Every crypto chart is made of small candles. One candle is one day. Here is what each part tells you.',
+      fr: 'Chaque graphique crypto est fait de petites bougies. Une bougie, c’est un jour. Voici ce que dit chaque partie.',
+      ar: 'كل chart متاع crypto معمول بشمعات صغار. كل شمعة هي نهار كامل. هاو شنوّة يقلّك كل جزء فيها.',
+    },
+    terms: ['candle', 'volatility'],
+    live: { kind: 'coin', symbol: 'BTC' },
+    sections: [
+      {
+        h: { en: 'One candle, one day', fr: 'Une bougie, un jour', ar: 'شمعة وحدة، نهار واحد' },
+        p: {
+          en: 'On Qirat’s 30-day chart, each candle is one day. It shows four prices: where the day opened, where it closed, the highest price of the day and the lowest.',
+          fr: 'Sur le graphique 30 jours de Qirat, chaque bougie est un jour. Elle montre quatre prix : l’ouverture, la clôture, le plus haut et le plus bas de la journée.',
+          ar: 'في الـ chart متاع 30 يوم في قيراط، كل شمعة هي نهار. فيها 4 أسوام: وين حلّ النهار، وين سكّر، أعلى سوم وأوطى سوم في النهار.',
+        },
+      },
+      {
+        h: { en: 'Green or red', fr: 'Verte ou rouge', ar: 'خضراء ولا حمراء' },
+        p: {
+          en: 'Green: the day closed higher than it opened. Red: it closed lower. The thick part of the candle (the body) goes from the open to the close.',
+          fr: 'Verte : la journée a clôturé plus haut qu’elle n’a ouvert. Rouge : elle a clôturé plus bas. La partie épaisse (le corps) va de l’ouverture à la clôture.',
+          ar: 'الأخضر: النهار سكّر أعلى من ما حلّ. الأحمر: سكّر أوطى. الجزء العريض متاع الشمعة يمشي من وين حلّ لوين سكّر.',
+        },
+      },
+      {
+        h: { en: 'The thin line', fr: 'Le trait fin', ar: 'الخيط الرقيق' },
+        p: {
+          en: 'The thin line above and below the body shows the day’s high and low. A long line means the price travelled far during the day, even if it closed near where it opened.',
+          fr: 'Le trait fin au-dessus et en dessous du corps montre le plus haut et le plus bas du jour. Un long trait veut dire que le prix a beaucoup voyagé dans la journée, même s’il a clôturé près de son ouverture.',
+          ar: 'الخيط الرقيق الفوق واللوطا هو أعلى وأوطى سوم في النهار. كي يكون الخيط طويل، معناها السوم مشى برشا في النهار، حتى كان سكّر قريب من وين حلّ.',
+        },
+      },
+      {
+        h: { en: 'What candles do not tell you', fr: 'Ce que les bougies ne disent pas', ar: 'شنوّة الشمعات ما يقلّوكش' },
+        p: {
+          en: 'Candles show what already happened. Three green days in a row do not mean the fourth will be green. Anyone who says a candle pattern tells you when to buy is selling something.',
+          fr: 'Les bougies montrent ce qui s’est déjà passé. Trois jours verts de suite ne veulent pas dire que le quatrième sera vert. Celui qui dit qu’une figure de bougies indique quand acheter vous vend quelque chose.',
+          ar: 'الشمعات يورّيوك اللي صار. 3 نهارات خضر ورا بعضهم موش معناها الرابع باش يكون أخضر. اللي يقلّك شكل الشمعات يقلّك وقتاش تشري، راهو يبيعلك في حاجة.',
+        },
+      },
+    ],
+    takeaway: {
+      en: 'Read a candle as a summary of one day: green closed higher, red closed lower, the thin line is the day’s range. It describes the past, it does not predict.',
+      fr: 'Lisez une bougie comme le résumé d’un jour : verte a clôturé plus haut, rouge plus bas, le trait fin est l’amplitude du jour. Elle décrit le passé, elle ne prédit rien.',
+      ar: 'اقرا الشمعة كأنها ملخّص متاع نهار: الخضراء سكّرت أعلى، الحمراء سكّرت أوطى، والخيط الرقيق هو قدّاش مشى السوم في النهار. تحكي على اللي فات، موش توقّع.',
+    },
+    quiz: [
+      {
+        q: {
+          en: 'On Qirat’s chart, what is one candle?',
+          fr: 'Sur le graphique de Qirat, qu’est-ce qu’une bougie ?',
+          ar: 'في الـ chart متاع قيراط، شنوّة هي الشمعة؟',
+        },
+        options: [
+          { en: 'One hour', fr: 'Une heure', ar: 'ساعة' },
+          { en: 'One day', fr: 'Un jour', ar: 'نهار' },
+          { en: 'One trade', fr: 'Une transaction', ar: 'عملية شرا وحدة' },
+        ],
+        answer: 1,
+        why: {
+          en: 'Qirat’s chart shows 30 days with one candle per day.',
+          fr: 'Le graphique de Qirat montre 30 jours, une bougie par jour.',
+          ar: 'الـ chart متاع قيراط فيه 30 يوم، شمعة لكل نهار.',
+        },
+      },
+      {
+        q: {
+          en: 'A candle is red. What happened that day?',
+          fr: 'Une bougie est rouge. Que s’est-il passé ce jour-là ?',
+          ar: 'شمعة حمراء. شنوّة صار في النهار هذاكا؟',
+        },
+        options: [
+          { en: 'It closed lower than it opened', fr: 'Il a clôturé plus bas qu’il n’a ouvert', ar: 'سكّر أوطى من ما حلّ' },
+          { en: 'Someone lost all their money', fr: 'Quelqu’un a tout perdu', ar: 'واحد خسر فلوسو الكل' },
+          { en: 'The market was closed', fr: 'Le marché était fermé', ar: 'السوق كان مسكّر' },
+        ],
+        answer: 0,
+        why: {
+          en: 'Red only means the closing price was below the opening price. It says nothing about the size of the drop.',
+          fr: 'Rouge veut seulement dire que la clôture était sous l’ouverture. Ça ne dit rien de la taille de la baisse.',
+          ar: 'الأحمر معناه السوم وقت سكّر كان أوطى من وقت حلّ. ما يقلّكش قدّاش هبط.',
+        },
+      },
+      {
+        q: {
+          en: 'After three green candles in a row, the next day…',
+          fr: 'Après trois bougies vertes de suite, le jour suivant…',
+          ar: 'بعد 3 شمعات خضر ورا بعضهم، النهار اللي بعدو…',
+        },
+        options: [
+          { en: 'will be green', fr: 'sera vert', ar: 'باش يكون أخضر' },
+          { en: 'will be red', fr: 'sera rouge', ar: 'باش يكون أحمر' },
+          { en: 'can be either: candles do not predict', fr: 'peut être l’un ou l’autre : les bougies ne prédisent pas', ar: 'ينجّم يكون هذا ولا هذا: الشمعات ما يتوقّعوش' },
+        ],
+        answer: 2,
+        why: {
+          en: 'Candles summarise the past. Nobody can tell you the next day’s colour.',
+          fr: 'Les bougies résument le passé. Personne ne peut vous dire la couleur du lendemain.',
+          ar: 'الشمعات يلخّصو اللي فات. حتى حد ما ينجّم يقلّك لون النهار الجاي.',
+        },
+      },
+    ],
+  },
+
+  {
     slug: 'scams',
     minutes: 2,
     title: {
@@ -1130,6 +1242,14 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
       en: 'Fear Of Missing Out: the urge to jump in because a price is rising and everyone is talking about it.',
       fr: 'Fear Of Missing Out : l’envie de se lancer parce qu’un prix monte et que tout le monde en parle.',
       ar: 'Fear Of Missing Out: الرغبة باش تدخل خاطر السوم طالع والناس الكل تحكي عليه.',
+    },
+  },
+  candle: {
+    term: { en: 'Candle', fr: 'Bougie', ar: 'شمعة' },
+    def: {
+      en: 'One bar on a price chart. On Qirat it covers one day: green closed higher than it opened, red closed lower, the thin line is the day’s high and low.',
+      fr: 'Une barre sur un graphique de prix. Sur Qirat, elle couvre un jour : verte a clôturé plus haut qu’à l’ouverture, rouge plus bas, le trait fin est le plus haut et le plus bas du jour.',
+      ar: 'عمود في chart متاع السوم. في قيراط هي نهار: الخضراء سكّرت أعلى من ما حلّت، الحمراء سكّرت أوطى، والخيط الرقيق هو أعلى وأوطى سوم في النهار.',
     },
   },
   'fear-greed': {
