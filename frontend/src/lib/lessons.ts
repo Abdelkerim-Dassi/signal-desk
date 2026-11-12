@@ -59,12 +59,12 @@ export const LEARN_UI = {
   // and title, the footer's "free in the beta" and the "never buy or sell" line.
   startTitle: { en: 'Start here', fr: 'Commencez ici', ar: 'ابدا من هنا' },
   startBody: {
-    en: 'Qirat teaches you trading from zero: two-minute lessons, a practice wallet with 10 pretend dollars at real prices, and an honest risk grade for every coin.',
-    fr: 'Qirat vous apprend le trading à partir de zéro : des leçons de deux minutes, un portefeuille d’entraînement de 10 dollars fictifs aux prix réels, et une note de risque honnête pour chaque crypto.',
-    ar: 'قيراط يعلّمك الـ trading من الصفر: دروس في دقيقتين، wallet تجريبي فيه 10 دولار بالسوامات الحقيقية، والـ risk متاع كل coin.',
+    en: 'Qirat teaches you trading from zero: two-minute lessons, a practice wallet with 1000 pretend dollars at real prices, and an honest risk grade for every coin.',
+    fr: 'Qirat vous apprend le trading à partir de zéro : des leçons de deux minutes, un portefeuille d’entraînement de 1000 dollars fictifs aux prix réels, et une note de risque honnête pour chaque crypto.',
+    ar: 'قيراط يعلّمك الـ trading من الصفر: دروس في دقيقتين، wallet تجريبي فيه 1000 دولار بالسوامات الحقيقية، والـ risk متاع كل coin.',
   },
   startLesson: { en: 'Start lesson 1', fr: 'Commencer la leçon 1', ar: 'ابدا الدرس 1' },
-  startPractice: { en: 'Practice with $10', fr: 'S’entraîner avec 10 $', ar: 'تدرّب بـ 10 دولار' },
+  startPractice: { en: 'Practice with $1000', fr: 'S’entraîner avec 1000 $', ar: 'تدرّب بـ 1000 دولار' },
   startNote: {
     en: 'Free during the beta. Qirat never tells you to buy or sell.',
     fr: 'Gratuit pendant la bêta. Qirat ne vous dit jamais d’acheter ou de vendre.',

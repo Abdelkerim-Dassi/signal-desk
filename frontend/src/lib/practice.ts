@@ -1,4 +1,4 @@
-// Practice with $10: a paper-money wallet. Simulation only, never real money.
+// Practice with pretend dollars (100, 500 or 1000): a paper-money wallet. Simulation only, never real money.
 // The ledger lives in this browser (accounts come later); every price, fee and
 // coach note comes from the server (server/paper.py), so the maths is tested
 // in one place. Storage can be blocked, so every access is guarded and the
@@ -121,17 +121,20 @@ export class PracticeError extends Error {
 }
 
 const KEY = 'qirat.practice.v1'
-const START_USDT = 10
+/** Starting amounts a visitor can choose; a first visit starts with the largest. */
+export const START_CHOICES = [100, 500, 1000] as const
+export const DEFAULT_START = 1000
+const LEGACY_START = 10 // the wallet started at 10 USDT until 2026-11-12
 const MAX_TRADES = 200
 const MAX_CURVE = 400
 const CURVE_EVERY_MS = 30 * 60 * 1000
 
-export function freshLedger(): Ledger {
+export function freshLedger(startUsdt: number = DEFAULT_START): Ledger {
   return {
     v: 1,
     startedAt: Date.now(),
-    startUsdt: START_USDT,
-    wallet: { cash: START_USDT, positions: {} },
+    startUsdt,
+    wallet: { cash: startUsdt, positions: {} },
     btcHoldQty: null,
     trades: [],
     curve: [],
@@ -144,6 +147,9 @@ export function loadLedger(): Ledger {
     if (!raw) return freshLedger()
     const saved = JSON.parse(raw) as Partial<Ledger>
     if (saved.v !== 1 || !saved.wallet || typeof saved.wallet.cash !== 'number') return freshLedger()
+    // an old 10 USDT wallet that was never traded moves to the new starting amount
+    const untouched = !Array.isArray(saved.trades) || saved.trades.length === 0
+    if ((saved.startUsdt ?? LEGACY_START) === LEGACY_START && untouched) return freshLedger()
     return {
       ...freshLedger(),
       ...saved,

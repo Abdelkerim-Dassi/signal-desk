@@ -1,4 +1,4 @@
-"""Practice with $10: a paper-money wallet. Simulation only.
+"""Practice with pretend dollars: a paper-money wallet. Simulation only.
 
 Nothing here touches real money: there are no deposits, withdrawals or prizes,
 and no leverage or shorting. The wallet itself lives in the user's browser; this
@@ -46,7 +46,7 @@ from advisor_engine import (
 from . import stats
 
 # ── the rules of the game ───────────────────────────────────────────────────
-START_USDT = 10.0
+START_USDT = 1000.0  # the default; the app lets a visitor start with 100, 500 or 1000
 FEE_RATE = 0.001  # 0.1% per trade, like a Binance spot taker fee
 SPREAD = 0.0005  # 0.05%: buys fill a little above the market price, sells a little below
 MIN_TRADE_USDT = 1.0

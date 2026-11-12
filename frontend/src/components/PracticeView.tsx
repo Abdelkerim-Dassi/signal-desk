@@ -12,6 +12,7 @@ import type {
   Trade,
 } from '../lib/practice'
 import {
+  START_CHOICES,
   freshLedger,
   getPracticeState,
   loadLedger,
@@ -102,10 +103,10 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
   })
   const state = stateQuery.data
 
-  const reset = () => {
-    setLedger(freshLedger())
+  const reset = (start: number) => {
+    setLedger(freshLedger(start))
     setLastNotes(null)
-    onToast(tp('resetDone'))
+    onToast(tp('resetDone', { start }))
   }
 
   const onTraded = (result: QuoteResult) => {
@@ -119,10 +120,10 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
     <section className="space-y-4">
       <div className="space-y-2 px-1">
         <div className="flex flex-wrap items-center gap-2">
-          <h2 className="text-2xl font-semibold tracking-tight">{tp('title')}</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">{tp('title', { start: ledger.startUsdt })}</h2>
           <SimBadge />
         </div>
-        <p className="text-sm text-muted">{tp('intro')}</p>
+        <p className="text-sm text-muted">{tp('intro', { start: ledger.startUsdt })}</p>
       </div>
 
       {!state && stateQuery.isLoading && <div className="card p-5 text-sm text-muted">{tp('loading')}</div>}
@@ -236,7 +237,7 @@ function BalanceCard({ ledger, state }: { ledger: Ledger; state: PracticeState }
           </p>
         </div>
         <div className="rounded-2xl bg-subtle/60 p-3">
-          <p className="text-xs text-muted">{tp('hold')}</p>
+          <p className="text-xs text-muted">{tp('hold', { start: ledger.startUsdt })}</p>
           {v.btc_hold_value != null ? (
             <>
               <p className="num text-lg font-semibold" dir="ltr">
@@ -252,12 +253,12 @@ function BalanceCard({ ledger, state }: { ledger: Ledger; state: PracticeState }
         </div>
       </div>
       <CurveChart ledger={ledger} />
-      <p className="text-xs text-muted">{tp('startedOn', { date: started })}</p>
+      <p className="text-xs text-muted">{tp('startedOn', { date: started, start: ledger.startUsdt })}</p>
     </div>
   )
 }
 
-/** Wallet value vs "just held BTC" over time, with the 10 USDT start as a baseline. */
+/** Wallet value vs "just held BTC" over time, with the starting amount as a baseline. */
 function CurveChart({ ledger }: { ledger: Ledger }) {
   const { tp } = usePracticeT()
   const pts = ledger.curve
@@ -322,7 +323,7 @@ function CurveChart({ ledger }: { ledger: Ledger }) {
           <span className="h-0 w-4 border-t-2 border-dashed border-neutral" /> {tp('chartHold')}
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="h-0 w-4 border-t border-dotted border-muted" /> {tp('chartStart')}
+          <span className="h-0 w-4 border-t border-dotted border-muted" /> {tp('chartStart', { start: ledger.startUsdt })}
         </span>
       </div>
     </div>
@@ -358,7 +359,13 @@ function CoinRow({ coin, selected, onPick }: { coin: PracticeCoin; selected: boo
   )
 }
 
-const BUY_CHIPS = [1, 2, 5]
+/** Quick buy amounts sized to the wallet: 5%, 10% and 25% of the start (1, 2, 5 for an old 10 USDT wallet). */
+function buyChips(start: number): number[] {
+  if (start >= 1000) return [50, 100, 250]
+  if (start >= 500) return [25, 50, 100]
+  if (start >= 100) return [5, 10, 25]
+  return [1, 2, 5]
+}
 const SELL_CHIPS = [0.25, 0.5, 1]
 
 function TradeCard({
@@ -373,7 +380,8 @@ function TradeCard({
   const { tp, error } = usePracticeT()
   const [base, setBase] = useState('BTC')
   const [side, setSide] = useState<'buy' | 'sell'>('buy')
-  const [amount, setAmount] = useState('2')
+  const chips = buyChips(ledger.startUsdt)
+  const [amount, setAmount] = useState(() => String(chips[1]))
   const [fraction, setFraction] = useState(1)
   const coin = state.coins.find((c) => c.base === base) ?? state.coins[0]
   const held = ledger.wallet.positions[coin?.base ?? '']
@@ -407,7 +415,7 @@ function TradeCard({
       onTraded(r)
       // refill the form with an amount the remaining cash still covers
       const left = Math.floor(r.wallet_after.cash * 100) / 100
-      setAmount(left >= 1 ? String(Math.min(2, left)) : '')
+      setAmount(left >= 1 ? String(Math.min(chips[1], left)) : '')
     },
   })
   useEffect(() => place.reset(), [order]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -486,7 +494,7 @@ function TradeCard({
               />
             </label>
             <div className="flex flex-wrap items-center gap-1.5">
-              {BUY_CHIPS.map((n) => (
+              {chips.map((n) => (
                 <Chip key={n} active={Number(amount) === n} onClick={() => setAmount(String(n))}>
                   {n}
                 </Chip>
@@ -712,7 +720,7 @@ function History({ trades, rate }: { trades: Trade[]; rate: number }) {
   )
 }
 
-function ResetBar({ onReset }: { onReset: () => void }) {
+function ResetBar({ onReset }: { onReset: (start: number) => void }) {
   const { tp } = usePracticeT()
   const [asking, setAsking] = useState(false)
   if (!asking) {
@@ -731,16 +739,19 @@ function ResetBar({ onReset }: { onReset: () => void }) {
   return (
     <div className="card flex flex-wrap items-center justify-center gap-3 p-4 text-sm">
       <span className="w-full text-center text-muted sm:w-auto">{tp('resetAsk')}</span>
-      <button
-        type="button"
-        onClick={() => {
-          setAsking(false)
-          onReset()
-        }}
-        className="cursor-pointer rounded-full bg-text px-4 py-1.5 font-semibold text-bg transition hover:opacity-90"
-      >
-        {tp('resetYes')}
-      </button>
+      {START_CHOICES.map((n) => (
+        <button
+          key={n}
+          type="button"
+          onClick={() => {
+            setAsking(false)
+            onReset(n)
+          }}
+          className="num cursor-pointer rounded-full bg-text px-4 py-1.5 font-semibold text-bg transition hover:opacity-90"
+        >
+          <bdi dir="ltr">{n} USDT</bdi>
+        </button>
+      ))}
       <button
         type="button"
         onClick={() => setAsking(false)}

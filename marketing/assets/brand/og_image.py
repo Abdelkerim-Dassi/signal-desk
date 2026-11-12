@@ -68,7 +68,7 @@ d.rounded_rectangle((RIGHT - hw - 18, 196, RIGHT + 18, 246), radius=14, fill=MAR
 draw_right(d, head, 112, head_font, INK)
 
 draw_right(d, ar("من الصفر، بالدارجة"), 282, ImageFont.truetype(AR_BOLD, 62), INK)
-draw_right(d, ar("تدرّب بـ 10 دولار · تجربة، موش فلوس حقيقية"), 392, ImageFont.truetype(AR_SEMI, 32), MUTED)
+draw_right(d, ar("تدرّب بـ 1000 دولار · تجربة، موش فلوس حقيقية"), 392, ImageFont.truetype(AR_SEMI, 32), MUTED)
 
 # the address, large enough to read in a small preview
 url_font = latin(52, 700)

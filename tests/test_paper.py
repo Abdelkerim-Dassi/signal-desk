@@ -21,15 +21,18 @@ NOW = 1_800_000_000_000.0  # ms
 HOUR = 3600 * 1000
 
 
+TEN = 10.0  # the maths below is written for a 10 USDT wallet; the app's default start is paper.START_USDT
+
+
 def fresh():
-    return clean_wallet(None)
+    return {"cash": TEN, "positions": {}}
 
 
 # ── fees and spread ─────────────────────────────────────────────────────────
 
 
 def test_rules_are_the_advertised_ones():
-    assert paper.START_USDT == 10.0
+    assert paper.START_USDT == 1000.0
     assert FEE_RATE == 0.001
     assert SPREAD == 0.0005
     assert paper.MIN_TRADE_USDT == 1.0
@@ -123,7 +126,7 @@ def test_partial_sell_below_minimum_is_refused_but_selling_all_is_not():
 
 def test_clean_wallet_drops_junk_and_untracked_coins():
     w = clean_wallet({"cash": "abc", "positions": {"btc": {"qty": 0.1, "cost": 5}, "PEPE": {"qty": 9, "cost": 1}, "ETH": {"qty": -1}}})
-    assert w["cash"] == 10.0
+    assert w["cash"] == paper.START_USDT
     assert list(w["positions"]) == ["BTC"]
 
 
@@ -132,7 +135,7 @@ def test_clean_wallet_drops_junk_and_untracked_coins():
 
 def test_value_wallet_pnl_and_shares():
     w = {"cash": 4.0, "positions": {"BTC": {"qty": 0.0001, "cost": 5.0}, "ETH": {"qty": 0.0005, "cost": 1.0}}}
-    v = value_wallet(w, {"BTC": 60_000.0, "ETH": 2_000.0})
+    v = value_wallet(w, {"BTC": 60_000.0, "ETH": 2_000.0}, TEN)
     assert v["value"] == pytest.approx(4 + 6 + 1)
     assert v["pnl"] == pytest.approx(1.0)
     assert v["pnl_pct"] == pytest.approx(10.0)
@@ -145,7 +148,7 @@ def test_value_wallet_pnl_and_shares():
 
 def test_value_wallet_loss():
     w = {"cash": 0.0, "positions": {"SOL": {"qty": 0.05, "cost": 10.0}}}
-    v = value_wallet(w, {"SOL": 150.0})
+    v = value_wallet(w, {"SOL": 150.0}, TEN)
     assert v["value"] == pytest.approx(7.5)
     assert v["pnl"] == pytest.approx(-2.5)
     assert v["pnl_pct"] == pytest.approx(-25.0)
@@ -153,7 +156,7 @@ def test_value_wallet_loss():
 
 def test_btc_hold_line():
     hold_qty = quote_buy(50_000.0, 10.0)["qty"]
-    v = value_wallet(fresh(), {"BTC": 55_000.0}, btc_hold_qty=hold_qty)
+    v = value_wallet(fresh(), {"BTC": 55_000.0}, TEN, btc_hold_qty=hold_qty)
     assert v["btc_hold_value"] == pytest.approx(hold_qty * 55_000.0)
     assert v["btc_hold_pnl_pct"] == pytest.approx((hold_qty * 55_000.0 / 10 - 1) * 100)
     # untouched cash: no gain, no loss
@@ -161,7 +164,7 @@ def test_btc_hold_line():
 
 
 def test_btc_hold_line_absent_without_benchmark():
-    v = value_wallet(fresh(), {"BTC": 55_000.0})
+    v = value_wallet(fresh(), {"BTC": 55_000.0}, TEN)
     assert v["btc_hold_value"] is None
 
 
@@ -245,3 +248,17 @@ def test_several_notes_at_once():
     notes = run("buy", "DOGE", coin, weather="stormy", wallet=wallet, recent=[NOW - i * HOUR for i in range(1, 6)])
     assert ids(notes) == ["fomo", "concentration", "storm", "overtrading"]
 
+
+
+def test_a_missing_wallet_starts_with_the_default_amount():
+    w = clean_wallet(None)
+    assert w == {"cash": paper.START_USDT, "positions": {}}
+    v = value_wallet(w, {"BTC": 50_000.0})
+    assert v["pnl"] == pytest.approx(0.0)
+
+
+def test_a_chosen_start_amount_is_the_baseline():
+    w = {"cash": 500.0, "positions": {}}
+    _, w = apply_buy(w, "BTC", 50_000.0, 500.0)
+    v = value_wallet(w, {"BTC": 50_000.0}, 500.0)
+    assert v["pnl_pct"] == pytest.approx(-0.15, abs=0.01)  # one buy costs fee + spread

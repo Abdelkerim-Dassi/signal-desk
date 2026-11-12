@@ -9,22 +9,22 @@ import type { CoachNote, TradeErrorCode } from './practice'
 type Entry = Record<Lang, string>
 
 const P = {
-  title: { en: 'Practice with $10', fr: 'S’entraîner avec 10 $', ar: 'تدرّب بـ 10 دولار' },
+  title: { en: 'Practice with ${start}', fr: 'S’entraîner avec {start} $', ar: 'تدرّب بـ {start} دولار' },
   intro: {
-    en: 'A pretend wallet with 10 USDT at live prices. Try trades, see the fees, and learn your own habits before real money is ever involved.',
-    fr: 'Un portefeuille fictif de 10 USDT aux prix réels. Essayez des achats et des ventes, voyez les frais et découvrez vos propres réflexes, sans argent réel.',
-    ar: 'wallet تجريبي فيه 10 USDT بالسوامات الحقيقية. جرّب تشري وتبيع، شوف الـ frais، واعرف العادات متاعك قبل ما تحطّ فلوس حقيقية.',
+    en: 'A pretend wallet with {start} USDT at live prices. Try trades, see the fees, and learn your own habits before real money is ever involved.',
+    fr: 'Un portefeuille fictif de {start} USDT aux prix réels. Essayez des achats et des ventes, voyez les frais et découvrez vos propres réflexes, sans argent réel.',
+    ar: 'wallet تجريبي فيه {start} USDT بالسوامات الحقيقية. جرّب تشري وتبيع، شوف الـ frais، واعرف العادات متاعك قبل ما تحطّ فلوس حقيقية.',
   },
   sim: { en: 'Simulation, not real money', fr: 'Simulation, pas d’argent réel', ar: 'تجربة، موش فلوس حقيقية' },
   simShort: { en: 'Simulation', fr: 'Simulation', ar: 'تجربة' },
   balance: { en: 'Practice balance', fr: 'Solde d’entraînement', ar: 'رصيد التدريب' },
   pnl: { en: 'Since you started', fr: 'Depuis le début', ar: 'من وقت ما بديت' },
-  startedOn: { en: 'Started {date} with 10 USDT', fr: 'Commencé le {date} avec 10 USDT', ar: 'بديت نهار {date} بـ 10 USDT' },
-  hold: { en: 'If you had just held BTC with your $10', fr: 'Si vous aviez juste gardé du BTC avec vos 10 $', ar: 'كان خلّيت Bitcoin بالـ 10 دولار متاعك برك' },
+  startedOn: { en: 'Started {date} with {start} USDT', fr: 'Commencé le {date} avec {start} USDT', ar: 'بديت نهار {date} بـ {start} USDT' },
+  hold: { en: 'If you had just held BTC with your ${start}', fr: 'Si vous aviez juste gardé du BTC avec vos {start} $', ar: 'كان خلّيت Bitcoin بالـ {start} دولار متاعك برك' },
   holdWaiting: { en: 'Waiting for the BTC price…', fr: 'En attente du prix du BTC…', ar: 'نستنّاو في سوم Bitcoin…' },
   chartYou: { en: 'Your wallet', fr: 'Votre portefeuille', ar: 'الـ wallet متاعك' },
   chartHold: { en: 'Just holding BTC', fr: 'Garder du BTC', ar: 'كان خلّيت Bitcoin' },
-  chartStart: { en: 'Start: 10 USDT', fr: 'Départ : 10 USDT', ar: 'البداية: 10 USDT' },
+  chartStart: { en: 'Start: {start} USDT', fr: 'Départ : {start} USDT', ar: 'البداية: {start} USDT' },
 
   trade: { en: 'Practice trade', fr: 'Opération d’entraînement', ar: 'عملية تدريب' },
   coin: { en: 'Coin', fr: 'Crypto', ar: 'الـ coin' },
@@ -94,15 +94,15 @@ const P = {
   bought: { en: 'Bought', fr: 'Achat', ar: 'شريت' },
   sold: { en: 'Sold', fr: 'Vente', ar: 'بعت' },
 
-  reset: { en: 'Start over with 10 USDT', fr: 'Recommencer avec 10 USDT', ar: 'عاود من الأوّل بـ 10 USDT' },
+  reset: { en: 'Start over with 100, 500 or 1000 USDT', fr: 'Recommencer avec 100, 500 ou 1000 USDT', ar: 'عاود من الأوّل بـ 100، 500 ولا 1000 USDT' },
   resetAsk: {
-    en: 'This clears your practice wallet and trades on this device.',
-    fr: 'Cela efface votre portefeuille fictif et vos opérations sur cet appareil.',
-    ar: 'هذا يفسخ الـ wallet التجريبي والعمليات متاعك في الجهاز هذا.',
+    en: 'This clears your practice wallet and trades on this device. Choose your new starting amount:',
+    fr: 'Cela efface votre portefeuille fictif et vos opérations sur cet appareil. Choisissez votre nouveau montant de départ :',
+    ar: 'هذا يفسخ الـ wallet التجريبي والعمليات متاعك في الجهاز هذا. اختار بقدّاش تعاود تبدا:',
   },
   resetYes: { en: 'Yes, start over', fr: 'Oui, recommencer', ar: 'إيه، عاود من الأوّل' },
   cancel: { en: 'Cancel', fr: 'Annuler', ar: 'بطّل' },
-  resetDone: { en: 'Fresh start: 10 USDT of practice money.', fr: 'Nouveau départ : 10 USDT fictifs.', ar: 'بداية جديدة: 10 USDT متاع تدريب.' },
+  resetDone: { en: 'Fresh start: {start} USDT of practice money.', fr: 'Nouveau départ : {start} USDT fictifs.', ar: 'بداية جديدة: {start} USDT متاع تدريب.' },
   traded: { en: 'Practice trade done.', fr: 'Opération fictive effectuée.', ar: 'العملية التجريبية تعدّات.' },
 
   rules: {
