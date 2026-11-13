@@ -331,11 +331,17 @@ def market() -> dict[str, Any]:
     if _market and time.time() - _market[0] < MARKET_TTL:
         cached = _market[1]
     else:
-        with ThreadPoolExecutor(max_workers=8) as pool:
+        # A visitor's first screen waits for this, so everything is fetched at
+        # once: one worker per call (8 shared workers used to queue them), the
+        # live prices included (they land in their own 10-second cache for the
+        # lines below). The grade scale stays the shared one, so a coin's karat
+        # here is worked out exactly as on the Today screen.
+        with ThreadPoolExecutor(max_workers=len(GRADE_UNIVERSE) + 4) as pool:
             closes_f = {b: pool.submit(_coin_closes, b) for b in GRADE_UNIVERSE}
             ref_f = pool.submit(get_grade_reference)
             weather_f = pool.submit(get_market_weather)
             tnd_f = pool.submit(tnd_rate)
+            tickers_f = pool.submit(live_tickers)
             closes = {b: f.result() for b, f in closes_f.items()}
             try:
                 ref = ref_f.result()
@@ -346,6 +352,7 @@ def market() -> dict[str, Any]:
             except Exception:
                 weather = "unknown"
             rate, rate_live = tnd_f.result()
+            tickers_f.exception()  # wait for it; a failure is raised by live_tickers() below
         coins = []
         for base in GRADE_UNIVERSE:
             grade = grade_closes(closes[base], ref) if closes[base] else None
@@ -412,6 +419,9 @@ class QuoteRequest(BaseModel):
     fraction: float | None = None  # sells: share of the position, 0..1
     wallet: dict[str, Any] | None = None
     recent_ts: list[float] = Field(default_factory=list)  # earlier trades, ms since epoch
+    # True while the app is only showing what a trade would give. The form asks
+    # again on every coin or amount change, so only a confirmed trade is counted.
+    preview: bool = False
 
 
 def _prices(m: dict[str, Any]) -> dict[str, float]:
@@ -427,16 +437,18 @@ async def paper_state(req: StateRequest) -> JSONResponse:
         return JSONResponse({"ok": False, "code": "price_unavailable", "error": str(exc)}, status_code=502)
     prices = _prices(m)
     wallet = clean_wallet(req.wallet)
+    # a start amount that makes no sense (zero, negative, absurd) is read as the default
+    start = req.start_usdt if math.isfinite(req.start_usdt) and 0 < req.start_usdt <= 1_000_000 else START_USDT
     btc = prices.get("BTC")
     # what the starting balance buys in BTC right now: the app keeps the first
     # one it sees as the "if you had just held BTC" line
-    benchmark = quote_buy(btc, req.start_usdt)["qty"] if btc else None
+    benchmark = quote_buy(btc, start)["qty"] if btc else None
     return JSONResponse(
         {
             "ok": True,
             **m,
             "wallet": wallet,
-            "valuation": value_wallet(wallet, prices, req.start_usdt, req.btc_hold_qty),
+            "valuation": value_wallet(wallet, prices, start, req.btc_hold_qty),
             "benchmark_btc_qty": benchmark,
         },
         headers={"Cache-Control": "no-store"},
@@ -466,7 +478,8 @@ async def paper_quote(req: QuoteRequest) -> JSONResponse:
             fill, after = apply_sell(wallet, base, coin["price"], _num(req.fraction, 0.0))
     except TradeError as exc:
         return _error(exc.code, str(exc))
-    await asyncio.to_thread(stats.bump, "practice_trade")
+    if not req.preview:
+        await asyncio.to_thread(stats.bump, "practice_trade")
     now_ms = time.time() * 1000
     notes = coach(req.side, base, coin, m["weather"], after, prices, req.recent_ts, now_ms)
     return JSONResponse(

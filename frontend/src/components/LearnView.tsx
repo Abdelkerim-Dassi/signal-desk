@@ -6,7 +6,9 @@ import { useI18n } from '../lib/i18n'
 import { GLOSSARY, LEARN_UI, LESSONS, isReady, lessonsForTerm, todaysLesson } from '../lib/lessons'
 import type { LearnKey, Lesson, LiveLink, Text } from '../lib/lessons'
 import { markRead, recordQuiz, resetProgress, useLearnProgress } from '../lib/learnProgress'
-import { arrive, track } from '../lib/source'
+import { usePracticeT } from '../lib/i18n-practice'
+import { hasTraded, loadLedger } from '../lib/practice'
+import { track } from '../lib/source'
 import type { View } from '../lib/views'
 import BotInvite from './BotInvite'
 import { UserKaratIngot } from './LearnBadge'
@@ -192,9 +194,14 @@ function Hub({ onView }: { onView: (v: View) => void }) {
   const today = todaysLesson()
   const ready = LESSONS.filter(isReady)
   const soon = LESSONS.filter((l) => !isReady(l))
+  // "Start here" stays until the visitor has really started (read a lesson or
+  // made a practice trade), not only on the very first page load: a reload or
+  // a second visit must not take the way in away from someone who hasn't begun.
+  const progress = useLearnProgress()
+  const started = Object.values(progress.lessons).some((p) => p.read || p.passed) || hasTraded()
   return (
     <div className="space-y-6">
-      {arrive().firstVisit && <StartHere onView={onView} />}
+      {!started && <StartHere onView={onView} />}
       <section className="card hero-wash rise overflow-hidden p-5 sm:p-6">
         <div className="flex items-start gap-3">
           <div className="min-w-0 flex-1">
@@ -390,7 +397,7 @@ function LessonPage({ lesson, brief, onView }: { lesson: Lesson; brief: Brief | 
           </div>
           {lesson.live && <LiveBlock live={lesson.live} brief={brief} onView={onView} />}
           <TermChips terms={lesson.terms} />
-          <Quiz lesson={lesson} />
+          <Quiz lesson={lesson} onView={onView} />
         </>
       ) : (
         <>
@@ -465,8 +472,9 @@ function TermChips({ terms }: { terms: string[] }) {
 // Quiz
 // ---------------------------------------------------------------------------
 
-function Quiz({ lesson }: { lesson: Lesson }) {
+function Quiz({ lesson, onView }: { lesson: Lesson; onView: (v: View) => void }) {
   const { tx, lt } = useLearnText()
+  const { tp } = usePracticeT()
   const questions = lesson.quiz!
   const [step, setStep] = useState(0)
   const [picked, setPicked] = useState<number | null>(null)
@@ -513,13 +521,25 @@ function Quiz({ lesson }: { lesson: Lesson }) {
           <p className={`mt-2 ${result.passed ? 'text-strong' : 'text-muted'}`}>
             {result.passed ? (result.wasPassed ? lt('passAgainMsg') : lt('passMsg')) : lt('failMsg')}
           </p>
-          <button
-            type="button"
-            onClick={retry}
-            className="mt-4 cursor-pointer rounded-full border border-border-strong px-5 py-2 text-sm font-medium text-gold transition hover:bg-gold-soft"
-          >
-            {lt('retry')}
-          </button>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+            {/* learn, then try it: a passed quiz leads straight to the practice wallet */}
+            {result.passed && (
+              <button
+                type="button"
+                onClick={() => onView('practice')}
+                className="cursor-pointer rounded-full bg-text px-5 py-2 text-sm font-semibold text-bg transition hover:opacity-90"
+              >
+                {tp('title', { start: loadLedger().startUsdt })}
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={retry}
+              className="cursor-pointer rounded-full border border-border-strong px-5 py-2 text-sm font-medium text-gold transition hover:bg-gold-soft"
+            >
+              {lt('retry')}
+            </button>
+          </div>
           {result.passed && (
             <div className="mt-5">
               <BotInvite place="quiz" inset />

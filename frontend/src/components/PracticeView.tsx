@@ -2,6 +2,7 @@ import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
 import type { ReactNode, SVGProps } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import { usePracticeT } from '../lib/i18n-practice'
+import { LEARN_UI, LESSONS, READY_LESSONS } from '../lib/lessons'
 import type {
   CoachNote,
   Ledger,
@@ -15,6 +16,7 @@ import {
   START_CHOICES,
   freshLedger,
   getPracticeState,
+  isOrderError,
   loadLedger,
   price,
   qty,
@@ -127,7 +129,8 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
       </div>
 
       {!state && stateQuery.isLoading && <div className="card p-5 text-sm text-muted">{tp('loading')}</div>}
-      {!state && stateQuery.isError && (
+      {/* also shown over prices already on screen, so stale numbers never pass for live ones */}
+      {stateQuery.isError && (
         <div className="card flex flex-wrap items-center gap-3 p-5 text-sm">
           <span className="text-muted">{tp('loadFailed')}</span>
           <button
@@ -404,7 +407,7 @@ function TradeCard({
   const valid = side === 'buy' ? Number(amount) > 0 : Boolean(held)
   const preview = useQuery({
     queryKey: ['practice-quote', debounced, ledger.wallet],
-    queryFn: () => quoteTrade(ledger, debounced),
+    queryFn: () => quoteTrade(ledger, debounced, true),
     enabled: valid && debounced === order,
     staleTime: 10_000,
     retry: false,
@@ -552,7 +555,9 @@ function TradeCard({
 
         <button
           type="button"
-          disabled={!valid || place.isPending || Boolean(preview.error)}
+          // an order the wallet can't make stays blocked; a failed price lookup
+          // does not, so pressing the button is also the way to try again
+          disabled={!valid || place.isPending || isOrderError(preview.error)}
           onClick={() => place.mutate()}
           className="w-full cursor-pointer rounded-full bg-text py-2.5 text-sm font-semibold text-bg transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
         >
@@ -588,6 +593,29 @@ function Row({ label, children }: { label: string; children: ReactNode }) {
   )
 }
 
+/** The lesson that explains a habit note, when one is written: practice leads back to learning. */
+const NOTE_LESSON: Partial<Record<CoachNote['id'], string>> = {
+  fomo: 'fomo',
+  panic: 'price-swings',
+  storm: 'price-swings',
+}
+
+function NoteLesson({ id }: { id: CoachNote['id'] }) {
+  const { lang } = usePracticeT()
+  const index = READY_LESSONS.findIndex((l) => l.slug === NOTE_LESSON[id])
+  if (index < 0) return null
+  const lesson = READY_LESSONS[index]
+  const n = LESSONS.findIndex((l) => l.slug === lesson.slug) + 1
+  return (
+    <a
+      href={`#learn-${lesson.slug}`}
+      className="mt-1.5 block text-xs font-medium text-gold underline-offset-2 hover:underline"
+    >
+      {LEARN_UI.lessonN[lang].replace('{n}', String(n))}: {lesson.title[lang]}
+    </a>
+  )
+}
+
 function CoachCard({ last }: { last: Trade | null }) {
   const { tp, note } = usePracticeT()
   return (
@@ -609,6 +637,7 @@ function CoachCard({ last }: { last: Trade | null }) {
               {last.notes.map((n: CoachNote, i) => (
                 <li key={i} className="rounded-2xl border border-border-strong/60 bg-gold-soft/60 p-3 text-sm leading-relaxed">
                   {note(n)}
+                  <NoteLesson id={n.id} />
                 </li>
               ))}
             </ul>

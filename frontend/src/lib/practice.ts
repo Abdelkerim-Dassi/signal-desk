@@ -146,15 +146,26 @@ export function loadLedger(): Ledger {
     const raw = localStorage.getItem(KEY)
     if (!raw) return freshLedger()
     const saved = JSON.parse(raw) as Partial<Ledger>
-    if (saved.v !== 1 || !saved.wallet || typeof saved.wallet.cash !== 'number') return freshLedger()
+    if (saved.v !== 1 || !saved.wallet || !Number.isFinite(saved.wallet.cash)) return freshLedger()
     // an old 10 USDT wallet that was never traded moves to the new starting amount
     const untouched = !Array.isArray(saved.trades) || saved.trades.length === 0
     if ((saved.startUsdt ?? LEGACY_START) === LEGACY_START && untouched) return freshLedger()
+    // A half-written or hand-edited save must not break the screen: every
+    // field the screen reads is checked, and anything odd gets a safe value.
+    const fresh = freshLedger()
+    const positions = saved.wallet.positions
     return {
-      ...freshLedger(),
+      ...fresh,
       ...saved,
-      trades: Array.isArray(saved.trades) ? saved.trades : [],
-      curve: Array.isArray(saved.curve) ? saved.curve : [],
+      startUsdt: Number.isFinite(saved.startUsdt) && (saved.startUsdt as number) > 0 ? (saved.startUsdt as number) : LEGACY_START,
+      startedAt: Number.isFinite(saved.startedAt) ? (saved.startedAt as number) : fresh.startedAt,
+      wallet: {
+        cash: Math.max(0, saved.wallet.cash),
+        positions: positions && typeof positions === 'object' && !Array.isArray(positions) ? positions : {},
+      },
+      btcHoldQty: Number.isFinite(saved.btcHoldQty) ? (saved.btcHoldQty as number) : null,
+      trades: Array.isArray(saved.trades) ? saved.trades.filter((t) => t && Number.isFinite(t.ts) && Array.isArray(t.notes)) : [],
+      curve: Array.isArray(saved.curve) ? saved.curve.filter((p) => p && Number.isFinite(p.ts) && Number.isFinite(p.value)) : [],
     } as Ledger
   } catch {
     return freshLedger()
@@ -205,12 +216,26 @@ export function getPracticeState(ledger: Ledger): Promise<PracticeState> {
 export function quoteTrade(
   ledger: Ledger,
   order: { side: 'buy'; base: string; usdt: number } | { side: 'sell'; base: string; fraction: number },
+  /** true = only show what the trade would give; the server counts confirmed trades only */
+  preview = false,
 ): Promise<QuoteResult> {
   return post('/api/paper/quote', {
     ...order,
     wallet: ledger.wallet,
     recent_ts: ledger.trades.slice(-20).map((t) => t.ts),
+    preview,
   })
+}
+
+/** True once this browser has made a practice trade. */
+export function hasTraded(): boolean {
+  return loadLedger().trades.length > 0
+}
+
+/** Refusals that come from the order itself; anything else is a price lookup that can be tried again. */
+const ORDER_ERRORS: readonly string[] = ['min_trade', 'insufficient_cash', 'no_position', 'bad_amount', 'unknown_coin']
+export function isOrderError(err: unknown): boolean {
+  return ORDER_ERRORS.includes((err as PracticeError | null)?.code ?? '')
 }
 
 // ── formatting ──────────────────────────────────────────────────────────────

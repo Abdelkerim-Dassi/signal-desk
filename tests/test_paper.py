@@ -262,3 +262,70 @@ def test_a_chosen_start_amount_is_the_baseline():
     _, w = apply_buy(w, "BTC", 50_000.0, 500.0)
     v = value_wallet(w, {"BTC": 50_000.0}, 500.0)
     assert v["pnl_pct"] == pytest.approx(-0.15, abs=0.01)  # one buy costs fee + spread
+
+
+# ── the two routes the screen calls (no network: the market is faked) ───────
+
+
+def _fake_market():
+    return {
+        "coins": [
+            {"base": "BTC", "name": "Bitcoin", "price": 50_000.0, "change_24h": 0.0, "change_7d": 1.0, "karat": 24, "risk": "low"},
+        ],
+        "weather": "calm",
+        "tnd_rate": 3.0,
+        "tnd_live": True,
+        "rules": {},
+    }
+
+
+@pytest.fixture
+def client(monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from server import main, stats
+
+    monkeypatch.setattr(stats.upstash, "enabled", lambda: False)
+    monkeypatch.setattr(stats, "_memory", {})
+    monkeypatch.setattr(paper, "market", _fake_market)
+    return TestClient(main.app)
+
+
+def _trades_counted():
+    from server import stats
+
+    return stats.read(1)["totals"].get("practice_trade", 0)
+
+
+def test_only_confirmed_trades_are_counted(client):
+    order = {"side": "buy", "base": "BTC", "usdt": 100, "wallet": {"cash": 1000, "positions": {}}}
+    # the form asks for a preview on every coin or amount change
+    for _ in range(3):
+        r = client.post("/api/paper/quote", json={**order, "preview": True})
+        assert r.status_code == 200 and r.json()["wallet_after"]["cash"] == pytest.approx(900)
+    assert _trades_counted() == 0
+    r = client.post("/api/paper/quote", json=order)
+    assert r.status_code == 200
+    assert _trades_counted() == 1
+
+
+def test_a_refused_trade_is_not_counted(client):
+    r = client.post("/api/paper/quote", json={"side": "buy", "base": "BTC", "usdt": 5000, "wallet": {"cash": 1000, "positions": {}}})
+    assert r.status_code == 400 and r.json()["code"] == "insufficient_cash"
+    assert _trades_counted() == 0
+
+
+def test_state_reads_a_senseless_start_amount_as_the_default(client):
+    for bad in (0, -50, 1e12):
+        r = client.post("/api/paper/state", json={"wallet": {"cash": 1000, "positions": {}}, "start_usdt": bad})
+        assert r.status_code == 200
+        assert r.json()["valuation"]["pnl"] == pytest.approx(0.0)
+
+
+def test_state_fails_cleanly_when_prices_are_down(client, monkeypatch):
+    def down():
+        raise RuntimeError("binance unreachable")
+
+    monkeypatch.setattr(paper, "market", down)
+    r = client.post("/api/paper/state", json={})
+    assert r.status_code == 502 and r.json()["code"] == "price_unavailable"
