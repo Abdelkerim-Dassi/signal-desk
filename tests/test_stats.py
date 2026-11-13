@@ -35,6 +35,7 @@ def test_read_ignores_days_outside_the_window():
     [
         ("visit", "t", "visit:t"),
         ("visit", "direct", "visit:direct"),
+        ("visit", "y", "visit:y"),
         ("view", "scamcheck", "view:scamcheck"),
         ("view", "learn", "view:learn"),
         ("start", "shown", "start:shown"),

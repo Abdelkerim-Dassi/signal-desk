@@ -22,7 +22,7 @@ from . import upstash
 KEEP_DAYS = 400  # long enough to compare this Ramadan with the next
 
 # Short paths typed from a video or tapped in a bio: qirat.tn/t, /i, /f, /w.
-SOURCES = {"t": "TikTok", "i": "Instagram", "f": "Facebook", "w": "WhatsApp", "direct": "Direct"}
+SOURCES = {"t": "TikTok", "i": "Instagram", "f": "Facebook", "w": "WhatsApp", "y": "YouTube", "direct": "Direct"}
 VIEWS = {"today", "learn", "practice", "scamcheck", "ask", "portfolio", "record"}
 PLACES = {"scam", "quiz", "practice", "footer"}
 # The "start here" strip a first visit sees on Learn: shown, then which of its
