@@ -588,11 +588,28 @@ def app_button(lang: str, view: str = "") -> dict[str, Any]:
 # LEARN-DARIJA-START (listed in docs/learn/darija-review.md)
 # Mirrors the written lessons in frontend/src/lib/lessons.ts, same order.
 LEARN_LESSONS: list[tuple[str, dict[str, str]]] = [
-    ("bitcoin", {"en": "What is crypto? Start with Bitcoin", "fr": "C’est quoi la crypto ? On commence par le Bitcoin", "ar": "شنوّة الـ crypto؟ نبداو بـ Bitcoin"}),
+    ("bitcoin", {"en": "What is crypto? Start with Bitcoin", "fr": "C’est quoi la crypto ? On commence par le Bitcoin", "ar": "ما هي العملات الرقمية؟ لنبدأ بـ Bitcoin"}),
     ("usdt", {"en": "USDT, the “digital dollar”", "fr": "L’USDT, le « dollar numérique »", "ar": "USDT، «الدولار الرقمي»"}),
-    ("price-swings", {"en": "Why crypto prices swing so much", "fr": "Pourquoi les prix crypto bougent autant", "ar": "علاش سوم الـ crypto يطلع ويهبط برشا؟"}),
-    ("scams", {"en": "How scammers find you", "fr": "Comment les arnaqueurs vous trouvent", "ar": "كيفاش يلقاوك المتحيّلين"}),
-    ("fomo", {"en": "FOMO: why buying after a big jump hurts", "fr": "Le FOMO : pourquoi acheter après une grosse hausse fait mal", "ar": "الـ FOMO: علاش الشراية بعد طلعة كبيرة توجع"}),
+    ("market-price", {"en": "Who sets the price?", "fr": "Qui fixe le prix ?", "ar": "من يحدّد السعر؟"}),
+    ("price-swings", {"en": "Why crypto prices swing so much", "fr": "Pourquoi les prix crypto bougent autant", "ar": "لماذا تتحرك أسعار العملات الرقمية كثيرًا؟"}),
+    ("only-what-you-can-lose", {"en": "Only put in what you can lose", "fr": "Ne mettez que ce que vous pouvez perdre", "ar": "لا تضع إلا ما تستطيع خسارته"}),
+    ("wallets", {"en": "Wallets and secret keys", "fr": "Les wallets et les clés secrètes", "ar": "المحافظ والمفاتيح السرّية"}),
+    ("scams", {"en": "How scammers find you", "fr": "Comment les arnaqueurs vous trouvent", "ar": "كيف يصل إليك المحتالون"}),
+    ("p2p", {"en": "P2P: where the danger hides", "fr": "Le P2P : là où se cache le danger", "ar": "التعامل المباشر (P2P): أين يختبئ الخطر"}),
+    ("law-tunisia", {"en": "Crypto and the law in Tunisia", "fr": "La crypto et la loi en Tunisie", "ar": "العملات الرقمية والقانون في تونس"}),
+    ("trading-vs-holding", {"en": "Trading and holding: two different games", "fr": "Trader ou garder : deux jeux différents", "ar": "التداول والاحتفاظ: لعبتان مختلفتان"}),
+    ("candles", {"en": "Red and green candles: how to read a chart", "fr": "Bougies rouges et vertes : lire un graphique", "ar": "الشموع الحمراء والخضراء: كيف تقرأ الرسم البياني"}),
+    ("timeframes-volume", {"en": "Timeframes and volume: zoom in, zoom out", "fr": "Unités de temps et volume : zoomer, dézoomer", "ar": "الإطار الزمني والحجم: قرّب الصورة وبعّدها"}),
+    ("fees-spread", {"en": "Fees and spread: what a trade really costs", "fr": "Frais et écart : ce que coûte vraiment une opération", "ar": "الرسوم والفارق: كم تكلّف العملية فعلًا"}),
+    ("order-types", {"en": "Order types: market, limit, stop-loss", "fr": "Les types d’ordres : au marché, à cours limité, stop-loss", "ar": "أنواع الأوامر: أمر السوق، الأمر المحدد، ووقف الخسارة"}),
+    ("karat", {"en": "What a karat means", "fr": "Ce que veut dire un carat", "ar": "ماذا يعني القيراط؟"}),
+    ("market-weather", {"en": "Market weather: moving averages and the crowd", "fr": "La météo du marché : moyennes mobiles et humeur de la foule", "ar": "طقس السوق: المتوسطات المتحركة ومزاج الناس"}),
+    ("fomo", {"en": "FOMO: why buying after a big jump hurts", "fr": "Le FOMO : pourquoi acheter après une grosse hausse fait mal", "ar": "الـ FOMO: لماذا يؤلم الشراء بعد قفزة كبيرة"}),
+    ("position-size", {"en": "Position size: never all-in", "fr": "La taille de position : jamais tout sur un seul coup", "ar": "حجم الصفقة: لا تضع كل شيء في صفقة واحدة"}),
+    ("leverage", {"en": "Leverage and futures: how x10 wipes you out", "fr": "Le levier et les futures : comment un x10 vous efface", "ar": "الرافعة المالية والعقود الآجلة: كيف تمسح x10 رصيدك"}),
+    ("indicators", {"en": "Trend, support, resistance and RSI", "fr": "Tendance, support, résistance et RSI", "ar": "الاتجاه والدعم والمقاومة ومؤشر RSI"}),
+    ("diversify-dca", {"en": "Spreading out and DCA", "fr": "Répartir et investir par paliers (DCA)", "ar": "توزيع الأموال والشراء الدوري (DCA)"}),
+    ("trading-plan", {"en": "Your plan and your journal", "fr": "Votre plan et votre journal", "ar": "خطتك ودفتر صفقاتك"}),
 ]
 LEARN_T: dict[str, dict[str, str]] = {
     "en": {

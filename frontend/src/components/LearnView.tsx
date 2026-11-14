@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import type { Brief, Opportunity } from '../lib/api'
 import { changeColor, compactCurrency, percent } from '../lib/format'
 import { useI18n } from '../lib/i18n'
-import { GLOSSARY, LEARN_UI, LESSONS, isReady, lessonsForTerm, todaysLesson } from '../lib/lessons'
+import { GLOSSARY, LEARN_UI, LESSONS, LEVELS, isReady, lessonsForTerm, todaysLesson } from '../lib/lessons'
 import type { LearnKey, Lesson, LiveLink, Text } from '../lib/lessons'
 import { markRead, recordQuiz, resetProgress, useLearnProgress } from '../lib/learnProgress'
 import { usePracticeT } from '../lib/i18n-practice'
@@ -48,6 +48,7 @@ function useLearnText() {
 
 const lessonIndex = (l: Lesson) => LESSONS.findIndex((x) => x.slug === l.slug)
 const lessonNumber = (l: Lesson) => lessonIndex(l) + 1
+const levelOf = (l: Lesson) => LEVELS.find((v) => v.level === l.level) ?? LEVELS[0]
 
 export default function LearnView({ brief, onView }: { brief: Brief | undefined; onView: (v: View) => void }) {
   const [route, setRoute] = useState<Route>(routeFromHash)
@@ -192,8 +193,6 @@ function LessonRow({ lesson }: { lesson: Lesson }) {
 function Hub({ onView }: { onView: (v: View) => void }) {
   const { tx, lt } = useLearnText()
   const today = todaysLesson()
-  const ready = LESSONS.filter(isReady)
-  const soon = LESSONS.filter((l) => !isReady(l))
   // "Start here" stays until the visitor has really started (read a lesson or
   // made a practice trade), not only on the very first page load: a reload or
   // a second visit must not take the way in away from someone who hasn't begun.
@@ -228,7 +227,7 @@ function Hub({ onView }: { onView: (v: View) => void }) {
         >
           <span className="min-w-0 flex-1">
             <span className="text-xs font-medium text-gold">
-              {lt('lessonN', { n: lessonNumber(today) })} · {lt('minutes', { n: today.minutes })}
+              {lt('levelN', { n: today.level })} · {lt('lessonN', { n: lessonNumber(today) })} · {lt('minutes', { n: today.minutes })}
             </span>
             <span className="mt-1 block text-lg font-semibold">{tx(today.title)}</span>
             <span className="mt-0.5 block text-sm text-muted">{tx(today.hook)}</span>
@@ -237,19 +236,30 @@ function Hub({ onView }: { onView: (v: View) => void }) {
         </a>
       </section>
 
-      <section className="space-y-2.5">
-        <p className="tick-label">{lt('allLessons')}</p>
-        {ready.map((l) => (
-          <LessonRow key={l.slug} lesson={l} />
-        ))}
-      </section>
-
-      <section className="space-y-2.5">
-        <p className="tick-label">{lt('comingSoon')}</p>
-        {soon.map((l) => (
-          <LessonRow key={l.slug} lesson={l} />
-        ))}
-      </section>
+      {LEVELS.map((lv) => {
+        const list = LESSONS.filter((l) => l.level === lv.level)
+        if (!list.length) return null
+        const ready = list.filter(isReady)
+        const done = ready.filter((l) => progress.lessons[l.slug]?.passed).length
+        return (
+          <section key={lv.level} className="space-y-2.5" aria-labelledby={`level-${lv.level}`}>
+            <div>
+              <div className="flex items-baseline justify-between gap-3">
+                <h2 id={`level-${lv.level}`} className="tick-label">
+                  {lt('levelN', { n: lv.level })} · {tx(lv.name)}
+                </h2>
+                {ready.length > 0 && (
+                  <span className="shrink-0 text-xs text-muted">{lt('levelProgress', { d: done, n: ready.length })}</span>
+                )}
+              </div>
+              <p className="mt-0.5 text-sm text-muted">{tx(lv.about)}</p>
+            </div>
+            {list.map((l) => (
+              <LessonRow key={l.slug} lesson={l} />
+            ))}
+          </section>
+        )
+      })}
 
       <a
         href="#learn-glossary"
@@ -374,7 +384,7 @@ function LessonPage({ lesson, brief, onView }: { lesson: Lesson; brief: Brief | 
 
       <header className="rise">
         <p className="text-xs font-medium text-gold">
-          {lt('lessonN', { n: idx + 1 })}
+          {lt('levelN', { n: lesson.level })} · {tx(levelOf(lesson).name)} · {lt('lessonN', { n: idx + 1 })}
           {ready ? ` · ${lt('minutes', { n: lesson.minutes })}` : ` · ${lt('comingSoon')}`}
         </p>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">{tx(lesson.title)}</h1>

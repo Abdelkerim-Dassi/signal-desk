@@ -597,7 +597,9 @@ function Row({ label, children }: { label: string; children: ReactNode }) {
 const NOTE_LESSON: Partial<Record<CoachNote['id'], string>> = {
   fomo: 'fomo',
   panic: 'price-swings',
-  storm: 'price-swings',
+  storm: 'market-weather',
+  concentration: 'position-size',
+  overtrading: 'fees-spread',
 }
 
 function NoteLesson({ id }: { id: CoachNote['id'] }) {
