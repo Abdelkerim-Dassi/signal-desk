@@ -107,6 +107,19 @@ export function recordQuiz(slug: string, score: number): boolean {
   return passed
 }
 
+/**
+ * Right after a lesson is passed for the first time: is it the first lesson
+ * this browser ever passed, and did it complete its level? (lib/returning.ts
+ * counts both.)
+ */
+export function passMilestones(slug: string): { first: boolean; levelDone: number | null } {
+  const passed = READY_LESSONS.filter((l) => state.lessons[l.slug]?.passed)
+  const level = READY_LESSONS.find((l) => l.slug === slug)?.level
+  const inLevel = READY_LESSONS.filter((l) => l.level === level)
+  const levelDone = level != null && inLevel.every((l) => state.lessons[l.slug]?.passed) ? level : null
+  return { first: passed.length === 1, levelDone }
+}
+
 export function resetProgress() {
   commit({ lessons: {}, bestKarat: 10 })
 }

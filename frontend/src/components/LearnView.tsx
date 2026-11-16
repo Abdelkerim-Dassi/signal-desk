@@ -8,6 +8,7 @@ import type { LearnKey, Lesson, LiveLink, Text } from '../lib/lessons'
 import { markRead, recordQuiz, resetProgress, useLearnProgress } from '../lib/learnProgress'
 import { usePracticeT } from '../lib/i18n-practice'
 import { hasTraded, loadLedger } from '../lib/practice'
+import { countLessonPass } from '../lib/returning'
 import { track } from '../lib/source'
 import type { View } from '../lib/views'
 import BotInvite from './BotInvite'
@@ -505,7 +506,7 @@ function Quiz({ lesson, onView }: { lesson: Lesson; onView: (v: View) => void })
   const advance = () => {
     if (last) {
       const passed = recordQuiz(lesson.slug, score)
-      if (passed && !wasPassed) track('lesson_pass')
+      if (passed && !wasPassed) countLessonPass(lesson.slug)
       setResult({ score, passed, wasPassed })
       return
     }

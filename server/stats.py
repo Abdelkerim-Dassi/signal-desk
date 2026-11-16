@@ -35,8 +35,16 @@ START = {"shown", "lesson", "practice"}
 # one-tap button on a wallet that has not traded yet, or the trade form.
 FIRST_TRADE = {"tap", "form"}
 # Keep my wallet (server/keep.py): a link was made, or a wallet was opened from
-# a link in a browser that did not have it yet.
+# a link in a browser that did not have it yet. A third counter, keep:back, is
+# added on the server the first time a kept wallet is opened in a later week.
 KEEP = {"created", "opened"}
+# Coming back (frontend/src/lib/returning.ts). A browser is "active" when it
+# makes a practice trade, passes a lesson or finishes a Time machine scenario:
+# its first time ever, its second different week, each new week after that,
+# and once per calendar month.
+ACTIVE = {"new", "week2", "later", "month"}
+# A browser passed every lesson of a level (lesson_first: its first lesson ever).
+LEVELS = {"1", "2", "3"}
 
 # What the browser may report, and the values each event accepts.
 CLIENT_EVENTS: dict[str, set[str] | None] = {
@@ -45,6 +53,9 @@ CLIENT_EVENTS: dict[str, set[str] | None] = {
     "start": START,
     "lesson_open": None,
     "lesson_pass": None,
+    "lesson_first": None,
+    "level_done": LEVELS,
+    "active": ACTIVE,
     "practice_first": FIRST_TRADE,
     "keep": KEEP,
     "bot_click": PLACES,
@@ -168,9 +179,15 @@ def owner_report(days: int = 7) -> str:
         f"Scam checks in the bot: {_sum(t, 'scamcheck_bot')}",
         f"Results shared: {_sum(t, 'share')}",
         f"Lessons opened: {t.get('lesson_open', 0)} · passed: {t.get('lesson_pass', 0)}",
+        f"People who passed a first lesson: {t.get('lesson_first', 0)} · finished Level 1: {t.get('level_done:1', 0)}"
+        f" · Level 2: {t.get('level_done:2', 0)} · Level 3: {t.get('level_done:3', 0)}",
         f"Practice trades: {t.get('practice_trade', 0)}",
         f"First practice trades: {_sum(t, 'practice_first')}  ({_by(t, 'practice_first')})",
-        f"Wallets kept with a link: {t.get('keep:created', 0)} · opened from a link: {t.get('keep:opened', 0)}",
+        f"Wallets kept with a link: {t.get('keep:created', 0)} · opened from a link: {t.get('keep:opened', 0)}"
+        f" · came back in a later week: {t.get('keep:back', 0)}",
+        f"People active for the first time: {t.get('active:new', 0)} · again in a second week: {t.get('active:week2', 0)}"
+        f" · in a later week after that: {t.get('active:later', 0)}",
+        f"People active, counted once per month: {t.get('active:month', 0)}",
         f"Questions asked: {t.get('ask', 0)}",
         f"Bot button taps: {_sum(t, 'bot_click')}  ({_by(t, 'bot_click')})",
         f"Bot starts: {_sum(t, 'bot_start')}  ({_by(t, 'bot_start')})",

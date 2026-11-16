@@ -114,7 +114,7 @@ def test_only_ledger_fields_are_stored(client):
 
 def test_the_store_key_is_not_the_id(client):
     made = _save(client, ledger=_ledger()).json()
-    assert len(keep._memory) == 1
+    assert len(keep._memory) == 2  # the copy, and the day it was kept
     assert made["id"] not in "".join(keep._memory)  # a leaked key list gives no working link
     assert made["id"] not in "".join(keep._memory.values())
 
@@ -253,7 +253,7 @@ def test_new_copies_are_capped_per_day_but_updates_are_not(client, monkeypatch):
     first = _save(client, ledger=_ledger()).json()
     assert _save(client, ledger=_ledger()).status_code == 200
     assert _save(client, ledger=_ledger()).status_code == 429
-    assert len(keep._memory) == 2
+    assert len([k for k in keep._memory if k.startswith("keep:")]) == 2
     assert _save(client, id=first["id"], ledger=_ledger(trades=2)).status_code == 200
 
 
@@ -292,6 +292,9 @@ class FakeRedis:
                     out.append("OK")
             elif name == "GET":
                 out.append(self.data.get(key))
+            elif name == "GETSET":
+                out.append(self.data.get(key))
+                self.data[key] = cmd[2]
             elif name == "INCR":
                 self.data[key] = str(int(self.data.get(key, "0")) + 1)
                 out.append(int(self.data[key]))
@@ -313,7 +316,8 @@ def test_with_redis_a_copy_is_written_with_an_expiry_that_reads_and_saves_restar
     made = _save(client, ledger=_ledger(), learn=LEARN).json()
     key = keep._key(made["id"])
     sets = [c for c in redis.calls if c[0] == "SET"]
-    assert sets == [["SET", key, redis.data[key], "EX", year, "NX"]]  # new: never over an existing copy
+    assert sets[0] == ["SET", key, redis.data[key], "EX", year, "NX"]  # new: never over an existing copy
+    assert sets[1:] == [["SET", keep._made_key(key), keep._today(), "EX", year]]  # and the day it was kept
 
     assert _open(client, made["id"]).json()["ledger"] == _ledger()
     assert ["GET", key] in redis.calls and ["EXPIRE", key, year] in redis.calls
@@ -362,3 +366,89 @@ def test_the_two_keep_counters_are_accepted_and_reported(monkeypatch):
     stats.bump("keep:created")
     stats.bump("keep:opened")
     assert "Wallets kept with a link: 2 · opened from a link: 1" in stats.owner_report(7)
+
+
+# ── wallets that came back ──────────────────────────────────────────────────
+
+
+@pytest.fixture
+def back(monkeypatch):
+    """How many wallets have been counted as back so far."""
+    monkeypatch.setattr(stats, "_memory", {})
+    return lambda: stats.read(1)["totals"].get("keep:back", 0)
+
+
+def _on(monkeypatch, day: str) -> None:
+    monkeypatch.setattr(keep, "_today", lambda: day)
+
+
+def test_a_wallet_opened_again_the_same_week_has_not_come_back(client, back, monkeypatch):
+    _on(monkeypatch, "2026-11-16")  # a Monday
+    made = _save(client, ledger=_ledger()).json()
+    _on(monkeypatch, "2026-11-22")  # the Sunday of that week
+    assert _open(client, made["id"]).status_code == 200
+    assert back() == 0
+
+
+def test_a_wallet_opened_in_a_later_week_is_counted_once(client, back, monkeypatch):
+    _on(monkeypatch, "2026-11-22")  # a Sunday
+    made = _save(client, ledger=_ledger()).json()
+    _on(monkeypatch, "2026-11-23")  # Monday: the next week
+    for _ in range(3):
+        assert _open(client, made["id"]).json()["ledger"] == _ledger()
+    _on(monkeypatch, "2026-12-09")
+    _open(client, made["id"])
+    assert back() == 1
+
+
+def test_our_own_browser_is_not_a_wallet_that_came_back(client, back, monkeypatch):
+    _on(monkeypatch, "2026-11-16")
+    made = _save(client, ledger=_ledger()).json()
+    _on(monkeypatch, "2026-11-30")
+    assert client.post("/api/keep/open", json={"id": made["id"], "own": True}).status_code == 200
+    assert back() == 0
+    _open(client, made["id"])  # the same wallet in a visitor's browser still counts
+    assert back() == 1
+
+
+def test_a_wallet_kept_before_the_counter_starts_its_week_at_its_next_visit(client, back, monkeypatch):
+    _on(monkeypatch, "2026-11-16")
+    made = _save(client, ledger=_ledger()).json()
+    del keep._memory[keep._made_key(keep._key(made["id"]))]  # as the copies made on 16 Nov are
+    _on(monkeypatch, "2026-11-30")
+    _open(client, made["id"])
+    assert back() == 0
+    _on(monkeypatch, "2026-12-07")
+    _open(client, made["id"])
+    assert back() == 1
+
+
+def test_with_redis_a_return_is_counted_once_and_names_no_wallet(client, redis, monkeypatch):
+    _on(monkeypatch, "2026-11-16")
+    made = _save(client, ledger=_ledger()).json()
+    _on(monkeypatch, "2026-11-25")
+    _open(client, made["id"])
+    _open(client, made["id"])
+    bumps = [c for c in redis.calls if c[0] == "HINCRBY"]
+    assert bumps == [["HINCRBY", "stats:" + stats._today(), "keep:back", "1"]]
+    assert redis.data[keep._made_key(keep._key(made["id"]))] == "back"
+    assert not any(made["id"] in str(c) for c in redis.calls)
+
+
+def test_the_counters_for_coming_back_are_accepted_and_reported(monkeypatch):
+    monkeypatch.setattr(stats.upstash, "enabled", lambda: False)
+    monkeypatch.setattr(stats, "_memory", {})
+    assert stats.client_field("keep", "back") is None  # counted on the server only
+    for value in ("new", "week2", "later", "month"):
+        assert stats.client_field("active", value) == f"active:{value}"
+    assert stats.client_field("active", None) is None and stats.client_field("active", "week9") is None
+    assert stats.client_field("lesson_first", None) == "lesson_first"
+    assert stats.client_field("level_done", "1") == "level_done:1"
+    assert stats.client_field("level_done", "4") is None
+    for field in ("keep:back", "active:new", "active:new", "active:week2", "active:month", "lesson_first", "level_done:1"):
+        stats.bump(field)
+    report = stats.owner_report(7)
+    assert "came back in a later week: 1" in report
+    assert "People active for the first time: 2 · again in a second week: 1 · in a later week after that: 0" in report
+    assert "People active, counted once per month: 1" in report
+    assert "People who passed a first lesson: 1 · finished Level 1: 1 · Level 2: 0 · Level 3: 0" in report

@@ -32,6 +32,7 @@ import {
   withCurvePoint,
   withTrade,
 } from '../lib/practice'
+import { markActive } from '../lib/returning'
 import { track } from '../lib/source'
 import BotInvite from './BotInvite'
 import { CoinIcon, KaratBadge, RiskChip } from './Rating'
@@ -141,6 +142,7 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
     const next = withTrade(ledger, result)
     const trade = next.trades.at(-1)!
     if (isFirstTradeEver(ledger)) track('practice_first', oneTap ? 'tap' : 'form')
+    markActive()
     setLedger(next)
     setLastNotes({ trade })
     setFirstDone(oneTap ? trade : null)

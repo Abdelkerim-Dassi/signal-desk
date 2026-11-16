@@ -19,6 +19,10 @@ wallet, and nobody else can find it.
 * What is stored is rebuilt field by field from the body: numbers, coins from
   the practice list and a few fixed words. No free text can be parked here.
 * Entries expire ``KEEP_DAYS`` after their last save or read.
+* Next to each copy sits one marker: the day it was kept, replaced by the word
+  "back" once the wallet has been opened in a later week. That is how
+  ``keep:back`` counts wallets that came back, once each, without knowing whose
+  they are.
 
 Storage is the Upstash store the counters use (``server/upstash.py``). Without
 it (local development, tests) copies are kept in memory. On Vercel without a
@@ -35,6 +39,7 @@ import os
 import re
 import secrets
 import threading
+from datetime import date, datetime, timezone
 from typing import Any
 
 from fastapi import APIRouter, Request
@@ -42,13 +47,13 @@ from fastapi.responses import JSONResponse
 
 from advisor_engine import GRADE_UNIVERSE
 
-from . import upstash
+from . import stats, upstash
 from .ratelimit import check_keep_allowance
 
 KEEP_DAYS = 365
 TTL_SECONDS = KEEP_DAYS * 86400
 MAX_BODY_BYTES = 120_000  # a wallet with 200 trades and its full history is about 85 kB
-MAX_OPEN_BYTES = 200  # {"id": "..."} and nothing else
+MAX_OPEN_BYTES = 200  # {"id": "..."}, and "own" from a browser marked as ours
 
 # The app's own caps (frontend/src/lib/practice.ts), with a little room.
 MAX_TRADES = 200
@@ -209,11 +214,37 @@ def _durable() -> bool:
     return upstash.enabled() or not os.getenv("VERCEL")
 
 
+def _made_key(key: str) -> str:
+    """Where a copy's marker lives: the day it was kept, then ``_BACK``."""
+    return "keepmade:" + key.removeprefix("keep:")
+
+
+_BACK = "back"
+
+
+def _today() -> str:
+    return datetime.now(timezone.utc).date().isoformat()
+
+
+def _week(day: str) -> tuple[int, int] | None:
+    """ISO year and week of a stored day, or None for anything else."""
+    try:
+        year, week, _ = date.fromisoformat(day).isocalendar()
+        return year, week
+    except ValueError:
+        return None
+
+
 def _put(key: str, value: str, *, new: bool) -> bool:
     """Write a copy and restart its expiry. A new copy never replaces one that
-    is there; an update only writes where one is (False when it is gone)."""
+    is there, and gets today as its marker; an update only writes where a copy
+    is (False when it is gone)."""
+    ttl = str(TTL_SECONDS)
     if upstash.enabled():
-        res = upstash.pipeline([["SET", key, value, "EX", str(TTL_SECONDS), "NX" if new else "XX"]])
+        commands = [["SET", key, value, "EX", ttl, "NX" if new else "XX"]]
+        if new:
+            commands.append(["SET", _made_key(key), _today(), "EX", ttl])
+        res = upstash.pipeline(commands)
         if res is None:
             raise StoreDown
         return res[0] == "OK"
@@ -223,20 +254,57 @@ def _put(key: str, value: str, *, new: bool) -> bool:
         if (key in _memory) == new:
             return False
         _memory[key] = value
+        if new:
+            _memory[_made_key(key)] = _today()
         return True
 
 
-def _get(key: str) -> str | None:
-    """Read a copy and restart its expiry."""
+def _get(key: str) -> tuple[str | None, str | None]:
+    """Read a copy and its marker, and restart their expiry."""
+    ttl = str(TTL_SECONDS)
+    made_key = _made_key(key)
     if upstash.enabled():
-        res = upstash.pipeline([["GET", key], ["EXPIRE", key, str(TTL_SECONDS)]])
+        res = upstash.pipeline([["GET", key], ["EXPIRE", key, ttl], ["GET", made_key], ["EXPIRE", made_key, ttl]])
         if res is None:
             raise StoreDown
-        return res[0] if isinstance(res[0], str) else None
+        return (res[0] if isinstance(res[0], str) else None, res[2] if isinstance(res[2], str) else None)
     if not _durable():
         raise StoreDown
     with _lock:
-        return _memory.get(key)
+        return _memory.get(key), _memory.get(made_key)
+
+
+def _mark(key: str, value: str) -> str | None:
+    """Write a copy's marker and give back the one it replaces, in one step, so
+    two browsers opening the same wallet at once cannot both be counted."""
+    made_key = _made_key(key)
+    if upstash.enabled():
+        res = upstash.pipeline([["GETSET", made_key, value], ["EXPIRE", made_key, str(TTL_SECONDS)]])
+        if res is None:
+            raise StoreDown
+        return res[0] if isinstance(res[0], str) else None
+    with _lock:
+        old = _memory.get(made_key)
+        _memory[made_key] = value
+        return old
+
+
+def _count_return(key: str, made: str | None, own: bool) -> None:
+    """Add one to ``keep:back`` the first time a kept wallet is opened in a
+    later week than the one it was kept in: once per wallet, whichever browser
+    opens it. A browser marked as ours (``own``) is not counted. Never raises:
+    counting must not break a read."""
+    try:
+        today = _today()
+        if made is None:
+            _mark(key, today)  # kept before this counter existed: its first week starts now
+            return
+        if own or made == _BACK or _week(made) in (None, _week(today)):
+            return
+        if _mark(key, _BACK) != _BACK:
+            stats.bump("keep:back")
+    except Exception:
+        pass
 
 
 # ── HTTP ────────────────────────────────────────────────────────────────────
@@ -333,7 +401,7 @@ async def keep_open(request: Request) -> JSONResponse:
     if not allowed:
         return _throttled(retry)
     try:
-        raw = _get(_key(keep_id))
+        raw, made = _get(_key(keep_id))
     except StoreDown:
         return _error(*_DOWN)
     if raw is None:
@@ -343,4 +411,5 @@ async def keep_open(request: Request) -> JSONResponse:
         answer = {"ok": True, "rev": saved["rev"], "ledger": saved["ledger"], "learn": saved.get("learn")}
     except (ValueError, KeyError, TypeError):
         return _error(404, "unknown", "No saved wallet under this link. It may have expired.")
+    _count_return(_key(keep_id), made, body.get("own") is True)
     return JSONResponse(answer, headers=_NO_STORE)

@@ -25,7 +25,7 @@
 import { useSyncExternalStore } from 'react'
 import { saveLedger, storedLedger } from './practice'
 import type { Ledger } from './practice'
-import { track } from './source'
+import { isOwner, track } from './source'
 
 const KEY = 'qirat.keep'
 const LEARN_KEY = 'qirat.learn.v1' // written by lib/learnProgress.ts
@@ -220,6 +220,13 @@ async function post<T>(path: string, body: unknown, leaving = false): Promise<T>
   return data
 }
 
+/**
+ * What a read sends. The server counts a kept wallet opened in a later week
+ * as one that came back (keep:back); a browser marked as ours says so, to
+ * stay out of that count like every other.
+ */
+const reading = (id: string) => (isOwner() ? { id, own: true } : { id })
+
 // ── saving ──────────────────────────────────────────────────────────────────
 
 /** Make the saved copy and its link. Throws when it could not be made. */
@@ -302,7 +309,7 @@ async function follow(): Promise<void> {
   lastRead = Date.now()
   const id = kept.id
   try {
-    const saved = await post<Saved>('/api/keep/open', { id })
+    const saved = await post<Saved>('/api/keep/open', reading(id))
     if (kept?.id !== id) return
     if (saved.rev !== kept.rev) adopt(id, saved, false)
     else keepChanged() // a save that did not get through last time
@@ -355,7 +362,7 @@ export async function openTakenLink(): Promise<void> {
   emit()
   let saved: Saved
   try {
-    saved = await post<Saved>('/api/keep/open', { id })
+    saved = await post<Saved>('/api/keep/open', reading(id))
   } catch (err) {
     const gone = ['unknown', 'bad_id'].includes((err as KeepError).code)
     if (gone) pending = null // anything else can be tried again
