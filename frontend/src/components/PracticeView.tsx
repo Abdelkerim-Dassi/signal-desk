@@ -36,6 +36,7 @@ import { markActive } from '../lib/returning'
 import { track } from '../lib/source'
 import BotInvite from './BotInvite'
 import { CoinIcon, KaratBadge, RiskChip } from './Rating'
+import { TimeMachineCard } from './TimeMachineView'
 
 /** Tab icon: a coin on a practice target. */
 export const IconPractice = (p: SVGProps<SVGSVGElement>) => (
@@ -165,6 +166,8 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
       {firstDone && <FirstTradeDone trade={firstDone} />}
       {/* once there is something to lose, or a link already exists; not while a link asks which wallet stays */}
       {(ledger.trades.length > 0 || keep.id) && keep.link.status !== 'ask' && <KeepCard id={keep.id} />}
+      {/* what to do after a first trade: at live prices little moves in a day */}
+      {ledger.trades.length > 0 && <TimeMachineCard />}
 
       {!state && stateQuery.isLoading && <div className="card p-5 text-sm text-muted">{tp('loading')}</div>}
       {/* also shown over prices already on screen, so stale numbers never pass for live ones */}

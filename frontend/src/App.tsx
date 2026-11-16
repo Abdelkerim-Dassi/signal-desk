@@ -10,6 +10,7 @@ import { BottomNav, TopBar } from './components/Navigation'
 import PortfolioView from './components/PortfolioView'
 import PracticeView from './components/PracticeView'
 import ScamCheckView from './components/ScamCheckView'
+import TimeMachineView from './components/TimeMachineView'
 import TodayHero from './components/TodayHero'
 import TrackRecord from './components/TrackRecord'
 import { DEFAULT_CONFIG, toAnalyzeParams, useAppStatus, useBrief } from './hooks/useBrief'
@@ -28,6 +29,8 @@ function viewFromHash(): View {
   const id = window.location.hash.replace('#', '')
   // lessons have their own shareable links: #learn-<slug>
   if (id.startsWith('learn-')) return 'learn'
+  // the Time machine, and a link to one of its scenarios: #replay, #replay-<id>
+  if (id === 'replay' || id.startsWith('replay-')) return 'replay'
   return VIEWS.some((v) => v.id === id) ? (id as View) : 'today'
 }
 
@@ -82,7 +85,7 @@ export default function App() {
   // Scam check and Practice don't use the market brief, so a visitor who
   // lands there doesn't wait for it (or pay for it on mobile data). It loads
   // the first time a screen that shows it is opened, and stays on after that.
-  const showsBrief = view !== 'scamcheck' && view !== 'practice'
+  const showsBrief = view !== 'scamcheck' && view !== 'practice' && view !== 'replay'
   const [briefOn, setBriefOn] = useState(showsBrief)
   if (showsBrief && !briefOn) setBriefOn(true)
   const briefQuery = useBrief(config, briefOn)
@@ -96,13 +99,15 @@ export default function App() {
     return () => window.clearTimeout(timer)
   }, [toast])
 
+  // the Time machine is part of Practice: that tab stays lit
+  const tab: View = view === 'replay' ? 'practice' : view
   const brief = briefQuery.data
   const updatedAt = brief?.generated_at ? new Date(brief.generated_at) : null
   const error = briefQuery.error ? (briefQuery.error as Error).message : null
 
   return (
     <div className="min-h-screen pb-24 md:pb-8">
-      <TopBar view={view} onView={go} onHelp={() => setShowGuide(true)} />
+      <TopBar view={tab} onView={go} onHelp={() => setShowGuide(true)} />
 
       <main className="mx-auto max-w-5xl space-y-6 px-4 pt-5">
         {view === 'today' && (
@@ -126,6 +131,7 @@ export default function App() {
         )}
         {view === 'record' && <TrackRecord />}
         {view === 'practice' && <PracticeView onToast={setToast} />}
+        {view === 'replay' && <TimeMachineView onView={go} />}
         {view === 'learn' && <LearnView brief={brief} onView={go} />}
         {view === 'scamcheck' && <ScamCheckView />}
         {view === 'ask' && (
@@ -141,7 +147,7 @@ export default function App() {
 
         {/* On Scam check this sits right under the result, so it carries that tag.
             Learn and Practice show their own after a passed quiz or a trade. */}
-        {view !== 'learn' && view !== 'practice' && <BotInvite place={view === 'scamcheck' ? 'scam' : 'footer'} />}
+        {view !== 'learn' && view !== 'practice' && view !== 'replay' && <BotInvite place={view === 'scamcheck' ? 'scam' : 'footer'} />}
 
         <footer className="space-y-2 pt-4 pb-2 text-center text-xs text-muted">
           <p>{t('foot.disclaimer')}</p>
@@ -185,7 +191,7 @@ export default function App() {
         </footer>
       </main>
 
-      <BottomNav view={view} onView={go} />
+      <BottomNav view={tab} onView={go} />
       <GuideModal open={showGuide} onClose={() => setShowGuide(false)} />
       <FeedbackModal open={showFeedback} onClose={() => setShowFeedback(false)} />
 

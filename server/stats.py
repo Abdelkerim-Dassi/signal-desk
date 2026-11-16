@@ -26,7 +26,7 @@ KEEP_DAYS = 400  # long enough to compare this Ramadan with the next
 
 # Short paths typed from a video or tapped in a bio: qirat.tn/t, /i, /f, /w.
 SOURCES = {"t": "TikTok", "i": "Instagram", "f": "Facebook", "w": "WhatsApp", "y": "YouTube", "direct": "Direct"}
-VIEWS = {"today", "learn", "practice", "scamcheck", "ask", "portfolio", "record"}
+VIEWS = {"today", "learn", "practice", "replay", "scamcheck", "ask", "portfolio", "record"}
 PLACES = {"scam", "quiz", "practice", "footer"}
 # The "start here" strip a first visit sees on Learn: shown, then which of its
 # two buttons was tapped (lesson 1, or the practice wallet).
@@ -45,6 +45,12 @@ KEEP = {"created", "opened"}
 ACTIVE = {"new", "week2", "later", "month"}
 # A browser passed every lesson of a level (lesson_first: its first lesson ever).
 LEVELS = {"1", "2", "3"}
+# Time machine (server/replay.py), by scenario. replay_start and replay_done
+# count a browser once per scenario: the first time it starts it, the first
+# time it reaches the end. The 8 Dec verdict is done / start. replay_again is
+# every later start, replay_share a tap on "share my result", and
+# replay_arrive a first visit that opened on a shared scenario link.
+REPLAYS = {"m1", "m2"}
 
 # What the browser may report, and the values each event accepts.
 CLIENT_EVENTS: dict[str, set[str] | None] = {
@@ -56,6 +62,11 @@ CLIENT_EVENTS: dict[str, set[str] | None] = {
     "lesson_first": None,
     "level_done": LEVELS,
     "active": ACTIVE,
+    "replay_start": REPLAYS,
+    "replay_done": REPLAYS,
+    "replay_again": REPLAYS,
+    "replay_share": REPLAYS,
+    "replay_arrive": REPLAYS,
     "practice_first": FIRST_TRADE,
     "keep": KEEP,
     "bot_click": PLACES,
@@ -188,6 +199,10 @@ def owner_report(days: int = 7) -> str:
         f"People active for the first time: {t.get('active:new', 0)} · again in a second week: {t.get('active:week2', 0)}"
         f" · in a later week after that: {t.get('active:later', 0)}",
         f"People active, counted once per month: {t.get('active:month', 0)}",
+        f"Time machine: started by {_sum(t, 'replay_start')}  ({_by(t, 'replay_start')})"
+        f" · finished by {_sum(t, 'replay_done')}  ({_by(t, 'replay_done')})",
+        f"Time machine: played again {_sum(t, 'replay_again')} · results shared {_sum(t, 'replay_share')}"
+        f" · first visits on a shared link {_sum(t, 'replay_arrive')}",
         f"Questions asked: {t.get('ask', 0)}",
         f"Bot button taps: {_sum(t, 'bot_click')}  ({_by(t, 'bot_click')})",
         f"Bot starts: {_sum(t, 'bot_start')}  ({_by(t, 'bot_start')})",

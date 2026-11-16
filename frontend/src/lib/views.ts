@@ -4,7 +4,9 @@ import { IconAsk, IconRecord, IconShield, IconToday, IconWallet } from '../compo
 import { IconLearn } from '../components/LearnBadge'
 import type { UIKey } from './i18n'
 
-export type View = 'today' | 'record' | 'ask' | 'portfolio' | 'practice' | 'learn' | 'scamcheck'
+// 'replay' is the Time machine: it opens from the Practice screen (qirat.tn/#replay)
+// and has no tab of its own, so it is not in VIEWS below.
+export type View = 'today' | 'record' | 'ask' | 'portfolio' | 'practice' | 'replay' | 'learn' | 'scamcheck'
 
 // The Track record tab is hidden since 2026-11-07: results are measured
 // privately (the API answers only scheduled jobs). Build with
