@@ -200,3 +200,55 @@ def check_scam_allowance(ip: str) -> tuple[bool, int]:
     if SCAMCHECK_GLOBAL_LIMIT > 0 and not _scam_all_limiter.allow("all"):
         return False, _scam_all_limiter.retry_after("all")
     return True, 0
+
+
+# ── Keep my wallet ───────────────────────────────────────────────────────────
+# A saved practice wallet (server/keep.py) costs nothing to make, so two things
+# are held back:
+#   * how fast one address may call, per minute. Generous, for the same reason
+#     as above: phones on one mobile carrier share an address, and every
+#     practice trade of a kept wallet is one save.
+#   * how many NEW copies are made in a day, per address and for the whole
+#     app. This is what bounds how fast the store can grow.
+# 0 turns a limit off. With Redis the counts hold across server copies.
+KEEP_RATE_LIMIT = int(os.getenv("KEEP_RATE_LIMIT", "120"))
+KEEP_CREATE_DAILY_IP = int(os.getenv("KEEP_CREATE_DAILY_IP", "60"))
+KEEP_CREATE_DAILY = int(os.getenv("KEEP_CREATE_DAILY", "500"))
+_KEEP_WINDOW = 60
+
+_keep_ip_limiter = RateLimiter(max_requests=KEEP_RATE_LIMIT, window_seconds=_KEEP_WINDOW)
+_keep_new_ip = DailyIPCounter(KEEP_CREATE_DAILY_IP)
+_keep_new_all = DailyCounter(KEEP_CREATE_DAILY)
+
+
+def check_keep_allowance(ip: str, kind: str) -> tuple[bool, int]:
+    """Gate one saved-wallet call. ``kind`` is "create" (a new copy), "save"
+    (an update) or "open" (a read). Returns (allowed, retry_after_seconds)."""
+    creating = kind == "create"
+    if upstash.enabled():
+        window = int(time.time() // _KEEP_WINDOW)
+        ip_key = f"kp:ip:{ip}:{window}"
+        commands = [["INCR", ip_key], ["EXPIRE", ip_key, str(2 * _KEEP_WINDOW)]]
+        if creating:
+            day = time.strftime("%Y-%m-%d", time.gmtime())
+            ttl = str(2 * _SECONDS_PER_DAY)
+            for key in (f"kp:new:{ip}:{day}", f"kp:new:{day}"):
+                commands += [["INCR", key], ["EXPIRE", key, ttl, "NX"]]
+        res = upstash.pipeline(commands)
+        if res is not None:
+            if KEEP_RATE_LIMIT > 0 and int(res[0]) > KEEP_RATE_LIMIT:
+                return False, _KEEP_WINDOW - int(time.time() % _KEEP_WINDOW) + 1
+            over_ip = creating and KEEP_CREATE_DAILY_IP > 0 and int(res[2]) > KEEP_CREATE_DAILY_IP
+            over_all = creating and KEEP_CREATE_DAILY > 0 and int(res[4]) > KEEP_CREATE_DAILY
+            if over_ip or over_all:
+                return False, _seconds_until_utc_midnight()
+            return True, 0
+        # Redis did not answer: use this server copy's own count rather than none
+    if KEEP_RATE_LIMIT > 0 and not _keep_ip_limiter.allow(ip):
+        return False, _keep_ip_limiter.retry_after(ip)
+    if creating:
+        if KEEP_CREATE_DAILY_IP > 0 and not _keep_new_ip.allow(ip):
+            return False, _seconds_until_utc_midnight()
+        if KEEP_CREATE_DAILY > 0 and not _keep_new_all.allow():
+            return False, _seconds_until_utc_midnight()
+    return True, 0

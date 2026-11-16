@@ -16,6 +16,7 @@ import { DEFAULT_CONFIG, toAnalyzeParams, useAppStatus, useBrief } from './hooks
 import type { AdvisorConfig } from './hooks/useBrief'
 import { feedbackVisible } from './lib/feedback'
 import { useI18n } from './lib/i18n'
+import { openTakenLink, startKeep, takeKeepLink } from './lib/keep'
 import { loadConfig, saveConfig } from './lib/prefs'
 import { arrive, ownerSwitch, ownerSwitchAtLoad, track } from './lib/source'
 import { VIEWS } from './lib/views'
@@ -61,11 +62,15 @@ export default function App() {
       // #own-on / #own-off typed into the address of a page that is already open
       const own = ownerSwitch()
       if (own) setToast(t(`own.${own}`))
+      // a "keep my wallet" link opened in a page that is already open
+      if (takeKeepLink()) void openTakenLink()
       setView(viewFromHash())
     }
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
   }, [t])
+  // a kept wallet follows its saved copy; a link the address held is opened (lib/keep.ts)
+  useEffect(() => startKeep(), [])
   const go = (next: View) => {
     window.location.hash = next === 'today' ? '' : next
     setView(next)

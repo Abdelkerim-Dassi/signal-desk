@@ -37,7 +37,7 @@ from fastapi.staticfiles import StaticFiles
 
 from advisor_engine import build_market_brief, normalize_asset_ids, parse_holdings
 
-from . import ai, cards, paper, scamcheck, stats, telegram_bot, track_record
+from . import ai, cards, keep, paper, scamcheck, stats, telegram_bot, track_record
 from .cache import TTLCache, brief_cache
 from .ratelimit import RateLimiter, check_ai_allowance, check_scam_allowance
 from .schemas import (
@@ -66,6 +66,8 @@ app.add_middleware(
 
 # Practice with $10 (paper wallet): /api/paper/state and /api/paper/quote
 app.include_router(paper.router)
+# Keep my wallet (a saved copy behind a private link): /api/keep/save and /api/keep/open
+app.include_router(keep.router)
 
 
 _AI_DOWN = "The AI helper could not answer just now. Please try again in a minute."

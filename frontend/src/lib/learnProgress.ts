@@ -4,6 +4,7 @@
 // progress still works in memory for the visit.
 
 import { useSyncExternalStore } from 'react'
+import { RESTORED, keepChanged } from './keep'
 import { READY_LESSONS } from './lessons'
 
 const KEY = 'qirat.learn.v1'
@@ -62,7 +63,14 @@ function commit(next: Stored) {
     // not persisted; progress still counts for this visit
   }
   listeners.forEach((fn) => fn())
+  keepChanged() // a kept wallet carries the lessons with it (lib/keep.ts)
 }
+
+// the saved copy of a kept wallet replaced what this browser held
+window.addEventListener(RESTORED, () => {
+  state = load()
+  listeners.forEach((fn) => fn())
+})
 
 function subscribe(fn: () => void) {
   listeners.add(fn)

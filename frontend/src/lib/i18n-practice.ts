@@ -40,6 +40,53 @@ const P = {
     ar: 'فلوس تجريبية، موش حقيقية. بالسوم الحيّ، وبالـ\u00a0frais والـ\u00a0spread كيف في الحقيقة.',
   },
 
+  // keep my wallet: a private link to a saved copy of the wallet and the lessons (lib/keep.ts)
+  keepButton: { en: 'Keep my wallet and lessons', fr: 'Garder mon portefeuille et mes leçons', ar: 'احفظ الـ wallet والدروس متاعك' },
+  keepWhy: {
+    en: 'You get a private link. Open it in any browser or phone and your practice wallet and lessons are there. No name, no email.',
+    fr: 'Vous recevez un lien privé. Ouvrez-le dans n’importe quel navigateur ou téléphone : votre portefeuille fictif et vos leçons y sont. Ni nom, ni e-mail.',
+    ar: 'تاخذ رابط خاص بيك. حلّو في أي متصفّح ولا تليفون تلقى الـ wallet التجريبي والدروس متاعك. لا اسم لا email.',
+  },
+  keepFailed: {
+    en: 'Could not save it just now. Try again in a minute.',
+    fr: 'Impossible de l’enregistrer pour le moment. Réessayez dans une minute.',
+    ar: 'ما نجّمناش نحفظوه توّا. عاود بعد دقيقة.',
+  },
+  keptTitle: { en: 'Your wallet and lessons are kept', fr: 'Votre portefeuille et vos leçons sont gardés', ar: 'الـ wallet والدروس متاعك محفوظين' },
+  keepShow: { en: 'My link', fr: 'Mon lien', ar: 'الرابط متاعي' },
+  keptLine: {
+    en: 'Open this link in any browser or phone to find your wallet. Anyone who has the link can open this practice wallet. No name, no email. It updates by itself after each trade.',
+    fr: 'Ouvrez ce lien dans n’importe quel navigateur ou téléphone pour retrouver votre portefeuille. Toute personne qui a le lien peut ouvrir ce portefeuille fictif. Ni nom, ni e-mail. Il se met à jour tout seul après chaque opération.',
+    ar: 'حلّ الرابط هذا في أي متصفّح ولا تليفون تلقى الـ wallet متاعك. اللي عندو الرابط ينجّم يحلّ الـ wallet التجريبي هذا. لا اسم لا email. يتحدّث وحدو بعد كل عملية.',
+  },
+  keepCopy: { en: 'Copy the link', fr: 'Copier le lien', ar: 'انسخ الرابط' },
+  keepCopied: { en: '✓ Copied', fr: '✓ Copié', ar: '✓ تنسخ' },
+  keepShare: { en: 'Send the link', fr: 'Envoyer le lien', ar: 'ابعث الرابط' },
+  linkOpening: { en: 'Opening your saved wallet…', fr: 'Ouverture de votre portefeuille gardé…', ar: 'نحلّو في الـ wallet المحفوظ متاعك…' },
+  linkOpened: {
+    en: 'Your saved wallet is open in this browser, and it stays up to date from now on.',
+    fr: 'Votre portefeuille gardé est ouvert dans ce navigateur, et il reste à jour à partir de maintenant.',
+    ar: 'الـ wallet المحفوظ متاعك تحلّ في المتصفّح هذا، ويقعد محدّث من توّا.',
+  },
+  linkGone: {
+    en: 'This link no longer opens a saved wallet: it is wrong, or it has expired. The wallet in this browser has not changed.',
+    fr: 'Ce lien n’ouvre plus de portefeuille gardé : il est faux, ou il a expiré. Le portefeuille de ce navigateur n’a pas changé.',
+    ar: 'الرابط هذا ما عادش يحلّ wallet محفوظ: غالط ولا وفات مدّتو. الـ wallet اللي في المتصفّح هذا ما تبدّلش.',
+  },
+  linkFailed: {
+    en: 'Could not open the saved wallet just now.',
+    fr: 'Impossible d’ouvrir le portefeuille gardé pour le moment.',
+    ar: 'ما نجّمناش نحلّو الـ wallet المحفوظ توّا.',
+  },
+  askTitle: { en: 'Which wallet do you keep?', fr: 'Quel portefeuille gardez-vous ?', ar: 'آما wallet تخلّي؟' },
+  askBody: {
+    en: 'This browser already has a practice wallet with trades, and the link opens another one. Only one can stay here; the other is removed from this browser.',
+    fr: 'Ce navigateur a déjà un portefeuille fictif avec des opérations, et le lien en ouvre un autre. Un seul peut rester ici ; l’autre est retiré de ce navigateur.',
+    ar: 'المتصفّح هذا فيه ديجا wallet تجريبي فيه عمليات، والرابط يحلّ wallet آخر. واحد برك يقعد هنا، والآخر يتنحّى من المتصفّح هذا.',
+  },
+  askSaved: { en: 'The one from the link · trades: {n}', fr: 'Celui du lien · opérations : {n}', ar: 'متاع الرابط · العمليات: {n}' },
+  askLocal: { en: 'The one in this browser · trades: {n}', fr: 'Celui de ce navigateur · opérations : {n}', ar: 'اللي في المتصفّح هذا · العمليات: {n}' },
+
   trade: { en: 'Practice trade', fr: 'Opération d’entraînement', ar: 'عملية تدريب' },
   coin: { en: 'Coin', fr: 'Crypto', ar: 'الـ coin' },
   buy: { en: 'Buy', fr: 'Acheter', ar: 'شري' },

@@ -1,7 +1,10 @@
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
 import type { ReactNode, SVGProps } from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useI18n } from '../lib/i18n'
 import { usePracticeT } from '../lib/i18n-practice'
+import { RESTORED, chooseWallet, dismissLink, keepChanged, keepLink, keepWallet, retryLink, useKeep } from '../lib/keep'
+import type { LinkState } from '../lib/keep'
 import { LEARN_UI, LESSONS, READY_LESSONS } from '../lib/lessons'
 import type {
   CoachNote,
@@ -75,7 +78,26 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
     const last = loadLedger().trades.at(-1)
     return last ? { trade: last } : null
   })
-  useEffect(() => saveLedger(ledger), [ledger])
+  // the one-tap first trade shows its own receipt where the button was
+  const [firstDone, setFirstDone] = useState<Trade | null>(null)
+  // every change is stored here, and a kept wallet's saved copy follows (lib/keep.ts)
+  const keep = useKeep()
+  useEffect(() => {
+    saveLedger(ledger)
+    keepChanged()
+  }, [ledger])
+  // the saved copy replaced the stored wallet: a link was opened, or another browser traded
+  useEffect(() => {
+    const restored = () => {
+      const next = loadLedger()
+      const last = next.trades.at(-1)
+      setLedger(next)
+      setLastNotes(last ? { trade: last } : null)
+      setFirstDone(null)
+    }
+    window.addEventListener(RESTORED, restored)
+    return () => window.removeEventListener(RESTORED, restored)
+  }, [])
 
   // After each valuation: fix the BTC benchmark on the first live price, and
   // add a point to the wallet-vs-BTC line (forced right after a trade). Skipped
@@ -107,13 +129,11 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
   })
   const state = stateQuery.data
 
-  // the one-tap first trade shows its own receipt where the button was
-  const [firstDone, setFirstDone] = useState<Trade | null>(null)
-
   const reset = (start: number) => {
     setLedger(freshLedger(start))
     setLastNotes(null)
     setFirstDone(null)
+    dismissLink()
     onToast(tp('resetDone', { start }))
   }
 
@@ -124,6 +144,7 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
     setLedger(next)
     setLastNotes({ trade })
     setFirstDone(oneTap ? trade : null)
+    dismissLink()
     if (!oneTap) onToast(tp('traded'))
   }
 
@@ -137,8 +158,11 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
         <p className="text-sm text-muted">{tp('intro', { start: ledger.startUsdt })}</p>
       </div>
 
+      <LinkNotice link={keep.link} />
       {state && ledger.trades.length === 0 && <FirstTrade ledger={ledger} onTraded={(r) => onTraded(r, true)} />}
       {firstDone && <FirstTradeDone trade={firstDone} />}
+      {/* once there is something to lose, or a link already exists; not while a link asks which wallet stays */}
+      {(ledger.trades.length > 0 || keep.id) && keep.link.status !== 'ask' && <KeepCard id={keep.id} />}
 
       {!state && stateQuery.isLoading && <div className="card p-5 text-sm text-muted">{tp('loading')}</div>}
       {/* also shown over prices already on screen, so stale numbers never pass for live ones */}
@@ -414,6 +438,143 @@ function FirstTrade({ ledger, onTraded }: { ledger: Ledger; onTraded: (r: QuoteR
       </button>
       {err && <p className="text-sm text-down">{error(err.code)}</p>}
       <p className="text-xs text-muted">{tp('firstNote')}</p>
+    </div>
+  )
+}
+
+const filled =
+  'cursor-pointer rounded-full bg-text px-4 py-2.5 text-sm font-semibold text-balance text-bg transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40'
+const outlined =
+  'cursor-pointer rounded-full border border-border-strong px-4 py-2.5 text-sm font-medium text-balance text-gold transition hover:bg-gold-soft'
+
+/**
+ * Keep my wallet (lib/keep.ts). The wallet lives in this browser only, and a
+ * video's in-app browser is not the one the visitor uses tomorrow. One button
+ * makes a private link to a saved copy; after that the card is one slim row
+ * that opens the link again.
+ */
+function KeepCard({ id }: { id: string | null }) {
+  const { tp } = usePracticeT()
+  const [busy, setBusy] = useState(false)
+  const [failed, setFailed] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  if (!id) {
+    const keep = async () => {
+      setBusy(true)
+      setFailed(false)
+      try {
+        await keepWallet()
+        setOpen(true)
+      } catch {
+        setFailed(true)
+      } finally {
+        setBusy(false)
+      }
+    }
+    return (
+      <div className="card space-y-2.5 p-4">
+        <button type="button" disabled={busy} onClick={keep} className={`${filled} w-full`}>
+          {busy ? tp('working') : tp('keepButton')}
+        </button>
+        {failed && <p className="text-sm text-down">{tp('keepFailed')}</p>}
+        <p className="text-xs leading-relaxed text-muted">{tp('keepWhy')}</p>
+      </div>
+    )
+  }
+
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-expanded={false}
+        className="card flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3 text-start text-sm transition hover:border-border-strong"
+      >
+        <span className="font-medium text-strong">✓ {tp('keptTitle')}</span>
+        <span className="shrink-0 font-medium text-gold">{tp('keepShow')}</span>
+      </button>
+    )
+  }
+
+  const url = keepLink(id)
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 2000)
+    } catch {
+      window.prompt(tp('keepCopy'), url) // some in-app browsers block the clipboard
+    }
+  }
+  return (
+    <div className="card rise space-y-3 border-border-strong p-4">
+      <h3 className="font-semibold text-strong">✓ {tp('keptTitle')}</h3>
+      {/* shown whole, so it can still be selected by hand where copying is blocked */}
+      <p dir="ltr" className="num rounded-xl border border-border bg-subtle/60 px-3 py-2 text-xs break-all select-all">
+        {url}
+      </p>
+      <div className="flex flex-wrap gap-2">
+        <button type="button" onClick={copy} className={filled}>
+          {copied ? tp('keepCopied') : tp('keepCopy')}
+        </button>
+        {typeof navigator.share === 'function' && (
+          <button type="button" onClick={() => void navigator.share({ title: 'Qirat', url }).catch(() => {})} className={outlined}>
+            {tp('keepShare')}
+          </button>
+        )}
+      </div>
+      <p className="text-xs leading-relaxed text-muted">{tp('keptLine')}</p>
+    </div>
+  )
+}
+
+/** What a keep link being opened is doing, and the one question it can ask. */
+function LinkNotice({ link }: { link: LinkState }) {
+  const { tp } = usePracticeT()
+  const { t } = useI18n()
+  if (link.status === 'idle') return null
+  if (link.status === 'opening') {
+    return (
+      <div className="card p-4 text-sm text-muted" role="status">
+        {tp('linkOpening')}
+      </div>
+    )
+  }
+  if (link.status === 'ask') {
+    // neither answer is the "main" one: each of them removes a wallet from this browser
+    return (
+      <div className="card rise space-y-3 border-border-strong p-4" role="group" aria-label={tp('askTitle')}>
+        <h3 className="font-semibold">{tp('askTitle')}</h3>
+        <p className="text-sm leading-relaxed text-muted">{tp('askBody')}</p>
+        <div className="flex flex-col gap-2">
+          <button type="button" onClick={() => chooseWallet('saved')} className={outlined}>
+            {tp('askSaved', { n: link.savedTrades })}
+          </button>
+          <button type="button" onClick={() => chooseWallet('here')} className={outlined}>
+            {tp('askLocal', { n: link.localTrades })}
+          </button>
+        </div>
+      </div>
+    )
+  }
+  const opened = link.status === 'opened'
+  return (
+    <div className="card rise space-y-3 p-4 text-sm" role="status">
+      <p className={opened ? 'font-medium text-strong' : 'leading-relaxed'}>
+        {opened ? `✓ ${tp('linkOpened')}` : link.status === 'gone' ? tp('linkGone') : tp('linkFailed')}
+      </p>
+      <div className="flex flex-wrap gap-2">
+        {link.status === 'failed' && (
+          <button type="button" onClick={retryLink} className={filled}>
+            {tp('retry')}
+          </button>
+        )}
+        <button type="button" onClick={dismissLink} className={outlined}>
+          {t('guide.close')}
+        </button>
+      </div>
     </div>
   )
 }

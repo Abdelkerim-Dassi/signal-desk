@@ -143,15 +143,16 @@ export function freshLedger(startUsdt: number = DEFAULT_START): Ledger {
   }
 }
 
-export function loadLedger(): Ledger {
+/** The wallet stored in this browser, or null when there is none to read (a first visit, blocked storage, a broken save). */
+export function storedLedger(): Ledger | null {
   try {
     const raw = localStorage.getItem(KEY)
-    if (!raw) return freshLedger()
+    if (!raw) return null
     const saved = JSON.parse(raw) as Partial<Ledger>
-    if (saved.v !== 1 || !saved.wallet || !Number.isFinite(saved.wallet.cash)) return freshLedger()
+    if (saved.v !== 1 || !saved.wallet || !Number.isFinite(saved.wallet.cash)) return null
     // an old 10 USDT wallet that was never traded moves to the new starting amount
     const untouched = !Array.isArray(saved.trades) || saved.trades.length === 0
-    if ((saved.startUsdt ?? LEGACY_START) === LEGACY_START && untouched) return freshLedger()
+    if ((saved.startUsdt ?? LEGACY_START) === LEGACY_START && untouched) return null
     // A half-written or hand-edited save must not break the screen: every
     // field the screen reads is checked, and anything odd gets a safe value.
     const fresh = freshLedger()
@@ -170,8 +171,12 @@ export function loadLedger(): Ledger {
       curve: Array.isArray(saved.curve) ? saved.curve.filter((p) => p && Number.isFinite(p.ts) && Number.isFinite(p.value)) : [],
     } as Ledger
   } catch {
-    return freshLedger()
+    return null
   }
+}
+
+export function loadLedger(): Ledger {
+  return storedLedger() ?? freshLedger()
 }
 
 export function saveLedger(ledger: Ledger): void {
