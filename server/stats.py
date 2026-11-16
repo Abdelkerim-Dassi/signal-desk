@@ -8,6 +8,9 @@ no device id, no text is stored.
 
 Reading is private: ``GET /api/stats`` needs the jobs secret, and the bot's
 ``/stats`` command answers only the owner.
+
+Our own browsers are kept out: opening ``qirat.tn/#own-on`` marks a browser so
+the app reports nothing from it (``frontend/src/lib/source.ts``).
 """
 
 from __future__ import annotations
@@ -28,6 +31,9 @@ PLACES = {"scam", "quiz", "practice", "footer"}
 # The "start here" strip a first visit sees on Learn: shown, then which of its
 # two buttons was tapped (lesson 1, or the practice wallet).
 START = {"shown", "lesson", "practice"}
+# The first practice trade a browser ever makes, and how it was made: the
+# one-tap button on a wallet that has not traded yet, or the trade form.
+FIRST_TRADE = {"tap", "form"}
 
 # What the browser may report, and the values each event accepts.
 CLIENT_EVENTS: dict[str, set[str] | None] = {
@@ -36,6 +42,7 @@ CLIENT_EVENTS: dict[str, set[str] | None] = {
     "start": START,
     "lesson_open": None,
     "lesson_pass": None,
+    "practice_first": FIRST_TRADE,
     "bot_click": PLACES,
     "share": PLACES,
 }
@@ -158,6 +165,7 @@ def owner_report(days: int = 7) -> str:
         f"Results shared: {_sum(t, 'share')}",
         f"Lessons opened: {t.get('lesson_open', 0)} · passed: {t.get('lesson_pass', 0)}",
         f"Practice trades: {t.get('practice_trade', 0)}",
+        f"First practice trades: {_sum(t, 'practice_first')}  ({_by(t, 'practice_first')})",
         f"Questions asked: {t.get('ask', 0)}",
         f"Bot button taps: {_sum(t, 'bot_click')}  ({_by(t, 'bot_click')})",
         f"Bot starts: {_sum(t, 'bot_start')}  ({_by(t, 'bot_start')})",

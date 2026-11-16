@@ -1,6 +1,6 @@
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
 import type { ReactNode, SVGProps } from 'react'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { usePracticeT } from '../lib/i18n-practice'
 import { LEARN_UI, LESSONS, READY_LESSONS } from '../lib/lessons'
 import type {
@@ -16,6 +16,7 @@ import {
   START_CHOICES,
   freshLedger,
   getPracticeState,
+  isFirstTradeEver,
   isOrderError,
   loadLedger,
   price,
@@ -28,6 +29,7 @@ import {
   withCurvePoint,
   withTrade,
 } from '../lib/practice'
+import { track } from '../lib/source'
 import BotInvite from './BotInvite'
 import { CoinIcon, KaratBadge, RiskChip } from './Rating'
 
@@ -105,17 +107,24 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
   })
   const state = stateQuery.data
 
+  // the one-tap first trade shows its own receipt where the button was
+  const [firstDone, setFirstDone] = useState<Trade | null>(null)
+
   const reset = (start: number) => {
     setLedger(freshLedger(start))
     setLastNotes(null)
+    setFirstDone(null)
     onToast(tp('resetDone', { start }))
   }
 
-  const onTraded = (result: QuoteResult) => {
+  const onTraded = (result: QuoteResult, oneTap = false) => {
     const next = withTrade(ledger, result)
+    const trade = next.trades.at(-1)!
+    if (isFirstTradeEver(ledger)) track('practice_first', oneTap ? 'tap' : 'form')
     setLedger(next)
-    setLastNotes({ trade: next.trades.at(-1)! })
-    onToast(tp('traded'))
+    setLastNotes({ trade })
+    setFirstDone(oneTap ? trade : null)
+    if (!oneTap) onToast(tp('traded'))
   }
 
   return (
@@ -127,6 +136,9 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
         </div>
         <p className="text-sm text-muted">{tp('intro', { start: ledger.startUsdt })}</p>
       </div>
+
+      {state && ledger.trades.length === 0 && <FirstTrade ledger={ledger} onTraded={(r) => onTraded(r, true)} />}
+      {firstDone && <FirstTradeDone trade={firstDone} />}
 
       {!state && stateQuery.isLoading && <div className="card p-5 text-sm text-muted">{tp('loading')}</div>}
       {/* also shown over prices already on screen, so stale numbers never pass for live ones */}
@@ -370,6 +382,79 @@ function buyChips(start: number): number[] {
   return [1, 2, 5]
 }
 const SELL_CHIPS = [0.25, 0.5, 1]
+
+/**
+ * A wallet that has never traded gets its first trade in one tap, at the top
+ * of the screen (the form's own button is more than a screen down on a
+ * phone). It is the purchase the form below opens on: Bitcoin, for the middle
+ * amount, 100 USDT in a 1000 USDT wallet. Same request, so the same live
+ * price, fee, spread, coach notes and counting.
+ */
+function FirstTrade({ ledger, onTraded }: { ledger: Ledger; onTraded: (r: QuoteResult) => void }) {
+  const { tp, error } = usePracticeT()
+  const amount = buyChips(ledger.startUsdt)[1]
+  const place = useMutation({
+    mutationFn: () => quoteTrade(ledger, { side: 'buy', base: 'BTC', usdt: amount }),
+    onSuccess: onTraded,
+  })
+  const err = place.error as PracticeError | null
+  return (
+    <div className="card rise space-y-3 border-border-strong p-4">
+      <div className="flex items-center justify-between gap-2">
+        <h3 className="font-semibold">{tp('firstTitle')}</h3>
+        <SimBadge short />
+      </div>
+      <button
+        type="button"
+        disabled={place.isPending}
+        onClick={() => place.mutate()}
+        className="w-full cursor-pointer rounded-full bg-text px-4 py-3 text-[15px] font-semibold text-balance text-bg transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+      >
+        {place.isPending ? tp('working') : tp('firstBuy', { amount })}
+      </button>
+      {err && <p className="text-sm text-down">{error(err.code)}</p>}
+      <p className="text-xs text-muted">{tp('firstNote')}</p>
+    </div>
+  )
+}
+
+/** What the one-tap trade gave, shown where its button was: the fill, what it cost, and the coach's notes. */
+function FirstTradeDone({ trade }: { trade: Trade }) {
+  const { tp, note } = usePracticeT()
+  const box = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    // braces on purpose: newer browsers return a promise from scrollIntoView, and an effect must return nothing
+    box.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  }, [])
+  return (
+    <div ref={box} className="card rise scroll-mt-20 space-y-3 border-border-strong p-4" aria-live="polite">
+      <div className="flex items-center justify-between gap-2">
+        <h3 className="font-semibold text-strong">✓ {tp('traded')}</h3>
+        <SimBadge short />
+      </div>
+      <dl className="num space-y-1 text-xs">
+        <Row label={tp('bought')}>
+          <span className="font-semibold text-text">
+            {qty(trade.qty)} {trade.base}
+          </span>
+        </Row>
+        <Row label={tp('fillAt')}>{price(trade.price)}</Row>
+        <Row label={tp('fee')}>{usdt(trade.fee, 4)}</Row>
+        <Row label={tp('spread')}>{usdt(trade.spread_cost, 4)}</Row>
+      </dl>
+      {trade.notes.length > 0 && (
+        <ul className="space-y-2">
+          {trade.notes.map((n, i) => (
+            <li key={i} className="rounded-2xl border border-border-strong/60 bg-gold-soft/60 p-3 text-sm leading-relaxed">
+              {note(n)}
+              <NoteLesson id={n.id} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
 
 function TradeCard({
   ledger,

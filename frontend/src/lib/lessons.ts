@@ -114,10 +114,11 @@ export const LEARN_UI = {
   startBody: {
     en: 'Qirat teaches you trading from zero: short lessons in three levels, a practice wallet with 100, 500 or 1000 pretend dollars at real prices, and an honest risk grade for every coin.',
     fr: 'Qirat vous apprend le trading à partir de zéro : de courtes leçons en trois niveaux, un portefeuille d’entraînement de 100, 500 ou 1000 dollars fictifs aux prix réels, et une note de risque honnête pour chaque crypto.',
-    ar: 'قيراط يعلّمك التداول من الصفر: دروس قصيرة على ثلاثة مستويات، ومحفظة تدريب فيها 100 أو 500 أو 1000 دولار افتراضي بالأسعار الحقيقية، ودرجة مخاطرة صادقة لكل عملة.',
+    ar: 'قيراط يعلّمك التداول من الصفر: دروس قصيرة على ثلاثة مستويات، ومحفظة تدريب فيها 100 أو 500 أو 1000 دولار تجريبية بالأسعار الحقيقية، ودرجة مخاطرة صادقة لكل عملة.',
   },
   startLesson: { en: 'Start lesson 1', fr: 'Commencer la leçon 1', ar: 'ابدأ الدرس 1' },
-  startPractice: { en: 'Practice with pretend money', fr: 'S’entraîner avec de l’argent fictif', ar: 'تدرّب بمال افتراضي' },
+  // the main button, in the videos' own words («1000 دولار تجريبية»)
+  startPractice: { en: 'Try it with {n} pretend dollars', fr: 'Essayer avec {n} dollars fictifs', ar: 'جرّب بـ {n} دولار تجريبية' },
   startNote: {
     en: 'Free during the beta. Qirat never tells you to buy or sell.',
     fr: 'Gratuit pendant la bêta. Qirat ne vous dit jamais d’acheter ou de vendre.',

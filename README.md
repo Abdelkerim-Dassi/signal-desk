@@ -87,6 +87,13 @@ Note: Groq's free tier has its own per-minute rate limits — if a traffic burst
 
 **Binance Spot** only: public market data, no trading, no account access. A watchlist holds at most 20 coins, quoted in USDT or USDC. CoinGecko is used for coin names and global market stats (retried on 429/5xx, memoized for 5 minutes).
 
+## Usage counters
+
+Daily totals only, with no cookie and nothing about any one visitor (`server/stats.py`). Visits are tagged by the short address used (`qirat.tn/t`, `/i`, `/f`, `/w`, `/y`). Read the totals with `GET /api/stats` (jobs secret) or the bot's `/stats` command.
+
+**Keep our own visits out of the numbers.** Before any check or screen capture on the live site, open `qirat.tn/#own-on` once in that browser: a short note confirms it, and from then on that browser sends no visit, tap, lesson, practice-trade or page-view count. `qirat.tn/#own-off` turns counting back on.
+The mark is kept in that browser's local storage, so a new profile, a private window or cleared site data needs `#own-on` again. Scam checks, Ask questions and Telegram bot starts are counted on the server, so they still count from a marked browser.
+
 ## Deploy (Vercel)
 
 `vercel.json` builds the front-end to a static CDN deploy and runs the FastAPI app as a serverless function (`api/index.py`) handling `/api/*`.

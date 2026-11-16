@@ -85,6 +85,17 @@ function StartHere({ onView }: { onView: (v: View) => void }) {
       <p className="tick-label text-gold">{lt('startTitle')}</p>
       <p className="mt-1.5 text-[15px] leading-relaxed font-medium">{lt('startBody')}</p>
       <div className="mt-4 flex flex-wrap gap-2">
+        {/* The videos end on the practice wallet, so it is the main button; lesson 1 is the second. */}
+        <button
+          type="button"
+          onClick={() => {
+            track('start', 'practice')
+            onView('practice')
+          }}
+          className="cursor-pointer rounded-full bg-text px-5 py-2.5 text-sm font-semibold text-bg transition hover:opacity-90"
+        >
+          {lt('startPractice', { n: loadLedger().startUsdt })}
+        </button>
         <a
           href={`#learn-${first.slug}`}
           onClick={(e) => {
@@ -92,20 +103,10 @@ function StartHere({ onView }: { onView: (v: View) => void }) {
             track('start', 'lesson')
             openRoute(`learn-${first.slug}`)
           }}
-          className="rounded-full bg-text px-5 py-2.5 text-sm font-semibold text-bg transition hover:opacity-90"
+          className="rounded-full border border-border-strong px-5 py-2.5 text-sm font-medium text-gold transition hover:bg-gold-soft"
         >
           {lt('startLesson')}
         </a>
-        <button
-          type="button"
-          onClick={() => {
-            track('start', 'practice')
-            onView('practice')
-          }}
-          className="cursor-pointer rounded-full border border-border-strong px-5 py-2.5 text-sm font-medium text-gold transition hover:bg-gold-soft"
-        >
-          {lt('startPractice')}
-        </button>
       </div>
       <p className="mt-3 text-xs text-muted">{lt('startNote')}</p>
     </section>

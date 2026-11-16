@@ -26,6 +26,20 @@ const P = {
   chartHold: { en: 'Just holding BTC', fr: 'Garder du BTC', ar: 'كان خلّيت Bitcoin' },
   chartStart: { en: 'Start: {start} USDT', fr: 'Départ : {start} USDT', ar: 'البداية: {start} USDT' },
 
+  // one tap for a wallet that has not traded yet (the button says the money is pretend);
+  // \u00a0 keeps «بـ» / «الـ» on the same line as the word after it
+  firstTitle: { en: 'Make your first trade', fr: 'Votre premier achat', ar: 'اعمل أوّل شرية ليك' },
+  firstBuy: {
+    en: 'Buy Bitcoin with {amount} pretend dollars',
+    fr: 'Acheter du Bitcoin avec {amount} dollars fictifs',
+    ar: 'اشري Bitcoin بـ\u00a0{amount} دولار تجريبية',
+  },
+  firstNote: {
+    en: 'Pretend money, live price. The fee and the spread are taken as on a real exchange.',
+    fr: 'Argent fictif, prix réel. Les frais et l’écart sont prélevés comme sur une vraie plateforme.',
+    ar: 'فلوس تجريبية، موش حقيقية. بالسوم الحيّ، وبالـ\u00a0frais والـ\u00a0spread كيف في الحقيقة.',
+  },
+
   trade: { en: 'Practice trade', fr: 'Opération d’entraînement', ar: 'عملية تدريب' },
   coin: { en: 'Coin', fr: 'Crypto', ar: 'الـ coin' },
   buy: { en: 'Buy', fr: 'Acheter', ar: 'شري' },

@@ -5,6 +5,9 @@
 // /y (YouTube).
 // The server keeps daily totals only (server/stats.py): no cookie, no device
 // id, nothing about any one person.
+//
+// Our own browsers stay out of the numbers: qirat.tn/#own-on marks a browser
+// as ours, qirat.tn/#own-off removes the mark (see ownerSwitch below).
 
 export type Source = 't' | 'i' | 'f' | 'w' | 'y'
 export type Place = 'scam' | 'quiz' | 'practice' | 'footer'
@@ -13,6 +16,7 @@ const PATHS: Record<string, Source> = { '/t': 't', '/i': 'i', '/f': 'f', '/w': '
 const SRC_KEY = 'qirat.src'
 const SEEN_KEY = 'qirat.seen'
 const VISIT_KEY = 'qirat.visit'
+const OWN_KEY = 'qirat.own'
 const BOT = 'https://t.me/getqirat_bot'
 
 function read(store: 'local' | 'session', key: string): string | null {
@@ -31,8 +35,49 @@ function write(store: 'local' | 'session', key: string, value: string): void {
   }
 }
 
+/** True in a browser marked as ours: nothing it does is counted. */
+export function isOwner(): boolean {
+  return read('local', OWN_KEY) === '1'
+}
+
+export type OwnerSwitch = 'on' | 'off' | 'failed'
+
+/**
+ * The owner switch. Opening qirat.tn/#own-on marks this browser as ours, so
+ * its visits, taps, practice trades and page views are no longer counted;
+ * qirat.tn/#own-off removes the mark. Nothing here is secret: a visitor who
+ * finds it only takes themselves out of the counts.
+ *
+ * Acts only while the address holds the switch, and returns what it asked
+ * for ("failed" when the browser would not keep the mark) so the app can
+ * confirm it on screen; null otherwise. The switch is then dropped from the
+ * address, and the visit goes on to its usual first screen.
+ */
+export function ownerSwitch(): OwnerSwitch | null {
+  const hash = window.location.hash.toLowerCase()
+  if (hash !== '#own-on' && hash !== '#own-off') return null
+  const on = hash === '#own-on'
+  try {
+    if (on) localStorage.setItem(OWN_KEY, '1')
+    else localStorage.removeItem(OWN_KEY)
+  } catch {
+    // storage blocked: read back below and say so
+  }
+  window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`)
+  return isOwner() === on ? (on ? 'on' : 'off') : 'failed'
+}
+
+let atLoad: OwnerSwitch | null | undefined
+
+/** The switch the page was opened with, if any. Read once, before anything is counted. */
+export function ownerSwitchAtLoad(): OwnerSwitch | null {
+  if (atLoad === undefined) atLoad = ownerSwitch()
+  return atLoad
+}
+
 /** Count one event. Fire-and-forget: a lost count never touches the page. */
 export function track(event: string, value?: string): void {
+  if (isOwner()) return
   try {
     const body = JSON.stringify({ event, value })
     if (navigator.sendBeacon?.('/api/stats/event', new Blob([body], { type: 'application/json' }))) return
@@ -59,6 +104,7 @@ let arrival: Arrival | null = null
 /** Read how this visit started. Safe to call more than once; it works once. */
 export function arrive(): Arrival {
   if (arrival) return arrival
+  ownerSwitchAtLoad() // first, so the visit that turns the mark on is not counted itself
   const path = window.location.pathname.replace(/\/+$/, '').toLowerCase()
   const source = PATHS[path] ?? null
   const firstVisit = read('local', SEEN_KEY) === null

@@ -43,6 +43,8 @@ def test_read_ignores_days_outside_the_window():
         ("start", "practice", "start:practice"),
         ("lesson_pass", None, "lesson_pass"),
         ("lesson_pass", "anything", "lesson_pass"),
+        ("practice_first", "tap", "practice_first:tap"),
+        ("practice_first", "form", "practice_first:form"),
         ("bot_click", "scam", "bot_click:scam"),
         ("share", "scam", "share:scam"),
     ],
@@ -59,6 +61,9 @@ def test_client_events_that_count(event, value, field):
         ("view", "admin"),
         ("start", "scam"),
         ("start", None),
+        ("practice_first", None),
+        ("practice_first", "twice"),
+        ("practice_trade", None),  # counted on the server, when a trade is confirmed
         ("scamcheck", "high"),  # counted on the server, not reported by the browser
         ("bot_start", "t-scam"),
         ("made_up", None),
@@ -96,10 +101,14 @@ def test_owner_report_reads_like_a_note():
     stats.bump("start:shown")
     stats.bump("start:shown")
     stats.bump("start:lesson")
+    stats.bump("practice_trade")
+    stats.bump("practice_trade")
+    stats.bump("practice_first:tap")
     report = stats.owner_report(7)
     assert "Visits: 2" in report and "TikTok 1" in report and "Instagram 1" in report
     assert "Start here shown: 2 · lesson 1 tapped: 1 · practice tapped: 0" in report
     assert "Scam checks on the site: 1" in report
+    assert "Practice trades: 2" in report and "First practice trades: 1  (tap 1)" in report
     assert "Bot starts: 1" in report
 
 
@@ -113,7 +122,8 @@ def client():
 def test_event_endpoint_counts_known_events_only(client):
     assert client.post("/api/stats/event", json={"event": "visit", "value": "t"}).json() == {"ok": True}
     assert client.post("/api/stats/event", json={"event": "made_up"}).json() == {"ok": True}
-    assert stats.read(1)["totals"] == {"visit:t": 1}
+    assert client.post("/api/stats/event", json={"event": "practice_first", "value": "tap"}).json() == {"ok": True}
+    assert stats.read(1)["totals"] == {"practice_first:tap": 1, "visit:t": 1}
 
 
 def test_stats_are_private_when_a_secret_is_set(client, monkeypatch):

@@ -2390,13 +2390,13 @@ Edit those files, not this one, then run the script again.
   ابدأ من هنا
 
 - [ ] **776. startBody** · _Qirat teaches you trading from zero: short lessons in three levels, a practice wallet with 100, 500 or 1000 pretend dollars at real prices, and an honest risk grade for every coin._  
-  قيراط يعلّمك التداول من الصفر: دروس قصيرة على ثلاثة مستويات، ومحفظة تدريب فيها 100 أو 500 أو 1000 دولار افتراضي بالأسعار الحقيقية، ودرجة مخاطرة صادقة لكل عملة.
+  قيراط يعلّمك التداول من الصفر: دروس قصيرة على ثلاثة مستويات، ومحفظة تدريب فيها 100 أو 500 أو 1000 دولار تجريبية بالأسعار الحقيقية، ودرجة مخاطرة صادقة لكل عملة.
 
 - [ ] **777. startLesson** · _Start lesson 1_  
   ابدأ الدرس 1
 
-- [ ] **778. startPractice** · _Practice with pretend money_  
-  تدرّب بمال افتراضي
+- [ ] **778. startPractice** · _Try it with {n} pretend dollars_  
+  جرّب بـ {n} دولار تجريبية
 
 - [ ] **779. startNote** · _Free during the beta. Qirat never tells you to buy or sell._  
   مجاني خلال الفترة التجريبية. قيراط لا يقول لك أبدًا اشترِ أو بِع.

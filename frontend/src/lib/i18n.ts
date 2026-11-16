@@ -311,6 +311,14 @@ const UI = {
     fr: 'Gratuit pendant la bêta. Notes fondées sur des règles, identiques pour tous. Pas un conseil financier.',
     ar: 'بلاش في فترة التجربة. تقييمات بقواعد ثابتة، كيف كيف للناس الكل. موش نصيحة مالية.',
   },
+  // shown once after qirat.tn/#own-on or #own-off (lib/source.ts)
+  'own.on': { en: 'This browser is no longer counted.', fr: 'Ce navigateur n’est plus compté.', ar: 'المتصفّح هذا ما عادش يتحسب.' },
+  'own.off': { en: 'This browser is counted again.', fr: 'Ce navigateur est de nouveau compté.', ar: 'المتصفّح هذا رجع يتحسب.' },
+  'own.failed': {
+    en: 'Storage is blocked here, so this browser is still counted.',
+    fr: 'Le stockage est bloqué ici : ce navigateur reste compté.',
+    ar: 'الـ storage مسكّر هنا، المتصفّح هذا مازال يتحسب.',
+  },
   'foot.data': { en: 'Market data', fr: 'Données', ar: 'المعطيات' },
   'foot.channel': { en: 'Telegram channel', fr: 'Canal Telegram', ar: 'القناة في Telegram' },
   'foot.feedback': { en: 'Give feedback', fr: 'Donner mon avis', ar: 'قلّنا رأيك' },

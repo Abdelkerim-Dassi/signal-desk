@@ -4,6 +4,8 @@
 // in one place. Storage can be blocked, so every access is guarded and the
 // screen still works for the visit without it.
 
+import { isOwner } from './source'
+
 export interface Position {
   qty: number
   cost: number
@@ -223,13 +225,34 @@ export function quoteTrade(
     ...order,
     wallet: ledger.wallet,
     recent_ts: ledger.trades.slice(-20).map((t) => t.ts),
-    preview,
+    // same price, fee and notes either way; a browser marked as ours
+    // (qirat.tn/#own-on) asks the uncounted way, so our tests stay out of the total
+    preview: preview || isOwner(),
   })
 }
 
 /** True once this browser has made a practice trade. */
 export function hasTraded(): boolean {
   return loadLedger().trades.length > 0
+}
+
+const FIRST_KEY = 'qirat.practice.first'
+
+/**
+ * Call when a trade is confirmed, with the ledger as it was before it. True
+ * for the first practice trade this browser ever makes: starting the wallet
+ * over does not make a second "first", and neither does a wallet that traded
+ * before this was counted.
+ */
+export function isFirstTradeEver(before: Ledger): boolean {
+  try {
+    const known = localStorage.getItem(FIRST_KEY) !== null
+    localStorage.setItem(FIRST_KEY, '1')
+    return !known && before.trades.length === 0
+  } catch {
+    // storage blocked: the wallet lives for this page only, and so does "first"
+    return before.trades.length === 0
+  }
 }
 
 /** Refusals that come from the order itself; anything else is a price lookup that can be tried again. */

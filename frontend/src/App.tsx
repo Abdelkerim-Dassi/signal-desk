@@ -17,7 +17,7 @@ import type { AdvisorConfig } from './hooks/useBrief'
 import { feedbackVisible } from './lib/feedback'
 import { useI18n } from './lib/i18n'
 import { loadConfig, saveConfig } from './lib/prefs'
-import { arrive, track } from './lib/source'
+import { arrive, ownerSwitch, ownerSwitchAtLoad, track } from './lib/source'
 import { VIEWS } from './lib/views'
 import type { View } from './lib/views'
 
@@ -51,11 +51,21 @@ export default function App() {
     return () => window.clearTimeout(timer)
   }, [draft])
 
+  // qirat.tn/#own-on and #own-off (lib/source.ts) are confirmed on screen
+  const [toast, setToast] = useState<string | null>(() => {
+    const own = ownerSwitchAtLoad()
+    return own ? t(`own.${own}`) : null
+  })
   useEffect(() => {
-    const onHash = () => setView(viewFromHash())
+    const onHash = () => {
+      // #own-on / #own-off typed into the address of a page that is already open
+      const own = ownerSwitch()
+      if (own) setToast(t(`own.${own}`))
+      setView(viewFromHash())
+    }
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
-  }, [])
+  }, [t])
   const go = (next: View) => {
     window.location.hash = next === 'today' ? '' : next
     setView(next)
@@ -72,7 +82,6 @@ export default function App() {
   if (showsBrief && !briefOn) setBriefOn(true)
   const briefQuery = useBrief(config, briefOn)
   const statusQuery = useAppStatus()
-  const [toast, setToast] = useState<string | null>(null)
   const [showGuide, setShowGuide] = useState(false)
   const [showFeedback, setShowFeedback] = useState(false)
 
