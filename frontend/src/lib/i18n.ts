@@ -21,6 +21,7 @@ const UI = {
   'nav.learn': { en: 'Learn', fr: 'Apprendre', ar: 'تعلّم' },
   'nav.scamcheck': { en: 'Scam check', fr: 'Arnaque ?', ar: 'فحص الاحتيال' },
   'nav.more': { en: 'More', fr: 'Plus', ar: 'أكثر' },
+  'nav.home': { en: 'Home', fr: 'Accueil', ar: 'البداية' },
   'top.help': { en: 'How Qirat works', fr: 'Comment marche Qirat', ar: 'كيفاش يخدم قيراط' },
   'top.theme': { en: 'Switch light / dark', fr: 'Thème clair / sombre', ar: 'فاتح / غامق' },
   'top.language': { en: 'Language', fr: 'Langue', ar: 'اللغة' },
@@ -321,6 +322,67 @@ const UI = {
   },
   'foot.data': { en: 'Market data', fr: 'Données', ar: 'المعطيات' },
   'foot.channel': { en: 'Telegram channel', fr: 'Canal Telegram', ar: 'القناة في Telegram' },
+  'foot.follow': { en: 'New stories every week on', fr: 'De nouvelles histoires chaque semaine sur', ar: 'قصص جدد كل جمعة على' },
+  'foot.notAdvice': { en: 'Not financial advice.', fr: 'Pas un conseil financier.', ar: 'موش نصيحة مالية.' },
+  'foot.sources': { en: 'Where do the numbers come from?', fr: 'D’où viennent les chiffres ?', ar: 'منين تجي الأرقام؟' },
+
+  // The first screen (HomeView). A caption's [[double brackets]] sit on the gold
+  // marker; \n is a line break. The Darija lines marked CHECK were written for
+  // the redesign and wait for Abdelkerim's ear; «جرّب قبل ما تحطّ فلوسك» and
+  // «جرّب إنت زادة» are the videos' own words.
+  'home.h1': {
+    en: 'Try it before you put in [[real money]]',
+    fr: 'Essayez avant de mettre [[votre argent]]',
+    ar: 'جرّب قبل ما\nتحطّ [[فلوسك]]',
+  },
+  'home.barLabel': { en: 'Qirat, the gold bar', fr: 'Qirat, le lingot d’or', ar: 'قيراط، سبيكة الذهب' },
+  // CHECK
+  'home.bubble': {
+    en: 'Here, {n} dollars. Pretend ones, relax.',
+    fr: 'Tenez, {n} dollars. Fictifs, pas de stress.',
+    ar: 'هاك {n} دولار. تجريبية، ما تخافش.',
+  },
+  // CHECK
+  'home.bubbleBack': { en: 'You are back! Where were we?', fr: 'Vous revoilà ! On en était où ?', ar: 'رجعت! وين وصلنا؟' },
+  'home.bill': { en: 'pretend', fr: 'fictifs', ar: 'تجريبية' },
+  'home.try': { en: 'Try it with {n} pretend dollars', fr: 'Essayer avec {n} dollars fictifs', ar: 'جرّب بـ {n} دولار تجريبية' },
+  'home.lesson1': { en: 'Or start with lesson 1', fr: 'Ou commencer par la leçon 1', ar: 'ولا ابدا بالدرس 1' },
+  'home.free': {
+    en: 'Free. Qirat never tells you to buy or sell.',
+    fr: 'Gratuit. Qirat ne vous dit jamais d’acheter ni de vendre.',
+    ar: 'بلاش. قيراط عمرو ما يقلّك اشري ولا بيع.',
+  },
+  'home.continue': { en: 'Continue with lesson {n}', fr: 'Continuer avec la leçon {n}', ar: 'كمّل بالدرس {n}' },
+  'home.openWallet': { en: 'Open my wallet', fr: 'Ouvrir mon portefeuille', ar: 'حلّ الـ wallet متاعي' },
+  'home.stories': { en: 'Stories in 30 seconds', fr: 'Des histoires en 30 secondes', ar: 'قصص في 30 ثانية' },
+  // CHECK
+  'home.learnH': { en: '{n} lessons.\n[[2 minutes]] each.', fr: '{n} leçons.\n[[2 minutes]] chacune.', ar: '{n} درس.\nكل درس [[دقيقتين]].' },
+  'home.lessonN': { en: 'Lesson {n}', fr: 'Leçon {n}', ar: 'الدرس {n}' },
+  'home.startLesson': { en: 'Start the lesson', fr: 'Commencer la leçon', ar: 'ابدا الدرس' },
+  'home.allDone': {
+    en: 'Every lesson passed. You are 24K.',
+    fr: 'Toutes les leçons réussies. Vous êtes 24K.',
+    ar: 'الدروس الكل نجحت فيهم. إنت 24K.',
+  },
+  // CHECK
+  'home.practiceH': {
+    en: 'Buy. Sell. Get it wrong.\nAll for free.',
+    fr: 'Achetez. Vendez. Trompez-vous.\nTout est gratuit.',
+    ar: 'اشري. بيع. اغلط.\nالكل بلاش.',
+  },
+  'home.ticket': { en: 'Practice wallet', fr: 'Portefeuille d’entraînement', ar: 'wallet تجريبي' },
+  'home.cash': { en: 'Cash', fr: 'Cash', ar: 'كاش' },
+  'home.trades': { en: 'Trades made', fr: 'Trades passés', ar: 'trades عملتهم' },
+  'home.startedWith': { en: 'Start', fr: 'Départ', ar: 'بديت بـ' },
+  'home.stamp': { en: 'Pretend', fr: 'Fictif', ar: 'تجربة' },
+  'home.stampSub': { en: 'not real\nmoney', fr: 'pas de vrai\nargent', ar: 'موش فلوس\nحقيقية' },
+  // CHECK
+  'home.replayH': { en: '30 days in [[4 minutes]].', fr: '30 jours en [[4 minutes]].', ar: '30 نهار في [[4 دقايق]].' },
+  'home.replayGo': { en: 'Start the trip', fr: 'Commencer le voyage', ar: 'ابدا الرحلة' },
+  'story.try': { en: 'Try it yourself', fr: 'Essayez vous-même', ar: 'جرّب إنت زادة' },
+  'story.again': { en: 'Watch again', fr: 'Revoir', ar: 'عاود شوفها' },
+  'story.more': { en: 'More on', fr: 'La suite sur', ar: 'الباقي على' },
+  'story.close': { en: 'Close the video', fr: 'Fermer la vidéo', ar: 'سكّر الفيديو' },
   'foot.feedback': { en: 'Give feedback', fr: 'Donner mon avis', ar: 'قلّنا رأيك' },
   'foot.feedbackHint': {
     en: 'Testing Qirat? 30 seconds, anonymous. It shapes what gets built next.',

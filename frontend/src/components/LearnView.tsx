@@ -7,7 +7,7 @@ import { GLOSSARY, LEARN_UI, LESSONS, LEVELS, isReady, lessonsForTerm, todaysLes
 import type { LearnKey, Lesson, LiveLink, Text } from '../lib/lessons'
 import { markRead, recordQuiz, resetProgress, useLearnProgress } from '../lib/learnProgress'
 import { usePracticeT } from '../lib/i18n-practice'
-import { hasTraded, loadLedger } from '../lib/practice'
+import { loadLedger } from '../lib/practice'
 import { countLessonPass } from '../lib/returning'
 import { track } from '../lib/source'
 import type { View } from '../lib/views'
@@ -64,54 +64,7 @@ export default function LearnView({ brief, onView }: { brief: Brief | undefined;
 
   if (route.page === 'lesson') return <LessonPage key={route.lesson.slug} lesson={route.lesson} brief={brief} onView={onView} />
   if (route.page === 'glossary') return <GlossaryPage />
-  return <Hub onView={onView} />
-}
-
-// ---------------------------------------------------------------------------
-// Start here: the first thing a first visit sees (most arrive from a video)
-// ---------------------------------------------------------------------------
-
-let startCounted = false // one "shown" per page load, however often the hub is reopened
-
-function StartHere({ onView }: { onView: (v: View) => void }) {
-  const { lt } = useLearnText()
-  useEffect(() => {
-    if (startCounted) return
-    startCounted = true
-    track('start', 'shown')
-  }, [])
-  const first = LESSONS.find(isReady) ?? LESSONS[0]
-  return (
-    <section className="card rise border-border-strong p-5" aria-label={lt('startTitle')}>
-      <p className="tick-label text-gold">{lt('startTitle')}</p>
-      <p className="mt-1.5 text-[15px] leading-relaxed font-medium">{lt('startBody')}</p>
-      <div className="mt-4 flex flex-wrap gap-2">
-        {/* The videos end on the practice wallet, so it is the main button; lesson 1 is the second. */}
-        <button
-          type="button"
-          onClick={() => {
-            track('start', 'practice')
-            onView('practice')
-          }}
-          className="cursor-pointer rounded-full bg-text px-5 py-2.5 text-sm font-semibold text-bg transition hover:opacity-90"
-        >
-          {lt('startPractice', { n: loadLedger().startUsdt })}
-        </button>
-        <a
-          href={`#learn-${first.slug}`}
-          onClick={(e) => {
-            e.preventDefault()
-            track('start', 'lesson')
-            openRoute(`learn-${first.slug}`)
-          }}
-          className="rounded-full border border-border-strong px-5 py-2.5 text-sm font-medium text-gold transition hover:bg-gold-soft"
-        >
-          {lt('startLesson')}
-        </a>
-      </div>
-      <p className="mt-3 text-xs text-muted">{lt('startNote')}</p>
-    </section>
-  )
+  return <Hub />
 }
 
 // ---------------------------------------------------------------------------
@@ -192,17 +145,13 @@ function LessonRow({ lesson }: { lesson: Lesson }) {
   )
 }
 
-function Hub({ onView }: { onView: (v: View) => void }) {
+function Hub() {
   const { tx, lt } = useLearnText()
   const today = todaysLesson()
-  // "Start here" stays until the visitor has really started (read a lesson or
-  // made a practice trade), not only on the very first page load: a reload or
-  // a second visit must not take the way in away from someone who hasn't begun.
+  // the way in for someone who has not begun is the first screen (HomeView)
   const progress = useLearnProgress()
-  const started = Object.values(progress.lessons).some((p) => p.read || p.passed) || hasTraded()
   return (
     <div className="space-y-6">
-      {!started && <StartHere onView={onView} />}
       <section className="card hero-wash rise overflow-hidden p-5 sm:p-6">
         <div className="flex items-start gap-3">
           <div className="min-w-0 flex-1">

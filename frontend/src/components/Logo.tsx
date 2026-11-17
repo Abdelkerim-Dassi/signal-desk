@@ -1,4 +1,6 @@
-/** The Qirat mascot: a little 24K gold bar. A karat grades gold, Qirat grades coins. */
+import Mascot from './brand/Mascot'
+
+/** The Qirat mascot as a small mark: a little 24K gold bar. A karat grades gold, Qirat grades coins. */
 export function GemMark({ size = 28 }: { size?: number }) {
   return (
     <img
@@ -15,15 +17,9 @@ export function GemMark({ size = 28 }: { size?: number }) {
 
 export default function Logo() {
   return (
-    <span className="flex items-center gap-2" dir="ltr">
-      <GemMark size={34} />
-      <span className="text-xl font-semibold tracking-tight">qirat</span>
-      <span
-        className="rounded-full bg-gold-soft px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-gold"
-        title="Free during the beta"
-      >
-        Beta
-      </span>
+    <span className="flex items-center gap-1.5" dir="ltr">
+      <Mascot mood="wink" size={38} />
+      <span className="font-poster text-[1.9rem] leading-none">qirat</span>
     </span>
   )
 }

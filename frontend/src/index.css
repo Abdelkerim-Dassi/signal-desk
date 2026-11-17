@@ -1,16 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&family=Readex+Pro:wght@300;400;500;600;700&display=swap');
 @import 'tailwindcss';
+/* the shared pieces (captions, marker, buttons, ticket, stamp...): see reel.css */
+@import './reel.css' layer(components);
 
-/* Qirat — "calm & clear". Light-first, warm paper background, one gold
-   accent (the brand: a karat grades gold). Rating hues carry meaning only:
-   strong = emerald, neutral = slate, weak = coral. Readex Pro covers Latin
-   and Arabic in one family, so EN / FR / AR read as the same product. */
+/* Qirat, "the reel": the site is a scene from the videos. Paper, big ink
+   captions with the gold marker, the cast on screen, one action per scene.
+   Lalezar carries the captions (Arabic and Latin), Readex Pro everything that
+   is read. Rating hues carry meaning only: strong = emerald, neutral = slate,
+   weak = coral; they never fill a background. */
 @theme {
   --font-sans: 'Readex Pro', system-ui, sans-serif;
   --font-display: 'Readex Pro', system-ui, sans-serif;
   --font-mono: 'Readex Pro', system-ui, sans-serif;
+  --font-poster: 'Lalezar', 'Readex Pro', system-ui, sans-serif;
 
-  --color-bg: #f6f4ef;
+  /* the videos' own golds: the caption marker, the mascot, a button's underside */
+  --color-marker: #ffce54;
+  --color-candy: #f5a524;
+  --color-under: #d9981b;
+  --color-on-marker: #15171c;
+  /* the cast, used only on their name tags and the stamp */
+  --color-sami: #3f6fd8;
+  --color-youssef: #e2752b;
+  --color-mariem: #8e5bc9;
+
+  --color-bg: #f7f3ea;
   --color-card: #ffffff;
   --color-subtle: #f1eee7;
   --color-border: rgba(21, 23, 28, 0.08);
@@ -58,6 +72,8 @@
   --color-gold: #e3b551;
   --color-gold-bright: #f0c768;
   --color-gold-soft: rgba(227, 181, 81, 0.12);
+  --color-under: #b27a10;
+  --color-sami: #7ea2f2;
   --color-up: #34d399;
   --color-down: #f87171;
   --color-strong: #34d399;
@@ -72,9 +88,14 @@ html {
 body {
   font-family: var(--font-sans);
   background-color: var(--color-bg);
+  /* the videos' paper: a faint warm grain */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .32 0 0 0 0 .14 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   color: var(--color-text);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+}
+:root[data-theme='dark'] body {
+  background-image: none;
 }
 
 /* Arabic reads better a touch larger and with more line height */
@@ -85,28 +106,23 @@ body {
 
 @utility card {
   background: var(--color-card);
-  border: 1px solid var(--color-border);
-  border-radius: 1.25rem;
-  box-shadow:
-    0 1px 2px rgba(15, 16, 19, 0.04),
-    0 12px 32px -18px rgba(15, 16, 19, 0.14);
+  border: 1px solid transparent;
+  border-radius: 1.375rem;
+  box-shadow: 0 14px 22px -16px rgba(60, 40, 5, 0.45);
 }
 
 /* kept for components that still use the old name */
 @utility glass {
   background: var(--color-card);
-  border: 1px solid var(--color-border);
-  border-radius: 1.25rem;
-  box-shadow:
-    0 1px 2px rgba(15, 16, 19, 0.04),
-    0 12px 32px -18px rgba(15, 16, 19, 0.14);
+  border: 1px solid transparent;
+  border-radius: 1.375rem;
+  box-shadow: 0 14px 22px -16px rgba(60, 40, 5, 0.45);
 }
 
+/* a small label: sentence case, no tracking (Arabic letters must stay joined) */
 @utility tick-label {
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.8125rem;
+  font-weight: 600;
   color: var(--color-muted);
 }
 
@@ -125,8 +141,10 @@ body {
   }
 }
 
+/* Sections no longer fade in one by one: the first screen has one arrival
+   moment of its own (.arrive, in reel.css). The name stays so old markup is harmless. */
 @utility rise {
-  animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: none;
 }
 
 @keyframes pulse-dot {

@@ -26,10 +26,12 @@ KEEP_DAYS = 400  # long enough to compare this Ramadan with the next
 
 # Short paths typed from a video or tapped in a bio: qirat.tn/t, /i, /f, /w.
 SOURCES = {"t": "TikTok", "i": "Instagram", "f": "Facebook", "w": "WhatsApp", "y": "YouTube", "direct": "Direct"}
-VIEWS = {"today", "learn", "practice", "replay", "scamcheck", "ask", "portfolio", "record"}
+VIEWS = {"home", "today", "learn", "practice", "replay", "scamcheck", "ask", "portfolio", "record"}
 PLACES = {"scam", "quiz", "practice", "footer"}
-# The "start here" strip a first visit sees on Learn: shown, then which of its
-# two buttons was tapped (lesson 1, or the practice wallet).
+# The first screen, for a browser that has not read a lesson or traded yet:
+# shown, then which of its two buttons was tapped (lesson 1, or the practice
+# wallet). Until 2026-11 this was the "start here" strip on Learn; the counter
+# kept its name so the numbers stay one series.
 START = {"shown", "lesson", "practice"}
 # The first practice trade a browser ever makes, and how it was made: the
 # one-tap button on a wallet that has not traded yet, or the trade form.
@@ -51,6 +53,10 @@ LEVELS = {"1", "2", "3"}
 # every later start, replay_share a tap on "share my result", and
 # replay_arrive a first visit that opened on a shared scenario link.
 REPLAYS = {"m1", "m2"}
+# The story videos on the first screen (frontend/src/lib/stories.ts): a tap on
+# a tile, by video. And a tap on one of Qirat's account links, by platform.
+STORIES = {"same-trade", "mariem-all-in", "cheap-coin", "ten-trades"}
+SOCIALS = {"tiktok", "instagram", "youtube", "facebook", "telegram"}
 
 # What the browser may report, and the values each event accepts.
 CLIENT_EVENTS: dict[str, set[str] | None] = {
@@ -69,6 +75,8 @@ CLIENT_EVENTS: dict[str, set[str] | None] = {
     "replay_arrive": REPLAYS,
     "practice_first": FIRST_TRADE,
     "keep": KEEP,
+    "story": STORIES,
+    "social": SOCIALS,
     "bot_click": PLACES,
     "share": PLACES,
 }
@@ -203,6 +211,8 @@ def owner_report(days: int = 7) -> str:
         f" · finished by {_sum(t, 'replay_done')}  ({_by(t, 'replay_done')})",
         f"Time machine: played again {_sum(t, 'replay_again')} · results shared {_sum(t, 'replay_share')}"
         f" · first visits on a shared link {_sum(t, 'replay_arrive')}",
+        f"Story videos opened: {_sum(t, 'story')}  ({_by(t, 'story')})",
+        f"Taps on our accounts: {_sum(t, 'social')}  ({_by(t, 'social')})",
         f"Questions asked: {t.get('ask', 0)}",
         f"Bot button taps: {_sum(t, 'bot_click')}  ({_by(t, 'bot_click')})",
         f"Bot starts: {_sum(t, 'bot_start')}  ({_by(t, 'bot_start')})",

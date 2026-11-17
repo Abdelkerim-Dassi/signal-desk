@@ -4,18 +4,19 @@ import BotInvite from './components/BotInvite'
 import CoinList from './components/CoinList'
 import FeedbackModal from './components/FeedbackModal'
 import GuideModal from './components/GuideModal'
+import HomeView from './components/HomeView'
 import LearnView from './components/LearnView'
 import MarketMoves from './components/MarketMoves'
 import { BottomNav, TopBar } from './components/Navigation'
 import PortfolioView from './components/PortfolioView'
 import PracticeView from './components/PracticeView'
 import ScamCheckView from './components/ScamCheckView'
+import SiteFooter from './components/SiteFooter'
 import TimeMachineView from './components/TimeMachineView'
 import TodayHero from './components/TodayHero'
 import TrackRecord from './components/TrackRecord'
 import { DEFAULT_CONFIG, toAnalyzeParams, useAppStatus, useBrief } from './hooks/useBrief'
 import type { AdvisorConfig } from './hooks/useBrief'
-import { feedbackVisible } from './lib/feedback'
 import { useI18n } from './lib/i18n'
 import { openTakenLink, startKeep, takeKeepLink } from './lib/keep'
 import { loadConfig, saveConfig } from './lib/prefs'
@@ -23,22 +24,19 @@ import { arrive, ownerSwitch, ownerSwitchAtLoad, track } from './lib/source'
 import { VIEWS } from './lib/views'
 import type { View } from './lib/views'
 
-const CHANNEL_URL = 'https://t.me/getqirat'
-
 function viewFromHash(): View {
   const id = window.location.hash.replace('#', '')
   // lessons have their own shareable links: #learn-<slug>
   if (id.startsWith('learn-')) return 'learn'
   // the Time machine, and a link to one of its scenarios: #replay, #replay-<id>
   if (id === 'replay' || id.startsWith('replay-')) return 'replay'
-  return VIEWS.some((v) => v.id === id) ? (id as View) : 'today'
+  return VIEWS.some((v) => v.id === id) ? (id as View) : 'home'
 }
 
 export default function App() {
   const { t } = useI18n()
-  // A first visit, or one through a platform address (qirat.tn/t, /i, /f, /w),
-  // opens on Learn with its "start here" strip: arrive() puts #learn in the
-  // address for those. Today and Scam check stay one tap away.
+  // qirat.tn with nothing after it is the first screen (HomeView), for a first
+  // visit and a hundredth alike; a link that names a screen opens that screen.
   const [view, setView] = useState<View>(() => {
     arrive()
     return viewFromHash()
@@ -75,17 +73,17 @@ export default function App() {
   // a kept wallet follows its saved copy; a link the address held is opened (lib/keep.ts)
   useEffect(() => startKeep(), [])
   const go = (next: View) => {
-    window.location.hash = next === 'today' ? '' : next
+    window.location.hash = next === 'home' ? '' : next
     setView(next)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   useEffect(() => track('view', view), [view])
 
-  // Scam check and Practice don't use the market brief, so a visitor who
-  // lands there doesn't wait for it (or pay for it on mobile data). It loads
-  // the first time a screen that shows it is opened, and stays on after that.
-  const showsBrief = view !== 'scamcheck' && view !== 'practice' && view !== 'replay'
+  // The first screen, Scam check and Practice don't use the market brief, so a
+  // visitor who lands there doesn't wait for it (or pay for it on mobile data).
+  // It loads the first time a screen that shows it is opened, and stays on.
+  const showsBrief = view !== 'home' && view !== 'scamcheck' && view !== 'practice' && view !== 'replay'
   const [briefOn, setBriefOn] = useState(showsBrief)
   if (showsBrief && !briefOn) setBriefOn(true)
   const briefQuery = useBrief(config, briefOn)
@@ -109,7 +107,9 @@ export default function App() {
     <div className="min-h-screen pb-24 md:pb-8">
       <TopBar view={tab} onView={go} onHelp={() => setShowGuide(true)} />
 
-      <main className="mx-auto max-w-5xl space-y-6 px-4 pt-5">
+      {/* the first screen runs edge to edge; every other screen sits in one column */}
+      <main className={view === 'home' ? '' : 'mx-auto max-w-5xl space-y-6 px-4 pt-5 md:px-6'}>
+        {view === 'home' && <HomeView onView={go} />}
         {view === 'today' && (
           <>
             <TodayHero
@@ -147,49 +147,12 @@ export default function App() {
 
         {/* On Scam check this sits right under the result, so it carries that tag.
             Learn and Practice show their own after a passed quiz or a trade. */}
-        {view !== 'learn' && view !== 'practice' && view !== 'replay' && <BotInvite place={view === 'scamcheck' ? 'scam' : 'footer'} />}
-
-        <footer className="space-y-2 pt-4 pb-2 text-center text-xs text-muted">
-          <p>{t('foot.disclaimer')}</p>
-          <p>
-            {t('foot.channel')}:{' '}
-            <a href={CHANNEL_URL} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-gold" dir="ltr">
-              t.me/getqirat
-            </a>
-          </p>
-          <p dir="ltr">
-            {t('foot.data')}: Binance ·{' '}
-            <a
-              href="https://www.coingecko.com/en/api"
-              target="_blank"
-              rel="noreferrer"
-              className="underline underline-offset-2 hover:text-gold"
-            >
-              Powered by CoinGecko
-            </a>{' '}
-            · Fear &amp; Greed:{' '}
-            <a
-              href="https://alternative.me/crypto/fear-and-greed-index/"
-              target="_blank"
-              rel="noreferrer"
-              className="underline underline-offset-2 hover:text-gold"
-            >
-              Alternative.me
-            </a>
-          </p>
-          {feedbackVisible && (
-            <div className="pt-3">
-              <button
-                onClick={() => setShowFeedback(true)}
-                className="cursor-pointer rounded-full border border-border-strong px-5 py-2 text-sm font-medium text-gold transition hover:bg-gold-soft"
-              >
-                {t('foot.feedback')}
-              </button>
-              <p className="mt-2">{t('foot.feedbackHint')}</p>
-            </div>
-          )}
-        </footer>
+        {view !== 'home' && view !== 'learn' && view !== 'practice' && view !== 'replay' && (
+          <BotInvite place={view === 'scamcheck' ? 'scam' : 'footer'} />
+        )}
       </main>
+
+      <SiteFooter onFeedback={() => setShowFeedback(true)} />
 
       <BottomNav view={tab} onView={go} />
       <GuideModal open={showGuide} onClose={() => setShowGuide(false)} />

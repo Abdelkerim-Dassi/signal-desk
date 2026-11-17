@@ -8,7 +8,7 @@ import { LearnKaratPip } from './LearnBadge'
 import Logo from './Logo'
 
 const iconButton =
-  'grid size-9 cursor-pointer place-items-center rounded-full text-lg text-muted transition hover:bg-subtle hover:text-text'
+  'link grid size-10 cursor-pointer place-items-center rounded-xl text-xl text-muted transition hover:bg-subtle hover:text-text'
 
 export function TopBar({
   view,
@@ -28,21 +28,21 @@ export function TopBar({
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-bg/85 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-5xl items-center gap-3 px-4">
-        <button onClick={() => onView('today')} className="cursor-pointer" aria-label="Qirat">
+    <header className="sticky top-0 z-40 bg-bg/90 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-5xl items-center gap-2 px-4 md:px-6">
+        <button onClick={() => onView('home')} className="link cursor-pointer rounded-xl" aria-label="Qirat">
           <Logo />
         </button>
 
-        {/* desktop tabs; phones use the bottom bar */}
+        {/* desktop tabs; phones use the bottom bar. The logo is the way home. */}
         <nav className="ms-3 hidden items-center gap-0.5 md:flex lg:ms-6 lg:gap-1" aria-label="Main">
-          {VIEWS.map(({ id, label }) => (
+          {VIEWS.filter((v) => v.id !== 'home').map(({ id, label }) => (
             <button
               key={id}
               onClick={() => onView(id)}
               aria-current={view === id ? 'page' : undefined}
-              className={`flex cursor-pointer items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm font-medium whitespace-nowrap transition lg:px-3.5 ${
-                view === id ? 'bg-text text-bg' : 'text-muted hover:bg-subtle hover:text-text'
+              className={`link flex cursor-pointer items-center gap-1.5 rounded-xl px-2.5 py-2 text-sm font-semibold whitespace-nowrap transition lg:px-3.5 ${
+                view === id ? 'bg-marker text-on-marker' : 'text-muted hover:bg-subtle hover:text-text'
               }`}
             >
               {t(label)}
@@ -51,16 +51,16 @@ export function TopBar({
           ))}
         </nav>
 
-        <div className="ms-auto flex items-center gap-1">
-          <div className="flex rounded-full bg-subtle p-0.5" role="group" aria-label={t('top.language')}>
+        <div className="ms-auto flex items-center gap-0.5">
+          <div className="flex gap-0.5" role="group" aria-label={t('top.language')}>
             {LANGS.map((l) => (
               <button
                 key={l.code}
                 onClick={() => setLang(l.code)}
                 aria-pressed={lang === l.code}
                 title={l.label}
-                className={`min-w-8 cursor-pointer rounded-full px-2 py-1 text-xs font-semibold transition ${
-                  lang === l.code ? 'bg-card text-text shadow-sm' : 'text-muted hover:text-text'
+                className={`link min-w-9 cursor-pointer rounded-[10px] px-2 py-2 text-center text-[13px] font-semibold transition ${
+                  lang === l.code ? 'bg-text text-bg' : 'text-muted hover:text-text'
                 }`}
               >
                 {l.short}
@@ -79,6 +79,11 @@ export function TopBar({
   )
 }
 
+const tabClass = (on: boolean) =>
+  `link grid cursor-pointer justify-items-center gap-0.5 rounded-xl py-1 text-[11.5px] font-semibold transition ${on ? 'text-text' : 'text-muted'}`
+// the tab you are on: its icon sits on a dab of the gold marker
+const blobClass = (on: boolean) => `relative grid h-8 w-[46px] place-items-center rounded-xl text-[25px] ${on ? 'bg-marker text-on-marker' : ''}`
+
 export function BottomNav({ view, onView }: { view: View; onView: (v: View) => void }) {
   const { t } = useI18n()
   const [moreOpen, setMoreOpen] = useState(false)
@@ -89,47 +94,36 @@ export function BottomNav({ view, onView }: { view: View; onView: (v: View) => v
   }
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 bg-bg pb-[env(safe-area-inset-bottom)] shadow-[0_-1px_0_rgba(21,23,28,.1)] md:hidden"
       aria-label="Main"
     >
       {moreOpen && (
         <>
-          <button
-            className="fixed inset-0 -z-10 cursor-default"
-            aria-label={t('nav.more')}
-            onClick={() => setMoreOpen(false)}
-          />
-          <div className="absolute end-3 bottom-full mb-2 min-w-44 overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
+          <button className="fixed inset-0 -z-10 cursor-default" aria-label={t('nav.more')} onClick={() => setMoreOpen(false)} />
+          <div className="absolute end-3 bottom-full mb-2 min-w-48 overflow-hidden rounded-2xl bg-card shadow-[0_14px_30px_-12px_rgba(60,40,5,.5)]">
             {PHONE_MORE.map(({ id, label, Icon }) => (
               <button
                 key={id}
                 onClick={() => pick(id)}
                 aria-current={view === id ? 'page' : undefined}
-                className={`flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-sm font-medium transition hover:bg-subtle ${
-                  view === id ? 'text-gold' : 'text-text'
+                className={`flex w-full cursor-pointer items-center gap-3 px-4 py-3.5 text-[15px] font-semibold transition hover:bg-subtle ${
+                  view === id ? 'bg-marker text-on-marker' : 'text-text'
                 }`}
               >
-                <Icon className="text-lg" />
+                <Icon className="text-xl" />
                 {t(label)}
               </button>
             ))}
           </div>
         </>
       )}
-      <div className="mx-auto grid max-w-md" style={{ gridTemplateColumns: `repeat(${PHONE_TABS.length + 1}, minmax(0, 1fr))` }}>
+      <div className="mx-auto grid max-w-md px-2 py-2" style={{ gridTemplateColumns: `repeat(${PHONE_TABS.length + 1}, minmax(0, 1fr))` }}>
         {PHONE_TABS.map(({ id, label, Icon }) => (
-          <button
-            key={id}
-            onClick={() => pick(id)}
-            aria-current={view === id ? 'page' : undefined}
-            className={`flex cursor-pointer flex-col items-center gap-0.5 py-2 text-[11px] font-medium transition ${
-              view === id ? 'text-gold' : 'text-muted'
-            }`}
-          >
-            <span className="relative">
-              <Icon className="text-[22px]" />
+          <button key={id} onClick={() => pick(id)} aria-current={view === id ? 'page' : undefined} className={tabClass(view === id)}>
+            <span className={blobClass(view === id)}>
+              <Icon />
               {id === 'learn' && (
-                <span className="absolute -top-1.5 left-3.5">
+                <span className="absolute -top-1.5 left-7 text-base">
                   <LearnKaratPip size="xs" />
                 </span>
               )}
@@ -137,14 +131,10 @@ export function BottomNav({ view, onView }: { view: View; onView: (v: View) => v
             {t(label)}
           </button>
         ))}
-        <button
-          onClick={() => setMoreOpen((open) => !open)}
-          aria-expanded={moreOpen}
-          className={`flex cursor-pointer flex-col items-center gap-0.5 py-2 text-[11px] font-medium transition ${
-            inMore || moreOpen ? 'text-gold' : 'text-muted'
-          }`}
-        >
-          <IconMore className="text-[22px]" />
+        <button onClick={() => setMoreOpen((open) => !open)} aria-expanded={moreOpen} className={tabClass(inMore || moreOpen)}>
+          <span className={blobClass(inMore || moreOpen)}>
+            <IconMore />
+          </span>
           {t('nav.more')}
         </button>
       </div>

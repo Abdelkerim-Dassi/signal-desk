@@ -119,13 +119,9 @@ export function arrive(): Arrival {
     write('session', VISIT_KEY, label)
   }
 
-  // The videos teach trading from zero, so a new or tagged visitor lands on
-  // Learn, where a first visit also gets the "start here" strip (LearnView).
-  // Put it in the address too. A link that names a screen (#scamcheck,
-  // #practice, a lesson) is left alone.
-  const { search, hash } = window.location
-  const wantsStart = (source !== null || firstVisit) && hash.length <= 1
-  if (wantsStart) window.history.replaceState(null, '', `${window.location.pathname}${search}#learn`)
+  // A new or tagged visitor lands on the first screen (HomeView), which leads
+  // to the practice wallet and lesson 1. A link that names a screen
+  // (#scamcheck, #practice, a lesson) opens that screen.
 
   if (source) {
     // Tidy the address so a copied link doesn't pass "came from TikTok" on to

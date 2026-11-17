@@ -18,6 +18,11 @@ function Svg(props: SVGProps<SVGSVGElement>) {
   )
 }
 
+export const IconHome = (p: SVGProps<SVGSVGElement>) => (
+  <Svg {...p}>
+    <path d="M3 11l9-7 9 7v8a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" />
+  </Svg>
+)
 export const IconToday = (p: SVGProps<SVGSVGElement>) => (
   <Svg {...p}>
     <circle cx="12" cy="12" r="4" />
