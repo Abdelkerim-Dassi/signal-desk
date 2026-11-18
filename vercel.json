@@ -25,6 +25,11 @@
       "dest": "/frontend/assets/$1"
     },
     { "src": "/(favicon\\.svg|favicon\\.png|icons\\.svg|qirat-mark\\.png|apple-touch-icon\\.png|icon-512\\.png|og-image\\.png|robots\\.txt|sitemap\\.xml)", "dest": "/frontend/$1" },
+    {
+      "src": "/(mascot|cast|stories)/(.*)",
+      "headers": { "Cache-Control": "public, max-age=86400" },
+      "dest": "/frontend/$1/$2"
+    },
     { "src": "/((?!_vercel/).*)", "dest": "/frontend/index.html" }
   ]
 }
