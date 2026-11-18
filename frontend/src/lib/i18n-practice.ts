@@ -9,24 +9,19 @@ import type { CoachNote, TradeErrorCode } from './practice'
 type Entry = Record<Lang, string>
 
 const P = {
+  // also printed as plain text on the Learn screen, so it carries no marker
   title: { en: 'Practice with ${start}', fr: 'S’entraîner avec {start} $', ar: 'تدرّب بـ {start} دولار' },
-  intro: {
-    en: 'A pretend wallet with {start} USDT at live prices. Try trades, see the fees, and learn your own habits before real money is ever involved.',
-    fr: 'Un portefeuille fictif de {start} USDT aux prix réels. Essayez des achats et des ventes, voyez les frais et découvrez vos propres réflexes, sans argent réel.',
-    ar: 'wallet تجريبي فيه {start} USDT بالسوامات الحقيقية. جرّب تشري وتبيع، شوف الـ frais، واعرف العادات متاعك قبل ما تحطّ فلوس حقيقية.',
-  },
-  sim: { en: 'Simulation, not real money', fr: 'Simulation, pas d’argent réel', ar: 'تجربة، موش فلوس حقيقية' },
-  simShort: { en: 'Simulation', fr: 'Simulation', ar: 'تجربة' },
+  // the same words as this screen's caption; [[double brackets]] sit on the gold marker
+  // CHECK (words unchanged; «{start} دولار» now sits on the marker)
+  titleCap: { en: 'Practice with [[${start}]]', fr: 'S’entraîner avec [[{start} $]]', ar: 'تدرّب بـ [[{start} دولار]]' },
   balance: { en: 'Practice balance', fr: 'Solde d’entraînement', ar: 'رصيد التدريب' },
   pnl: { en: 'Since you started', fr: 'Depuis le début', ar: 'من وقت ما بديت' },
   startedOn: { en: 'Started {date} with {start} USDT', fr: 'Commencé le {date} avec {start} USDT', ar: 'بديت نهار {date} بـ {start} USDT' },
-  hold: { en: 'If you had just held BTC with your ${start}', fr: 'Si vous aviez juste gardé du BTC avec vos {start} $', ar: 'كان خلّيت Bitcoin بالـ {start} دولار متاعك برك' },
   holdWaiting: { en: 'Waiting for the BTC price…', fr: 'En attente du prix du BTC…', ar: 'نستنّاو في سوم Bitcoin…' },
-  chartYou: { en: 'Your wallet', fr: 'Votre portefeuille', ar: 'الـ wallet متاعك' },
   chartHold: { en: 'Just holding BTC', fr: 'Garder du BTC', ar: 'كان خلّيت Bitcoin' },
-  chartStart: { en: 'Start: {start} USDT', fr: 'Départ : {start} USDT', ar: 'البداية: {start} USDT' },
 
-  // one tap for a wallet that has not traded yet (the button says the money is pretend);
+  // one tap for a wallet that has not traded yet: the bar says firstTitle, the button is
+  // firstBuy (it says the money is pretend), firstNote is the first line behind "the rules";
   // \u00a0 keeps «بـ» / «الـ» on the same line as the word after it
   firstTitle: { en: 'Make your first trade', fr: 'Votre premier achat', ar: 'اعمل أوّل شرية ليك' },
   firstBuy: {
@@ -39,13 +34,24 @@ const P = {
     fr: 'Argent fictif, prix réel. Les frais et l’écart sont prélevés comme sur une vraie plateforme.',
     ar: 'فلوس تجريبية، موش حقيقية. بالسوم الحيّ، وبالـ\u00a0frais والـ\u00a0spread كيف في الحقيقة.',
   },
+  // the caption over the first trade's receipt: the words of `traded`, with the marker
+  // CHECK (words unchanged; «تعدّات» sits on the marker)
+  tradedCap: { en: 'Practice trade [[done]].', fr: 'Opération fictive [[effectuée]].', ar: 'العملية التجريبية [[تعدّات]].' },
+  // what the bar says under that receipt, when the coach has no note on the trade
+  firstSay: {
+    en: 'You own a little Bitcoin now. Its price moves, and your wallet moves with it.',
+    fr: 'Vous avez maintenant un peu de Bitcoin. Son prix bouge, et votre portefeuille bouge avec lui.',
+    // CHECK
+    ar: 'شريت شويّة Bitcoin. السوم يتبدّل، والـ wallet متاعك يتبدّل معاه.',
+  },
 
   // keep my wallet: a private link to a saved copy of the wallet and the lessons (lib/keep.ts)
   keepButton: { en: 'Keep my wallet and lessons', fr: 'Garder mon portefeuille et mes leçons', ar: 'احفظ الـ wallet والدروس متاعك' },
   keepWhy: {
-    en: 'You get a private link. Open it in any browser or phone and your practice wallet and lessons are there. No name, no email.',
-    fr: 'Vous recevez un lien privé. Ouvrez-le dans n’importe quel navigateur ou téléphone : votre portefeuille fictif et vos leçons y sont. Ni nom, ni e-mail.',
-    ar: 'تاخذ رابط خاص بيك. حلّو في أي متصفّح ولا تليفون تلقى الـ wallet التجريبي والدروس متاعك. لا اسم لا email.',
+    en: 'You get a private link. No name, no email.',
+    fr: 'Vous recevez un lien privé. Ni nom, ni e-mail.',
+    // CHECK (the old line without its middle sentence; keptLine says that part once the link exists)
+    ar: 'تاخذ رابط خاص بيك. لا اسم لا email.',
   },
   keepFailed: {
     en: 'Could not save it just now. Try again in a minute.',
@@ -84,10 +90,14 @@ const P = {
     fr: 'Ce navigateur a déjà un portefeuille fictif avec des opérations, et le lien en ouvre un autre. Un seul peut rester ici ; l’autre est retiré de ce navigateur.',
     ar: 'المتصفّح هذا فيه ديجا wallet تجريبي فيه عمليات، والرابط يحلّ wallet آخر. واحد برك يقعد هنا، والآخر يتنحّى من المتصفّح هذا.',
   },
-  askSaved: { en: 'The one from the link · trades: {n}', fr: 'Celui du lien · opérations : {n}', ar: 'متاع الرابط · العمليات: {n}' },
-  askLocal: { en: 'The one in this browser · trades: {n}', fr: 'Celui de ce navigateur · opérations : {n}', ar: 'اللي في المتصفّح هذا · العمليات: {n}' },
+  // each answer is two lines: which wallet, then how many trades it holds
+  // CHECK (the old words, split in two: «متاع الرابط» then «العمليات: 3» under it)
+  askSaved: { en: 'The one from the link', fr: 'Celui du lien', ar: 'متاع الرابط' },
+  askLocal: { en: 'The one in this browser', fr: 'Celui de ce navigateur', ar: 'اللي في المتصفّح هذا' },
+  askTrades: { en: 'trades: {n}', fr: 'opérations : {n}', ar: 'العمليات: {n}' },
 
-  trade: { en: 'Practice trade', fr: 'Opération d’entraînement', ar: 'عملية تدريب' },
+  // CHECK (words unchanged; «تدريب» sits on the marker)
+  trade: { en: 'Practice [[trade]]', fr: 'Opération [[d’entraînement]]', ar: 'عملية [[تدريب]]' },
   coin: { en: 'Coin', fr: 'Crypto', ar: 'الـ coin' },
   buy: { en: 'Buy', fr: 'Acheter', ar: 'شري' },
   sell: { en: 'Sell', fr: 'Vendre', ar: 'بيع' },
@@ -112,13 +122,13 @@ const P = {
   'weather.stormy': { en: 'Stormy', fr: 'Orageux', ar: 'خايب' },
   'weather.unknown': { en: 'Unknown', fr: 'Inconnue', ar: 'موش معروف' },
 
+  // the coach is the bar speaking after a trade; coachIntro is read behind "the rules"
   coach: { en: 'Habit coach', fr: 'Coach des habitudes', ar: 'كوتش العادات' },
   coachIntro: {
     en: 'After each trade, a few plain rules look at what you did, not at whether it made money.',
     fr: 'Après chaque opération, quelques règles simples regardent ce que vous avez fait, pas si vous avez gagné.',
     ar: 'بعد كل عملية، شويّة قواعد ساهلة يشوفو شنوّة عملت، موش إذا ربحت ولا خسرت.',
   },
-  coachEmpty: { en: 'Make a practice trade to get your first notes.', fr: 'Faites une opération fictive pour recevoir vos premières remarques.', ar: 'اعمل عملية تجريبية باش تاخذ أوّل ملاحظات.' },
   coachNone: { en: 'No habit notes on your last trade.', fr: 'Aucune remarque sur votre dernière opération.', ar: 'حتى ملاحظة على آخر عملية.' },
   lastTrade: { en: 'Last trade: {side} {base}', fr: 'Dernière opération : {side} {base}', ar: 'آخر عملية: {side} {base}' },
   'note.fomo': {
@@ -147,15 +157,14 @@ const P = {
     ar: '{count} عمليات في 24 ساعة. كل وحدة تخلّص الـ frais والـ spread، والشراية والبيع فيسع فيسع عادة تكلفتها تكبر.',
   },
 
-  positions: { en: 'What you hold', fr: 'Ce que vous détenez', ar: 'اللي عندك' },
   cash: { en: 'Cash', fr: 'Liquidités', ar: 'كاش' },
   ofWallet: { en: '{v}% of wallet', fr: '{v} % du portefeuille', ar: '{v}% من الـ wallet' },
-  noPositions: { en: 'All cash for now.', fr: 'Tout en liquidités pour l’instant.', ar: 'الكل كاش توّا.' },
   history: { en: 'Your practice trades', fr: 'Vos opérations fictives', ar: 'العمليات التجريبية متاعك' },
   bought: { en: 'Bought', fr: 'Achat', ar: 'شريت' },
   sold: { en: 'Sold', fr: 'Vente', ar: 'بعت' },
 
-  reset: { en: 'Start over with 100, 500 or 1000 USDT', fr: 'Recommencer avec 100, 500 ou 1000 USDT', ar: 'عاود من الأوّل بـ 100، 500 ولا 1000 USDT' },
+  // CHECK (the old line without its amounts: they are the three notes shown after the tap)
+  reset: { en: 'Start over', fr: 'Recommencer', ar: 'عاود من الأوّل' },
   resetAsk: {
     en: 'This clears your practice wallet and trades on this device. Choose your new starting amount:',
     fr: 'Cela efface votre portefeuille fictif et vos opérations sur cet appareil. Choisissez votre nouveau montant de départ :',
@@ -166,6 +175,9 @@ const P = {
   resetDone: { en: 'Fresh start: {start} USDT of practice money.', fr: 'Nouveau départ : {start} USDT fictifs.', ar: 'بداية جديدة: {start} USDT متاع تدريب.' },
   traded: { en: 'Practice trade done.', fr: 'Opération fictive effectuée.', ar: 'العملية التجريبية تعدّات.' },
 
+  // the tap that opens the rules, the dinar rate and how the coach works
+  // CHECK (the first word of the rules below)
+  rulesOpen: { en: 'The rules', fr: 'Les règles', ar: 'القواعد' },
   rules: {
     en: 'Rules: 0.1% fee and a 0.05% spread on every trade, 1 USDT minimum, spot only (no leverage, no shorting). Prices from Binance. Your wallet stays on this device. Nothing here is advice.',
     fr: 'Règles : 0,1 % de frais et 0,05 % d’écart par opération, 1 USDT minimum, au comptant seulement (ni effet de levier, ni vente à découvert). Prix Binance. Votre portefeuille reste sur cet appareil. Rien ici n’est un conseil.',
