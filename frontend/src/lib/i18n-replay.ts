@@ -5,6 +5,11 @@
 // Nothing in these lines says what to buy or sell, and none claims that a way
 // of trading works: the end screen compares one month with holding Bitcoin and
 // with doing nothing, and says so.
+//
+// [[double brackets]] put words on the gold marker (components/brand/Caption).
+// Lines marked CHECK are new or reworded since the owner last read the Arabic
+// aloud. Lines no screen shows any more are kept where they were, so nothing
+// already checked is lost.
 
 type Lang = 'en' | 'fr' | 'ar'
 type Entry = Record<Lang, string>
@@ -28,9 +33,24 @@ export const R = {
   cardButton: { en: 'Try the Time machine', fr: 'Essayer la machine à remonter le temps', ar: 'جرّب آلة الزمن' },
 
   // choosing a trip
+  // CHECK (new caption; its words come from the card's line above)
+  pickCap: {
+    en: 'A real month from the past.\n[[1000 pretend dollars]].',
+    fr: 'Un vrai mois du passé.\n[[1000 dollars fictifs]].',
+    ar: 'شهر حقيقي من الماضي.\n[[1000 دولار]] تجريبية.',
+  },
+  // CHECK (the second sentence of `intro`, now said by the gold bar)
+  secret: {
+    en: 'The coins’ names and the dates stay hidden until the end.',
+    fr: 'Les noms des cryptos et les dates restent cachés jusqu’à la fin.',
+    ar: 'أسامي الـ coins والتواريخ مخبّيين حتى للآخر.',
+  },
   trip: { en: 'Trip {n}', fr: 'Voyage {n}', ar: 'الرحلة {n}' },
-  tripSub: { en: '30 days · 4 hidden coins', fr: '30 jours · 4 cryptos cachées', ar: '30 نهار · 4 coins مخبّيين' },
+  // CHECK (a comma where there was a middle dot)
+  tripSub: { en: '30 days, 4 hidden coins', fr: '30 jours, 4 cryptos cachées', ar: '30 نهار، 4 coins مخبّيين' },
   start: { en: 'Start', fr: 'Commencer', ar: 'ابدا' },
+  // CHECK (`resume` without the day, which is now written above the button)
+  resumeGo: { en: 'Continue', fr: 'Continuer', ar: 'كمّل' },
   resume: { en: 'Continue (day {d} of {n})', fr: 'Continuer (jour {d} sur {n})', ar: 'كمّل (نهار {d} من {n})' },
   again: { en: 'Play again', fr: 'Rejouer', ar: 'عاود العب' },
   lastResult: {
@@ -75,11 +95,17 @@ export const R = {
     fr: 'Les courbes s’arrêtent à aujourd’hui. La suite du mois est encore cachée.',
     ar: 'الخطوط يوقفو في اليوم. باقي الشهر مازال مخبّي.',
   },
+  // CHECK (shortened: the second sentence, "or go to the next day", is gone)
   pickCoin: {
-    en: 'Tap a coin to buy or sell it. Or go to the next day.',
-    fr: 'Touchez une crypto pour l’acheter ou la vendre. Ou passez au jour suivant.',
-    ar: 'اضغط على coin باش تشريها ولا تبيعها. ولا تعدّى للنهار الجاي.',
+    en: 'Tap a coin to buy or sell it.',
+    fr: 'Touchez une crypto pour l’acheter ou la vendre.',
+    ar: 'اضغط على coin باش تشريها ولا تبيعها.',
   },
+  // what the gold bar says on a day when one coin moved a lot: the fact, nothing more
+  // CHECK
+  rose: { en: 'Coin {k} rose {pct}% today.', fr: 'Crypto {k} a pris {pct} % aujourd’hui.', ar: 'Coin {k} طلعت {pct}% اليوم.' },
+  // CHECK
+  fell: { en: 'Coin {k} fell {pct}% today.', fr: 'Crypto {k} a perdu {pct} % aujourd’hui.', ar: 'Coin {k} طاحت {pct}% اليوم.' },
   buyWith: { en: 'Buy with part of your cash', fr: 'Acheter avec une part de vos liquidités', ar: 'اشري بجزء من الكاش متاعك' },
   sellPart: { en: 'Sell what you hold', fr: 'Vendre ce que vous avez', ar: 'بيع اللي عندك' },
   half: { en: 'Half', fr: 'La moitié', ar: 'النصّ' },
@@ -100,7 +126,8 @@ export const R = {
   seeResult: { en: 'See my result', fr: 'Voir mon résultat', ar: 'شوف النتيجة متاعي' },
 
   // the end
-  endTitle: { en: 'Your 30 days are over', fr: 'Vos 30 jours sont finis', ar: '30 نهار متاعك وفاو' },
+  // same words as before; the brackets put "30 days" on the gold marker
+  endTitle: { en: 'Your [[30 days]] are over', fr: 'Vos [[30 jours]] sont finis', ar: '[[30 نهار]] متاعك وفاو' },
   youEnded: { en: 'You ended with', fr: 'Vous finissez avec', ar: 'كمّلت بـ' },
   holdBtc: { en: 'Simply holding Bitcoin', fr: 'En gardant simplement du Bitcoin', ar: 'كان خلّيت Bitcoin برك' },
   stayCash: { en: 'Doing nothing (all cash)', fr: 'Sans rien faire (tout en liquidités)', ar: 'كان ما عملت شي (الكل كاش)' },
@@ -137,6 +164,8 @@ export const R = {
     ar: 'كل coin شنوّة كانت، وقدّاش تبدّل السوم متاعها في 30 نهار:',
   },
   revealDates: { en: 'From {from} to {to}', fr: 'Du {from} au {to}', ar: 'من {from} لـ {to}' },
+  // CHECK (new: the tap that opens the story of that month)
+  eventOpen: { en: 'What happened that month', fr: 'Ce qui s’est passé ce mois-là', ar: 'شنوّة صار في الشهر هذاكا' },
   'event.ftx': {
     en: 'FTX, one of the largest crypto exchanges in the world, collapsed in a few days in November 2022. Its customers could no longer withdraw their money, and prices fell across the market. About ten days earlier, Dogecoin had doubled in a few days when Elon Musk bought Twitter.',
     fr: 'FTX, l’une des plus grandes plateformes crypto au monde, s’est effondrée en quelques jours en novembre 2022. Ses clients ne pouvaient plus retirer leur argent, et les prix ont chuté sur tout le marché. Une dizaine de jours plus tôt, le Dogecoin avait doublé en quelques jours quand Elon Musk a racheté Twitter.',
