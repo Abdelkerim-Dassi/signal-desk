@@ -34,7 +34,7 @@ export function LessonChain({ className = '' }: { className?: string }) {
                       aria-current={now ? 'step' : undefined}
                       className={`link num grid place-items-center rounded-full border-[3px] font-semibold transition ${
                         now
-                          ? 'nudge size-9 border-text bg-text text-[15px] text-bg'
+                          ? 'size-9 border-text bg-text text-[15px] text-bg'
                           : passed(l)
                             ? 'size-[29px] border-candy bg-marker text-xs text-on-marker'
                             : isReady(l)
