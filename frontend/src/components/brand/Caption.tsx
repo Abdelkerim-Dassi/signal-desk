@@ -1,4 +1,6 @@
 import type { ElementType } from 'react'
+import { useI18n } from '../../lib/i18n'
+import { glue } from '../../lib/typo'
 
 /** A headline in the videos' caption style. Words inside [[double brackets]]
  *  sit on the gold marker. Each word is its own span so the first screen can
@@ -14,8 +16,9 @@ export default function Caption({
   className?: string
   id?: string
 }) {
+  const { lang } = useI18n()
   let i = 0
-  const parts = text.split(/(\[\[.*?\]\]|\n)/).filter(Boolean)
+  const parts = glue(text, lang).split(/(\[\[.*?\]\]|\n)/).filter(Boolean)
   return (
     <Tag id={id} className={`poster ${className}`}>
       {parts.map((part, k) => {

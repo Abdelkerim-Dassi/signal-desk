@@ -17,7 +17,7 @@ const UI = {
   'nav.record': { en: 'Track record', fr: 'Historique', ar: 'السجل' },
   'nav.ask': { en: 'Ask', fr: 'Demander', ar: 'اسأل' },
   'nav.portfolio': { en: 'Portfolio', fr: 'Portefeuille', ar: 'محفظتي' },
-  'nav.practice': { en: 'Practice', fr: 'Entraînement', ar: 'تدريب' },
+  'nav.practice': { en: 'Practice', fr: 'Pratique', ar: 'تدريب' },
   'nav.learn': { en: 'Learn', fr: 'Apprendre', ar: 'تعلّم' },
   'nav.scamcheck': { en: 'Scam check', fr: 'Arnaque ?', ar: 'فحص الاحتيال' },
   'nav.more': { en: 'More', fr: 'Plus', ar: 'أكثر' },

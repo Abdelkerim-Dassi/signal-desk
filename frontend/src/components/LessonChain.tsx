@@ -3,6 +3,7 @@ import { useLearnProgress } from '../lib/learnProgress'
 import { lessonHref, lessonNo, useNextLesson } from '../lib/lessonPath'
 import { LESSONS, LEVELS, isReady } from '../lib/lessons'
 import type { Lesson } from '../lib/lessons'
+import { glue } from '../lib/typo'
 
 // The course as one chain: a link per lesson, a row per level. Used on the
 // first screen and meant for the Learn screen too, so the 22 lessons read as
@@ -73,7 +74,7 @@ export function NextLesson({ className = '' }: { className?: string }) {
         {lesson ? (
           <>
             <p className="text-[13px] font-semibold text-sami">{t('home.lessonN', { n: lessonNo(lesson) })}</p>
-            <p className="mt-1 mb-3 text-[17px] leading-snug font-semibold">{lesson.title[lang]}</p>
+            <p className="mt-1 mb-3 text-[17px] leading-snug font-semibold">{glue(lesson.title[lang], lang)}</p>
             <a href={lessonHref(lesson)} className="go go-sm">
               {t('home.startLesson')}
             </a>

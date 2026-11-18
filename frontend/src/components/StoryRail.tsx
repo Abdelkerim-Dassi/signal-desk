@@ -3,6 +3,7 @@ import { useI18n } from '../lib/i18n'
 import { track } from '../lib/source'
 import { CAST_NAME, STORIES, clock } from '../lib/stories'
 import type { Story } from '../lib/stories'
+import { glue } from '../lib/typo'
 import Socials from './brand/Socials'
 
 /** The story videos as a row of tiles. A tile plays its video on the site
@@ -33,7 +34,7 @@ export default function StoryRail({ onTry }: { onTry: () => void }) {
                   {clock(s.seconds)}
                 </span>
               </span>
-              <b className="mt-3 block text-[15px] leading-snug font-semibold">{s.title[lang]}</b>
+              <b className="mt-3 block text-[15px] leading-snug font-semibold">{glue(s.title[lang], lang)}</b>
               <span className="mt-1.5 flex flex-wrap gap-1.5">
                 {s.cast.map((c) => (
                   <span key={c} className={`who who-${c}`}>
