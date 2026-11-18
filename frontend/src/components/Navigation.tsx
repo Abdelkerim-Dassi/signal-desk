@@ -35,13 +35,13 @@ export function TopBar({
         </button>
 
         {/* desktop tabs; phones use the bottom bar. The logo is the way home. */}
-        <nav className="ms-3 hidden items-center gap-0.5 md:flex lg:ms-6 lg:gap-1" aria-label="Main">
+        <nav className="ms-1 hidden min-w-0 items-center md:flex lg:ms-6 lg:gap-1" aria-label="Main">
           {VIEWS.filter((v) => v.id !== 'home').map(({ id, label }) => (
             <button
               key={id}
               onClick={() => onView(id)}
               aria-current={view === id ? 'page' : undefined}
-              className={`link flex cursor-pointer items-center gap-1.5 rounded-xl px-2.5 py-2 text-sm font-semibold whitespace-nowrap transition lg:px-3.5 ${
+              className={`link flex cursor-pointer items-center gap-1.5 rounded-xl px-2 py-2 text-[13px] font-semibold whitespace-nowrap transition lg:px-3.5 lg:text-sm ${
                 view === id ? 'bg-marker text-on-marker' : 'text-muted hover:bg-subtle hover:text-text'
               }`}
             >
