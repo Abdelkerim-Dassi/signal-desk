@@ -5,7 +5,8 @@ import { resetProgress, useLearnProgress } from '../lib/learnProgress'
 import type { KaratState } from '../lib/learnProgress'
 import { useLearnText } from '../lib/learnText'
 import { lessonHref, lessonNo, useNextLesson } from '../lib/lessonPath'
-import { GLOSSARY, LESSONS, LEVELS, isReady, lessonsForTerm } from '../lib/lessons'
+import { GLOSSARY, LESSONS, LEVELS, SITE_TITLE, courseTitle, isReady, lessonsForTerm, pageTitle } from '../lib/lessons'
+import { routeId } from '../lib/route'
 import type { LearnKey, Lesson } from '../lib/lessons'
 import type { View } from '../lib/views'
 import Caption from './brand/Caption'
@@ -13,11 +14,12 @@ import { KaratHallmark } from './LearnBadge'
 import LessonStory from './LearnLesson'
 import { LessonChain, NextLesson } from './LessonChain'
 
-// Routes: #learn (hub), #learn-<slug> (a lesson), #learn-glossary.
+// Routes: #learn (hub), #learn-<slug> (a lesson), #learn-glossary. The hub and the
+// lessons are shown in the address as /learn and /learn/<slug> (lib/route.ts).
 type Route = { page: 'hub' } | { page: 'glossary' } | { page: 'lesson'; lesson: Lesson }
 
 function routeFromHash(): Route {
-  const id = decodeURIComponent(window.location.hash.replace('#', ''))
+  const id = routeId()
   if (id === 'learn-glossary') return { page: 'glossary' }
   if (id.startsWith('learn-')) {
     const lesson = LESSONS.find((l) => l.slug === id.slice('learn-'.length))
@@ -34,8 +36,22 @@ export default function LearnView({ brief, onView }: { brief: Brief | undefined;
       window.scrollTo({ top: 0 })
     }
     window.addEventListener('hashchange', onHash)
-    return () => window.removeEventListener('hashchange', onHash)
+    window.addEventListener('popstate', onHash)
+    return () => {
+      window.removeEventListener('hashchange', onHash)
+      window.removeEventListener('popstate', onHash)
+    }
   }, [])
+
+  // the browser tab names the page, as its prerendered copy does (scripts/prerender.mjs)
+  const { lang } = useI18n()
+  useEffect(() => {
+    document.title =
+      route.page === 'lesson' ? pageTitle(route.lesson.title[lang], lang) : route.page === 'hub' ? pageTitle(courseTitle(lang), lang) : SITE_TITLE
+    return () => {
+      document.title = SITE_TITLE
+    }
+  }, [route, lang])
 
   if (route.page === 'lesson') return <LessonStory key={route.lesson.slug} lesson={route.lesson} brief={brief} onView={onView} />
   if (route.page === 'glossary') return <GlossaryPage />

@@ -159,6 +159,8 @@ export const LEARN_UI = {
   back: { en: 'All lessons', fr: 'Toutes les leçons', ar: 'كل الدروس' },
   lessonN: { en: 'Lesson {n}', fr: 'Leçon {n}', ar: 'الدرس {n}' },
   takeaway: { en: 'The short version', fr: 'En bref', ar: 'الخلاصة' },
+  // CHECK
+  wholeLesson: { en: 'The whole lesson on one page', fr: 'Toute la leçon sur une page', ar: 'الدرس كاملًا في صفحة واحدة' },
   tryLive: { en: 'See it live in Qirat', fr: 'À voir en direct dans Qirat', ar: 'شاهدها مباشرة في قيراط' },
   openCoins: { en: 'Open all coins', fr: 'Voir toutes les cryptos', ar: 'افتح كل العملات' },
   liveLoading: { en: 'Loading today’s data…', fr: 'Chargement des données du jour…', ar: 'جارٍ تحميل بيانات اليوم…' },
@@ -240,6 +242,15 @@ export const LEARN_UI = {
 } satisfies Record<string, Text>
 
 export type LearnKey = keyof typeof LEARN_UI
+
+/** The course's name in a page title and in the prerendered pages: the subtitle up to its colon. */
+export const courseTitle = (lang: keyof Text) => LEARN_UI.subtitle[lang].split(':')[0].trim()
+
+/** A browser-tab and search-result title: the page's own name, then the site's. */
+export const pageTitle = (name: string, lang: keyof Text) => `${name} | ${lang === 'ar' ? 'قيراط' : 'Qirat'}`
+
+/** The title of every screen that has no page of its own (same as index.html). */
+export const SITE_TITLE = 'Qirat · قيراط · تعلّم الـ trading من الصفر'
 
 // ---------------------------------------------------------------------------
 // Helpers

@@ -25,6 +25,8 @@
       "dest": "/frontend/assets/$1"
     },
     { "src": "/(favicon\\.svg|favicon\\.png|icons\\.svg|qirat-mark\\.png|apple-touch-icon\\.png|icon-512\\.png|og-image\\.png|robots\\.txt|sitemap\\.xml)", "dest": "/frontend/$1" },
+    { "src": "/(fr/|en/)?learn/?", "dest": "/frontend/$1learn/index.html", "check": true },
+    { "src": "/(fr/|en/)?learn/([a-z0-9-]+)/?", "dest": "/frontend/$1learn/$2/index.html", "check": true },
     {
       "src": "/(mascot|cast|stories)/(.*)",
       "headers": { "Cache-Control": "public, max-age=86400" },

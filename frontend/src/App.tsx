@@ -20,13 +20,15 @@ import type { AdvisorConfig } from './hooks/useBrief'
 import { useI18n } from './lib/i18n'
 import { openTakenLink, startKeep, takeKeepLink } from './lib/keep'
 import { loadConfig, saveConfig } from './lib/prefs'
+import { routeId } from './lib/route'
 import { arrive, ownerSwitch, ownerSwitchAtLoad, track } from './lib/source'
 import { VIEWS } from './lib/views'
 import type { View } from './lib/views'
 
 function viewFromHash(): View {
-  const id = window.location.hash.replace('#', '')
-  // lessons have their own shareable links: #learn-<slug>
+  // the hash, or what a course or lesson address stands for (lib/route.ts)
+  const id = routeId()
+  // lessons have their own links: #learn-<slug>, shown as qirat.tn/learn/<slug>
   if (id.startsWith('learn-')) return 'learn'
   // the Time machine, and a link to one of its scenarios: #replay, #replay-<id>
   if (id === 'replay' || id.startsWith('replay-')) return 'replay'
@@ -68,12 +70,20 @@ export default function App() {
       setView(viewFromHash())
     }
     window.addEventListener('hashchange', onHash)
-    return () => window.removeEventListener('hashchange', onHash)
+    // Back and Forward between a lesson's address and another screen change the
+    // path, not only the hash
+    window.addEventListener('popstate', onHash)
+    return () => {
+      window.removeEventListener('hashchange', onHash)
+      window.removeEventListener('popstate', onHash)
+    }
   }, [t])
   // a kept wallet follows its saved copy; a link the address held is opened (lib/keep.ts)
   useEffect(() => startKeep(), [])
   const go = (next: View) => {
-    window.location.hash = next === 'home' ? '' : next
+    // from a lesson's address, the first screen is the root, not "/learn/<slug>#"
+    if (next === 'home' && window.location.pathname !== '/') window.history.pushState(null, '', `/${window.location.search}`)
+    else window.location.hash = next === 'home' ? '' : next
     setView(next)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }

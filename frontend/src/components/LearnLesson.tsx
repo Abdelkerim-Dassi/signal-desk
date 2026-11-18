@@ -4,6 +4,7 @@ import type { Brief } from '../lib/api'
 import { usePracticeT } from '../lib/i18n-practice'
 import { markRead, recordQuiz, useLearnProgress } from '../lib/learnProgress'
 import { useLearnText } from '../lib/learnText'
+import { pathFor } from '../lib/route'
 import { lessonHref, lessonNo } from '../lib/lessonPath'
 import { GLOSSARY, LESSONS, isReady } from '../lib/lessons'
 import type { Lesson } from '../lib/lessons'
@@ -47,10 +48,10 @@ const Tick = ({ ok }: { ok: boolean }) => (
 )
 
 function CopyLink({ slug }: { slug: string }) {
-  const { lt } = useLearnText()
+  const { lt, lang } = useLearnText()
   const [copied, setCopied] = useState(false)
   const copy = async () => {
-    const url = `${window.location.origin}${window.location.pathname}#learn-${slug}`
+    const url = `${window.location.origin}${pathFor(lang, slug)}`
     try {
       await navigator.clipboard.writeText(url)
       setCopied(true)
@@ -275,6 +276,25 @@ export default function LessonStory({ lesson, brief, onView }: { lesson: Lesson;
               {lt('start')}
             </button>
             <Terms terms={lesson.terms} />
+            {/* The whole text, one tap away, for whoever would rather scroll than tap through.
+                It also keeps the lesson's words on its own page, where a search engine reads them. */}
+            <details className="mt-6 text-start">
+              <summary className="alt cursor-pointer text-[15px]">{lt('wholeLesson')}</summary>
+              <div className="mt-5 space-y-6">
+                {sections.map((s, i) => (
+                  <section key={i}>
+                    <h2 className="poster text-[1.45rem]">{tx(s.h)}</h2>
+                    <p className="mt-2 leading-relaxed whitespace-pre-line">{tx(s.p)}</p>
+                  </section>
+                ))}
+                {lesson.takeaway && (
+                  <section>
+                    <h2 className="poster text-[1.45rem]">{lt('takeaway')}</h2>
+                    <p className="mt-2 leading-relaxed font-semibold">{tx(lesson.takeaway)}</p>
+                  </section>
+                )}
+              </div>
+            </details>
           </div>
         ) : (
           <div className="mt-9">

@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react'
+import { learnPath } from './route'
 import { arrive, inTunisia } from './source'
 
 export type Lang = 'en' | 'fr' | 'ar'
@@ -665,6 +666,10 @@ const ENGLISH_RATING: Record<string, string> = { STRONG: 'Strong', NEUTRAL: 'Neu
 const STORAGE_KEY = 'qirat.lang'
 
 export function initialLang(): Lang {
+  // A course or lesson address says its language (qirat.tn/fr/learn/...): the
+  // page a search engine listed must open in the language it was listed in.
+  const fromPath = learnPath()
+  if (fromPath) return fromPath.lang
   // A link like qirat.tn/?lang=ar (used in our Darija social bios) wins over
   // the phone's language, and is remembered for the next visit.
   try {
