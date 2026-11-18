@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useI18n } from '../lib/i18n'
+import { useReplayT } from '../lib/replay'
 import { useLearnProgress } from '../lib/learnProgress'
 import { lessonHref, lessonNo, useNextLesson } from '../lib/lessonPath'
 import { LESSONS, isReady } from '../lib/lessons'
@@ -20,6 +21,7 @@ let startCounted = false // one "shown" per page load
 
 export default function HomeView({ onView }: { onView: (v: View) => void }) {
   const { t, lang } = useI18n()
+  const { tr } = useReplayT()
   const progress = useLearnProgress()
   const ledger = loadLedger()
   const traded = ledger.trades.length > 0
@@ -186,13 +188,17 @@ export default function HomeView({ onView }: { onView: (v: View) => void }) {
             <rect x="2" y="136" width="134" height="8" rx="4" fill="currentColor" />
             <rect x="140" y="136" width="204" height="8" rx="4" fill="currentColor" fillOpacity=".14" />
           </svg>
-          <ul className="mt-3.5 flex flex-wrap gap-2" aria-hidden>
-            {[1, 2, 3, 4].map((i) => (
-              <li key={i} className="rounded-[10px] border-2 border-dashed border-text/35 px-3 py-1.5 text-[13.5px] font-semibold" dir="ltr">
-                coin ?
-              </li>
-            ))}
-          </ul>
+          {/* four coins whose names stay hidden: said in words, a row of bare "coin ?" tags explained nothing */}
+          <p className="mt-4 flex items-center gap-3 text-[14.5px] leading-snug font-medium">
+            <span className="flex shrink-0 gap-1" aria-hidden>
+              {[1, 2, 3, 4].map((i) => (
+                <span key={i} className="grid size-7 place-items-center rounded-full border-2 border-dashed border-text/40 text-[13px] font-semibold">
+                  ?
+                </span>
+              ))}
+            </span>
+            {tr('secret')}
+          </p>
           <button type="button" onClick={() => onView('replay')} className="go mt-6 w-full md:hidden">
             {t('home.replayGo')}
           </button>

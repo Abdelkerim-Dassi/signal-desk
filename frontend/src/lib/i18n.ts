@@ -393,6 +393,91 @@ const UI = {
   'story.again': { en: 'Watch again', fr: 'Revoir', ar: 'عاود شوفها' },
   'story.more': { en: 'More on', fr: 'La suite sur', ar: 'الباقي على' },
   'story.close': { en: 'Close the video', fr: 'Fermer la vidéo', ar: 'سكّر الفيديو' },
+  // The feedback form (FeedbackModal), in the visitor's language. Each question
+  // fills a fixed field of the Google Form, so its meaning must stay close to
+  // that field (see the note at the top of FeedbackModal.tsx). The Arabic lines
+  // were written on 2026-11-18 and wait for Abdelkerim's check.
+  // CHECK
+  'fb.title': { en: 'Give [[feedback]]', fr: 'Votre [[avis]]', ar: 'قلّنا [[رأيك]]' },
+  // CHECK
+  'fb.sub': {
+    en: '30 seconds. Anonymous, no sign-in, nothing stored about you.',
+    fr: '30 secondes. Anonyme, sans compte, rien n’est gardé sur vous.',
+    ar: '30 ثانية وبلا اسم. ما نخزّنو عليك حتى شي.',
+  },
+  // CHECK
+  'fb.required': { en: 'Required', fr: 'Obligatoire', ar: 'لازم' },
+  // CHECK
+  'fb.optional': { en: 'Optional', fr: 'Facultatif', ar: 'كان تحب' },
+  // CHECK
+  'fb.q1': { en: 'How long have you been in crypto?', fr: 'Depuis quand êtes-vous dans la crypto ?', ar: 'قدّاش عندك في الـ crypto؟' },
+  // CHECK
+  'fb.exp1': { en: 'Under 1 year', fr: 'Moins d’un an', ar: 'أقل من عام' },
+  // CHECK
+  'fb.exp2': { en: '1 to 3 years', fr: '1 à 3 ans', ar: 'من 1 لـ 3 سنين' },
+  // CHECK
+  'fb.exp3': { en: 'Over 3 years', fr: 'Plus de 3 ans', ar: 'أكثر من 3 سنين' },
+  // CHECK
+  'fb.q2': { en: 'Is Qirat clear?', fr: 'Qirat est-il clair ?', ar: 'قيراط واضح؟' },
+  // CHECK
+  'fb.q2hint': {
+    en: '1 = I understood nothing, 5 = everything is clear',
+    fr: '1 = je n’ai rien compris, 5 = tout est clair',
+    ar: '1 = ما فهمت شي، 5 = الكل واضح',
+  },
+  // CHECK
+  'fb.q3': {
+    en: 'Would you use Qirat before putting in real money?',
+    fr: 'Utiliseriez-vous Qirat avant de mettre de l’argent réel ?',
+    ar: 'تستعمل قيراط قبل ما تحطّ فلوس حقيقية؟',
+  },
+  // CHECK
+  'fb.yes': { en: 'Yes', fr: 'Oui', ar: 'إيه' },
+  // CHECK
+  'fb.sometimes': { en: 'Sometimes', fr: 'Parfois', ar: 'ساعات' },
+  'fb.no': { en: 'No', fr: 'Non', ar: 'لا' },
+  // CHECK
+  'fb.q4': { en: 'What is missing?', fr: 'Que manque-t-il ?', ar: 'شنوّة ناقص؟' },
+  // CHECK
+  'fb.q4hint': { en: 'Required. The one that matters most.', fr: 'Obligatoire. La plus importante.', ar: 'لازم. هذي أهمّ وحدة.' },
+  // CHECK
+  'fb.q4ph': {
+    en: 'What would bring you back every day? More lessons, more coins, alerts…',
+    fr: 'Qu’est-ce qui vous ferait revenir chaque jour ? Plus de leçons, plus de cryptos, des alertes…',
+    ar: 'شنوّة يخلّيك ترجع كل نهار؟ دروس أكثر، coins أكثر، تنبيهات…',
+  },
+  // CHECK
+  'fb.q5': { en: 'Anything confusing or broken?', fr: 'Quelque chose de confus ou de cassé ?', ar: 'حاجة ما فهمتهاش ولا ما خدمتش؟' },
+  // CHECK
+  'fb.q5ph': { en: 'Say it as it is.', fr: 'Dites-le comme c’est.', ar: 'قولها كيما هي.' },
+  // CHECK
+  'fb.send': { en: 'Send', fr: 'Envoyer', ar: 'ابعث' },
+  // CHECK
+  'fb.sending': { en: 'Sending…', fr: 'Envoi…', ar: 'يتبعث…' },
+  // CHECK
+  'fb.sent': {
+    en: 'Sent. It changes what gets built next.',
+    fr: 'Envoyé. Cela change ce qui sera construit ensuite.',
+    ar: 'وصل. رأيك يقرّر شنوّة نبنيو من بعد.',
+  },
+  // CHECK
+  'fb.back': { en: 'Back to Qirat', fr: 'Retour à Qirat', ar: 'ارجع لقيراط' },
+  // CHECK
+  'fb.error': {
+    en: 'It could not be sent. Check your connection and try again.',
+    fr: 'L’envoi a échoué. Vérifiez votre connexion et réessayez.',
+    ar: 'ما تبعثش. ثبّت في الكونكسيون وعاود.',
+  },
+  // CHECK
+  'fb.openForm': { en: 'Or open the form directly', fr: 'Ou ouvrir le formulaire directement', ar: 'ولا حلّ الفورم مباشرة' },
+  // CHECK
+  'fb.note': {
+    en: 'Goes to a Google Form. No account, no email.',
+    fr: 'Envoyé vers un Google Form. Ni compte, ni e-mail.',
+    ar: 'يمشي لـ Google Form. لا compte لا email.',
+  },
+  // CHECK
+  'fb.close': { en: 'Close', fr: 'Fermer', ar: 'سكّر' },
   'foot.feedback': { en: 'Give feedback', fr: 'Donner mon avis', ar: 'قلّنا رأيك' },
   'foot.feedbackHint': {
     en: 'Testing Qirat? 30 seconds, anonymous. It shapes what gets built next.',

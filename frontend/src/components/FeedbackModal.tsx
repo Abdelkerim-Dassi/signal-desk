@@ -6,6 +6,8 @@ import {
   submitFeedback,
   type FeedbackAnswers,
 } from '../lib/feedback'
+import { useI18n } from '../lib/i18n'
+import type { UIKey } from '../lib/i18n'
 import Caption from './brand/Caption'
 import { IconX } from './Icons'
 import MascotSays from './MascotSays'
@@ -14,17 +16,26 @@ import MascotSays from './MascotSays'
    Form, which accepts an exact option string and rejects everything else — and
    because we post `no-cors`, a rejection is invisible: the visitor sees "sent"
    and the answer is gone. If you rename an option in the form, rename the
-   `value` here in the same commit. `label` is ours to style freely. */
-const EXPERIENCE = [
-  { label: '< 1 year', value: '< 1 year' },
-  { label: '1–3 years', value: '1-3 years' },
-  { label: '3+ years', value: '+3 years' },
+   `value` here in the same commit. `label` is ours: it is shown in the
+   visitor's language, the value stays as the form knows it.
+
+   The five questions fill the form's five fields, so what each one asks must
+   stay close to that field's meaning in the sheet:
+     experience  how long in crypto            (3 choices, required)
+     clarity     how clear, 1 to 5             (was "the 0-100 score", now Qirat itself)
+     wouldUse    would use it before a trade   (yes / sometimes / no, required)
+     missing     what is missing               (text, required)
+     friction    confusing or broken           (text) */
+const EXPERIENCE: { label: UIKey; value: string }[] = [
+  { label: 'fb.exp1', value: '< 1 year' },
+  { label: 'fb.exp2', value: '1-3 years' },
+  { label: 'fb.exp3', value: '+3 years' },
 ]
-const CLARITY = ['1', '2', '3', '4', '5'].map((v) => ({ label: v, value: v }))
-const WOULD_USE = [
-  { label: 'Yes', value: 'yes' },
-  { label: 'Sometimes', value: 'sometimes' },
-  { label: 'No', value: 'No' },
+const CLARITY = ['1', '2', '3', '4', '5'].map((v) => ({ text: v, value: v }))
+const WOULD_USE: { label: UIKey; value: string }[] = [
+  { label: 'fb.yes', value: 'yes' },
+  { label: 'fb.sometimes', value: 'sometimes' },
+  { label: 'fb.no', value: 'No' },
 ]
 
 const EMPTY: FeedbackAnswers = {
@@ -41,7 +52,7 @@ function Chips({
   onChange,
   ariaLabel,
 }: {
-  options: { label: string; value: string }[]
+  options: { text: string; value: string }[]
   value: string
   onChange: (v: string) => void
   ariaLabel: string
@@ -57,12 +68,12 @@ function Chips({
             role="radio"
             aria-checked={active}
             onClick={() => onChange(o.value)}
-            className={`link num min-w-11 cursor-pointer rounded-[10px] border-2 px-3.5 py-2 text-sm font-semibold transition ${
+            className={`link num min-h-11 min-w-11 cursor-pointer rounded-[10px] border-2 px-3.5 py-2 text-sm font-semibold transition ${
               // the answer you picked sits on the gold marker, like the tab you are on
               active ? 'border-candy bg-marker text-on-marker' : 'border-text/20 hover:border-text/50'
             }`}
           >
-            {o.label}
+            {o.text}
           </button>
         )
       })}
@@ -92,6 +103,7 @@ const textareaClass =
   'mt-2.5 w-full resize-none rounded-[14px] border-2 border-text/15 bg-card px-3.5 py-2.5 text-[15px] leading-relaxed outline-none transition placeholder:text-muted/80 focus:border-text/60'
 
 export default function FeedbackModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { t } = useI18n()
   const [answers, setAnswers] = useState<FeedbackAnswers>(EMPTY)
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
 
@@ -105,11 +117,11 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
   // reset a moment after closing, so the form doesn't visibly wipe mid-fade
   useEffect(() => {
     if (open) return
-    const t = window.setTimeout(() => {
+    const timer = window.setTimeout(() => {
       setAnswers(EMPTY)
       setState('idle')
     }, 300)
-    return () => window.clearTimeout(t)
+    return () => window.clearTimeout(timer)
   }, [open])
 
   if (!open) return null
@@ -135,16 +147,15 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
     }
   }
 
+  const choices = (list: { label: UIKey; value: string }[]) => list.map((o) => ({ text: t(o.label), value: o.value }))
+
   return (
     <div
       className="fixed inset-0 z-[60] grid place-items-end bg-black/45 sm:place-items-center sm:p-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-label="Send anonymous feedback"
-      // the form is in English only
-      dir="ltr"
-      lang="en"
+      aria-label={t('foot.feedback')}
     >
       {/* a sheet of the same paper as the page */}
       <div
@@ -153,12 +164,12 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <Caption text="Give [[feedback]]" className="text-[2.1rem]" />
-            <p className="mt-1.5 text-sm text-muted">30 seconds. Anonymous, no sign-in, nothing stored about you.</p>
+            <Caption text={t('fb.title')} className="text-[2.1rem]" />
+            <p className="mt-1.5 text-sm text-muted">{t('fb.sub')}</p>
           </div>
           <button
             onClick={onClose}
-            aria-label="Close feedback"
+            aria-label={t('fb.close')}
             className="link -me-1.5 grid size-10 shrink-0 cursor-pointer place-items-center rounded-xl text-xl text-muted transition hover:text-text"
           >
             <IconX />
@@ -169,25 +180,21 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
           <div className="pt-6 pb-2">
             <MascotSays mood="excited">
               {feedbackPreview ? (
-                <>
-                  Sent. This is the screen a tester sees. Nothing was actually sent: open the browser console to see the
-                  payload Google would have received.
-                </>
+                // dev only, never shown to a visitor
+                <span dir="ltr">Sent (preview). Nothing left this browser: the console shows what Google would have received.</span>
               ) : (
-                <>
-                  Sent. That genuinely changes what gets built next. If you left a contact, you'll hear when your
-                  suggestion ships.
-                </>
+                t('fb.sent')
               )}
             </MascotSays>
             <button onClick={onClose} className="go go-sm mt-6 w-full">
-              Back to Qirat
+              {t('fb.back')}
             </button>
           </div>
         ) : (
           <>
             {feedbackPreview && (
-              <p className="mt-5 border-s-4 border-warn ps-3 text-[13px] leading-relaxed">
+              // dev only, never shown to a visitor
+              <p className="mt-5 border-s-4 border-warn ps-3 text-[13px] leading-relaxed" dir="ltr">
                 <b className="font-semibold">Preview.</b> No Google Form is connected yet, so answers go to the browser
                 console instead of a spreadsheet. Testers never see this note: in production the whole form stays
                 hidden until it's wired up.
@@ -195,51 +202,49 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
             )}
 
             <div className="mt-6 space-y-6">
-              <Field label="How long have you been in crypto?" hint="Required">
+              <Field label={t('fb.q1')} hint={t('fb.required')}>
                 <Chips
-                  options={EXPERIENCE}
+                  options={choices(EXPERIENCE)}
                   value={answers.experience}
                   onChange={(experience) => set({ experience })}
-                  ariaLabel="How long have you been in crypto?"
+                  ariaLabel={t('fb.q1')}
                 />
               </Field>
 
-              <Field label="Was the 0–100 score clear?" hint="1 = no idea what it meant, 5 = obvious">
-                <Chips
-                  options={CLARITY}
-                  value={answers.clarity}
-                  onChange={(clarity) => set({ clarity })}
-                  ariaLabel="Was the score clear?"
-                />
+              <Field label={t('fb.q2')} hint={t('fb.q2hint')}>
+                <Chips options={CLARITY} value={answers.clarity} onChange={(clarity) => set({ clarity })} ariaLabel={t('fb.q2')} />
               </Field>
 
-              <Field label="Would you check this before a trade?" hint="Required">
+              <Field label={t('fb.q3')} hint={t('fb.required')}>
                 <Chips
-                  options={WOULD_USE}
+                  options={choices(WOULD_USE)}
                   value={answers.wouldUse}
                   onChange={(wouldUse) => set({ wouldUse })}
-                  ariaLabel="Would you check this before a trade?"
+                  ariaLabel={t('fb.q3')}
                 />
               </Field>
 
-              <Field label="What's missing?" hint="Required. The one that really matters.">
+              <Field label={t('fb.q4')} hint={t('fb.q4hint')}>
                 <textarea
                   value={answers.missing}
                   onChange={(e) => set({ missing: e.target.value })}
                   rows={3}
                   maxLength={1200}
-                  placeholder="What would make you open this every day? Alerts, entry/exit levels, more coins, a track record…"
+                  placeholder={t('fb.q4ph')}
+                  // typed text finds its own direction; the empty hint keeps the page's
+                  dir={answers.missing ? 'auto' : undefined}
                   className={textareaClass}
                 />
               </Field>
 
-              <Field label="Anything confusing or broken?" hint="Optional">
+              <Field label={t('fb.q5')} hint={t('fb.optional')}>
                 <textarea
                   value={answers.friction}
                   onChange={(e) => set({ friction: e.target.value })}
                   rows={2}
                   maxLength={1200}
-                  placeholder="Brutal honesty preferred."
+                  placeholder={t('fb.q5ph')}
+                  dir={answers.friction ? 'auto' : undefined}
                   className={textareaClass}
                 />
               </Field>
@@ -247,23 +252,22 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
 
             {state === 'error' && (
               <p className="mt-5 text-sm text-down">
-                Couldn't send. Check your connection and try again
+                {t('fb.error')}
                 {feedbackFormUrl && (
                   <>
-                    , or{' '}
+                    {' '}
                     <a href={feedbackFormUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-text">
-                      open the form directly
+                      {t('fb.openForm')}
                     </a>
                   </>
                 )}
-                .
               </p>
             )}
 
             <button onClick={send} disabled={!canSend} className="go go-sm mt-7 w-full disabled:cursor-not-allowed disabled:opacity-40">
-              {state === 'sending' ? 'Sending…' : 'Send'}
+              {state === 'sending' ? t('fb.sending') : t('fb.send')}
             </button>
-            <p className="mt-5 text-center text-[13px] text-muted">Goes to a Google Form. No account, no email required.</p>
+            <p className="mt-5 text-center text-[13px] text-muted">{t('fb.note')}</p>
           </>
         )}
       </div>
