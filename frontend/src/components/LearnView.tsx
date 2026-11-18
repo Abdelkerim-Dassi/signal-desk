@@ -1,20 +1,17 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import type { ReactNode } from 'react'
-import type { Brief, Opportunity } from '../lib/api'
-import { changeColor, compactCurrency, percent } from '../lib/format'
+import { useEffect, useMemo, useState } from 'react'
+import type { Brief } from '../lib/api'
 import { useI18n } from '../lib/i18n'
-import { GLOSSARY, LEARN_UI, LESSONS, LEVELS, isReady, lessonsForTerm, todaysLesson } from '../lib/lessons'
-import type { LearnKey, Lesson, LiveLink, Text } from '../lib/lessons'
-import { markRead, recordQuiz, resetProgress, useLearnProgress } from '../lib/learnProgress'
-import { usePracticeT } from '../lib/i18n-practice'
-import { loadLedger } from '../lib/practice'
-import { countLessonPass } from '../lib/returning'
-import { track } from '../lib/source'
+import { resetProgress, useLearnProgress } from '../lib/learnProgress'
+import type { KaratState } from '../lib/learnProgress'
+import { useLearnText } from '../lib/learnText'
+import { lessonHref, lessonNo, useNextLesson } from '../lib/lessonPath'
+import { GLOSSARY, LESSONS, LEVELS, isReady, lessonsForTerm } from '../lib/lessons'
+import type { LearnKey, Lesson } from '../lib/lessons'
 import type { View } from '../lib/views'
-import BotInvite from './BotInvite'
-import { UserKaratIngot } from './LearnBadge'
-import { GemMark } from './Logo'
-import { CoinIcon, KaratBadge, RiskChip } from './Rating'
+import Caption from './brand/Caption'
+import { KaratHallmark } from './LearnBadge'
+import LessonStory from './LearnLesson'
+import { LessonChain, NextLesson } from './LessonChain'
 
 // Routes: #learn (hub), #learn-<slug> (a lesson), #learn-glossary.
 type Route = { page: 'hub' } | { page: 'glossary' } | { page: 'lesson'; lesson: Lesson }
@@ -29,28 +26,6 @@ function routeFromHash(): Route {
   return { page: 'hub' }
 }
 
-function openRoute(hash: string) {
-  window.location.hash = hash
-  window.scrollTo({ top: 0 })
-}
-
-function useLearnText() {
-  const { lang } = useI18n()
-  // keep «الـ» / «بـ» on the same line as the Latin word after them
-  const glue = (s: string) => (lang === 'ar' ? s.replace(/\u0640 /g, '\u0640\u00a0') : s)
-  const tx = (x: Text) => glue(x[lang])
-  const lt = (key: LearnKey, vars?: Record<string, string | number>) => {
-    let s: string = LEARN_UI[key][lang]
-    if (vars) for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, String(v))
-    return glue(s)
-  }
-  return { lang, tx, lt }
-}
-
-const lessonIndex = (l: Lesson) => LESSONS.findIndex((x) => x.slug === l.slug)
-const lessonNumber = (l: Lesson) => lessonIndex(l) + 1
-const levelOf = (l: Lesson) => LEVELS.find((v) => v.level === l.level) ?? LEVELS[0]
-
 export default function LearnView({ brief, onView }: { brief: Brief | undefined; onView: (v: View) => void }) {
   const [route, setRoute] = useState<Route>(routeFromHash)
   useEffect(() => {
@@ -62,668 +37,191 @@ export default function LearnView({ brief, onView }: { brief: Brief | undefined;
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
 
-  if (route.page === 'lesson') return <LessonPage key={route.lesson.slug} lesson={route.lesson} brief={brief} onView={onView} />
+  if (route.page === 'lesson') return <LessonStory key={route.lesson.slug} lesson={route.lesson} brief={brief} onView={onView} />
   if (route.page === 'glossary') return <GlossaryPage />
   return <Hub />
 }
 
+/** Points down when closed, up when open. */
+const Fold = ({ open }: { open: boolean }) => (
+  <svg
+    viewBox="0 0 24 24"
+    className={`size-5 shrink-0 text-muted transition-transform motion-reduce:transition-none ${open ? 'rotate-180' : ''}`}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.6"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden
+  >
+    <path d="M5 9l7 7 7-7" />
+  </svg>
+)
+
 // ---------------------------------------------------------------------------
-// Hub
+// Hub: the course as one map
 // ---------------------------------------------------------------------------
 
-function YourKaratCard() {
+/** How the karat works, the reset and the fine print: one tap on the hallmark away. */
+function KaratRules({ p }: { p: KaratState }) {
   const { lt } = useLearnText()
-  const p = useLearnProgress()
   return (
-    <div className="flex items-center gap-4 rounded-2xl border border-border-strong/60 bg-card/80 p-4">
-      <UserKaratIngot karat={p.karat} size="lg" />
-      <div className="min-w-0 flex-1">
-        <p className="text-xs font-medium tracking-wide text-muted">{lt('yourKarat')}</p>
-        <p className="text-lg font-semibold">{lt(`level${p.karat}` as LearnKey)}</p>
-        <div
-          className="mt-2 h-2 overflow-hidden rounded-full bg-subtle"
-          role="progressbar"
-          aria-valuemin={0}
-          aria-valuemax={p.maxPoints}
-          aria-valuenow={p.points}
-        >
-          <div
-            className="h-full rounded-full bg-gold-bright transition-[width] duration-700"
-            style={{ width: `${Math.round(p.levelProgress * 100)}%` }}
-          />
-        </div>
-        <p className="mt-1.5 text-xs text-muted">
-          {p.nextKarat ? lt('toNext', { n: p.toNext ?? 0, k: p.nextKarat }) : lt('maxed')}
-        </p>
-        <p className="text-xs text-muted">{lt('lessonsDone', { d: p.passedCount, n: p.totalLessons })}</p>
+    <div id="karat-rules" className="mt-5 space-y-2.5 border-s-4 border-marker ps-3.5 text-[15px]">
+      <p>{lt('karatHint')}</p>
+      <div
+        className="h-1.5 overflow-hidden rounded-full bg-text/15"
+        role="progressbar"
+        aria-label={lt('yourKarat')}
+        aria-valuemin={0}
+        aria-valuemax={p.maxPoints}
+        aria-valuenow={p.points}
+      >
+        <div className="h-full rounded-full bg-candy" style={{ width: `${Math.round(p.levelProgress * 100)}%` }} />
       </div>
+      <p className="text-muted">
+        {p.nextKarat ? lt('toNext', { n: p.toNext ?? 0, k: p.nextKarat }) : lt('maxed')}
+        <br />
+        {lt('lessonsDone', { d: p.passedCount, n: p.totalLessons })}
+      </p>
+      <p className="text-[13.5px] text-muted">
+        {lt('savedHere')}{' '}
+        <button
+          type="button"
+          className="cursor-pointer underline underline-offset-4 hover:text-text"
+          onClick={() => {
+            if (window.confirm(lt('resetConfirm'))) resetProgress()
+          }}
+        >
+          {lt('reset')}
+        </button>
+      </p>
+      <p className="text-[13.5px] text-muted">{lt('notAdvice')}</p>
     </div>
   )
 }
 
-function StatusChip({ lesson }: { lesson: Lesson }) {
-  const { lt } = useLearnText()
-  const p = useLearnProgress().lessons[lesson.slug]
-  if (!isReady(lesson))
-    return <span className="rounded-full bg-subtle px-2 py-0.5 text-[11px] font-semibold text-muted">{lt('comingSoon')}</span>
-  if (p?.passed)
-    return <span className="rounded-full bg-strong/10 px-2 py-0.5 text-[11px] font-semibold text-strong">✓ {lt('passed')}</span>
-  if (p?.read)
-    return <span className="rounded-full bg-gold-soft px-2 py-0.5 text-[11px] font-semibold text-gold">{lt('read')}</span>
-  return null
-}
-
-function LessonRow({ lesson }: { lesson: Lesson }) {
+function LessonRow({ lesson, now }: { lesson: Lesson; now: boolean }) {
   const { tx, lt } = useLearnText()
+  const p = useLearnProgress().lessons[lesson.slug]
   const ready = isReady(lesson)
-  const passed = useLearnProgress().lessons[lesson.slug]?.passed
   return (
-    <a
-      href={`#learn-${lesson.slug}`}
-      onClick={(e) => {
-        e.preventDefault()
-        openRoute(`learn-${lesson.slug}`)
-      }}
-      className={`card flex items-center gap-3.5 p-4 transition hover:border-border-strong ${ready ? '' : 'opacity-75'}`}
-    >
-      <span
-        className={`num grid size-10 shrink-0 place-items-center rounded-full text-sm font-bold ${
-          passed ? 'bg-gold-bright text-white' : ready ? 'bg-gold-soft text-gold' : 'bg-subtle text-muted'
-        }`}
-      >
-        {passed ? '✓' : lessonNumber(lesson)}
-      </span>
-      <span className="min-w-0 flex-1">
-        <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
-          <span className="font-semibold">{tx(lesson.title)}</span>
-          <StatusChip lesson={lesson} />
+    <li className="break-inside-avoid">
+      <a href={lessonHref(lesson)} aria-current={now ? 'step' : undefined} className="link flex min-h-12 items-center gap-3 rounded-xl py-1.5">
+        <span
+          className={`num grid size-8 shrink-0 place-items-center rounded-full border-[3px] text-[13px] font-semibold ${
+            now
+              ? 'border-text bg-text text-bg'
+              : p?.passed
+                ? 'border-candy bg-marker text-on-marker'
+                : ready
+                  ? 'border-text/20 text-muted'
+                  : 'border-dashed border-text/20 text-muted'
+          }`}
+        >
+          {lessonNo(lesson)}
         </span>
-        <span className="mt-0.5 block text-sm text-muted">{tx(lesson.hook)}</span>
-      </span>
-      {ready && <span className="hidden shrink-0 text-xs text-muted sm:block">{lt('minutes', { n: lesson.minutes })}</span>}
-    </a>
+        <span className={`min-w-0 flex-1 text-[15.5px] leading-snug font-semibold ${ready ? '' : 'text-muted'}`}>{tx(lesson.title)}</span>
+        {!ready ? (
+          <span className="shrink-0 text-[13px] text-muted">{lt('comingSoon')}</span>
+        ) : p?.passed ? (
+          <span className="shrink-0 text-[13px] font-semibold text-up">✓ {lt('passed')}</span>
+        ) : (
+          p?.read && <span className="shrink-0 text-[13px] text-muted">{lt('read')}</span>
+        )}
+      </a>
+    </li>
   )
 }
 
 function Hub() {
+  const { t } = useI18n()
   const { tx, lt } = useLearnText()
-  const today = todaysLesson()
-  // the way in for someone who has not begun is the first screen (HomeView)
   const progress = useLearnProgress()
-  return (
-    <div className="space-y-6">
-      <section className="card hero-wash rise overflow-hidden p-5 sm:p-6">
-        <div className="flex items-start gap-3">
-          <div className="min-w-0 flex-1">
-            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{lt('title')}</h1>
-            <p className="mt-1 text-muted">{lt('subtitle')}</p>
-          </div>
-          <GemMark size={56} />
-        </div>
-        <div className="mt-5">
-          <YourKaratCard />
-          <p className="mt-2 text-xs text-muted">{lt('karatHint')}</p>
-        </div>
-      </section>
-
-      <section>
-        <p className="tick-label mb-2">{lt('today')}</p>
-        <a
-          href={`#learn-${today.slug}`}
-          onClick={(e) => {
-            e.preventDefault()
-            openRoute(`learn-${today.slug}`)
-          }}
-          className="card rise flex items-center gap-4 border-border-strong p-5 transition hover:shadow-lg"
-        >
-          <span className="min-w-0 flex-1">
-            <span className="text-xs font-medium text-gold">
-              {lt('levelN', { n: today.level })} · {lt('lessonN', { n: lessonNumber(today) })} · {lt('minutes', { n: today.minutes })}
-            </span>
-            <span className="mt-1 block text-lg font-semibold">{tx(today.title)}</span>
-            <span className="mt-0.5 block text-sm text-muted">{tx(today.hook)}</span>
-          </span>
-          <span className="shrink-0 rounded-full bg-text px-4 py-2 text-sm font-semibold text-bg">{lt('start')}</span>
-        </a>
-      </section>
-
-      {LEVELS.map((lv) => {
-        const list = LESSONS.filter((l) => l.level === lv.level)
-        if (!list.length) return null
-        const ready = list.filter(isReady)
-        const done = ready.filter((l) => progress.lessons[l.slug]?.passed).length
-        return (
-          <section key={lv.level} className="space-y-2.5" aria-labelledby={`level-${lv.level}`}>
-            <div>
-              <div className="flex items-baseline justify-between gap-3">
-                <h2 id={`level-${lv.level}`} className="tick-label">
-                  {lt('levelN', { n: lv.level })} · {tx(lv.name)}
-                </h2>
-                {ready.length > 0 && (
-                  <span className="shrink-0 text-xs text-muted">{lt('levelProgress', { d: done, n: ready.length })}</span>
-                )}
-              </div>
-              <p className="mt-0.5 text-sm text-muted">{tx(lv.about)}</p>
-            </div>
-            {list.map((l) => (
-              <LessonRow key={l.slug} lesson={l} />
-            ))}
-          </section>
-        )
-      })}
-
-      <a
-        href="#learn-glossary"
-        onClick={(e) => {
-          e.preventDefault()
-          openRoute('learn-glossary')
-        }}
-        className="card flex items-center gap-4 p-4 transition hover:border-border-strong"
-      >
-        <span className="grid size-11 shrink-0 place-items-center rounded-full bg-gold-soft text-lg font-bold text-gold">
-          Aa
-        </span>
-        <span className="min-w-0">
-          <span className="block font-semibold">{lt('glossary')}</span>
-          <span className="block text-sm text-muted">{lt('glossaryHint')}</span>
-        </span>
-        <span className="ms-auto shrink-0 text-gold rtl:rotate-180" aria-hidden>
-          →
-        </span>
-      </a>
-
-      <div className="space-y-1 text-center text-xs text-muted">
-        <p>{lt('notAdvice')}</p>
-        <p>
-          {lt('savedHere')}{' '}
-          <button
-            type="button"
-            className="cursor-pointer underline underline-offset-2 hover:text-gold"
-            onClick={() => {
-              if (window.confirm(lt('resetConfirm'))) resetProgress()
-            }}
-          >
-            {lt('reset')}
-          </button>
-        </p>
-      </div>
-    </div>
-  )
-}
-
-// ---------------------------------------------------------------------------
-// Lesson page
-// ---------------------------------------------------------------------------
-
-function BackLink() {
-  const { lt } = useLearnText()
-  return (
-    <a
-      href="#learn"
-      onClick={(e) => {
-        e.preventDefault()
-        openRoute('learn')
-      }}
-      className="inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-sm font-medium text-muted transition hover:bg-subtle hover:text-text"
-    >
-      <span className="inline-block rtl:rotate-180" aria-hidden>
-        ←
-      </span>
-      {lt('back')}
-    </a>
-  )
-}
-
-function CopyLink({ slug }: { slug: string }) {
-  const { lt } = useLearnText()
-  const [copied, setCopied] = useState(false)
-  const copy = async () => {
-    const url = `${window.location.origin}${window.location.pathname}#learn-${slug}`
-    try {
-      await navigator.clipboard.writeText(url)
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 2000)
-    } catch {
-      window.prompt(lt('copyLink'), url)
-    }
-  }
-  return (
-    <button
-      type="button"
-      onClick={copy}
-      className="cursor-pointer rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted transition hover:border-border-strong hover:text-gold"
-    >
-      {copied ? `✓ ${lt('copied')}` : lt('copyLink')}
-    </button>
-  )
-}
-
-function LessonPage({ lesson, brief, onView }: { lesson: Lesson; brief: Brief | undefined; onView: (v: View) => void }) {
-  const { tx, lt } = useLearnText()
-  const ready = isReady(lesson)
-  const endRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => track('lesson_open'), [lesson.slug])
-
-  // reaching the takeaway counts as having read the lesson
-  useEffect(() => {
-    const el = endRef.current
-    if (!ready || !el) return
-    if (typeof IntersectionObserver === 'undefined') {
-      markRead(lesson.slug)
-      return
-    }
-    const io = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting)) {
-        markRead(lesson.slug)
-        io.disconnect()
-      }
-    })
-    io.observe(el)
-    return () => io.disconnect()
-  }, [lesson.slug, ready])
-
-  const idx = lessonIndex(lesson)
-  const next = LESSONS.slice(idx + 1).find(isReady)
+  const next = useNextLesson()
+  // the level the visitor is in: the one their next lesson belongs to
+  const here = next?.level ?? LEVELS[LEVELS.length - 1].level
+  const [open, setOpen] = useState<number | null>(here)
+  const [rules, setRules] = useState(false)
 
   return (
-    <article className="mx-auto max-w-2xl space-y-5">
-      <div className="flex items-center justify-between gap-2">
-        <BackLink />
-        <CopyLink slug={lesson.slug} />
-      </div>
-
-      <header className="rise">
-        <p className="text-xs font-medium text-gold">
-          {lt('levelN', { n: lesson.level })} · {tx(levelOf(lesson).name)} · {lt('lessonN', { n: idx + 1 })}
-          {ready ? ` · ${lt('minutes', { n: lesson.minutes })}` : ` · ${lt('comingSoon')}`}
-        </p>
-        <h1 className="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">{tx(lesson.title)}</h1>
-        <p className="mt-2 text-lg text-muted">{tx(lesson.hook)}</p>
-      </header>
-
-      {ready ? (
-        <>
-          <div className="card space-y-5 p-5 sm:p-6">
-            {lesson.sections!.map((s, i) => (
-              <section key={i}>
-                <h2 className="font-semibold">{tx(s.h)}</h2>
-                <p className="mt-1.5 leading-relaxed text-text/90">{tx(s.p)}</p>
-              </section>
-            ))}
-            <div ref={endRef} className="rounded-2xl bg-gold-soft p-4">
-              <p className="text-xs font-semibold tracking-wide text-gold">{lt('takeaway')}</p>
-              <p className="mt-1 font-medium">{tx(lesson.takeaway!)}</p>
-            </div>
-          </div>
-          {lesson.live && <LiveBlock live={lesson.live} brief={brief} onView={onView} />}
-          <TermChips terms={lesson.terms} />
-          <Quiz lesson={lesson} onView={onView} />
-        </>
-      ) : (
-        <>
-          <div className="card p-5 sm:p-6">
-            <p className="text-sm font-semibold">{lt('inThisLesson')}</p>
-            <ul className="mt-3 space-y-2">
-              {lesson.outline?.map((o, i) => (
-                <li key={i} className="flex gap-2.5">
-                  <span className="mt-2 size-1.5 shrink-0 rounded-full bg-gold-bright" aria-hidden />
-                  <span>{tx(o)}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          {lesson.live && <LiveBlock live={lesson.live} brief={brief} onView={onView} />}
-          {lesson.terms.length > 0 && <TermChips terms={lesson.terms} />}
-        </>
-      )}
-
-      {next && (
-        <a
-          href={`#learn-${next.slug}`}
-          onClick={(e) => {
-            e.preventDefault()
-            openRoute(`learn-${next.slug}`)
-          }}
-          className="card flex items-center gap-3 p-4 transition hover:border-border-strong"
-        >
-          <span className="min-w-0 flex-1">
-            <span className="block text-xs text-muted">{lt('nextLesson')}</span>
-            <span className="block font-semibold">{tx(next.title)}</span>
-          </span>
-          <span className="shrink-0 text-gold rtl:rotate-180" aria-hidden>
-            →
-          </span>
-        </a>
-      )}
-
-      <p className="text-center text-xs text-muted">{lt('notAdvice')}</p>
-    </article>
-  )
-}
-
-function TermChips({ terms }: { terms: string[] }) {
-  const { tx, lt } = useLearnText()
-  return (
-    <div>
-      <p className="tick-label mb-2">{lt('terms')}</p>
-      <div className="flex flex-wrap gap-2">
-        {terms
-          .filter((id) => GLOSSARY[id])
-          .map((id) => (
-            <a
-              key={id}
-              href="#learn-glossary"
-              onClick={(e) => {
-                e.preventDefault()
-                openRoute('learn-glossary')
-              }}
-              title={tx(GLOSSARY[id].def)}
-              className="rounded-full border border-border bg-card px-3 py-1 text-sm transition hover:border-border-strong hover:text-gold"
-            >
-              {tx(GLOSSARY[id].term)}
-            </a>
-          ))}
-      </div>
-    </div>
-  )
-}
-
-// ---------------------------------------------------------------------------
-// Quiz
-// ---------------------------------------------------------------------------
-
-function Quiz({ lesson, onView }: { lesson: Lesson; onView: (v: View) => void }) {
-  const { tx, lt } = useLearnText()
-  const { tp } = usePracticeT()
-  const questions = lesson.quiz!
-  const [step, setStep] = useState(0)
-  const [picked, setPicked] = useState<number | null>(null)
-  const [score, setScore] = useState(0)
-  const [result, setResult] = useState<{ score: number; passed: boolean; wasPassed: boolean } | null>(null)
-  const wasPassed = Boolean(useLearnProgress().lessons[lesson.slug]?.passed)
-
-  const q = questions[step]
-  const answered = picked !== null
-  const last = step === questions.length - 1
-
-  const pick = (i: number) => {
-    if (answered) return
-    setPicked(i)
-    if (i === q.answer) setScore((s) => s + 1)
-  }
-  const advance = () => {
-    if (last) {
-      const passed = recordQuiz(lesson.slug, score)
-      if (passed && !wasPassed) countLessonPass(lesson.slug)
-      setResult({ score, passed, wasPassed })
-      return
-    }
-    setStep((s) => s + 1)
-    setPicked(null)
-  }
-  const retry = () => {
-    setStep(0)
-    setPicked(null)
-    setScore(0)
-    setResult(null)
-  }
-
-  return (
-    <section className="card p-5 sm:p-6" aria-live="polite">
-      <div className="flex items-baseline justify-between gap-3">
-        <h2 className="font-semibold">{lt('quiz')}</h2>
-        {!result && <span className="text-xs text-muted">{lt('questionN', { n: step + 1, m: questions.length })}</span>}
-      </div>
-
-      {result ? (
-        <div className="mt-4 text-center">
-          <p className="num text-3xl font-semibold">{lt('score', { s: result.score, m: questions.length })}</p>
-          <p className={`mt-2 ${result.passed ? 'text-strong' : 'text-muted'}`}>
-            {result.passed ? (result.wasPassed ? lt('passAgainMsg') : lt('passMsg')) : lt('failMsg')}
-          </p>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-            {/* learn, then try it: a passed quiz leads straight to the practice wallet */}
-            {result.passed && (
-              <button
-                type="button"
-                onClick={() => onView('practice')}
-                className="cursor-pointer rounded-full bg-text px-5 py-2 text-sm font-semibold text-bg transition hover:opacity-90"
-              >
-                {tp('title', { start: loadLedger().startUsdt })}
-              </button>
-            )}
+    <div className="px-1">
+      <div className="md:grid md:grid-cols-2 md:items-end md:gap-12">
+        <div>
+          <header className="flex items-start justify-between gap-2">
+            <Caption
+              as="h1"
+              text={t('home.learnH', { n: LESSONS.length })}
+              className="text-[2.5rem] md:text-[3.25rem] ltr:text-[2.1rem] ltr:md:text-[3.25rem]"
+            />
             <button
               type="button"
-              onClick={retry}
-              className="cursor-pointer rounded-full border border-border-strong px-5 py-2 text-sm font-medium text-gold transition hover:bg-gold-soft"
+              onClick={() => setRules((o) => !o)}
+              aria-expanded={rules}
+              aria-controls="karat-rules"
+              className="link group grid shrink-0 cursor-pointer justify-items-center gap-1 rounded-2xl"
             >
-              {lt('retry')}
+              <span className="sr-only">{lt('yourKarat')}</span>
+              <KaratHallmark karat={progress.karat} size={76} className="-rotate-6 transition-transform group-active:translate-y-1" />
+              <span className="alt text-[13px] decoration-1">{lt(`level${progress.karat}` as LearnKey)}</span>
             </button>
-          </div>
-          {result.passed && (
-            <div className="mt-5">
-              <BotInvite place="quiz" inset />
-            </div>
-          )}
+          </header>
+          {rules && <KaratRules p={progress} />}
+          <LessonChain className="mt-7" />
         </div>
-      ) : (
-        <>
-          {step === 0 && !answered && <p className="mt-1 text-xs text-muted">{lt('quizHint')}</p>}
-          <p className="mt-3 font-medium">{tx(q.q)}</p>
-          <div className="mt-3 space-y-2">
-            {q.options.map((o, i) => {
-              const isRight = i === q.answer
-              const isPicked = i === picked
-              let tone = 'border-border hover:border-border-strong hover:bg-subtle/60'
-              if (answered && isRight) tone = 'border-strong bg-strong/10'
-              else if (answered && isPicked) tone = 'border-weak bg-weak/10'
-              else if (answered) tone = 'border-border opacity-60'
-              return (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => pick(i)}
-                  disabled={answered}
-                  aria-pressed={isPicked}
-                  className={`flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-start transition ${tone} ${
-                    answered ? 'cursor-default' : 'cursor-pointer'
-                  }`}
-                >
-                  <span
-                    className={`grid size-6 shrink-0 place-items-center rounded-full border text-xs font-semibold ${
-                      answered && isRight
-                        ? 'border-strong bg-strong text-white'
-                        : answered && isPicked
-                          ? 'border-weak bg-weak text-white'
-                          : 'border-border-strong text-muted'
-                    }`}
-                    aria-hidden
-                  >
-                    {answered && isRight ? '✓' : answered && isPicked ? '✕' : String.fromCharCode(65 + i)}
-                  </span>
-                  <span>{tx(o)}</span>
-                </button>
-              )
-            })}
-          </div>
-          {answered && (
-            <div className="rise mt-4 rounded-2xl bg-subtle/70 p-4">
-              <p className={`font-semibold ${picked === q.answer ? 'text-strong' : 'text-weak'}`}>
-                {picked === q.answer ? lt('right') : lt('wrong')}
-              </p>
-              <p className="mt-1 text-sm">{tx(q.why)}</p>
-              <button
-                type="button"
-                onClick={advance}
-                className="mt-3 cursor-pointer rounded-full bg-text px-5 py-2 text-sm font-semibold text-bg transition hover:opacity-90"
-              >
-                {last ? lt('seeScore') : lt('next')}
-              </button>
-            </div>
-          )}
-        </>
-      )}
-    </section>
-  )
-}
-
-// ---------------------------------------------------------------------------
-// Live links: tie the lesson to today's real data
-// ---------------------------------------------------------------------------
-
-function MiniRisk({ item, label }: { item: Opportunity; label?: string }) {
-  const { lt } = useLearnText()
-  const g = item.grade
-  const symbol = (item.symbol || '').toUpperCase()
-  return (
-    <div className="rounded-2xl bg-subtle/70 p-3.5">
-      {label && <p className="mb-2 text-[11px] font-medium text-muted">{label}</p>}
-      <div className="flex items-center gap-3">
-        <CoinIcon symbol={symbol} image={item.image} />
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-            <p className="truncate font-semibold">{item.name || symbol}</p>
-            <RiskChip risk={g?.risk} />
-          </div>
-          <p className="num text-sm text-muted" dir="ltr">
-            <span className="text-text">{compactCurrency(item.current_price)}</span>{' '}
-            <span className={changeColor(item.change_24h)}>{percent(item.change_24h)}</span>
-          </p>
-        </div>
-        <KaratBadge karat={g?.karat} size="sm" />
+        <NextLesson className="mt-8 md:mt-0" />
       </div>
-      {g && (
-        <div className="mt-3 space-y-1 text-sm">
-          <div className="flex justify-between gap-3">
-            <span>{lt('liveTypicalDay')}</span>
-            <span className="num font-semibold" dir="ltr">
-              ±{g.typical_day_pct.toFixed(1)}%
-            </span>
-          </div>
-          <div className="flex justify-between gap-3">
-            <span>{lt('liveRoughMonth')}</span>
-            <span className="num font-semibold text-down" dir="ltr">
-              {g.rough_month_pct.toFixed(0)}%
-            </span>
-          </div>
-          <p className="border-t border-border pt-1.5 text-xs text-muted">
-            {lt('liveOn100', { v: Math.max(0, Math.round(100 + g.rough_month_pct)) })}
-          </p>
-        </div>
-      )}
+
+      <div className="mt-10 border-t-[3px] border-text md:mt-14">
+        {LEVELS.map((lv) => {
+          const list = LESSONS.filter((l) => l.level === lv.level)
+          if (!list.length) return null
+          const ready = list.filter(isReady)
+          const done = ready.filter((l) => progress.lessons[l.slug]?.passed).length
+          const isOpen = open === lv.level
+          return (
+            <section key={lv.level} className="border-b border-text/15">
+              <h2>
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : lv.level)}
+                  aria-expanded={isOpen}
+                  aria-controls={`level-${lv.level}`}
+                  className="link flex min-h-[3.75rem] w-full cursor-pointer items-center gap-3 rounded-xl py-2 text-start"
+                >
+                  <span className="poster flex-1 text-[1.65rem]">{lv.level === here ? <mark className="mk">{tx(lv.name)}</mark> : tx(lv.name)}</span>
+                  {ready.length > 0 && <span className="text-[13.5px] text-muted">{lt('levelProgress', { d: done, n: ready.length })}</span>}
+                  <Fold open={isOpen} />
+                </button>
+              </h2>
+              {isOpen && (
+                <ol id={`level-${lv.level}`} className="pb-4 md:columns-2 md:gap-x-12">
+                  {list.map((l) => (
+                    <LessonRow key={l.slug} lesson={l} now={l === next} />
+                  ))}
+                </ol>
+              )}
+            </section>
+          )
+        })}
+        <a href="#learn-glossary" className="link flex min-h-[3.75rem] items-center gap-3 rounded-xl py-2">
+          <span className="poster flex-1 text-[1.65rem]">{lt('glossary')}</span>
+          <svg viewBox="0 0 24 24" className="size-5 shrink-0 text-muted rtl:-scale-x-100" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <path d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
     </div>
   )
 }
 
-function LiveBlock({ live, brief, onView }: { live: LiveLink; brief: Brief | undefined; onView: (v: View) => void }) {
-  const { tx, lt } = useLearnText()
-  const coins = useMemo(() => (brief?.opportunities ?? []).filter((o) => o.grade), [brief])
-  const findCoin = (sym: string) => coins.find((o) => (o.symbol || '').toUpperCase() === sym) ?? coins[0]
-
-  const button = (label: string, view: View) => (
-    <button
-      type="button"
-      onClick={() => onView(view)}
-      className="mt-3 cursor-pointer rounded-full border border-border-strong px-4 py-2 text-sm font-medium text-gold transition hover:bg-gold-soft"
-    >
-      {label} <span className="inline-block rtl:rotate-180">→</span>
-    </button>
-  )
-
-  let body: ReactNode
-  if (live.kind === 'view') {
-    body = button(tx(live.label), live.view)
-  } else if (!brief) {
-    body = <p className="mt-2 text-sm text-muted">{lt('liveLoading')}</p>
-  } else if (live.kind === 'coin') {
-    const item = findCoin(live.symbol)
-    body = (
-      <>
-        {item && <div className="mt-3"><MiniRisk item={item} /></div>}
-        {button(lt('openCoins'), 'today')}
-      </>
-    )
-  } else if (live.kind === 'risk') {
-    const btc = findCoin('BTC')
-    const riskiest = [...coins]
-      .filter((o) => o !== btc)
-      .sort((a, b) => (b.grade?.typical_day_pct ?? 0) - (a.grade?.typical_day_pct ?? 0))[0]
-    body = (
-      <>
-        <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
-          {btc && <MiniRisk item={btc} label="Bitcoin" />}
-          {riskiest && <MiniRisk item={riskiest} label={lt('liveRiskiest')} />}
-        </div>
-        {button(lt('openCoins'), 'today')}
-      </>
-    )
-  } else if (live.kind === 'weather') {
-    const w = brief.weather
-    const state = w?.state ?? 'unknown'
-    const word =
-      state === 'calm' ? lt('weatherCalm') : state === 'choppy' ? lt('weatherChoppy') : state === 'stormy' ? lt('weatherStormy') : '--'
-    const dot = state === 'calm' ? 'bg-strong' : state === 'choppy' ? 'bg-warn' : state === 'stormy' ? 'bg-weak' : 'bg-neutral'
-    const fg = w?.fear_greed ?? brief.sentiment?.score
-    body = (
-      <>
-        <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
-          <div className="rounded-2xl bg-subtle/70 p-3.5">
-            <p className="text-[11px] font-medium text-muted">{lt('weatherToday')}</p>
-            <p className="mt-1 flex items-center gap-2 text-lg font-semibold">
-              <span className={`size-2.5 rounded-full ${dot}`} aria-hidden />
-              {word}
-            </p>
-          </div>
-          <div className="rounded-2xl bg-subtle/70 p-3.5">
-            <p className="text-[11px] font-medium text-muted">{lt('liveMood')}</p>
-            <p className="num mt-1 text-lg font-semibold" dir="ltr">
-              {fg != null ? `${Math.round(Number(fg))} / 100` : '--'}
-            </p>
-          </div>
-        </div>
-        {button(lt('openCoins'), 'today')}
-      </>
-    )
-  } else {
-    // karat ladder
-    const sorted = [...coins].sort((a, b) => (b.grade?.karat ?? 0) - (a.grade?.karat ?? 0)).slice(0, 8)
-    body = (
-      <>
-        <p className="mt-1 text-xs text-muted">{lt('karatToday')}</p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {sorted.map((o) => (
-            <span key={o.symbol} className="flex items-center gap-1.5 rounded-full bg-subtle/70 py-1 ps-1 pe-3 text-sm">
-              <KaratBadge karat={o.grade?.karat} size="sm" />
-              <span className="font-medium" dir="ltr">
-                {(o.symbol || '').toUpperCase()}
-              </span>
-            </span>
-          ))}
-        </div>
-        {button(lt('openCoins'), 'today')}
-      </>
-    )
-  }
-
-  return (
-    <section className="card border-border-strong p-5">
-      <p className="flex items-center gap-2 text-sm font-semibold">
-        <span className="live-dot size-2 rounded-full bg-strong" aria-hidden />
-        {lt('tryLive')}
-      </p>
-      {body}
-    </section>
-  )
-}
-
 // ---------------------------------------------------------------------------
-// Glossary
+// Glossary: an index of words; a tap (or a search) opens the meaning
 // ---------------------------------------------------------------------------
 
 function GlossaryPage() {
   const { lang, tx, lt } = useLearnText()
   const [query, setQuery] = useState('')
+  const [shown, setShown] = useState<string | null>(null)
   const entries = useMemo(() => {
     const q = query.trim().toLowerCase()
     return Object.entries(GLOSSARY)
@@ -731,48 +229,57 @@ function GlossaryPage() {
       .sort(([, a], [, b]) => tx(a.term).localeCompare(tx(b.term), lang))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, lang])
+  // a search shows the meaning of everything it finds
+  const searching = query.trim() !== ''
 
   return (
-    <div className="mx-auto max-w-2xl space-y-5">
-      <BackLink />
-      <header className="rise">
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{lt('glossary')}</h1>
-        <p className="mt-1 text-muted">{lt('glossaryHint')}</p>
-      </header>
+    <div className="mx-auto max-w-2xl px-1">
+      <a href="#learn" className="alt py-2 text-[13.5px] font-medium text-muted decoration-1">
+        {lt('back')}
+      </a>
+      <h1 className="poster mt-3 text-[2.75rem] md:text-6xl">
+        <mark className="mk">{lt('glossary')}</mark>
+      </h1>
       <input
         type="search"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={lt('search')}
         aria-label={lt('search')}
-        className="w-full rounded-full border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border-strong"
+        className="mt-6 h-[3.25rem] w-full rounded-2xl border-[3px] border-text/15 bg-transparent px-4 text-base font-medium outline-none transition placeholder:font-normal placeholder:text-muted focus:border-text"
       />
-      <dl className="card divide-y divide-border">
+      <dl className="mt-5 border-t-[3px] border-text">
         {entries.map(([id, e]) => {
           const from = lessonsForTerm(id)[0]
+          const isOpen = searching || shown === id
           return (
-            <div key={id} className="p-4">
-              <dt className="font-semibold">{tx(e.term)}</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-text/90">{tx(e.def)}</dd>
-              {from && (
-                <dd className="mt-1.5">
-                  <a
-                    href={`#learn-${from.slug}`}
-                    onClick={(ev) => {
-                      ev.preventDefault()
-                      openRoute(`learn-${from.slug}`)
-                    }}
-                    className="text-xs font-medium text-gold underline-offset-2 hover:underline"
-                  >
-                    {lt('fromLesson', { t: tx(from.title) })}
-                  </a>
+            <div key={id} className="border-b border-text/15">
+              <dt>
+                <button
+                  type="button"
+                  onClick={() => setShown(shown === id ? null : id)}
+                  aria-expanded={isOpen}
+                  className="link flex min-h-12 w-full cursor-pointer items-center gap-3 rounded-xl py-2 text-start font-semibold"
+                >
+                  <span className="flex-1">{tx(e.term)}</span>
+                  {!searching && <Fold open={isOpen} />}
+                </button>
+              </dt>
+              {isOpen && (
+                <dd className="pb-4">
+                  <p className="leading-relaxed">{tx(e.def)}</p>
+                  {from && (
+                    <a href={lessonHref(from)} className="alt mt-1.5 py-1.5 text-[13.5px] font-medium decoration-1">
+                      {lt('fromLesson', { t: tx(from.title) })}
+                    </a>
+                  )}
                 </dd>
               )}
             </div>
           )
         })}
-        {entries.length === 0 && <p className="p-4 text-sm text-muted">{lt('noMatch')}</p>}
       </dl>
+      {entries.length === 0 && <p className="pt-4 text-muted">{lt('noMatch')}</p>}
     </div>
   )
 }

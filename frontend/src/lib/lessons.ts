@@ -200,6 +200,14 @@ export const LEARN_UI = {
     ar: 'قريب. أعد قراءة الدرس وحاول مرة أخرى: الأمر يأخذ دقيقة فقط.',
   },
   retry: { en: 'Try again', fr: 'Réessayer', ar: 'حاول مجددًا' },
+  // a lesson is read one screen at a time: the two buttons under each screen
+  // CHECK
+  nextStep: { en: 'Next', fr: 'Suivant', ar: 'التالي' },
+  // CHECK
+  prevStep: { en: 'Back', fr: 'Retour', ar: 'رجوع' },
+  // the second choice after a failed quiz: back to the lesson's first screen
+  // CHECK
+  reread: { en: 'Reread the lesson', fr: 'Relire la leçon', ar: 'أعد قراءة الدرس' },
   nextLesson: { en: 'Next lesson', fr: 'Leçon suivante', ar: 'الدرس التالي' },
   terms: { en: 'Words in this lesson', fr: 'Les mots de cette leçon', ar: 'كلمات هذا الدرس' },
   glossary: { en: 'Glossary', fr: 'Glossaire', ar: 'القاموس' },
