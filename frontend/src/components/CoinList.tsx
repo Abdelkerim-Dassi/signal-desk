@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import type { ReactNode } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import type { AdvisorConfig } from '../hooks/useBrief'
 import { getCoins, symbolExists } from '../lib/api'
@@ -6,111 +7,112 @@ import type { Brief, CoinOption, Opportunity } from '../lib/api'
 import { changeColor, compactCurrency, percent } from '../lib/format'
 import { baseOf, parseAssets, POPULAR, toAsset } from '../lib/assets'
 import { useI18n } from '../lib/i18n'
+import Caption from './brand/Caption'
 import { IconChevron, IconPlus, IconX } from './Icons'
+import MascotSays from './MascotSays'
 import { CoinIcon, KaratBadge, RiskChip } from './Rating'
 import CandleChart from './CandleChart'
+
+/** One fact of a grade: its name, the number, and a line that reads the number. */
+function Fact({ label, sub, children }: { label: string; sub?: string; children: ReactNode }) {
+  return (
+    <div className="py-2.5">
+      <div className="flex items-baseline justify-between gap-3">
+        <dt>{label}</dt>
+        <dd className="num font-semibold">{children}</dd>
+      </div>
+      {sub && <p className="mt-0.5 text-[13px] text-muted">{sub}</p>}
+    </div>
+  )
+}
 
 function ScoreDetails({ item }: { item: Opportunity }) {
   const { t } = useI18n()
   const g = item.grade
   return (
-    <div className="mt-4 space-y-4 border-t border-border pt-4">
+    <div className="space-y-6 pt-1 pb-6">
       {(item.candles?.length ?? 0) >= 2 && (
         <div>
-          <p className="mb-1 text-xs text-muted">{t('chart.title')}</p>
+          <p className="mb-1 text-[13px] text-muted">{t('chart.title')}</p>
           <CandleChart candles={item.candles} />
         </div>
       )}
 
       {g && (
         <div>
-          <p className="mb-2 text-sm font-semibold">
-            {g.karat ? t('karat.title', { k: g.karat }) : t('karat.young')}
-          </p>
-          <div className="grid gap-2.5 sm:grid-cols-2">
+          <p className="font-semibold">{g.karat ? t('karat.title', { k: g.karat }) : t('karat.young')}</p>
+          <dl className="mt-1 divide-y divide-text/10 text-[15px]">
             {g.mom90_pct != null && (
-              <div className="rounded-2xl bg-subtle/70 p-3">
-                <div className="flex items-baseline justify-between gap-2">
-                  <span className="text-xs text-muted">{t('karat.trend')}</span>
-                  <span className={`num text-base font-semibold ${changeColor(g.mom90_pct)}`} dir="ltr">
-                    {percent(g.mom90_pct)}
-                  </span>
-                </div>
-                <p className="mt-0.5 text-xs text-muted">{t('karat.trendSub', { n: g.momentum_pct ?? '--' })}</p>
-              </div>
+              <Fact label={t('karat.trend')} sub={t('karat.trendSub', { n: g.momentum_pct ?? '--' })}>
+                <span className={changeColor(g.mom90_pct)} dir="ltr">
+                  {percent(g.mom90_pct)}
+                </span>
+              </Fact>
             )}
-            <div className="rounded-2xl bg-subtle/70 p-3">
-              <div className="flex items-baseline justify-between gap-2">
-                <span className="text-xs text-muted">{t('karat.calm')}</span>
-                <span className="num text-base font-semibold">{t('karat.perDay', { v: g.typical_day_pct.toFixed(1) })}</span>
-              </div>
-              <p className="mt-0.5 text-xs text-muted">{t('karat.calmSub', { n: g.calm_pct })}</p>
-            </div>
-          </div>
-          <p className="mt-2 text-xs leading-relaxed text-muted">{t('karat.scale')}</p>
+            <Fact label={t('karat.calm')} sub={t('karat.calmSub', { n: g.calm_pct })}>
+              {t('karat.perDay', { v: g.typical_day_pct.toFixed(1) })}
+            </Fact>
+          </dl>
+          <p className="mt-2 text-[13px] text-muted">{t('karat.compare')}</p>
         </div>
       )}
 
       {g && (
         <div>
-          <div className="mb-2 flex items-center gap-2">
-            <p className="text-sm font-semibold">{t('risk.title')}</p>
+          <p className="flex flex-wrap items-center gap-x-3 gap-y-1 font-semibold">
+            {t('risk.title')}
             <RiskChip risk={g.risk} />
-          </div>
-          <div className="space-y-1.5 rounded-2xl bg-subtle/70 p-3 text-sm">
-            <div className="flex justify-between gap-3">
-              <span>{t('risk.day')}</span>
-              <span className="num font-semibold" dir="ltr">±{g.typical_day_pct.toFixed(1)}%</span>
-            </div>
-            <div className="flex justify-between gap-3">
-              <span>{t('risk.month')}</span>
-              <span className="num font-semibold text-down" dir="ltr">{g.rough_month_pct.toFixed(0)}%</span>
-            </div>
-            <p className="border-t border-border pt-1.5 text-xs text-muted">
-              {t('risk.money', { v: Math.abs(Math.round(g.rough_month_pct)) })}{' '}
-              <a href="#learn-price-swings" className="font-medium text-gold underline underline-offset-2">
-                {t('risk.learn')}
-              </a>
-            </p>
-          </div>
-          <p className="mt-2 text-xs text-muted">{t('risk.note')}</p>
+          </p>
+          <dl className="mt-1 divide-y divide-text/10 text-[15px]">
+            <Fact label={t('risk.day')}>
+              <span dir="ltr">±{g.typical_day_pct.toFixed(1)}%</span>
+            </Fact>
+            <Fact label={t('risk.month')}>
+              <span className="text-down" dir="ltr">
+                {g.rough_month_pct.toFixed(0)}%
+              </span>
+            </Fact>
+          </dl>
+          <p className="mt-2 text-sm">{t('risk.money', { v: Math.abs(Math.round(g.rough_month_pct)) })}</p>
+          <a href="#learn-price-swings" className="alt mt-1.5 text-sm">
+            {t('risk.learn')}
+          </a>
+          <p className="mt-3 text-[13px] text-muted">{t('risk.note')}</p>
         </div>
       )}
 
-      <p className="text-xs text-muted">{t('coin.notAdvice')}</p>
+      <p className="text-[13px] text-muted">{t('coin.notAdvice')}</p>
     </div>
   )
 }
 
-function CoinCard({ item, delay }: { item: Opportunity; delay: number }) {
+/** A coin is a row on the paper: its name, price and risk, and its hallmark. Tap it for the reasons. */
+function CoinRow({ item }: { item: Opportunity }) {
   const { t } = useI18n()
   const [open, setOpen] = useState(false)
   const symbol = (item.symbol || '').toUpperCase()
   return (
-    <article className="card rise p-4" style={{ animationDelay: `${delay}ms` }}>
+    <li className="border-b border-text/10">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label={t('coin.details')}
-        className="flex w-full cursor-pointer items-center gap-3 text-start"
+        className="link flex w-full cursor-pointer items-center gap-3 rounded-lg py-3.5 text-start"
       >
         <CoinIcon symbol={symbol} image={item.image} />
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-            <p className="truncate font-semibold">{item.name || symbol}</p>
-            <RiskChip risk={item.grade?.risk} />
-          </div>
-          <p className="num mt-0.5 text-sm text-muted" dir="ltr">
-            <span className="text-text">{compactCurrency(item.current_price)}</span>{' '}
-            <span className={changeColor(item.change_24h)}>{percent(item.change_24h)}</span>
-          </p>
-        </div>
+        <span className="grid min-w-0 flex-1 gap-0.5">
+          <span className="truncate text-[17px] leading-snug font-semibold">{item.name || symbol}</span>
+          <span className="num text-sm rtl:text-end" dir="ltr">
+            {compactCurrency(item.current_price)} <span className={changeColor(item.change_24h)}>{percent(item.change_24h)}</span>
+          </span>
+          <RiskChip risk={item.grade?.risk} />
+        </span>
         <KaratBadge karat={item.grade?.karat} />
         <IconChevron className={`shrink-0 text-muted transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && <ScoreDetails item={item} />}
-    </article>
+    </li>
   )
 }
 
@@ -196,27 +198,28 @@ function WatchlistEditor({
   }
 
   return (
-    <div className="card rise space-y-3 p-4">
-      <div className="flex flex-wrap gap-2">
+    <div className="space-y-4 pt-1 pb-3">
+      {/* a solid tag is a coin on the list, a dashed one is a coin you could add */}
+      <ul className="flex flex-wrap gap-2">
         {assets.map((a) => (
-          <span key={a} className="inline-flex items-center gap-1 rounded-full bg-subtle py-1 ps-3 pe-1 text-sm">
-            {baseOf(a)}
+          <li key={a} className="inline-flex items-center rounded-[10px] border-2 border-text/70 ps-3 text-[13.5px] font-semibold">
+            <bdi>{baseOf(a)}</bdi>
             <button
               onClick={() => setAssets(assets.filter((x) => x !== a))}
               aria-label={t('coins.remove', { coin: a })}
-              className="grid size-6 cursor-pointer place-items-center rounded-full text-muted transition hover:bg-card hover:text-down"
+              className="link grid size-8 cursor-pointer place-items-center rounded-lg text-muted transition hover:text-down"
             >
               <IconX />
             </button>
-          </span>
+          </li>
         ))}
-      </div>
+      </ul>
       <form
         onSubmit={(e) => {
           e.preventDefault()
           add(input)
         }}
-        className="flex gap-2"
+        className="flex items-start gap-2.5"
       >
         <input
           value={input}
@@ -228,24 +231,14 @@ function WatchlistEditor({
           aria-invalid={unknown ? true : undefined}
           autoComplete="off"
           spellCheck={false}
-          className="min-w-0 flex-1 rounded-full border border-border bg-subtle/60 px-4 py-2 text-sm outline-none transition focus:border-border-strong"
+          className="h-[46px] min-w-0 flex-1 rounded-[14px] border-2 border-text/15 bg-card px-4 text-[15px] outline-none transition placeholder:text-muted/80 focus:border-text/60"
         />
-        <button
-          type="submit"
-          disabled={!input.trim() || checking}
-          className="flex cursor-pointer items-center gap-1 rounded-full bg-text px-4 text-sm font-medium text-bg transition disabled:opacity-40"
-        >
-          {checking ? (
-            t('coins.checking')
-          ) : (
-            <>
-              <IconPlus /> {t('coins.add')}
-            </>
-          )}
+        <button type="submit" disabled={!input.trim() || checking} className="go go-sm shrink-0 px-5 disabled:cursor-default disabled:opacity-40">
+          {checking ? t('coins.checking') : t('coins.add')}
         </button>
       </form>
       {coins && input.trim() && matches.length > 0 && (
-        <ul className="divide-y divide-border overflow-hidden rounded-2xl border border-border" role="listbox">
+        <ul className="divide-y divide-text/10" role="listbox">
           {matches.map((c) => {
             const added = present.has(c.base)
             return (
@@ -254,13 +247,13 @@ function WatchlistEditor({
                   type="button"
                   disabled={added}
                   onClick={() => addPair(c.pair)}
-                  className="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-start text-sm transition hover:bg-subtle disabled:cursor-default disabled:opacity-50"
+                  className="link flex w-full cursor-pointer items-center justify-between gap-3 rounded-lg py-3 text-start text-[15px] disabled:cursor-default disabled:opacity-50"
                 >
                   <span>
-                    <span className="font-semibold">{c.base}</span>
+                    <bdi className="font-semibold">{c.base}</bdi>
                     {c.name && <span className="ms-2 text-muted">{c.name}</span>}
                   </span>
-                  <span className="text-xs text-gold">{added ? t('coins.added') : <IconPlus />}</span>
+                  <span className="text-[13px] font-semibold">{added ? t('coins.added') : <IconPlus />}</span>
                 </button>
               </li>
             )
@@ -268,21 +261,22 @@ function WatchlistEditor({
         </ul>
       )}
       {coins && input.trim() && matches.length === 0 && !unknown && (
-        <p className="px-1 text-sm text-muted">{t('coins.noMatch', { q: input.trim() })}</p>
+        <p className="text-sm text-muted">{t('coins.noMatch', { q: input.trim() })}</p>
       )}
       {unknown && (
-        <p role="alert" className="px-1 text-sm text-down">
+        <p role="alert" className="text-sm text-down">
           {coins ? t('coins.noMatch', { q: unknown }) : t('coins.unknown', { coin: unknown })}
         </p>
       )}
       <div>
-        <p className="mb-1.5 text-xs text-muted">{t('coins.popular')}</p>
-        <div className="flex flex-wrap gap-1.5">
+        <p className="mb-2 text-[13px] text-muted">{t('coins.popular')}</p>
+        <div className="flex flex-wrap gap-2">
           {POPULAR.filter((p) => !present.has(p) && (!listed || listed.has(p))).map((p) => (
             <button
               key={p}
               onClick={() => add(p, true)}
-              className="cursor-pointer rounded-full border border-border px-3 py-1 text-xs font-medium transition hover:border-border-strong hover:text-gold"
+              className="link cursor-pointer rounded-[10px] border-2 border-dashed border-text/35 px-3 py-1.5 text-[13.5px] font-semibold transition hover:border-text/70"
+              dir="ltr"
             >
               + {p}
             </button>
@@ -314,43 +308,62 @@ export default function CoinList({
     .map((e) => (typeof e === 'object' && e && 'symbol' in e ? baseOf(String((e as { symbol: string }).symbol)) : String(e)))
     .filter(Boolean)
 
+  // an empty list: the gold bar says so and holds the one action itself
+  const empty = !isLoading && !error && rows.length === 0
+
   return (
-    <section className="space-y-3">
-      <div className="flex items-end justify-between gap-3 px-1">
-        <div>
-          <h2 className="text-lg font-semibold">{t('coins.title')}</h2>
-          <p className="text-xs text-muted">{t('coins.legend')}</p>
-        </div>
-        <button
-          onClick={() => setEditing((v) => !v)}
-          className="cursor-pointer rounded-full border border-border px-3.5 py-1.5 text-sm font-medium transition hover:border-border-strong hover:text-gold"
-        >
-          {editing ? t('coins.done') : t('coins.edit')}
-        </button>
+    <section className="pt-6 md:pt-10" aria-labelledby="today-coins">
+      <div className="flex items-end justify-between gap-3">
+        <Caption id="today-coins" text={t('coins.title')} className="text-[2.1rem] md:text-5xl" />
+        {(!empty || editing) && (
+          <button onClick={() => setEditing((v) => !v)} aria-expanded={editing} className="alt mb-1 shrink-0 text-[15px]">
+            {editing ? t('coins.done') : t('coins.edit')}
+          </button>
+        )}
       </div>
+      {/* the scale, read off its two ends */}
+      <p className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-muted">
+        <span className="inline-flex items-center gap-2">
+          <KaratBadge karat={24} size="sm" />
+          {t('karat.top')}
+        </span>
+        <span className="inline-flex items-center gap-2">
+          <KaratBadge karat={10} size="sm" />
+          {t('karat.bottom')}
+        </span>
+      </p>
 
-      {editing && <WatchlistEditor config={config} onConfigChange={onConfigChange} />}
-
-      {failedNames.length > 0 && (
-        <p className="px-1 text-xs text-warn">{t('coins.notFound', { list: failedNames.join(', ') })}</p>
+      {editing && (
+        <div className="mt-4">
+          <WatchlistEditor config={config} onConfigChange={onConfigChange} />
+        </div>
       )}
+
+      {failedNames.length > 0 && <p className="mt-3 text-[13px] text-warn">{t('coins.notFound', { list: failedNames.join(', ') })}</p>}
       {isLoading && rows.length === 0 && (
-        <div className="card p-6 text-center text-sm text-muted">
+        <p className="mt-5 text-sm text-muted">
           {t('coins.loading')}
           <span className="caret">▋</span>
+        </p>
+      )}
+      {!isLoading && error && rows.length === 0 && <p className="mt-5 text-sm text-down">{error}</p>}
+      {empty && (
+        <div className="mt-5 max-w-md">
+          <MascotSays mood="thinking">{t('coins.empty')}</MascotSays>
+          {!editing && (
+            <button type="button" onClick={() => setEditing(true)} className="go go-sm mt-4 w-full">
+              {t('coins.edit')}
+            </button>
+          )}
         </div>
       )}
-      {!isLoading && error && rows.length === 0 && (
-        <div className="card p-6 text-center text-sm text-down">{error}</div>
+      {rows.length > 0 && (
+        <ul className="mt-2 grid items-start lg:grid-cols-2 lg:gap-x-12">
+          {rows.map((item, i) => (
+            <CoinRow key={item.pair || item.symbol || i} item={item} />
+          ))}
+        </ul>
       )}
-      {!isLoading && !error && rows.length === 0 && (
-        <div className="card p-6 text-center text-sm text-muted">{t('coins.empty')}</div>
-      )}
-      <div className="grid gap-3 lg:grid-cols-2">
-        {rows.map((item, i) => (
-          <CoinCard key={item.pair || item.symbol || i} item={item} delay={40 + i * 40} />
-        ))}
-      </div>
     </section>
   )
 }

@@ -6,6 +6,9 @@ import {
   submitFeedback,
   type FeedbackAnswers,
 } from '../lib/feedback'
+import Caption from './brand/Caption'
+import { IconX } from './Icons'
+import MascotSays from './MascotSays'
 
 /* ⚠️ `value` is posted verbatim to a multiple-choice question in the live Google
    Form, which accepts an exact option string and rejects everything else — and
@@ -19,9 +22,9 @@ const EXPERIENCE = [
 ]
 const CLARITY = ['1', '2', '3', '4', '5'].map((v) => ({ label: v, value: v }))
 const WOULD_USE = [
-  { label: 'yes', value: 'yes' },
-  { label: 'sometimes', value: 'sometimes' },
-  { label: 'no', value: 'No' },
+  { label: 'Yes', value: 'yes' },
+  { label: 'Sometimes', value: 'sometimes' },
+  { label: 'No', value: 'No' },
 ]
 
 const EMPTY: FeedbackAnswers = {
@@ -44,7 +47,7 @@ function Chips({
   ariaLabel: string
 }) {
   return (
-    <div role="radiogroup" aria-label={ariaLabel} className="mt-2 flex flex-wrap gap-2">
+    <div role="radiogroup" aria-label={ariaLabel} className="mt-2.5 flex flex-wrap gap-2">
       {options.map((o) => {
         const active = value === o.value
         return (
@@ -54,10 +57,9 @@ function Chips({
             role="radio"
             aria-checked={active}
             onClick={() => onChange(o.value)}
-            className={`num cursor-pointer rounded-md border px-3.5 py-2 text-sm transition ${
-              active
-                ? 'border-line-2 bg-teal/12 text-teal'
-                : 'border-line text-mute hover:border-line-2 hover:text-fg'
+            className={`link num min-w-11 cursor-pointer rounded-[10px] border-2 px-3.5 py-2 text-sm font-semibold transition ${
+              // the answer you picked sits on the gold marker, like the tab you are on
+              active ? 'border-candy bg-marker text-on-marker' : 'border-text/20 hover:border-text/50'
             }`}
           >
             {o.label}
@@ -79,15 +81,15 @@ function Field({
 }) {
   return (
     <div>
-      <p className="font-display text-sm font-semibold tracking-wide text-fg">{label}</p>
-      {hint && <p className="tick-label mt-0.5">{hint}</p>}
+      <p className="leading-snug font-semibold">{label}</p>
+      {hint && <p className="mt-0.5 text-[13px] text-muted">{hint}</p>}
       {children}
     </div>
   )
 }
 
 const textareaClass =
-  'mt-2 w-full resize-none rounded-md border border-line bg-panel-2 px-3 py-2 text-[13px] leading-relaxed text-fg outline-none transition placeholder:text-mute/70 focus:border-line-2'
+  'mt-2.5 w-full resize-none rounded-[14px] border-2 border-text/15 bg-card px-3.5 py-2.5 text-[15px] leading-relaxed outline-none transition placeholder:text-muted/80 focus:border-text/60'
 
 export default function FeedbackModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [answers, setAnswers] = useState<FeedbackAnswers>(EMPTY)
@@ -135,69 +137,65 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
 
   return (
     <div
-      className="fixed inset-0 z-[60] grid place-items-center bg-ink/70 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[60] grid place-items-end bg-black/45 sm:place-items-center sm:p-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label="Send anonymous feedback"
+      // the form is in English only
+      dir="ltr"
+      lang="en"
     >
+      {/* a sheet of the same paper as the page */}
       <div
-        className="glass rise max-h-[88vh] w-full max-w-xl overflow-y-auto p-6"
+        className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-t-[28px] bg-bg px-5 pt-5 pb-6 text-start shadow-2xl sm:rounded-[28px] sm:px-7 sm:pt-6"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 className="font-display text-xl font-semibold tracking-wide">
-              Give <span className="text-teal">feedback</span>
-            </h2>
-            <p className="tick-label mt-1">
-              30 seconds · anonymous · no sign-in · nothing stored about you
-            </p>
+            <Caption text="Give [[feedback]]" className="text-[2.1rem]" />
+            <p className="mt-1.5 text-sm text-muted">30 seconds. Anonymous, no sign-in, nothing stored about you.</p>
           </div>
           <button
             onClick={onClose}
             aria-label="Close feedback"
-            className="cursor-pointer rounded-md border border-line px-2.5 py-1 text-sm text-mute transition hover:border-line-2 hover:text-fg"
+            className="link -me-1.5 grid size-10 shrink-0 cursor-pointer place-items-center rounded-xl text-xl text-muted transition hover:text-text"
           >
-            ×
+            <IconX />
           </button>
         </div>
 
         {state === 'sent' ? (
-          <div className="py-10 text-center">
-            <p className="font-display text-2xl font-semibold tracking-wide text-teal">sent ✦</p>
-            <p className="mx-auto mt-3 max-w-sm text-[13px] leading-relaxed text-mute">
+          <div className="pt-6 pb-2">
+            <MascotSays mood="excited">
               {feedbackPreview ? (
                 <>
-                  This is the screen a tester sees. Nothing was actually sent — open the browser
-                  console to see the payload Google would have received.
+                  Sent. This is the screen a tester sees. Nothing was actually sent: open the browser console to see the
+                  payload Google would have received.
                 </>
               ) : (
                 <>
-                  That genuinely changes what gets built next. If you left a contact, you'll hear
-                  when your suggestion ships.
+                  Sent. That genuinely changes what gets built next. If you left a contact, you'll hear when your
+                  suggestion ships.
                 </>
               )}
-            </p>
-            <button
-              onClick={onClose}
-              className="glass mt-6 cursor-pointer px-5 py-2 font-display text-xs font-semibold tracking-widest text-teal uppercase transition hover:border-line-2"
-            >
-              back to the desk
+            </MascotSays>
+            <button onClick={onClose} className="go go-sm mt-6 w-full">
+              Back to Qirat
             </button>
           </div>
         ) : (
           <>
             {feedbackPreview && (
-              <p className="mt-4 rounded-md border border-hold/40 bg-hold/10 px-3 py-2 text-[12px] leading-relaxed text-hold">
-                <b className="font-semibold">Preview.</b> No Google Form is connected yet, so
-                answers go to the browser console instead of a spreadsheet. Testers never see this
-                banner — in production the whole form stays hidden until it's wired up.
+              <p className="mt-5 border-s-4 border-warn ps-3 text-[13px] leading-relaxed">
+                <b className="font-semibold">Preview.</b> No Google Form is connected yet, so answers go to the browser
+                console instead of a spreadsheet. Testers never see this note: in production the whole form stays
+                hidden until it's wired up.
               </p>
             )}
 
-            <div className="mt-5 space-y-5">
-              <Field label="How long have you been in crypto?" hint="required">
+            <div className="mt-6 space-y-6">
+              <Field label="How long have you been in crypto?" hint="Required">
                 <Chips
                   options={EXPERIENCE}
                   value={answers.experience}
@@ -206,7 +204,7 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
                 />
               </Field>
 
-              <Field label="Was the 0–100 score clear?" hint="1 = no idea what it meant · 5 = obvious">
+              <Field label="Was the 0–100 score clear?" hint="1 = no idea what it meant, 5 = obvious">
                 <Chips
                   options={CLARITY}
                   value={answers.clarity}
@@ -215,7 +213,7 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
                 />
               </Field>
 
-              <Field label="Would you check this before a trade?" hint="required">
+              <Field label="Would you check this before a trade?" hint="Required">
                 <Chips
                   options={WOULD_USE}
                   value={answers.wouldUse}
@@ -224,7 +222,7 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
                 />
               </Field>
 
-              <Field label="What's missing?" hint="the one that really matters — required">
+              <Field label="What's missing?" hint="Required. The one that really matters.">
                 <textarea
                   value={answers.missing}
                   onChange={(e) => set({ missing: e.target.value })}
@@ -235,7 +233,7 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
                 />
               </Field>
 
-              <Field label="Anything confusing or broken?" hint="optional">
+              <Field label="Anything confusing or broken?" hint="Optional">
                 <textarea
                   value={answers.friction}
                   onChange={(e) => set({ friction: e.target.value })}
@@ -248,17 +246,12 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
             </div>
 
             {state === 'error' && (
-              <p className="mt-4 text-[13px] text-sell">
-                Couldn't send — check your connection and try again
+              <p className="mt-5 text-sm text-down">
+                Couldn't send. Check your connection and try again
                 {feedbackFormUrl && (
                   <>
                     , or{' '}
-                    <a
-                      href={feedbackFormUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline hover:text-fg"
-                    >
+                    <a href={feedbackFormUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-text">
                       open the form directly
                     </a>
                   </>
@@ -267,18 +260,10 @@ export default function FeedbackModal({ open, onClose }: { open: boolean; onClos
               </p>
             )}
 
-            <div className="mt-6 flex items-center justify-between gap-4 border-t border-line pt-4">
-              <p className="text-[11px] leading-relaxed text-mute">
-                Goes to a Google Form. No account, no email required.
-              </p>
-              <button
-                onClick={send}
-                disabled={!canSend}
-                className="cursor-pointer rounded-lg bg-teal px-5 py-2 font-display text-xs font-bold tracking-widest text-ink uppercase transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                {state === 'sending' ? 'sending…' : 'send'}
-              </button>
-            </div>
+            <button onClick={send} disabled={!canSend} className="go go-sm mt-7 w-full disabled:cursor-not-allowed disabled:opacity-40">
+              {state === 'sending' ? 'Sending…' : 'Send'}
+            </button>
+            <p className="mt-5 text-center text-[13px] text-muted">Goes to a Google Form. No account, no email required.</p>
           </>
         )}
       </div>

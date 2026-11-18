@@ -5,21 +5,22 @@ import { INVITE } from '../lib/invite'
 import { detectKind, isEvmAddress, scamCheck } from '../lib/scamcheck'
 import type { InputKind, Level, ScamResult, Severity } from '../lib/scamcheck'
 import { track } from '../lib/source'
-import { IconShield } from './Icons'
+import Caption from './brand/Caption'
+import MascotSays from './MascotSays'
+import Ticket from './Ticket'
 
 // Strings live here (not in lib/i18n.ts) so this view stays self-contained.
 const S = {
-  // Says what Qirat is to someone who has just arrived from a video.
-  lead: {
-    en: 'Qirat checks a message for scam signs before you lose money. Free.',
-    fr: 'Qirat vérifie un message avant que vous ne perdiez de l’argent. Gratuit.',
-    ar: 'قيراط يفركسلك الميساج قبل ما تخسر فلوسك. بلاش.',
-  },
-  title: { en: 'Is this a scam?', fr: 'Est-ce une arnaque ?', ar: 'هذا تحيّل؟' },
+  // The caption: the word inside [[double brackets]] sits on the gold marker.
+  // CHECK (marker only, words unchanged)
+  title: { en: 'Is this a [[scam]]?', fr: 'Est-ce une [[arnaque]] ?', ar: 'هذا [[تحيّل]]؟' },
+  // What a check gives, and what it never gives. What to paste is shown by the
+  // box's own hint and the three examples under the button.
+  // CHECK (first sentence removed, the rest unchanged)
   intro: {
-    en: 'Paste a WhatsApp or Telegram message, a link, a platform name or a token address. Qirat lists the warning signs and what to check. It never says something is safe.',
-    fr: 'Collez un message WhatsApp ou Telegram, un lien, un nom de plateforme ou une adresse de token. Qirat liste les signaux d’alerte et quoi vérifier. Il ne dit jamais qu’une chose est sûre.',
-    ar: 'الصق ميساج WhatsApp ولا Telegram، لينك، اسم منصّة ولا عنوان coin. قيراط يورّيك علامات الخطر وشنوّة لازمك تثبّت، وعمرو ما يقلّك حاجة «مضمونة».',
+    en: 'Qirat lists the warning signs and what to check. It never says something is safe.',
+    fr: 'Qirat liste les signaux d’alerte et quoi vérifier. Il ne dit jamais qu’une chose est sûre.',
+    ar: 'قيراط يورّيك علامات الخطر وشنوّة لازمك تثبّت، وعمرو ما يقلّك حاجة «مضمونة».',
   },
   placeholder: {
     en: 'e.g. “Guaranteed 5% a day, send USDT to this wallet…” or binance-support.com',
@@ -75,12 +76,14 @@ const CHAINS: { id: string; label: string }[] = [
 
 const EXAMPLES = ['binance-support.com', 'ELINOJA PATRIMOINE']
 
-const LEVEL_STYLE: Record<Level, { band: string; icon: string; tint: string }> = {
-  high: { band: 'bg-down', icon: 'text-down', tint: 'bg-down/8' },
-  medium: { band: 'bg-warn', icon: 'text-warn', tint: 'bg-warn/8' },
-  low: { band: 'bg-gold-bright', icon: 'text-gold', tint: 'bg-gold-soft' },
-  none: { band: 'bg-gold-bright', icon: 'text-gold', tint: 'bg-gold-soft' },
-  unsure: { band: 'bg-neutral', icon: 'text-muted', tint: 'bg-subtle' },
+// A level is a dot of colour beside the verdict: red and amber mean what they
+// say, and "none" is never green, because no check can prove something is safe.
+const LEVEL_DOT: Record<Level, string> = {
+  high: 'bg-down',
+  medium: 'bg-warn',
+  low: 'bg-gold-bright',
+  none: 'bg-gold-bright',
+  unsure: 'bg-neutral',
 }
 
 const SEV_DOT: Record<Severity, string> = {
@@ -90,6 +93,9 @@ const SEV_DOT: Record<Severity, string> = {
   info: 'bg-neutral',
 }
 
+/** A caption string without its marker brackets, for labels read aloud. */
+const plain = (text: string) => text.replace(/\[\[|\]\]/g, '')
+
 function shareText(r: ScamResult, s: (k: Key) => string): string {
   const lines = [`🛡 ${s('shareHead')}: ${r.verdict}`]
   for (const f of r.flags.filter((f) => f.severity === 'high' || f.severity === 'medium').slice(0, 4)) {
@@ -98,6 +104,8 @@ function shareText(r: ScamResult, s: (k: Key) => string): string {
   lines.push('', r.disclaimer, `${s('shareFoot')}: https://qirat.tn/w`)
   return lines.join('\n')
 }
+
+const linkClass = 'underline underline-offset-2'
 
 export default function ScamCheckView() {
   const { lang } = useI18n()
@@ -185,23 +193,27 @@ export default function ScamCheckView() {
     inputRef.current?.focus()
   }
 
-  const style = result ? LEVEL_STYLE[result.level] : LEVEL_STYLE.none
   const checked = result?.sources.filter((x) => x.status !== 'reference') ?? []
   const refs = result?.sources.filter((x) => x.status === 'reference') ?? []
 
   return (
-    <div className="space-y-5">
-      <section className="card hero-wash rise p-5">
-        <p className="mb-2 text-sm font-medium text-gold">{s('lead')}</p>
-        <h1 className="flex items-center gap-2 text-xl font-semibold">
-          <IconShield className="text-gold" /> {s('title')}
-        </h1>
-        <p className="mt-1 max-w-2xl text-sm text-muted">{s('intro')}</p>
+    <div>
+      <section className="grid gap-y-4 md:grid-cols-2 md:gap-x-12 md:pt-6">
+        <div className="md:col-start-1 md:row-start-1">
+          <Caption
+            as="h1"
+            text={s('title')}
+            className="pt-1 text-[clamp(2.75rem,13.5vw,4rem)] md:text-[4.5rem] ltr:text-[clamp(2.4rem,11vw,3.4rem)] ltr:md:text-[4rem]"
+          />
+          <p className="mt-3 max-w-md text-[15px] text-muted">{s('intro')}</p>
+        </div>
 
         <form
-          className="mt-4 space-y-3"
+          className="md:col-start-2 md:row-span-2 md:row-start-1 md:pt-3"
           onSubmit={(e) => {
             e.preventDefault()
+            // nothing pasted yet: the button points at the box
+            if (!input.trim()) inputRef.current?.focus()
             run()
           }}
         >
@@ -212,103 +224,99 @@ export default function ScamCheckView() {
             onKeyDown={(e) => {
               if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) run()
             }}
-            dir="auto"
+            // empty, the box follows the page so its hint reads the right way round
+            dir={input ? 'auto' : undefined}
             rows={4}
             maxLength={4000}
             placeholder={s('placeholder')}
-            aria-label={s('title')}
-            className="w-full resize-y rounded-2xl border border-border bg-card px-4 py-3 text-[15px] outline-none transition placeholder:text-muted/70 focus:border-border-strong focus:ring-2 focus:ring-gold-soft"
+            aria-label={plain(s('title'))}
+            className="block w-full resize-y rounded-[18px] border-2 border-text/15 bg-card px-4 py-3 text-[15px] outline-none transition placeholder:text-muted/80 focus:border-text/60"
           />
-          <div className="flex flex-wrap items-center gap-2">
-            {kind && (
-              <span className="rounded-full bg-subtle px-3 py-1 text-xs text-muted">
-                {s('detected')} <span className="font-medium text-text">{s(`kind.${kind}` as Key)}</span>
-              </span>
-            )}
-            {kind === 'address' && isEvmAddress(input) && (
-              <label className="flex items-center gap-1.5 text-xs text-muted">
-                {s('chain')}
-                <select
-                  value={chain}
-                  onChange={(e) => setChain(e.target.value)}
-                  className="cursor-pointer rounded-full border border-border bg-card px-2 py-1 text-xs text-text"
-                >
-                  {CHAINS.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.id ? c.label : s('chainAuto')}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            )}
-            <button
-              type="submit"
-              disabled={!input.trim() || loading}
-              className="ms-auto cursor-pointer rounded-full bg-text px-5 py-2 text-sm font-medium text-bg transition hover:opacity-90 disabled:cursor-default disabled:opacity-40"
-            >
-              {loading ? s('checking') : s('check')}
-            </button>
-          </div>
+          {kind && (
+            <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] text-muted">
+              <p>
+                {s('detected')} <span className="font-semibold text-text">{s(`kind.${kind}` as Key)}</span>
+              </p>
+              {kind === 'address' && isEvmAddress(input) && (
+                <label className="flex items-center gap-2">
+                  {s('chain')}
+                  <select
+                    value={chain}
+                    onChange={(e) => setChain(e.target.value)}
+                    className="cursor-pointer rounded-[10px] border-2 border-text/15 bg-card px-2 py-1 text-[13px] text-text"
+                  >
+                    {CHAINS.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.id ? c.label : s('chainAuto')}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )}
+            </div>
+          )}
+          <button type="submit" disabled={loading} className="go mt-4 w-full disabled:cursor-default disabled:opacity-60">
+            {loading ? s('checking') : s('check')}
+          </button>
+          {error && <p className="mt-4 text-sm text-warn">{error}</p>}
         </form>
 
-        {!result && (
-          <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-muted">
-            <span>{s('tryOne')}</span>
-            {[s('ex1'), ...EXAMPLES].map((label, i) => (
-              <button
-                key={label}
-                type="button"
-                onClick={() => {
-                  const text = i === 0 ? s('ex1Text') : label
-                  setInput(text)
-                  run(text)
-                }}
-                className="cursor-pointer rounded-full border border-border px-3 py-1 text-text transition hover:border-border-strong hover:bg-gold-soft"
-                dir="auto"
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        )}
-        {error && <p className="mt-3 text-sm text-warn">{error}</p>}
-        <p className="mt-4 border-t border-border pt-3 text-xs text-muted">{INVITE.trust[lang]}</p>
+        <div className="md:col-start-1 md:row-start-2">
+          {!result && (
+            <div className="pt-2 text-[15px]">
+              <p className="text-[13px] text-muted">{s('tryOne')}</p>
+              <ul>
+                {[s('ex1'), ...EXAMPLES].map((label, i) => (
+                  <li key={label}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const text = i === 0 ? s('ex1Text') : label
+                        setInput(text)
+                        run(text)
+                      }}
+                      className="alt py-1.5 text-start"
+                      dir="auto"
+                    >
+                      {label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <p className="mt-4 max-w-md text-[13px] text-muted">{INVITE.trust[lang]}</p>
+        </div>
       </section>
 
       {result && (
-        <section ref={resultRef} className="card rise scroll-mt-20 overflow-hidden" aria-live="polite">
-          <div className={`h-1.5 ${style.band}`} />
-          <div className="space-y-5 p-5">
-            <div className="flex items-start gap-3">
-              <span className={`grid size-11 shrink-0 place-items-center rounded-full text-2xl ${style.tint} ${style.icon}`}>
-                <IconShield />
-              </span>
-              <div className="min-w-0">
-                <h2 className="text-lg font-semibold">{result.verdict}</h2>
-                <p className="text-sm text-muted">{result.disclaimer}</p>
-              </div>
+        <section ref={resultRef} className="mx-auto mt-10 max-w-xl scroll-mt-20" aria-live="polite">
+          {/* the record of this check; it can be very long, so it leans only a little and stays inside the page's margin */}
+          <Ticket tilt={-0.4} className="mx-1">
+            <p className="poster pb-3 text-[20px] text-muted">{s('shareHead')}</p>
+            <div className="ticket-rule pt-4">
+              <h2 className="poster flex items-baseline gap-2.5 text-[28px]">
+                <span className={`size-3.5 shrink-0 rounded-full ${LEVEL_DOT[result.level]}`} aria-hidden />
+                {result.verdict}
+              </h2>
+              <p className="mt-2 text-sm text-muted">{result.disclaimer}</p>
             </div>
 
             {result.flags.length > 0 && (
-              <div>
-                <h3 className="tick-label">{s('flags')}</h3>
-                <ul className="mt-2 divide-y divide-border">
+              <div className="ticket-rule mt-4 pt-4">
+                <h3 className="text-[13px] font-semibold text-muted">{s('flags')}</h3>
+                <ul>
                   {result.flags.map((f, i) => (
-                    <li key={`${f.id}-${i}`} className="flex gap-3 py-3">
+                    <li key={`${f.id}-${i}`} className="flex gap-3 py-2.5">
                       <span className={`mt-2 size-2.5 shrink-0 rounded-full ${SEV_DOT[f.severity]}`} aria-hidden />
                       <div className="min-w-0">
-                        <p className="font-medium">
+                        <p className="leading-snug font-semibold">
                           {f.title}
-                          <span className="ms-2 align-middle text-[11px] font-normal text-muted">{s(`sev.${f.severity}` as Key)}</span>
+                          <span className="ms-2 text-xs font-normal text-muted">{s(`sev.${f.severity}` as Key)}</span>
                         </p>
-                        <p className="mt-0.5 text-sm text-muted">{f.detail}</p>
+                        <p className="mt-1 text-sm text-muted">{f.detail}</p>
                         {f.source?.url && (
-                          <a
-                            href={f.source.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="mt-1 inline-block text-xs text-gold underline underline-offset-2"
-                          >
+                          <a href={f.source.url} target="_blank" rel="noreferrer" className={`mt-1 inline-block text-[13px] ${linkClass}`}>
                             {f.source.name}
                           </a>
                         )}
@@ -319,29 +327,13 @@ export default function ScamCheckView() {
               </div>
             )}
 
-            {(result.explanation || explaining) && (
-              <div className="rounded-2xl bg-subtle p-4">
-                <p className="tick-label">{s('inPlainWords')}</p>
-                {result.explanation ? (
-                  <p className="mt-1 text-[15px] whitespace-pre-line" dir="auto">
-                    {result.explanation}
-                  </p>
-                ) : (
-                  <p className="mt-1 text-sm text-muted">
-                    {s('explaining')}
-                    <span className="caret">▋</span>
-                  </p>
-                )}
-              </div>
-            )}
-
             {result.checks.length > 0 && (
-              <div className="rounded-2xl border border-border-strong bg-gold-soft/60 p-4">
-                <h3 className="tick-label">{s('checks')}</h3>
+              <div className="ticket-rule mt-4 pt-4">
+                <h3 className="text-[13px] font-semibold text-muted">{s('checks')}</h3>
                 <ul className="mt-2 space-y-2 text-sm">
                   {result.checks.map((c) => (
-                    <li key={c} className="flex gap-2">
-                      <span className="mt-0.5 text-gold" aria-hidden>
+                    <li key={c} className="flex gap-2.5">
+                      <span className="font-semibold" aria-hidden>
                         ✓
                       </span>
                       <span>{c}</span>
@@ -351,76 +343,89 @@ export default function ScamCheckView() {
               </div>
             )}
 
-            <div className="space-y-1 text-xs text-muted">
-              {checked.length > 0 && (
-                <p>
-                  {s('sources')}:{' '}
-                  {checked.map((x, i) => (
-                    <span key={x.id}>
-                      {i > 0 && ' · '}
-                      {x.url ? (
-                        <a href={x.url} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-gold">
+            {(checked.length > 0 || refs.length > 0) && (
+              <div className="ticket-rule mt-4 space-y-1.5 pt-4 text-xs text-muted">
+                {checked.length > 0 && (
+                  <p>
+                    {s('sources')}:{' '}
+                    {checked.map((x, i) => (
+                      <span key={x.id}>
+                        {i > 0 && ', '}
+                        {x.url ? (
+                          <a href={x.url} target="_blank" rel="noreferrer" className={linkClass}>
+                            {x.name}
+                          </a>
+                        ) : (
+                          x.name
+                        )}
+                        {x.status === 'unavailable' && ` (${s('unavailable')})`}
+                      </span>
+                    ))}
+                  </p>
+                )}
+                {refs.length > 0 && (
+                  <p>
+                    {s('references')}:{' '}
+                    {refs.map((x, i) => (
+                      <span key={x.url}>
+                        {i > 0 && ', '}
+                        <a href={x.url} target="_blank" rel="noreferrer" className={linkClass}>
                           {x.name}
                         </a>
-                      ) : (
-                        x.name
-                      )}
-                      {x.status === 'unavailable' && ` (${s('unavailable')})`}
-                    </span>
-                  ))}
-                </p>
-              )}
-              {refs.length > 0 && (
-                <p>
-                  {s('references')}:{' '}
-                  {refs.map((x, i) => (
-                    <span key={x.url}>
-                      {i > 0 && ' · '}
-                      <a href={x.url} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-gold">
-                        {x.name}
-                      </a>
-                    </span>
-                  ))}
-                </p>
-              )}
-            </div>
-
-            <div className="flex flex-wrap items-center gap-2 border-t border-border pt-4">
-              <button
-                onClick={share}
-                className="cursor-pointer rounded-full bg-text px-4 py-2 text-sm font-medium text-bg transition hover:opacity-90"
-              >
-                {s('share')}
-              </button>
-              <a
-                href={`https://wa.me/?text=${encodeURIComponent(shareText(result, s))}`}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => track('share', 'scam')}
-                className="rounded-full border border-border px-4 py-2 text-sm font-medium transition hover:border-border-strong"
-              >
-                WhatsApp
-              </a>
-              <button
-                onClick={reset}
-                className="cursor-pointer rounded-full border border-border-strong px-4 py-2 text-sm font-medium text-gold transition hover:bg-gold-soft"
-              >
-                {s('again')}
-              </button>
-              {copied && <span className="text-xs text-muted">{s('copied')}</span>}
-            </div>
-            {manualShare && (
-              <textarea
-                readOnly
-                value={manualShare}
-                rows={5}
-                dir="auto"
-                onFocus={(e) => e.currentTarget.select()}
-                aria-label={s('share')}
-                className="w-full rounded-2xl border border-border bg-subtle p-3 text-sm"
-              />
+                      </span>
+                    ))}
+                  </p>
+                )}
+              </div>
             )}
-          </div>
+          </Ticket>
+
+          {/* Qirat reads the record out in plain words */}
+          {(result.explanation || explaining) && (
+            <MascotSays mood={result.level === 'high' ? 'worried' : 'thinking'} className="mt-9">
+              <span className="block text-[13px] font-semibold opacity-70">{s('inPlainWords')}</span>
+              {result.explanation ? (
+                <span className="mt-0.5 block whitespace-pre-line" dir="auto">
+                  {result.explanation}
+                </span>
+              ) : (
+                <span className="mt-0.5 block">
+                  {s('explaining')}
+                  <span className="caret">▋</span>
+                </span>
+              )}
+            </MascotSays>
+          )}
+
+          <button type="button" onClick={share} className="go mt-8 w-full">
+            {s('share')}
+          </button>
+          {copied && <p className="mt-4 text-center text-[13px] text-muted">{s('copied')}</p>}
+          <p className="mt-5 flex flex-wrap justify-center gap-x-7 gap-y-2 text-[15px]">
+            <a
+              href={`https://wa.me/?text=${encodeURIComponent(shareText(result, s))}`}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => track('share', 'scam')}
+              className="alt"
+            >
+              WhatsApp
+            </a>
+            <button type="button" onClick={reset} className="alt">
+              {s('again')}
+            </button>
+          </p>
+          {manualShare && (
+            <textarea
+              readOnly
+              value={manualShare}
+              rows={5}
+              dir="auto"
+              onFocus={(e) => e.currentTarget.select()}
+              aria-label={s('share')}
+              className="mt-5 block w-full rounded-[18px] border-2 border-text/15 bg-card p-3 text-sm"
+            />
+          )}
         </section>
       )}
     </div>

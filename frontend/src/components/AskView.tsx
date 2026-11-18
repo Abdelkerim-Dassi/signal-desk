@@ -3,9 +3,15 @@ import type { AnalyzeParams, Brief, ChatMessage } from '../lib/api'
 import { generateBriefing, streamChat } from '../lib/api'
 import { briefingHtml } from '../lib/format'
 import { useI18n } from '../lib/i18n'
-import { IconSend, IconSparkle } from './Icons'
+import Caption from './brand/Caption'
+import { IconSend } from './Icons'
+import MascotSays from './MascotSays'
 
 const THROTTLE_MS = 5 * 60 * 1000 // client-side guard; the server narrative cache is the real one
+
+const H1 = 'pt-1 text-[clamp(2.75rem,13.5vw,4rem)] md:text-[4.5rem] ltr:text-[clamp(2.4rem,11vw,3.4rem)] ltr:md:text-[4rem]'
+// something Qirat wrote: a sheet of paper with one small corner, like the lesson card on the first screen
+const SHEET = 'briefing-md rounded-[22px] rounded-es-[4px] bg-card px-4 py-3 text-[15px] shadow-[0_14px_22px_-16px_rgba(60,40,5,.5)]'
 
 function Briefing({ brief, watchlist }: { brief: Brief | undefined; watchlist: AnalyzeParams }) {
   const { t, lang } = useI18n()
@@ -37,37 +43,29 @@ function Briefing({ brief, watchlist }: { brief: Brief | undefined; watchlist: A
     }
   }
 
+  const label = loading ? t('ask.writing') : text ? t('ask.regenerate') : t('ask.generate')
   return (
-    <section className="card hero-wash rise p-5">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="max-w-xl">
-          <h2 className="flex items-center gap-2 text-lg font-semibold">
-            <IconSparkle className="text-gold" /> {t('ask.briefTitle')}
-          </h2>
-          {!text && <p className="mt-1 text-sm text-muted">{t('ask.briefIntro')}</p>}
-        </div>
-        <button
-          onClick={run}
-          disabled={!brief || loading}
-          className="cursor-pointer rounded-full bg-text px-4 py-2 text-sm font-medium text-bg transition hover:opacity-90 disabled:opacity-40"
-        >
-          {loading ? t('ask.writing') : text ? t('ask.regenerate') : t('ask.generate')}
-        </button>
-      </div>
-      {error && <p className="mt-3 text-sm text-warn">{error}</p>}
-      {loading && !text && (
-        <p className="mt-4 text-sm text-muted">
-          {t('ask.writing')}
-          <span className="caret">▋</span>
-        </p>
-      )}
+    <section className="pt-10 pb-2 md:pt-14" aria-labelledby="ask-brief">
+      <Caption id="ask-brief" text={t('ask.briefTitle')} className="text-[2.1rem] md:text-5xl" />
+      {/* it reads in the direction of the language it was written in */}
       {text && (
         <div
-          className="briefing-md mt-3 text-[15px]"
-          dir="auto"
+          className={`${SHEET} mt-5 max-w-2xl`}
+          dir={textLang === 'ar' ? 'rtl' : 'ltr'}
           dangerouslySetInnerHTML={{ __html: briefingHtml(text) }}
         />
       )}
+      {/* writing it is the action; once it is written, rewriting is the second choice */}
+      {text ? (
+        <button onClick={run} disabled={!brief || loading} className="alt mt-5 text-[15px] disabled:opacity-50">
+          {label}
+        </button>
+      ) : (
+        <button onClick={run} disabled={!brief || loading} className="go mt-5 w-full max-w-md disabled:cursor-default disabled:opacity-60">
+          {label}
+        </button>
+      )}
+      {error && <p className="mt-4 text-sm text-warn">{error}</p>}
     </section>
   )
 }
@@ -78,6 +76,7 @@ function Chat({ brief, watchlist }: { brief: Brief | undefined; watchlist: Analy
   const [input, setInput] = useState('')
   const [streaming, setStreaming] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' })
@@ -123,72 +122,79 @@ function Chat({ brief, watchlist }: { brief: Brief | undefined; watchlist: Analy
   }
 
   return (
-    <section className="card rise flex flex-col p-5" style={{ animationDelay: '80ms' }}>
-      <h2 className="text-lg font-semibold">{t('ask.chatTitle')}</h2>
-      <p className="mt-1 text-sm text-muted">{t('ask.chatIntro')}</p>
-
-      <div ref={scrollRef} className="mt-4 max-h-[55vh] space-y-3 overflow-y-auto">
-        {messages.map((m, i) => (
-          <div
-            key={i}
-            dir="auto"
-            className={
-              m.role === 'user'
-                ? 'ms-auto w-fit max-w-[85%] rounded-2xl rounded-ee-md bg-text px-4 py-2.5 text-[15px] text-bg'
-                : 'briefing-md me-auto max-w-[92%] rounded-2xl rounded-es-md bg-subtle px-4 py-2.5 text-[15px]'
-            }
-          >
-            {m.role === 'assistant' ? (
-              <>
-                <div dangerouslySetInnerHTML={{ __html: briefingHtml(m.content) }} />
-                {i === messages.length - 1 && streaming && <span className="caret text-gold">▋</span>}
-              </>
-            ) : (
-              m.content
-            )}
-          </div>
-        ))}
+    <section className="md:grid md:grid-cols-2 md:gap-x-12 md:pt-6">
+      <div>
+        <Caption as="h1" text={t('ask.chatTitle')} className={H1} />
+        <MascotSays className="mt-4 max-w-md">{t('ask.chatIntro')}</MascotSays>
       </div>
 
-      {messages.length === 0 && (
-        <div className="mt-1 flex flex-wrap gap-2">
-          {suggestions.map((s) => (
-            <button
-              key={s}
-              onClick={() => send(s)}
-              className="cursor-pointer rounded-full border border-border px-3.5 py-1.5 text-sm transition hover:border-border-strong hover:text-gold"
-            >
-              {s}
-            </button>
-          ))}
+      <div className="md:pt-3">
+        <div ref={scrollRef} className={`max-h-[55vh] space-y-3 overflow-y-auto ${messages.length ? 'mt-6 pb-5 md:mt-0' : ''}`}>
+          {/* The question sits on the marker at the far side, the answer is a sheet on the near side.
+              An answer comes in the page's language, so it reads in the page's direction even when
+              it opens with a ticker; a question reads in whatever was typed. */}
+          {messages.map((m, i) =>
+            m.role === 'user' ? (
+              <div key={i} className="flex justify-end">
+                <p className="max-w-[85%] rounded-[18px] rounded-ee-[4px] bg-marker px-4 py-2.5 text-[15px] font-medium text-on-marker">
+                  <span dir="auto" className="block">
+                    {m.content}
+                  </span>
+                </p>
+              </div>
+            ) : (
+              <div key={i} className="flex justify-start">
+                <div className={`${SHEET} max-w-[92%]`}>
+                  <div dangerouslySetInnerHTML={{ __html: briefingHtml(m.content) }} />
+                  {i === messages.length - 1 && streaming && <span className="caret">▋</span>}
+                </div>
+              </div>
+            ),
+          )}
         </div>
-      )}
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-          send()
-        }}
-        className="mt-4 flex gap-2"
-      >
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder={t('ask.placeholder')}
-          disabled={streaming}
-          maxLength={600}
-          dir="auto"
-          className="min-w-0 flex-1 rounded-full border border-border bg-subtle/60 px-4 py-2.5 text-[15px] outline-none transition focus:border-border-strong disabled:opacity-50"
-        />
-        <button
-          type="submit"
-          disabled={streaming || !input.trim()}
-          aria-label={t('ask.send')}
-          className="grid size-11 shrink-0 cursor-pointer place-items-center rounded-full bg-gold text-lg text-white transition hover:opacity-90 disabled:opacity-40 rtl:-scale-x-100"
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+            // nothing typed yet: the button points at the box
+            if (!input.trim()) inputRef.current?.focus()
+            send()
+          }}
+          className={`flex items-start gap-2.5 ${messages.length ? 'mt-1' : 'mt-6 md:mt-0'}`}
         >
-          <IconSend />
-        </button>
-      </form>
+          <input
+            ref={inputRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={t('ask.placeholder')}
+            disabled={streaming}
+            maxLength={600}
+            // empty, the box follows the page so its hint reads the right way round
+            dir={input ? 'auto' : undefined}
+            className="h-[50px] min-w-0 flex-1 rounded-[14px] border-2 border-text/15 bg-card px-4 text-[15px] outline-none transition placeholder:text-muted/80 focus:border-text/60 disabled:opacity-50"
+          />
+          <button
+            type="submit"
+            disabled={streaming}
+            aria-label={t('ask.send')}
+            className="go go-sm grid size-[50px] shrink-0 place-items-center p-0 text-xl disabled:cursor-default disabled:opacity-60"
+          >
+            <IconSend className="rtl:-scale-x-100" />
+          </button>
+        </form>
+
+        {messages.length === 0 && (
+          <ul className="mt-4 text-[15px]">
+            {suggestions.map((s) => (
+              <li key={s}>
+                <button type="button" onClick={() => send(s)} className="alt py-1.5 text-start text-balance">
+                  {s}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </section>
   )
 }
@@ -204,11 +210,19 @@ export default function AskView({
   aiEnabled: boolean
 }) {
   const { t } = useI18n()
-  if (!aiEnabled) return <div className="card p-6 text-center text-sm text-muted">{t('ask.off')}</div>
+  if (!aiEnabled)
+    return (
+      <section className="md:pt-6">
+        <Caption as="h1" text={t('ask.chatTitle')} className={H1} />
+        <MascotSays mood="worried" className="mt-4 max-w-md">
+          {t('ask.off')}
+        </MascotSays>
+      </section>
+    )
   return (
-    <div className="space-y-4">
-      <Briefing brief={brief} watchlist={watchlist} />
+    <div>
       <Chat brief={brief} watchlist={watchlist} />
+      <Briefing brief={brief} watchlist={watchlist} />
     </div>
   )
 }

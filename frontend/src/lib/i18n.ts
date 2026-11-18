@@ -26,9 +26,6 @@ const UI = {
   'top.theme': { en: 'Switch light / dark', fr: 'Thème clair / sombre', ar: 'فاتح / غامق' },
   'top.language': { en: 'Language', fr: 'Langue', ar: 'اللغة' },
 
-  'greet.morning': { en: 'Good morning', fr: 'Bonjour', ar: 'صباح الخير' },
-  'greet.afternoon': { en: 'Good afternoon', fr: 'Bon après-midi', ar: 'مساء الخير' },
-  'greet.evening': { en: 'Good evening', fr: 'Bonsoir', ar: 'مساء الخير' },
   'hero.on.title': { en: 'The market is risk-on', fr: 'Le marché est favorable', ar: 'السوق في حالة باهية' },
   'hero.off.title': { en: 'The market is risk-off', fr: 'Le marché est défavorable', ar: 'السوق يحب الحذر' },
   'hero.unknown.title': { en: 'Reading the market…', fr: 'Lecture du marché…', ar: 'نقراو في السوق…' },
@@ -56,9 +53,13 @@ const UI = {
   'hero.refresh': { en: 'Refresh', fr: 'Actualiser', ar: 'حدّث' },
   'hero.24h': { en: '24h', fr: '24 h', ar: '24 ساعة' },
 
-  'weather.calm.title': { en: 'The market is calm', fr: 'Le marché est calme', ar: 'السوق صاحي' },
-  'weather.choppy.title': { en: 'The market is choppy', fr: 'Le marché est agité', ar: 'السوق مغيّم' },
-  'weather.stormy.title': { en: 'The market is stormy', fr: 'Le marché est orageux', ar: 'السوق خايب' },
+  // Captions: the word inside [[double brackets]] sits on the gold marker.
+  // CHECK (marker only, words unchanged)
+  'weather.calm.title': { en: 'The market is [[calm]]', fr: 'Le marché est [[calme]]', ar: 'السوق [[صاحي]]' },
+  // CHECK (marker only, words unchanged)
+  'weather.choppy.title': { en: 'The market is [[choppy]]', fr: 'Le marché est [[agité]]', ar: 'السوق [[مغيّم]]' },
+  // CHECK (marker only, words unchanged)
+  'weather.stormy.title': { en: 'The market is [[stormy]]', fr: 'Le marché est [[orageux]]', ar: 'السوق [[خايب]]' },
   'weather.calm.body': {
     en: 'Bitcoin is {pct} above its 50-day average and the crowd is not overheated.',
     fr: 'Le bitcoin est {pct} au-dessus de sa moyenne sur 50 jours et la foule n’est pas en surchauffe.',
@@ -86,6 +87,9 @@ const UI = {
     fr: 'Depuis 2021, les mois commencés avec le bitcoin au-dessus de sa moyenne sur 50 jours ont nettement mieux tourné.',
     ar: 'من 2021، الشهور اللي بداو وBitcoin فوق المعدّل متاع 50 يوم كانو أحسن بالواضح من البقيّة.',
   },
+  // the tap that opens weather.why
+  // CHECK
+  'weather.whyAsk': { en: 'Why?', fr: 'Pourquoi ?', ar: 'علاش؟' },
 
   'karat.label': { en: '{k}K', fr: '{k}K', ar: '{k} قيراط' },
   'karat.none': { en: 'New', fr: 'Nouveau', ar: 'جديدة' },
@@ -103,10 +107,16 @@ const UI = {
     ar: 'أهدى من {n}% من الـ coins الكبار',
   },
   'karat.perDay': { en: '±{v}% a day', fr: '±{v} % par jour', ar: '±{v}% في النهار' },
-  'karat.scale': {
-    en: '24K = calm and climbing · 10K = wild or sliding. Karats compare coins with each other: in a stormy market even 24K coins usually fall.',
-    fr: '24K = calme et en hausse · 10K = agitée ou en baisse. Les carats comparent les cryptos entre elles : dans un marché orageux, même les 24K baissent souvent.',
-    ar: '24K = باهية وطالعة · 10K = متقلّبة ولا هابطة. القيراط يقارن الـ coins بين بعضهم: في سوق خايب حتى الـ 24K عادةً يهبطو.',
+  // The scale, shown as a 24K plate and a 10K plate with these words beside them.
+  // CHECK (the old legend's own words, split in two)
+  'karat.top': { en: 'calm and climbing', fr: 'calme et en hausse', ar: 'باهية وطالعة' },
+  // CHECK (the old legend's own words, split in two)
+  'karat.bottom': { en: 'wild or sliding', fr: 'agitée ou en baisse', ar: 'متقلّبة ولا هابطة' },
+  // CHECK (the second sentence of the old scale line, unchanged)
+  'karat.compare': {
+    en: 'Karats compare coins with each other: in a stormy market even 24K coins usually fall.',
+    fr: 'Les carats comparent les cryptos entre elles : dans un marché orageux, même les 24K baissent souvent.',
+    ar: 'القيراط يقارن الـ coins بين بعضهم: في سوق خايب حتى الـ 24K عادةً يهبطو.',
   },
   'karat.young': {
     en: 'Too new for a karat: it needs 3 months of history.',
@@ -138,7 +148,6 @@ const UI = {
   },
 
   'coins.title': { en: 'Your coins', fr: 'Vos cryptos', ar: 'الـ coins متاعك' },
-  'coins.legend': { en: '24K = calm and climbing · 10K = wild or sliding', fr: '24K = calme et en hausse · 10K = agitée ou en baisse', ar: '24K = باهية وطالعة · 10K = متقلّبة ولا هابطة' },
   'coins.edit': { en: 'Edit list', fr: 'Modifier', ar: 'بدّل الليستة' },
   'coins.done': { en: 'Done', fr: 'Terminé', ar: 'كمّلت' },
   'coins.add': { en: 'Add', fr: 'Ajouter', ar: 'زيد' },
@@ -168,7 +177,8 @@ const UI = {
 
   'coin.today': { en: 'today', fr: "aujourd'hui", ar: 'اليوم' },
   'coin.7d': { en: '7 days', fr: '7 jours', ar: '7 أيام' },
-  'chart.title': { en: '30 days · one candle per day', fr: '30 jours · une bougie par jour', ar: '30 يوم · شمعة لكل نهار' },
+  // CHECK (a comma instead of the middle dot, words unchanged)
+  'chart.title': { en: '30 days, one candle per day', fr: '30 jours, une bougie par jour', ar: '30 يوم، شمعة لكل نهار' },
   'chart.legend': {
     en: 'Green: the day closed higher than it opened. Red: it closed lower. Thin line: the day’s high and low. Tap a candle to see that day.',
     fr: 'Vert : la journée a clôturé plus haut qu’à l’ouverture. Rouge : plus bas. Trait fin : le plus haut et le plus bas du jour. Touchez une bougie pour voir ce jour.',
@@ -195,7 +205,8 @@ const UI = {
   'coin.details': { en: 'Show details', fr: 'Voir le détail', ar: 'ورّي التفاصيل' },
 
   'moves.title': { en: "What's moving", fr: 'Ce qui bouge', ar: 'شنوّة يتحرّك' },
-  'moves.news': { en: 'Headlines', fr: 'À la une', ar: 'الأخبار' },
+  // CHECK
+  'moves.more': { en: 'More headlines', fr: 'Plus de titres', ar: 'أخبار أخرى' },
   'moves.trending': { en: 'Trending searches', fr: 'Recherches tendance', ar: 'الأكثر بحثاً' },
 
   'record.title': { en: 'Track record', fr: 'Historique', ar: 'السجل' },
@@ -249,20 +260,17 @@ const UI = {
   'record.none': { en: 'Nothing logged yet.', fr: 'Rien d’enregistré pour l’instant.', ar: 'لا شيء مسجّل بعد.' },
 
   'ask.briefTitle': { en: "Today's briefing", fr: 'Le briefing du jour', ar: 'ملخّص اليوم' },
-  'ask.briefIntro': {
-    en: "A plain-language read of today's market for your coins, written by AI from the live numbers.",
-    fr: 'Une lecture simple du marché du jour pour vos cryptos, rédigée par l’IA à partir des chiffres en direct.',
-    ar: 'قراية ساهلة لسوق اليوم على الـ coins متاعك، يكتبها الذكاء الاصطناعي من الأرقام الحيّة.',
-  },
   'ask.generate': { en: 'Write my briefing', fr: 'Rédiger mon briefing', ar: 'اكتبلي الملخّص' },
   'ask.regenerate': { en: 'Rewrite', fr: 'Réécrire', ar: 'عاود اكتب' },
   'ask.writing': { en: 'Writing…', fr: 'Rédaction…', ar: 'نكتبو…' },
   'ask.throttled': { en: 'Please wait {s}s before rewriting.', fr: 'Patientez {s} s avant de réécrire.', ar: 'استنّى {s} ثانية قبل ما تعاود تكتب.' },
-  'ask.chatTitle': { en: 'Ask Qirat', fr: 'Demandez à Qirat', ar: 'اسأل قيراط' },
+  // CHECK (marker only, words unchanged)
+  'ask.chatTitle': { en: 'Ask [[Qirat]]', fr: 'Demandez à [[Qirat]]', ar: 'اسأل [[قيراط]]' },
+  // CHECK (first sentence removed, the rest unchanged)
   'ask.chatIntro': {
-    en: 'Ask about any coin on your list. Answers use only the live data and never give personal advice.',
-    fr: 'Posez une question sur vos cryptos. Les réponses s’appuient uniquement sur les données en direct, jamais sur des conseils personnels.',
-    ar: 'اسأل على أي coin في الليستة متاعك. الإجابات تعتمد كان على المعطيات الحيّة وعمرها ما تعطي نصيحة شخصية.',
+    en: 'Answers use only the live data and never give personal advice.',
+    fr: 'Les réponses s’appuient uniquement sur les données en direct, jamais sur des conseils personnels.',
+    ar: 'الإجابات تعتمد كان على المعطيات الحيّة وعمرها ما تعطي نصيحة شخصية.',
   },
   'ask.placeholder': { en: 'Ask about your coins…', fr: 'Une question sur vos cryptos…', ar: 'اسأل على الـ coins متاعك…' },
   'ask.send': { en: 'Send', fr: 'Envoyer', ar: 'ابعث' },
@@ -271,11 +279,13 @@ const UI = {
   'ask.s3': { en: 'Is the market risky today?', fr: 'Le marché est-il risqué aujourd’hui ?', ar: 'السوق فيه risk اليوم؟' },
   'ask.off': { en: 'The AI is offline right now.', fr: 'L’IA est indisponible pour le moment.', ar: 'الذكاء الاصطناعي موش خدّام توّا.' },
 
-  'pf.title': { en: 'Your holdings', fr: 'Vos avoirs', ar: 'الـ coins اللي عندك' },
+  // CHECK (marker only, words unchanged)
+  'pf.title': { en: 'Your [[holdings]]', fr: 'Vos [[avoirs]]', ar: 'الـ coins اللي [[عندك]]' },
+  // CHECK (first two sentences removed, the last one unchanged)
   'pf.intro': {
-    en: "Track value and profit. Your holdings never change a coin's score. Saved only on this device.",
-    fr: 'Suivez valeur et gains. Vos avoirs ne changent jamais le score d’une crypto. Enregistré uniquement sur cet appareil.',
-    ar: 'تبّع القيمة والربح. اللي عندك عمرو ما يبدّل درجة حتى coin. محفوظ كان في الجهاز هذا.',
+    en: 'Saved only on this device.',
+    fr: 'Enregistré uniquement sur cet appareil.',
+    ar: 'محفوظ كان في الجهاز هذا.',
   },
   'pf.coin': { en: 'Coin', fr: 'Crypto', ar: 'الـ coin' },
   'pf.amount': { en: 'Amount', fr: 'Quantité', ar: 'الكمية' },
@@ -285,12 +295,12 @@ const UI = {
   'pf.total': { en: 'Total value', fr: 'Valeur totale', ar: 'القيمة الكلّ' },
   'pf.add': { en: 'Add a holding', fr: 'Ajouter un avoir', ar: 'زيد coin عندك' },
   'pf.remove': { en: 'Remove', fr: 'Retirer', ar: 'نحّي' },
+  // CHECK (first sentence removed, the rest unchanged)
   'pf.empty': {
-    en: 'No holdings yet. Add what you own to see its value and profit.',
-    fr: 'Aucun avoir. Ajoutez ce que vous possédez pour voir sa valeur et vos gains.',
-    ar: 'ما عندك حتى شي توّا. زيد اللي عندك باش تشوف قيمتو والربح متاعك.',
+    en: 'Add what you own to see its value and profit.',
+    fr: 'Ajoutez ce que vous possédez pour voir sa valeur et vos gains.',
+    ar: 'زيد اللي عندك باش تشوف قيمتو والربح متاعك.',
   },
-  'pf.settings': { en: 'Data settings', fr: 'Paramètres des données', ar: 'إعدادات المعطيات' },
   'pf.source': { en: 'Market data', fr: 'Données de marché', ar: 'معطيات السوق' },
   'pf.quote': { en: 'Priced in', fr: 'Prix en', ar: 'السوم بـ' },
   'pf.alerts': { en: 'Send to my channels', fr: 'Envoyer sur mes canaux', ar: 'ابعث للقنوات متاعي' },
