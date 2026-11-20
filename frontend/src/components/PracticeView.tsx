@@ -27,7 +27,6 @@ import {
   quoteTrade,
   saveLedger,
   signed,
-  tnd,
   usdt,
   withCurvePoint,
   withTrade,
@@ -256,7 +255,7 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
         </div>
       )}
 
-      <Foot state={state} onReset={reset} />
+      <Foot onReset={reset} />
     </section>
   )
 }
@@ -571,9 +570,6 @@ function WalletTicket({ ledger, state, top }: { ledger: Ledger; state: PracticeS
             {worth}
             {unit && <span className="ms-1.5 text-[20px]">{unit}</span>}
           </bdi>
-        </p>
-        <p className="num mt-1.5 text-sm font-normal text-muted">
-          <bdi dir="ltr">{tnd(v.value, state.tnd_rate)}</bdi>
         </p>
 
         {/* the two lines of the chart are named by the rows they belong to */}
@@ -1068,9 +1064,6 @@ function TradeForm({
                   dir="ltr"
                 />
               </label>
-              <p className="num mt-1.5 min-h-5 text-[13.5px] leading-5 text-muted">
-                {Number(amount) > 0 && <bdi dir="ltr">{tnd(Number(amount), state.tnd_rate)}</bdi>}
-              </p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {chips.map((n) => (
                   <Chip key={n} active={Number(amount) === n} onClick={() => setAmount(String(n))}>
@@ -1253,10 +1246,10 @@ const TILT = ['-rotate-2', 'rotate-1', '-rotate-1']
 
 /**
  * The foot of the screen, each behind one tap: starting over (the three
- * amounts are three notes of pretend money), and the rules with the dinar
- * rate and its source.
+ * amounts are three notes of pretend money), and the rules. USDT counts as
+ * dollars; the dinar line was dropped on 2026-11-20 for an audience beyond Tunisia.
  */
-function Foot({ state, onReset }: { state: PracticeState | undefined; onReset: (start: number) => void }) {
+function Foot({ onReset }: { onReset: (start: number) => void }) {
   const { tp } = usePracticeT()
   const [asking, setAsking] = useState(false)
   const [rules, setRules] = useState(false)
@@ -1308,29 +1301,6 @@ function Foot({ state, onReset }: { state: PracticeState | undefined; onReset: (
           <p>{tp('firstNote')}</p>
           <p>{tp('rules')}</p>
           <p>{tp('coachIntro')}</p>
-          {state && (
-            <p>
-              {tp('tndNote', { rate: state.tnd_rate.toFixed(3) })}
-              {!state.tnd_live && <> {tp('tndEstimate')}</>}
-              {state.tnd_live && (
-                <>
-                  {' '}
-                  <bdi dir="ltr">
-                    (
-                    <a
-                      href="https://www.exchangerate-api.com"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline underline-offset-2 hover:text-text"
-                    >
-                      Rates By Exchange Rate API
-                    </a>
-                    )
-                  </bdi>
-                </>
-              )}
-            </p>
-          )}
         </div>
       )}
     </div>

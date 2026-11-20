@@ -157,8 +157,8 @@ Edit those files, not this one, then run the script again.
 - [ ] **47. L2 Q1 option A** · _The same as Bitcoin_  
   مثل Bitcoin
 
-- [ ] **48. L2 Q1 option B** · _1 Tunisian dinar_  
-  1 دينار تونسي
+- [ ] **48. L2 Q1 option B** · _1 euro_  
+  1 يورو
 
 - [ ] **49. L2 Q1 option C ✓** · _About 1 US dollar_  
   حوالي 1 دولار أمريكي
@@ -727,1948 +727,1954 @@ Edit those files, not this one, then run the script again.
 - [ ] **233. L8 Q3 explanation** · _You don’t know where a stranger’s money comes from. If the transfer is undone or the money is stolen, the problem lands on your account._  
   أنت لا تعرف مصدر مال شخص غريب. إذا أُلغي التحويل أو كان المال مسروقاً، تقع المشكلة على حسابك.
 
-## Lesson 9: Crypto and the law in Tunisia (`#learn-law-tunisia`)
+## Lesson 9: Crypto and the law in Arab countries (`#learn-crypto-law-arab-world`)
 
-- [ ] **234. L9 title** · _Crypto and the law in Tunisia_  
-  العملات الرقمية والقانون في تونس
+- [ ] **234. L9 title** · _Crypto and the law in Arab countries_  
+  العملات الرقمية والقانون في الدول العربية
 
-- [ ] **235. L9 hook** · _Facts with dates, up to date in November 2026. This is not legal advice._  
-  وقائع بتواريخها، إلى غاية نوفمبر 2026. هذا ليس استشارة قانونية.
+- [ ] **235. L9 hook** · _Each country has its own rules, and they change. Facts with dates, checked in November 2026. This is not legal advice._  
+  لكل بلد قواعده، وهي تتغيّر. وقائع بتواريخها، تمّ التحقق منها في نوفمبر 2026. هذا ليس استشارة قانونية.
 
-- [ ] **236. L9 section 1 heading** · _The only legal currency_  
-  العملة القانونية الوحيدة
+- [ ] **236. L9 section 1 heading** · _Where you live decides_  
+  بلدك هو الذي يحدّد
 
-- [ ] **237. L9 section 1 text** · _In Tunisia the dinar is the only legal currency (legal tender). In November 2026, no law allows crypto._  
-  في تونس، الدينار هو العملة القانونية الوحيدة (legal tender). وإلى غاية نوفمبر 2026، لا يوجد قانون يسمح بالعملات الرقمية.
+- [ ] **237. L9 section 1 text** · _The same Bitcoin purchase can be a crime in one Arab country and legal in another. What counts is the law of the country where you live, not where the app comes from. Arab countries fall into three groups: banned, allowed through licensed firms, and unclear._  
+  شراء Bitcoin نفسه قد يكون جريمة في بلد عربي وقانونيًا في بلد آخر. المهم هو قانون البلد الذي تعيش فيه، لا البلد الذي جاء منه التطبيق. وتنقسم الدول العربية إلى ثلاث مجموعات: منع، أو سماح عبر شركات مرخّصة، أو وضع غير واضح.
 
-- [ ] **238. L9 section 2 heading** · _The 1976 exchange law_  
-  قانون الصرف لسنة 1976
+- [ ] **238. L9 section 2 heading** · _Banned: Algeria and Egypt_  
+  ممنوعة: الجزائر ومصر
 
-- [ ] **239. L9 section 2 text** · _Foreign money is covered by law no. 76-18 of 21 January 1976, called the foreign-exchange code. It sets the rules for holding and moving money and other things of value in foreign currency. The central bank (BCT) is in charge of it. Crypto cases have been taken to court under this law._  
-  مسائل العملات الأجنبية يحكمها القانون عدد 76-18 المؤرّخ في 21 جانفي 1976، أي مجلّة الصرف. هذا القانون ينظّم امتلاك وتحويل الأموال والأصول بالعملة الأجنبية، تحت رقابة البنك المركزي (BCT). وقد رُفعت قضايا تتعلّق بالعملات الرقمية على أساس هذا القانون.
+- [ ] **239. L9 section 2 text** · _Algeria: a law of July 2025 bans buying, selling, holding and promoting crypto. The penalty is 2 months to 1 year in prison, a fine, or both. Egypt: the 2020 central bank law (Law 194, Article 206) bans trading and promoting crypto without a licence from the central bank, and it has given none._  
+  الجزائر: قانون صدر في يوليو 2025 يمنع شراء العملات الرقمية وبيعها وحيازتها والترويج لها. العقوبة سجن من شهرين إلى سنة، أو غرامة، أو الاثنان معًا. مصر: قانون البنك المركزي لسنة 2020 (القانون 194، المادة 206) يمنع تداول العملات الرقمية والترويج لها دون ترخيص من البنك المركزي، ولم يمنح البنك أي ترخيص.
 
-- [ ] **240. L9 section 3 heading** · _A case from 2021_  
-  قضية من سنة 2021
+- [ ] **240. L9 section 3 heading** · _Also closed_  
+  مغلقة أيضًا
 
-- [ ] **241. L9 section 3 text** · _In May 2021, an engineering student was arrested in a bitcoin case and charged under the exchange law. He was set free at the end of May 2021. In December 2021, the court closed the case. In June 2021, the finance minister said that owning bitcoin should no longer be a crime._  
-  في ماي 2021، أُوقف طالب هندسة ووُجّهت إليه تهم بموجب قانون الصرف في قضية تتعلّق بالـ bitcoin. أُطلق سراحه في آخر ماي 2021، وحفظت المحكمة القضية (عدم سماع الدعوى) في ديسمبر 2021. وفي جوان 2021 قال وزير المالية إن امتلاك الـ bitcoin يجب ألّا يبقى جريمة.
+- [ ] **241. L9 section 3 text** · _Kuwait banned crypto as a way to pay or invest in July 2023, and gives no licences. In 2025 it cut the power to homes caught mining (using computers to make new coins). Qatar does not allow crypto services. In Libya, the central bank banned crypto deals in 2018, and in 2025 nine people got 3 years in prison for mining in a factory._  
+  منعت الكويت في يوليو 2023 استعمال العملات الرقمية للدفع أو الاستثمار، ولا تمنح أي ترخيص. وفي 2025 قطعت الكهرباء عن منازل كانت تقوم بالتعدين (تشغيل حواسيب لإنتاج عملات جديدة). قطر لا تسمح بخدمات العملات الرقمية. وفي ليبيا منع البنك المركزي معاملات العملات الرقمية في 2018، وفي 2025 حُكم على تسعة أشخاص بالسجن 3 سنوات بسبب التعدين في مصنع.
 
-- [ ] **242. L9 section 4 heading** · _The new exchange code_  
-  مجلّة الصرف الجديدة
+- [ ] **242. L9 section 4 heading** · _Allowed through licensed firms_  
+  مسموحة عبر شركات مرخّصة
 
-- [ ] **243. L9 section 4 text** · _In February 2023, a draft of a new exchange code said that crypto is not a currency. On 14 March 2024, a ministerial council (a meeting of ministers) approved a government draft. It aimed to allow crypto deals with the BCT’s permission. In October 2025, members of parliament put forward their own bill (a proposed law). A parliament committee studied it in 2026._  
-  في فيفري 2023، نصّ مشروع لمجلّة صرف جديدة على أن الأصول الرقمية ليست عملة. وفي 14 مارس 2024 صادق مجلس وزاري على مشروع حكومي، كان هدفه السماح بمعاملات العملات الرقمية بترخيص من البنك المركزي. وفي أكتوبر 2025 قدّم نوّاب في البرلمان مقترح قانون خاصاً بهم، ونوقش في اللجنة خلال 2026.
+- [ ] **243. L9 section 4 text** · _In the UAE, a crypto firm needs a licence: from VARA in Dubai, from the FSRA in Abu Dhabi’s ADGM, or from the federal markets authority. Firms without one may not advertise there. Bahrain’s central bank has licensed crypto firms since 2019. Jordan ended its ban with a law in force since September 2025, but we found no licensed firm there yet in November 2026._  
+  في الإمارات، تحتاج شركة العملات الرقمية إلى ترخيص: من VARA في دبي، أو من FSRA في سوق أبوظبي العالمي (ADGM)، أو من الهيئة الاتحادية للأسواق. والشركة غير المرخّصة لا يحق لها الإعلان هناك. والبنك المركزي في البحرين يرخّص لشركات العملات الرقمية منذ 2019. أما الأردن فأنهى المنع بقانون نافذ منذ سبتمبر 2025، لكننا لم نجد فيه أي شركة مرخّصة حتى نوفمبر 2026.
 
-- [ ] **244. L9 section 5 heading** · _Where things are now_  
-  أين وصل الأمر
+- [ ] **244. L9 section 5 heading** · _Morocco and Tunisia: drafts, not laws_  
+  المغرب وتونس: مشاريع وليست قوانين
 
-- [ ] **245. L9 section 5 text** · _In November 2026, the new code is not law, so the 1976 law still applies. Rules can change: check the date of anything you read on this topic. For your own situation, ask a lawyer. This page is not legal advice._  
-  إلى غاية نوفمبر 2026، المجلّة الجديدة ليست قانوناً بعد، لذلك ما زال قانون 1976 هو المطبّق. القواعد قد تتغيّر: تحقّق من تاريخ كل ما تقرؤه في هذا الموضوع. ولوضعك الخاص، اسأل محامياً. هذه الصفحة ليست استشارة قانونية.
+- [ ] **245. L9 section 5 text** · _Morocco’s authorities have said since 2017 that crypto deals are not allowed. A draft crypto law (no. 42-25) is planned for 2027 but not passed. Since May 2026, the exchange office has opened cases against residents who held crypto abroad. In Tunisia, the 1976 exchange law still applies. A new exchange code that would cover crypto was still in a parliament committee in mid-November 2026._  
+  في المغرب، تقول السلطات منذ 2017 إن معاملات العملات الرقمية غير مسموح بها. وهناك مشروع قانون للعملات الرقمية (رقم 42-25) مبرمج لسنة 2027 لكنه لم يُعتمد بعد. ومنذ مايو 2026 فتح مكتب الصرف ملفات ضد مقيمين امتلكوا عملات رقمية في الخارج. وفي تونس، ما زال قانون الصرف لسنة 1976 مطبّقًا، ومشروع قانون صرف جديد يشمل العملات الرقمية كان ما زال في لجنة بالبرلمان في منتصف نوفمبر 2026.
 
-- [ ] **246. L9 takeaway** · _In November 2026: the dinar is the only legal currency, the 1976 exchange law still applies, and the new exchange code has not been passed._  
-  إلى غاية نوفمبر 2026: الدينار هو العملة القانونية الوحيدة، وقانون الصرف لسنة 1976 ما زال مطبّقاً، ومجلّة الصرف الجديدة لم يُصادَق عليها.
+- [ ] **246. L9 section 6 heading** · _No clear law_  
+  لا يوجد قانون واضح
 
-- [ ] **247. L9 Q1** · _In November 2026, which law still sets the rules for foreign money in Tunisia?_  
-  إلى غاية نوفمبر 2026، أيّ قانون ما زال ينظّم الصرف في تونس؟
+- [ ] **247. L9 section 6 text** · _Saudi Arabia has no crypto law and no licensed local platform for the public, and its authorities warn that crypto is not authorised. Iraq’s central bank bans using bank cards and e-wallets for crypto (2022). In Lebanon, payment firms may not deal in crypto without the central bank’s approval (2026). No law does not mean allowed._  
+  في السعودية لا يوجد قانون للعملات الرقمية ولا منصة محلية مرخّصة للعموم، وتحذّر السلطات من أنها غير مرخّصة. وفي العراق يمنع البنك المركزي استعمال البطاقات البنكية والمحافظ الإلكترونية للعملات الرقمية (2022). وفي لبنان لا يحق لشركات الدفع التعامل بالعملات الرقمية دون موافقة البنك المركزي (2026). غياب القانون لا يعني أنها مسموحة.
 
-- [ ] **248. L9 Q1 option A** · _The new exchange code of 2024_  
-  مجلّة الصرف الجديدة لسنة 2024
+- [ ] **248. L9 section 7 heading** · _What this means for you_  
+  ماذا يعني هذا بالنسبة لك
 
-- [ ] **249. L9 Q1 option B ✓** · _Law 76-18 of 1976_  
-  القانون 76-18 لسنة 1976
+- [ ] **249. L9 section 7 text** · _A licence covers only the country that gave it: an app licensed in Dubai is not licensed in Tunisia or Egypt. Without a local licence, nobody protects you if the platform fails or cheats you. Promoting crypto can be a crime too. Check your own central bank or regulator’s website, look at the date, and ask a lawyer about your case._  
+  الترخيص صالح فقط في البلد الذي منحه: تطبيق مرخّص في دبي ليس مرخّصًا في تونس أو مصر. ومن دون ترخيص محلي، لا أحد يحميك إذا أفلست المنصة أو خدعتك. والترويج للعملات الرقمية قد يكون جريمة أيضًا. تحقّق من موقع البنك المركزي أو الهيئة الرقابية في بلدك، وانظر إلى التاريخ، واسأل محاميًا عن حالتك.
 
-- [ ] **250. L9 Q1 option C** · _A crypto law passed in 2023_  
-  قانون للعملات الرقمية صدر في 2023
+- [ ] **250. L9 takeaway** · _In November 2026: Algeria and Egypt ban crypto, the UAE and Bahrain license firms, and Morocco and Tunisia have no crypto law yet. Your own country’s law counts, and a licence elsewhere does not cover you._  
+  في نوفمبر 2026: الجزائر ومصر تمنعان العملات الرقمية، والإمارات والبحرين ترخّصان للشركات، والمغرب وتونس ليس لديهما قانون للعملات الرقمية بعد. قانون بلدك هو المهم، والترخيص في بلد آخر لا يحميك.
 
-- [ ] **251. L9 Q1 explanation** · _The 2024 text was a draft and no crypto law was passed in 2023. Law 76-18 still applies._  
-  نصّ 2024 كان مشروعاً فقط، ولم يصدر أي قانون للعملات الرقمية في 2023. القانون 76-18 ما زال مطبّقاً.
+- [ ] **251. L9 Q1** · _What decides if crypto is legal for you?_  
+  ما الذي يحدّد إن كانت العملات الرقمية قانونية بالنسبة لك؟
 
-- [ ] **252. L9 Q2** · _What happened in the 2021 student bitcoin case?_  
-  ماذا حدث في قضية الطالب والـ bitcoin سنة 2021؟
+- [ ] **252. L9 Q1 option A** · _The country the app comes from_  
+  البلد الذي جاء منه التطبيق
 
-- [ ] **253. L9 Q2 option A** · _He was given a crypto licence_  
-  حصل على رخصة للعملات الرقمية
+- [ ] **253. L9 Q1 option B ✓** · _The law of the country where you live_  
+  قانون البلد الذي تعيش فيه
 
-- [ ] **254. L9 Q2 option B** · _He was sentenced to ten years_  
-  حُكم عليه بعشر سنوات
+- [ ] **254. L9 Q1 option C** · _How many people use it_  
+  عدد الأشخاص الذين يستعملونها
 
-- [ ] **255. L9 Q2 option C ✓** · _He was arrested, then the case was closed in December 2021_  
-  أُوقف، ثم حُفظت القضية في ديسمبر 2021
+- [ ] **255. L9 Q1 explanation** · _The same purchase can be a crime in Algeria and legal through a licensed firm in the UAE. Your own country’s law is what counts._  
+  الشراء نفسه قد يكون جريمة في الجزائر وقانونيًا عبر شركة مرخّصة في الإمارات. قانون بلدك هو المهم.
 
-- [ ] **256. L9 Q2 explanation** · _He was charged under the exchange law and set free at the end of May 2021. The case was closed in December 2021._  
-  وُجّهت إليه تهم بموجب قانون الصرف، وأُطلق سراحه في آخر ماي 2021، ثم حُفظت القضية في ديسمبر 2021.
+- [ ] **256. L9 Q2** · _Where does a 2025 law ban holding and promoting crypto, with prison terms?_  
+  أين يمنع قانون صدر في 2025 حيازة العملات الرقمية والترويج لها، مع عقوبة السجن؟
 
-- [ ] **257. L9 Q3** · _What is the status of the new exchange code in November 2026?_  
-  أين وصلت مجلّة الصرف الجديدة في نوفمبر 2026؟
+- [ ] **257. L9 Q2 option A** · _Bahrain_  
+  البحرين
 
-- [ ] **258. L9 Q3 option A ✓** · _Drafts exist, but it is not law yet_  
-  توجد مشاريع، لكنها ليست قانوناً بعد
+- [ ] **258. L9 Q2 option B ✓** · _Algeria_  
+  الجزائر
 
-- [ ] **259. L9 Q3 option B** · _It became law in 2023_  
-  أصبحت قانوناً في 2023
+- [ ] **259. L9 Q2 option C** · _The UAE_  
+  الإمارات
 
-- [ ] **260. L9 Q3 option C** · _It replaced the 1976 law in 2024_  
-  عوّضت قانون 1976 في 2024
+- [ ] **260. L9 Q2 explanation** · _Algeria’s July 2025 law bans buying, selling, holding and promoting crypto. Bahrain and the UAE license crypto firms._  
+  قانون الجزائر الصادر في يوليو 2025 يمنع شراء العملات الرقمية وبيعها وحيازتها والترويج لها. أما البحرين والإمارات فترخّصان لشركات العملات الرقمية.
 
-- [ ] **261. L9 Q3 explanation** · _There have been drafts since 2023, and a bill in parliament since October 2025. But nothing was passed by November 2026._  
-  توجد مشاريع منذ 2023 ومقترح قانون في البرلمان منذ أكتوبر 2025، لكن لا شيء صودق عليه إلى غاية نوفمبر 2026.
+- [ ] **261. L9 Q3** · _An app has a licence in Dubai. Is it licensed in your country too?_  
+  تطبيق لديه ترخيص في دبي. هل هو مرخّص في بلدك أيضًا؟
+
+- [ ] **262. L9 Q3 option A** · _Yes, in every Arab country_  
+  نعم، في كل الدول العربية
+
+- [ ] **263. L9 Q3 option B** · _Only if it is in Arabic_  
+  فقط إذا كان باللغة العربية
+
+- [ ] **264. L9 Q3 option C ✓** · _No. A licence covers only the country that gave it_  
+  لا. الترخيص صالح فقط في البلد الذي منحه
+
+- [ ] **265. L9 Q3 explanation** · _Each country gives its own licences. Check your own regulator’s list before you trust a platform._  
+  كل بلد يمنح تراخيصه بنفسه. تحقّق من قائمة الهيئة الرقابية في بلدك قبل أن تثق بأي منصة.
 
 # Level 2: Intermediate
 
-- [ ] **262. Level 2 name** · _Intermediate_  
+- [ ] **266. Level 2 name** · _Intermediate_  
   المستوى المتوسط
 
-- [ ] **263. Level 2 description** · _Read a chart and make a practice trade: candles, fees, order types, karats and the market weather._  
+- [ ] **267. Level 2 description** · _Read a chart and make a practice trade: candles, fees, order types, karats and the market weather._  
   اقرأ الرسم البياني ونفّذ صفقة تدريبية: الشموع، الرسوم، أنواع الأوامر، القيراط وطقس السوق.
 
 ## Lesson 10: Trading and holding: two different games (`#learn-trading-vs-holding`)
 
-- [ ] **264. L10 title** · _Trading and holding: two different games_  
+- [ ] **268. L10 title** · _Trading and holding: two different games_  
   التداول والاحتفاظ: لعبتان مختلفتان
 
-- [ ] **265. L10 hook** · _Same coin, same month, two very different experiences. Know which game you are playing._  
+- [ ] **269. L10 hook** · _Same coin, same month, two very different experiences. Know which game you are playing._  
   نفس العملة ونفس الشهر، وتجربتان مختلفتان تمامًا. اعرف أي لعبة تلعب.
 
-- [ ] **266. L10 section 1 heading** · _Holding: buy and wait_  
+- [ ] **270. L10 section 1 heading** · _Holding: buy and wait_  
   الاحتفاظ: تشتري وتنتظر
 
-- [ ] **267. L10 section 1 text** · _Holding means buying a coin and keeping it for months or years, without reacting to every move. You make few decisions and pay few fees. The hard part is living through long, deep drops: Bitcoin has fallen more than 70% from its top more than once, for example between late 2021 and late 2022._  
+- [ ] **271. L10 section 1 text** · _Holding means buying a coin and keeping it for months or years, without reacting to every move. You make few decisions and pay few fees. The hard part is living through long, deep drops: Bitcoin has fallen more than 70% from its top more than once, for example between late 2021 and late 2022._  
   الاحتفاظ (holding) يعني أن تشتري عملة وتبقيها عندك أشهرًا أو سنوات، دون أن تتفاعل مع كل حركة. تأخذ قرارات قليلة وتدفع رسومًا قليلة. الصعب هو تحمّل الهبوط الطويل والعميق: Bitcoin فقد أكثر من 70% من قمته أكثر من مرة، مثلًا بين نهاية 2021 ونهاية 2022.
 
-- [ ] **268. L10 section 2 heading** · _Trading: buy and sell often_  
+- [ ] **272. L10 section 2 heading** · _Trading: buy and sell often_  
   التداول: تشتري وتبيع كثيرًا
 
-- [ ] **269. L10 section 2 text** · _Trading means buying and selling often to catch price moves, sometimes several times a day (day trading). Every trade pays a fee and the spread (the gap between the buy and sell price). And every trade is a new decision you can get wrong. Fear and excitement push people to act at the worst moments._  
+- [ ] **273. L10 section 2 text** · _Trading means buying and selling often to catch price moves, sometimes several times a day (day trading). Every trade pays a fee and the spread (the gap between the buy and sell price). And every trade is a new decision you can get wrong. Fear and excitement push people to act at the worst moments._  
   التداول (trading) يعني أن تشتري وتبيع كثيرًا لتستفيد من حركات السعر، وأحيانًا عدة مرات في اليوم (day trading). كل عملية تدفع فيها رسومًا والفارق (spread)، وكل عملية قرار جديد قد تخطئ فيه. والخوف والحماس يدفعان الناس إلى التصرف في أسوأ اللحظات.
 
-- [ ] **270. L10 section 3 heading** · _What the studies found_  
+- [ ] **274. L10 section 3 heading** · _What the studies found_  
   ماذا وجدت الدراسات
 
-- [ ] **271. L10 section 3 text** · _Researchers have studied real day traders. In Taiwan, over 15 years of data, fewer than 1% of day traders earned money reliably after fees. In Brazil, among people who day-traded futures (contracts that bet on a price) for 300 days or more, 97% lost money. These studies are about stock and futures markets, not crypto. But crypto day traders face the same fees and the same emotions._  
+- [ ] **275. L10 section 3 text** · _Researchers have studied real day traders. In Taiwan, over 15 years of data, fewer than 1% of day traders earned money reliably after fees. In Brazil, among people who day-traded futures (contracts that bet on a price) for 300 days or more, 97% lost money. These studies are about stock and futures markets, not crypto. But crypto day traders face the same fees and the same emotions._  
   درس باحثون متداولين يوميين حقيقيين. في تايوان، وعلى بيانات 15 سنة، أقل من 1% من المتداولين اليوميين ربحوا بشكل منتظم بعد خصم الرسوم. وفي البرازيل، من بين من تداولوا العقود الآجلة يوميًا لمدة 300 يوم أو أكثر، خسر 97% منهم. هذه الدراسات عن البورصة والعقود الآجلة وليست عن العملات الرقمية، لكن المتداول اليومي في العملات الرقمية يواجه نفس الرسوم ونفس المشاعر.
 
-- [ ] **272. L10 section 4 heading** · _Neither one is safe_  
+- [ ] **276. L10 section 4 heading** · _Neither one is safe_  
   لا أحد منهما آمن
 
-- [ ] **273. L10 section 4 text** · _Holding can mean watching your money halve and waiting years. Trading can mean many small losses that add up. Qirat does not tell you which game to play. It helps you see the risks of each before real money is involved._  
+- [ ] **277. L10 section 4 text** · _Holding can mean watching your money halve and waiting years. Trading can mean many small losses that add up. Qirat does not tell you which game to play. It helps you see the risks of each before real money is involved._  
   الاحتفاظ قد يعني أن ترى مالك ينقص إلى النصف وتنتظر سنوات. والتداول قد يعني خسائر صغيرة كثيرة تتراكم. قيراط لا يقول لك أي لعبة تلعب، بل يساعدك على رؤية مخاطر كل واحدة قبل أن يدخل المال الحقيقي في اللعبة.
 
-- [ ] **274. L10 section 5 heading** · _Compare yourself, with pretend money_  
+- [ ] **278. L10 section 5 heading** · _Compare yourself, with pretend money_  
   قارن نفسك بمال تجريبي
 
-- [ ] **275. L10 section 5 text** · _In Qirat’s practice wallet, a line shows what your starting amount would be worth if you had just held BTC from day one. After a few weeks of practice trades, you can compare your wallet with that line. It is an honest mirror, and it costs nothing._  
+- [ ] **279. L10 section 5 text** · _In Qirat’s practice wallet, a line shows what your starting amount would be worth if you had just held BTC from day one. After a few weeks of practice trades, you can compare your wallet with that line. It is an honest mirror, and it costs nothing._  
   في محفظة التدريب في قيراط، يوجد سطر يبيّن كم كان سيساوي مبلغك الأول لو احتفظت بـ BTC من اليوم الأول فقط. بعد بضعة أسابيع من العمليات التجريبية، يمكنك أن تقارن محفظتك بذلك السطر. إنها مرآة صادقة، ولا تكلّفك شيئًا.
 
-- [ ] **276. L10 takeaway** · _Holding and trading carry different risks. Know which game you are playing, and see it with pretend money first._  
+- [ ] **280. L10 takeaway** · _Holding and trading carry different risks. Know which game you are playing, and see it with pretend money first._  
   الاحتفاظ والتداول لهما مخاطر مختلفة. اعرف أي لعبة تلعب، وجرّبها أولًا بمال تجريبي.
 
-- [ ] **277. L10 Q1** · _What is the main difference between holding and trading?_  
+- [ ] **281. L10 Q1** · _What is the main difference between holding and trading?_  
   ما الفرق الأساسي بين الاحتفاظ والتداول؟
 
-- [ ] **278. L10 Q1 option A** · _Holding is always safer_  
+- [ ] **282. L10 Q1 option A** · _Holding is always safer_  
   الاحتفاظ أكثر أمانًا دائمًا
 
-- [ ] **279. L10 Q1 option B** · _Trading has no fees_  
+- [ ] **283. L10 Q1 option B** · _Trading has no fees_  
   التداول بلا رسوم
 
-- [ ] **280. L10 Q1 option C ✓** · _Holding keeps a coin for a long time; trading buys and sells often_  
+- [ ] **284. L10 Q1 option C ✓** · _Holding keeps a coin for a long time; trading buys and sells often_  
   الاحتفاظ يعني إبقاء العملة مدة طويلة، والتداول يعني الشراء والبيع كثيرًا
 
-- [ ] **281. L10 Q1 explanation** · _Holding means keeping for months or years; trading means many buys and sells. Neither one is safe._  
+- [ ] **285. L10 Q1 explanation** · _Holding means keeping for months or years; trading means many buys and sells. Neither one is safe._  
   الاحتفاظ يعني الإبقاء أشهرًا أو سنوات، والتداول يعني عمليات شراء وبيع كثيرة. ولا أحد منهما آمن.
 
-- [ ] **282. L10 Q2** · _In the Taiwan study, what share of day traders earned money reliably after fees?_  
+- [ ] **286. L10 Q2** · _In the Taiwan study, what share of day traders earned money reliably after fees?_  
   في دراسة تايوان، ما نسبة المتداولين اليوميين الذين ربحوا بشكل منتظم بعد الرسوم؟
 
-- [ ] **283. L10 Q2 option A ✓** · _Fewer than 1%_  
+- [ ] **287. L10 Q2 option A ✓** · _Fewer than 1%_  
   أقل من 1%
 
-- [ ] **284. L10 Q2 option B** · _About half_  
+- [ ] **288. L10 Q2 option B** · _About half_  
   حوالي النصف
 
-- [ ] **285. L10 Q2 option C** · _About 1 in 4_  
+- [ ] **289. L10 Q2 option C** · _About 1 in 4_  
   حوالي 1 من كل 4
 
-- [ ] **286. L10 Q2 explanation** · _Fewer than 1% did. Fees and constant decisions work against people who trade every day._  
+- [ ] **290. L10 Q2 explanation** · _Fewer than 1% did. Fees and constant decisions work against people who trade every day._  
   أقل من 1%. الرسوم والقرارات المستمرة تعمل ضد من يتداول كل يوم.
 
-- [ ] **287. L10 Q3** · _What does the “if you had just held BTC” line in the practice wallet show?_  
+- [ ] **291. L10 Q3** · _What does the “if you had just held BTC” line in the practice wallet show?_  
   ماذا يبيّن سطر «لو احتفظت بـ BTC فقط» في محفظة التدريب؟
 
-- [ ] **288. L10 Q3 option A** · _The best moment to buy BTC_  
+- [ ] **292. L10 Q3 option A** · _The best moment to buy BTC_  
   أفضل وقت لشراء BTC
 
-- [ ] **289. L10 Q3 option B ✓** · _What your starting amount would be worth if you had only held BTC_  
+- [ ] **293. L10 Q3 option B ✓** · _What your starting amount would be worth if you had only held BTC_  
   كم كان سيساوي مبلغك الأول لو احتفظت بـ BTC فقط
 
-- [ ] **290. L10 Q3 option C** · _How much BTC Qirat recommends_  
+- [ ] **294. L10 Q3 option C** · _How much BTC Qirat recommends_  
   كمية BTC التي ينصح بها قيراط
 
-- [ ] **291. L10 Q3 explanation** · _It is a comparison, not a recommendation: your practice trades next to simply holding BTC._  
+- [ ] **295. L10 Q3 explanation** · _It is a comparison, not a recommendation: your practice trades next to simply holding BTC._  
   إنها مقارنة وليست نصيحة: عملياتك التجريبية بجانب مجرد الاحتفاظ بـ BTC.
 
-- [ ] **292. L10 live button** · _Compare your trades with just holding BTC_  
+- [ ] **296. L10 live button** · _Compare your trades with just holding BTC_  
   قارن عملياتك بمجرد الاحتفاظ بـ BTC
 
 ## Lesson 11: Red and green candles: how to read a chart (`#learn-candles`)
 
-- [ ] **293. L11 title** · _Red and green candles: how to read a chart_  
+- [ ] **297. L11 title** · _Red and green candles: how to read a chart_  
   الشموع الحمراء والخضراء: كيف تقرأ الرسم البياني
 
-- [ ] **294. L11 hook** · _Every crypto chart is made of small candles. One candle is one day. Here is what each part tells you._  
+- [ ] **298. L11 hook** · _Every crypto chart is made of small candles. One candle is one day. Here is what each part tells you._  
   كل رسم بياني للعملات الرقمية مكوّن من شموع صغيرة. الشمعة الواحدة يوم كامل. إليك ما يخبرك به كل جزء منها.
 
-- [ ] **295. L11 section 1 heading** · _One candle, one day_  
+- [ ] **299. L11 section 1 heading** · _One candle, one day_  
   شمعة واحدة، يوم واحد
 
-- [ ] **296. L11 section 1 text** · _On Qirat’s 30-day chart, each candle is one day. It shows four prices: the price at the start of the day (the open), at the end (the close), the highest price of the day and the lowest._  
+- [ ] **300. L11 section 1 text** · _On Qirat’s 30-day chart, each candle is one day. It shows four prices: the price at the start of the day (the open), at the end (the close), the highest price of the day and the lowest._  
   في رسم قيراط البياني لـ 30 يومًا، كل شمعة (candle) هي يوم واحد. تُظهر أربعة أسعار: سعر افتتاح اليوم، وسعر إغلاقه، وأعلى سعر في اليوم، وأدنى سعر.
 
-- [ ] **297. L11 section 2 heading** · _Green or red_  
+- [ ] **301. L11 section 2 heading** · _Green or red_  
   خضراء أم حمراء
 
-- [ ] **298. L11 section 2 text** · _Green: the day closed higher than it opened. Red: it closed lower. The thick part of the candle (the body) goes from the open to the close._  
+- [ ] **302. L11 section 2 text** · _Green: the day closed higher than it opened. Red: it closed lower. The thick part of the candle (the body) goes from the open to the close._  
   الخضراء: أُغلق اليوم أعلى من سعر الافتتاح. الحمراء: أُغلق أدنى منه. الجزء العريض من الشمعة (الجسم) يمتد من سعر الافتتاح إلى سعر الإغلاق.
 
-- [ ] **299. L11 section 3 heading** · _The thin line_  
+- [ ] **303. L11 section 3 heading** · _The thin line_  
   الخط الرفيع
 
-- [ ] **300. L11 section 3 text** · _The thin line above and below the body shows the day’s high and low. A long line means the price travelled far during the day, even if it closed near where it opened._  
+- [ ] **304. L11 section 3 text** · _The thin line above and below the body shows the day’s high and low. A long line means the price travelled far during the day, even if it closed near where it opened._  
   الخط الرفيع فوق الجسم وتحته يُظهر أعلى وأدنى سعر في اليوم. الخط الطويل يعني أن السعر تحرك كثيرًا خلال اليوم، حتى لو أُغلق قريبًا من سعر الافتتاح.
 
-- [ ] **301. L11 section 4 heading** · _When does a day start?_  
+- [ ] **305. L11 section 4 heading** · _When does a day start?_  
   متى يبدأ اليوم؟
 
-- [ ] **302. L11 section 4 text** · _The prices come from Binance, whose daily candles run from midnight to midnight UTC (01:00 in Tunisia and Morocco most of the year, 03:00 in Saudi Arabia). The last candle on the right is today’s: it keeps changing until the day closes._  
+- [ ] **306. L11 section 4 text** · _The prices come from Binance, whose daily candles run from midnight to midnight UTC (01:00 in Tunisia and Morocco most of the year, 03:00 in Saudi Arabia). The last candle on the right is today’s: it keeps changing until the day closes._  
   الأسعار تأتي من Binance، وشموعها اليومية تمتد من منتصف الليل إلى منتصف الليل بتوقيت UTC (الساعة 01:00 في تونس والمغرب أغلب أيام السنة، و03:00 في السعودية). الشمعة الأخيرة على اليمين هي شمعة اليوم: تبقى تتغير حتى يُغلق اليوم.
 
-- [ ] **303. L11 section 5 heading** · _What candles do not tell you_  
+- [ ] **307. L11 section 5 heading** · _What candles do not tell you_  
   ما لا تخبرك به الشموع
 
-- [ ] **304. L11 section 5 text** · _Candles show what already happened. Three green days in a row do not mean the fourth will be green. Anyone who says a candle pattern tells you when to buy is selling something._  
+- [ ] **308. L11 section 5 text** · _Candles show what already happened. Three green days in a row do not mean the fourth will be green. Anyone who says a candle pattern tells you when to buy is selling something._  
   الشموع تُظهر ما حدث فعلًا. ثلاثة أيام خضراء متتالية لا تعني أن الرابع سيكون أخضر. ومن يقول لك إن شكلًا معينًا من الشموع يخبرك متى تشتري، فهو يبيعك شيئًا.
 
-- [ ] **305. L11 takeaway** · _Read a candle as a summary of one day: green closed higher, red closed lower, the thin line shows the day’s high and low. It describes the past, it does not predict._  
+- [ ] **309. L11 takeaway** · _Read a candle as a summary of one day: green closed higher, red closed lower, the thin line shows the day’s high and low. It describes the past, it does not predict._  
   اقرأ الشمعة كملخص ليوم واحد: الخضراء أُغلقت أعلى، والحمراء أُغلقت أدنى، والخط الرفيع هو مدى حركة اليوم. إنها تصف الماضي، ولا تتنبأ بشيء.
 
-- [ ] **306. L11 Q1** · _On Qirat’s chart, what is one candle?_  
+- [ ] **310. L11 Q1** · _On Qirat’s chart, what is one candle?_  
   في رسم قيراط البياني، ماذا تمثل الشمعة الواحدة؟
 
-- [ ] **307. L11 Q1 option A** · _One hour_  
+- [ ] **311. L11 Q1 option A** · _One hour_  
   ساعة واحدة
 
-- [ ] **308. L11 Q1 option B ✓** · _One day_  
+- [ ] **312. L11 Q1 option B ✓** · _One day_  
   يومًا واحدًا
 
-- [ ] **309. L11 Q1 option C** · _One trade_  
+- [ ] **313. L11 Q1 option C** · _One trade_  
   عملية شراء واحدة
 
-- [ ] **310. L11 Q1 explanation** · _Qirat’s chart shows 30 days with one candle per day._  
+- [ ] **314. L11 Q1 explanation** · _Qirat’s chart shows 30 days with one candle per day._  
   رسم قيراط البياني يعرض 30 يومًا، بشمعة لكل يوم.
 
-- [ ] **311. L11 Q2** · _A candle is red. What happened that day?_  
+- [ ] **315. L11 Q2** · _A candle is red. What happened that day?_  
   شمعة حمراء. ماذا حدث في ذلك اليوم؟
 
-- [ ] **312. L11 Q2 option A ✓** · _It closed lower than it opened_  
+- [ ] **316. L11 Q2 option A ✓** · _It closed lower than it opened_  
   أُغلق أدنى من سعر الافتتاح
 
-- [ ] **313. L11 Q2 option B** · _Someone lost all their money_  
+- [ ] **317. L11 Q2 option B** · _Someone lost all their money_  
   شخص ما خسر كل أمواله
 
-- [ ] **314. L11 Q2 option C** · _The market was closed_  
+- [ ] **318. L11 Q2 option C** · _The market was closed_  
   كان السوق مغلقًا
 
-- [ ] **315. L11 Q2 explanation** · _Red only means the closing price was below the opening price. It says nothing about the size of the drop._  
+- [ ] **319. L11 Q2 explanation** · _Red only means the closing price was below the opening price. It says nothing about the size of the drop._  
   الأحمر يعني فقط أن سعر الإغلاق كان أدنى من سعر الافتتاح. لا يقول شيئًا عن حجم الهبوط.
 
-- [ ] **316. L11 Q3** · _After three green candles in a row, the next day…_  
+- [ ] **320. L11 Q3** · _After three green candles in a row, the next day…_  
   بعد ثلاث شموع خضراء متتالية، اليوم التالي…
 
-- [ ] **317. L11 Q3 option A** · _will be green_  
+- [ ] **321. L11 Q3 option A** · _will be green_  
   سيكون أخضر
 
-- [ ] **318. L11 Q3 option B** · _will be red_  
+- [ ] **322. L11 Q3 option B** · _will be red_  
   سيكون أحمر
 
-- [ ] **319. L11 Q3 option C ✓** · _can be either: candles do not predict_  
+- [ ] **323. L11 Q3 option C ✓** · _can be either: candles do not predict_  
   قد يكون هذا أو ذاك: الشموع لا تتنبأ
 
-- [ ] **320. L11 Q3 explanation** · _Candles summarise the past. Nobody can tell you the next day’s colour._  
+- [ ] **324. L11 Q3 explanation** · _Candles summarise the past. Nobody can tell you the next day’s colour._  
   الشموع تلخّص الماضي. لا أحد يستطيع أن يخبرك بلون اليوم التالي.
 
 ## Lesson 12: Timeframes and volume: zoom in, zoom out (`#learn-timeframes-volume`)
 
-- [ ] **321. L12 title** · _Timeframes and volume: zoom in, zoom out_  
+- [ ] **325. L12 title** · _Timeframes and volume: zoom in, zoom out_  
   الإطار الزمني والحجم: قرّب الصورة وبعّدها
 
-- [ ] **322. L12 hook** · _A coin can look wild or calm depending only on how far you zoom._  
+- [ ] **326. L12 hook** · _A coin can look wild or calm depending only on how far you zoom._  
   قد تبدو العملة هائجة أو هادئة فقط حسب المسافة التي تنظر منها.
 
-- [ ] **323. L12 section 1 heading** · _A candle can be any length of time_  
+- [ ] **327. L12 section 1 heading** · _A candle can be any length of time_  
   الشمعة قد تمثّل أي مدة
 
-- [ ] **324. L12 section 1 text** · _A candle sums up one period: its open, close, high and low. That period is called the timeframe. It can be 1 minute, 1 hour, 1 day or 1 week. Qirat’s chart shows 30 daily candles, so one candle is one day._  
+- [ ] **328. L12 section 1 text** · _A candle sums up one period: its open, close, high and low. That period is called the timeframe. It can be 1 minute, 1 hour, 1 day or 1 week. Qirat’s chart shows 30 daily candles, so one candle is one day._  
   الشمعة تلخّص فترة واحدة: سعر الافتتاح والإغلاق وأعلى سعر وأدنى سعر. هذه الفترة اسمها الإطار الزمني (timeframe)، وقد تكون دقيقة واحدة أو ساعة أو يومًا أو أسبوعًا. الرسم البياني في قيراط يعرض 30 شمعة يومية، أي أن كل شمعة يوم واحد.
 
-- [ ] **325. L12 section 2 heading** · _Same coin, different picture_  
+- [ ] **329. L12 section 2 heading** · _Same coin, different picture_  
   نفس العملة، وصورة مختلفة
 
-- [ ] **326. L12 section 2 text** · _On a 1-minute chart, every small wiggle looks like a big event, and the candles flip between green and red all the time. On a weekly chart, one candle covers seven days and the small noise disappears. The coin is the same; only your zoom changed._  
+- [ ] **330. L12 section 2 text** · _On a 1-minute chart, every small wiggle looks like a big event, and the candles flip between green and red all the time. On a weekly chart, one candle covers seven days and the small noise disappears. The coin is the same; only your zoom changed._  
   في رسم الدقيقة الواحدة، كل حركة صغيرة تبدو حدثًا كبيرًا، والشموع تتبدّل بين الأخضر والأحمر طوال الوقت. وفي الرسم الأسبوعي، الشمعة الواحدة تغطي سبعة أيام ويختفي الضجيج الصغير. العملة نفسها، فقط طريقة نظرك تغيّرت.
 
-- [ ] **327. L12 section 3 heading** · _Why short timeframes are tiring_  
+- [ ] **331. L12 section 3 heading** · _Why short timeframes are tiring_  
   لماذا تُتعب الأطر الزمنية القصيرة
 
-- [ ] **328. L12 section 3 text** · _The shorter the timeframe, the more decisions it seems to ask for. Watching 1-minute candles pushes many people into frequent trades, and each trade pays a fee and the spread. Knowing which timeframe you are looking at helps you see a scary minute at its real size._  
+- [ ] **332. L12 section 3 text** · _The shorter the timeframe, the more decisions it seems to ask for. Watching 1-minute candles pushes many people into frequent trades, and each trade pays a fee and the spread. Knowing which timeframe you are looking at helps you see a scary minute at its real size._  
   كلما قصر الإطار الزمني، بدا أنه يطلب منك قرارات أكثر. متابعة شموع الدقيقة تدفع كثيرين إلى عمليات متكررة، وكل عملية تدفع رسومًا وفارقًا. ومعرفة الإطار الزمني الذي تنظر إليه تساعدك على رؤية الدقيقة المخيفة بحجمها الحقيقي.
 
-- [ ] **329. L12 section 4 heading** · _Volume: how much was traded_  
+- [ ] **333. L12 section 4 heading** · _Volume: how much was traded_  
   الحجم: كم تم تداوله
 
-- [ ] **330. L12 section 4 text** · _Volume is how much of a coin was traded during a period. Most exchange charts show it as bars under the candles. Qirat’s chart does not show volume yet._  
+- [ ] **334. L12 section 4 text** · _Volume is how much of a coin was traded during a period. Most exchange charts show it as bars under the candles. Qirat’s chart does not show volume yet._  
   الحجم (volume) هو كمية العملة التي تم تداولها خلال فترة معيّنة. أغلب الرسوم البيانية في المنصّات تعرضه كأعمدة تحت الشموع. الرسم البياني في قيراط لا يعرض الحجم بعد.
 
-- [ ] **331. L12 section 5 heading** · _Reading volume honestly_  
+- [ ] **335. L12 section 5 heading** · _Reading volume honestly_  
   قراءة الحجم بصدق
 
-- [ ] **332. L12 section 5 text** · _A price move on high volume means many people bought and sold during it. A move on low volume means few took part, so a few orders may have been enough to push the price. Volume describes what already happened. It does not tell you what comes next._  
+- [ ] **336. L12 section 5 text** · _A price move on high volume means many people bought and sold during it. A move on low volume means few took part, so a few orders may have been enough to push the price. Volume describes what already happened. It does not tell you what comes next._  
   حركة السعر مع حجم كبير تعني أن كثيرين اشتروا وباعوا خلالها. ومع حجم ضعيف، شارك فيها قليلون، وربما كانت بضعة أوامر كافية لدفع السعر. الحجم يصف ما حدث فعلًا، ولا يخبرك بما سيأتي.
 
-- [ ] **333. L12 takeaway** · _Check the timeframe before you judge a chart. Volume tells you how many took part in a move, not where the price goes next._  
+- [ ] **337. L12 takeaway** · _Check the timeframe before you judge a chart. Volume tells you how many took part in a move, not where the price goes next._  
   انظر إلى الإطار الزمني قبل أن تحكم على الرسم. الحجم يخبرك كم شخصًا شارك في الحركة، لا إلى أين سيذهب السعر بعدها.
 
-- [ ] **334. L12 Q1** · _On Qirat’s chart, how much time does one candle cover?_  
+- [ ] **338. L12 Q1** · _On Qirat’s chart, how much time does one candle cover?_  
   في الرسم البياني لقيراط، ما المدة التي تغطيها الشمعة الواحدة؟
 
-- [ ] **335. L12 Q1 option A ✓** · _One day_  
+- [ ] **339. L12 Q1 option A ✓** · _One day_  
   يوم واحد
 
-- [ ] **336. L12 Q1 option B** · _One minute_  
+- [ ] **340. L12 Q1 option B** · _One minute_  
   دقيقة واحدة
 
-- [ ] **337. L12 Q1 option C** · _One week_  
+- [ ] **341. L12 Q1 option C** · _One week_  
   أسبوع واحد
 
-- [ ] **338. L12 Q1 explanation** · _Qirat shows 30 daily candles: one candle is one day._  
+- [ ] **342. L12 Q1 explanation** · _Qirat shows 30 daily candles: one candle is one day._  
   قيراط يعرض 30 شمعة يومية: كل شمعة يوم واحد.
 
-- [ ] **339. L12 Q2** · _A coin looks wild on a 1-minute chart and calm on a weekly chart. Why?_  
+- [ ] **343. L12 Q2** · _A coin looks wild on a 1-minute chart and calm on a weekly chart. Why?_  
   عملة تبدو هائجة في رسم الدقيقة وهادئة في الرسم الأسبوعي. لماذا؟
 
-- [ ] **340. L12 Q2 option A** · _The coin changed over the weekend_  
+- [ ] **344. L12 Q2 option A** · _The coin changed over the weekend_  
   العملة تغيّرت في نهاية الأسبوع
 
-- [ ] **341. L12 Q2 option B ✓** · _The zoom changed, not the coin_  
+- [ ] **345. L12 Q2 option B ✓** · _The zoom changed, not the coin_  
   طريقة النظر تغيّرت، وليس العملة
 
-- [ ] **342. L12 Q2 option C** · _Weekly charts leave out the falls_  
+- [ ] **346. L12 Q2 option C** · _Weekly charts leave out the falls_  
   الرسوم الأسبوعية تحذف الهبوط
 
-- [ ] **343. L12 Q2 explanation** · _Short timeframes show every small move; long ones sum up many days in one candle._  
+- [ ] **347. L12 Q2 explanation** · _Short timeframes show every small move; long ones sum up many days in one candle._  
   الأطر القصيرة تُظهر كل حركة صغيرة، والطويلة تلخّص أيامًا كثيرة في شمعة واحدة.
 
-- [ ] **344. L12 Q3** · _A big price jump happened on very low volume. What does that tell you?_  
+- [ ] **348. L12 Q3** · _A big price jump happened on very low volume. What does that tell you?_  
   حدث ارتفاع كبير في السعر بحجم ضعيف جدًا. ماذا يخبرك ذلك؟
 
-- [ ] **345. L12 Q3 option A** · _The price will keep rising_  
+- [ ] **349. L12 Q3 option A** · _The price will keep rising_  
   السعر سيواصل الصعود
 
-- [ ] **346. L12 Q3 option B** · _The platform made a mistake_  
+- [ ] **350. L12 Q3 option B** · _The platform made a mistake_  
   المنصّة أخطأت
 
-- [ ] **347. L12 Q3 option C ✓** · _Few people took part in the move_  
+- [ ] **351. L12 Q3 option C ✓** · _Few people took part in the move_  
   عدد قليل من الناس شارك في الحركة
 
-- [ ] **348. L12 Q3 explanation** · _Low volume means few participants. It describes the past, not what comes next._  
+- [ ] **352. L12 Q3 explanation** · _Low volume means few participants. It describes the past, not what comes next._  
   الحجم الضعيف يعني مشاركين قليلين. وهو يصف ما مضى، لا ما سيأتي.
 
-- [ ] **349. L12 live button** · _Open a coin’s 30-day chart_  
+- [ ] **353. L12 live button** · _Open a coin’s 30-day chart_  
   افتح الرسم البياني لـ 30 يومًا لأي عملة
 
 ## Lesson 13: Fees and spread: what a trade really costs (`#learn-fees-spread`)
 
-- [ ] **350. L13 title** · _Fees and spread: what a trade really costs_  
+- [ ] **354. L13 title** · _Fees and spread: what a trade really costs_  
   الرسوم والفارق: كم تكلّف العملية فعلًا
 
-- [ ] **351. L13 hook** · _You pay before the price even moves. Here is the bill on 100 dollars._  
+- [ ] **355. L13 hook** · _You pay before the price even moves. Here is the bill on 100 dollars._  
   تدفع قبل أن يتحرك السعر أصلًا. هذه هي الفاتورة على 100 دولار.
 
-- [ ] **352. L13 section 1 heading** · _Two costs on every trade_  
+- [ ] **356. L13 section 1 heading** · _Two costs on every trade_  
   تكلفتان في كل عملية
 
-- [ ] **353. L13 section 1 text** · _Every trade has two costs. The fee is what the platform charges: 0.1% in Qirat’s practice wallet, the same as Binance’s basic fee for simple (spot) trades. The spread is the gap between the buy price and the sell price: in the practice wallet, you buy 0.05% above the market price and sell 0.05% below._  
+- [ ] **357. L13 section 1 text** · _Every trade has two costs. The fee is what the platform charges: 0.1% in Qirat’s practice wallet, the same as Binance’s basic fee for simple (spot) trades. The spread is the gap between the buy price and the sell price: in the practice wallet, you buy 0.05% above the market price and sell 0.05% below._  
   لكل عملية تكلفتان. الرسوم (fee) هي ما تأخذه المنصّة: 0.1% في محفظة التدريب في قيراط، وهي نفس الرسوم الأساسية للتداول الفوري في Binance. والفارق (spread) هو الفرق بين سعر الشراء وسعر البيع: في محفظة التدريب، يتم الشراء بسعر أعلى من سعر السوق بـ 0.05%، والبيع بسعر أقل منه بـ 0.05%.
 
-- [ ] **354. L13 section 2 heading** · _The bill on 100 USDT_  
+- [ ] **358. L13 section 2 heading** · _The bill on 100 USDT_  
   الفاتورة على 100 USDT
 
-- [ ] **355. L13 section 2 text** · _Say you buy for 100 USDT: about 0.10 goes to the fee and about 0.05 to the spread. If you sell everything a minute later and the price has not moved, you pay about the same again. You end with about 99.70 USDT. A buy-then-sell costs about 0.3%._  
+- [ ] **359. L13 section 2 text** · _Say you buy for 100 USDT: about 0.10 goes to the fee and about 0.05 to the spread. If you sell everything a minute later and the price has not moved, you pay about the same again. You end with about 99.70 USDT. A buy-then-sell costs about 0.3%._  
   لنفترض أنك اشتريت بـ 100 USDT: حوالي 0.10 تذهب للرسوم وحوالي 0.05 للفارق. وإذا بعت كل شيء بعد دقيقة ولم يتحرك السعر، تدفع تقريبًا نفس المبلغ مرة أخرى. يبقى لك حوالي 99.70 USDT. أي أن الشراء ثم البيع يكلّف حوالي 0.3%.
 
-- [ ] **356. L13 section 3 heading** · _Small costs, many times_  
+- [ ] **360. L13 section 3 heading** · _Small costs, many times_  
   تكاليف صغيرة، مرات كثيرة
 
-- [ ] **357. L13 section 3 text** · _Ten buy-and-sell rounds in one day cost about 3 USDT on 100, even if the price never moves. At that pace every day for a month, 100 USDT shrinks to about 41 USDT from costs alone. Each cost is tiny; the habit is what makes it big._  
+- [ ] **361. L13 section 3 text** · _Ten buy-and-sell rounds in one day cost about 3 USDT on 100, even if the price never moves. At that pace every day for a month, 100 USDT shrinks to about 41 USDT from costs alone. Each cost is tiny; the habit is what makes it big._  
   عشر جولات من الشراء والبيع في يوم واحد تكلّف حوالي 3 USDT على كل 100، حتى لو لم يتحرك السعر أبدًا. وبهذا الإيقاع كل يوم لمدة شهر، تنكمش 100 USDT إلى حوالي 41 USDT بسبب التكاليف وحدها. كل تكلفة صغيرة جدًا، لكن العادة هي التي تجعلها كبيرة.
 
-- [ ] **358. L13 section 4 heading** · _Win back the costs first_  
+- [ ] **362. L13 section 4 heading** · _Win back the costs first_  
   استرجع التكاليف أولًا
 
-- [ ] **359. L13 section 4 text** · _Because of that 0.3%, a coin has to rise about 0.3% after you buy just for you to get back to where you started. On a trade you repeat often, that is a small hill you climb every single time._  
+- [ ] **363. L13 section 4 text** · _Because of that 0.3%, a coin has to rise about 0.3% after you buy just for you to get back to where you started. On a trade you repeat often, that is a small hill you climb every single time._  
   بسبب هذه الـ 0.3%، يجب أن يرتفع سعر العملة حوالي 0.3% بعد شرائك فقط لكي تعود إلى نقطة البداية. وفي عملية تكررها كثيرًا، هذه عقبة صغيرة تصعدها في كل مرة.
 
-- [ ] **360. L13 section 5 heading** · _Real platforms can cost more_  
+- [ ] **364. L13 section 5 heading** · _Real platforms can cost more_  
   المنصّات الحقيقية قد تكلّف أكثر
 
-- [ ] **361. L13 section 5 text** · _The practice wallet uses simple, low costs. Real platforms may add more: wider spreads on small coins, higher fees on some services, and withdrawal fees when you move coins out. Look at the full cost before comparing results._  
+- [ ] **365. L13 section 5 text** · _The practice wallet uses simple, low costs. Real platforms may add more: wider spreads on small coins, higher fees on some services, and withdrawal fees when you move coins out. Look at the full cost before comparing results._  
   محفظة التدريب تستعمل تكاليف بسيطة ومنخفضة. أما المنصّات الحقيقية فقد تضيف أكثر: فارقًا أوسع في العملات الصغيرة، ورسومًا أعلى في بعض الخدمات، ورسوم سحب عند إخراج عملاتك منها. انظر إلى التكلفة الكاملة قبل أن تقارن النتائج.
 
-- [ ] **362. L13 section 6 heading** · _What the coach watches_  
+- [ ] **366. L13 section 6 heading** · _What the coach watches_  
   ماذا يراقب المدرب
 
-- [ ] **363. L13 section 6 text** · _When you make 5 or more practice trades within 24 hours, Qirat’s habit coach leaves a note. It is not a ban, just a reminder that every trade pays the fee and the spread._  
+- [ ] **367. L13 section 6 text** · _When you make 5 or more practice trades within 24 hours, Qirat’s habit coach leaves a note. It is not a ban, just a reminder that every trade pays the fee and the spread._  
   عندما تقوم بـ 5 عمليات تجريبية أو أكثر خلال 24 ساعة، يترك مدرب العادات في قيراط ملاحظة. ليست منعًا، بل تذكير بأن كل عملية تدفع الرسوم والفارق.
 
-- [ ] **364. L13 takeaway** · _A buy-then-sell costs about 0.3% before the price moves at all. Many small trades turn tiny costs into a big loss._  
+- [ ] **368. L13 takeaway** · _A buy-then-sell costs about 0.3% before the price moves at all. Many small trades turn tiny costs into a big loss._  
   الشراء ثم البيع يكلّف حوالي 0.3% قبل أن يتحرك السعر أصلًا. والعمليات الصغيرة الكثيرة تحوّل التكاليف الصغيرة إلى خسارة كبيرة.
 
-- [ ] **365. L13 Q1** · _In Qirat’s practice wallet, about how much does a buy-then-sell cost if the price does not move?_  
+- [ ] **369. L13 Q1** · _In Qirat’s practice wallet, about how much does a buy-then-sell cost if the price does not move?_  
   في محفظة التدريب في قيراط، كم يكلّف تقريبًا الشراء ثم البيع إذا لم يتحرك السعر؟
 
-- [ ] **366. L13 Q1 option A** · _Nothing_  
+- [ ] **370. L13 Q1 option A** · _Nothing_  
   لا شيء
 
-- [ ] **367. L13 Q1 option B ✓** · _About 0.3%_  
+- [ ] **371. L13 Q1 option B ✓** · _About 0.3%_  
   حوالي 0.3%
 
-- [ ] **368. L13 Q1 option C** · _About 3%_  
+- [ ] **372. L13 Q1 option C** · _About 3%_  
   حوالي 3%
 
-- [ ] **369. L13 Q1 explanation** · _About 0.1% fee and 0.05% spread on each side: roughly 0.3% to buy and then sell._  
+- [ ] **373. L13 Q1 explanation** · _About 0.1% fee and 0.05% spread on each side: roughly 0.3% to buy and then sell._  
   حوالي 0.1% رسوم و0.05% فارق في كل اتجاه: أي تقريبًا 0.3% للذهاب والعودة.
 
-- [ ] **370. L13 Q2** · _What is the spread?_  
+- [ ] **374. L13 Q2** · _What is the spread?_  
   ما هو الفارق (spread)؟
 
-- [ ] **371. L13 Q2 option A ✓** · _The gap between the buy price and the sell price_  
+- [ ] **375. L13 Q2 option A ✓** · _The gap between the buy price and the sell price_  
   الفرق بين سعر الشراء وسعر البيع
 
-- [ ] **372. L13 Q2 option B** · _A tax paid once a year_  
+- [ ] **376. L13 Q2 option B** · _A tax paid once a year_  
   ضريبة تُدفع مرة في السنة
 
-- [ ] **373. L13 Q2 option C** · _The interest a coin pays you_  
+- [ ] **377. L13 Q2 option C** · _The interest a coin pays you_  
   الفائدة التي تدفعها لك العملة
 
-- [ ] **374. L13 Q2 explanation** · _You buy a little above the market price and sell a little below. That gap is a cost._  
+- [ ] **378. L13 Q2 explanation** · _You buy a little above the market price and sell a little below. That gap is a cost._  
   تشتري بسعر أعلى قليلًا من سعر السوق وتبيع بسعر أقل قليلًا. هذا الفرق تكلفة.
 
-- [ ] **375. L13 Q3** · _Why can many small trades hurt even when the price stays flat?_  
+- [ ] **379. L13 Q3** · _Why can many small trades hurt even when the price stays flat?_  
   لماذا قد تضرّك العمليات الصغيرة الكثيرة حتى لو بقي السعر ثابتًا؟
 
-- [ ] **376. L13 Q3 option A** · _Prices always fall after a trade_  
+- [ ] **380. L13 Q3 option A** · _Prices always fall after a trade_  
   الأسعار تهبط دائمًا بعد كل عملية
 
-- [ ] **377. L13 Q3 option B** · _The practice wallet charges a monthly fee_  
+- [ ] **381. L13 Q3 option B** · _The practice wallet charges a monthly fee_  
   محفظة التدريب تأخذ رسومًا شهرية
 
-- [ ] **378. L13 Q3 option C ✓** · _Each trade pays costs, and they add up_  
+- [ ] **382. L13 Q3 option C ✓** · _Each trade pays costs, and they add up_  
   كل عملية تدفع تكاليف، وهي تتراكم
 
-- [ ] **379. L13 Q3 explanation** · _Ten rounds a day cost about 3 USDT on 100. Over a month, costs alone can eat more than half._  
+- [ ] **383. L13 Q3 explanation** · _Ten rounds a day cost about 3 USDT on 100. Over a month, costs alone can eat more than half._  
   عشر جولات في اليوم تكلّف حوالي 3 USDT على كل 100. وخلال شهر، قد تأكل التكاليف وحدها أكثر من النصف.
 
-- [ ] **380. L13 live button** · _See the fee and spread on a practice trade_  
+- [ ] **384. L13 live button** · _See the fee and spread on a practice trade_  
   شاهد الرسوم والفارق في عملية تجريبية
 
 ## Lesson 14: Order types: market, limit, stop-loss (`#learn-order-types`)
 
-- [ ] **381. L14 title** · _Order types: market, limit, stop-loss_  
+- [ ] **385. L14 title** · _Order types: market, limit, stop-loss_  
   أنواع الأوامر: أمر السوق، الأمر المحدد، ووقف الخسارة
 
-- [ ] **382. L14 hook** · _Buy now at any price, or only at your price? The order you choose decides._  
+- [ ] **386. L14 hook** · _Buy now at any price, or only at your price? The order you choose decides._  
   تشتري الآن بأي سعر، أم فقط بالسعر الذي تريده؟ نوع الأمر هو الذي يحدد.
 
-- [ ] **383. L14 section 1 heading** · _Market order: now, at the best price available_  
+- [ ] **387. L14 section 1 heading** · _Market order: now, at the best price available_  
   أمر السوق: الآن، بأفضل سعر متوفر
 
-- [ ] **384. L14 section 1 text** · _A market order buys or sells right away at the best price available at that moment. It is fast and almost always goes through. The price you get can differ a little from the price you saw, especially on small coins or big orders. That difference is called slippage._  
+- [ ] **388. L14 section 1 text** · _A market order buys or sells right away at the best price available at that moment. It is fast and almost always goes through. The price you get can differ a little from the price you saw, especially on small coins or big orders. That difference is called slippage._  
   أمر السوق (market order) يشتري أو يبيع فورًا بأفضل سعر متوفر في تلك اللحظة. هو سريع ويُنفَّذ في أغلب الأحيان. لكن السعر الذي تحصل عليه قد يختلف قليلًا عن السعر الذي رأيته، خاصة في العملات الصغيرة أو الأوامر الكبيرة. هذا الفرق اسمه الانزلاق (slippage).
 
-- [ ] **385. L14 section 2 heading** · _Limit order: only at my price or better_  
+- [ ] **389. L14 section 2 heading** · _Limit order: only at my price or better_  
   الأمر المحدد: بسعري أو أفضل فقط
 
-- [ ] **386. L14 section 2 text** · _A limit order sets your price. A buy limit at 95 goes through only at 95 or lower. A sell limit at 110 goes through only at 110 or higher. You control the price, but if the market never reaches it, the order never goes through._  
+- [ ] **390. L14 section 2 text** · _A limit order sets your price. A buy limit at 95 goes through only at 95 or lower. A sell limit at 110 goes through only at 110 or higher. You control the price, but if the market never reaches it, the order never goes through._  
   الأمر المحدد السعر (limit order) يحدد السعر الذي تريده. أمر شراء محدد عند 95 لا يُنفَّذ إلا عند 95 أو أقل، وأمر بيع محدد عند 110 لا يُنفَّذ إلا عند 110 أو أكثر. أنت تتحكم في السعر، لكن إن لم يصل السوق إليه أبدًا، فلن يُنفَّذ الأمر أبدًا.
 
-- [ ] **387. L14 section 3 heading** · _Stop-loss: the exit you choose before you enter_  
+- [ ] **391. L14 section 3 heading** · _Stop-loss: the exit you choose before you enter_  
   وقف الخسارة: المخرج الذي تختاره قبل الدخول
 
-- [ ] **388. L14 section 3 text** · _A stop-loss is a price below your buy price, chosen in advance, where a sell order is sent to limit a loss. Bought at 100 with a stop at 90? If the price falls to 90, the platform sends the sell order. In a very fast drop it can sell below 90. So a stop limits a loss, but it does not guarantee its size._  
+- [ ] **392. L14 section 3 text** · _A stop-loss is a price below your buy price, chosen in advance, where a sell order is sent to limit a loss. Bought at 100 with a stop at 90? If the price falls to 90, the platform sends the sell order. In a very fast drop it can sell below 90. So a stop limits a loss, but it does not guarantee its size._  
   أمر وقف الخسارة (stop-loss) هو سعر أقل من سعر دخولك، تختاره مسبقًا، يُرسَل عنده أمر بيع للحدّ من الخسارة. اشتريت بـ 100 ووضعت الوقف عند 90؟ إذا نزل السعر إلى 90، ترسل المنصّة أمر البيع. وفي الهبوط السريع جدًا قد يُنفَّذ تحت 90، فوقف الخسارة يحدّ من الخسارة لكنه لا يضمن حجمها.
 
-- [ ] **389. L14 section 4 heading** · _Take-profit: the exit on the way up_  
+- [ ] **393. L14 section 4 heading** · _Take-profit: the exit on the way up_  
   جني الأرباح: المخرج عند الصعود
 
-- [ ] **390. L14 section 4 text** · _A take-profit is the same idea above your buy price: a price where a sell order is sent if the coin rises. Bought at 100 with a take-profit at 120? It sells if the price reaches 120. Exits set before you buy are decided while you are calm, not in the rush of a big move._  
+- [ ] **394. L14 section 4 text** · _A take-profit is the same idea above your buy price: a price where a sell order is sent if the coin rises. Bought at 100 with a take-profit at 120? It sells if the price reaches 120. Exits set before you buy are decided while you are calm, not in the rush of a big move._  
   أمر جني الأرباح (take-profit) هو نفس الفكرة لكن فوق سعر دخولك: سعر يُرسَل عنده أمر بيع إذا ارتفعت العملة. اشتريت بـ 100 ووضعت جني الأرباح عند 120؟ يتم البيع إذا وصل السعر إلى 120. والمخارج التي تُحدَّد قبل الدخول تُقرَّر بهدوء، لا في حرارة الحركة.
 
-- [ ] **391. L14 section 5 heading** · _What Qirat’s practice wallet has_  
+- [ ] **395. L14 section 5 heading** · _What Qirat’s practice wallet has_  
   ما الموجود في محفظة التدريب في قيراط
 
-- [ ] **392. L14 section 5 text** · _Qirat’s practice wallet only places market orders for now: your practice buy or sell goes through at once at the live price, plus the spread. Limit and stop orders are not there yet. On a real platform, it is worth checking which order type is selected before confirming._  
+- [ ] **396. L14 section 5 text** · _Qirat’s practice wallet only places market orders for now: your practice buy or sell goes through at once at the live price, plus the spread. Limit and stop orders are not there yet. On a real platform, it is worth checking which order type is selected before confirming._  
   محفظة التدريب في قيراط لا تنفّذ حاليًا إلا أوامر السوق: عملية الشراء أو البيع التجريبية تُنفَّذ فورًا بالسعر الحي، مع إضافة الفارق. الأوامر المحددة وأوامر الوقف غير موجودة بعد. وفي أي منصّة حقيقية، من المفيد التحقق من نوع الأمر المختار قبل التأكيد.
 
-- [ ] **393. L14 takeaway** · _Market = now, at whatever price. Limit = only at your price, maybe never. Stop-loss and take-profit = exits chosen before you enter._  
+- [ ] **397. L14 takeaway** · _Market = now, at whatever price. Limit = only at your price, maybe never. Stop-loss and take-profit = exits chosen before you enter._  
   أمر السوق = الآن وبأي سعر. الأمر المحدد = فقط بسعرك، وربما لا يُنفَّذ أبدًا. وقف الخسارة وجني الأرباح = مخارج تُختار قبل الدخول.
 
-- [ ] **394. L14 Q1** · _You place a buy limit order at 95. The price falls to 97, then rises again. What happened to your order?_  
+- [ ] **398. L14 Q1** · _You place a buy limit order at 95. The price falls to 97, then rises again. What happened to your order?_  
   وضعت أمر شراء محددًا عند 95. نزل السعر إلى 97 ثم ارتفع من جديد. ماذا حدث لأمرك؟
 
-- [ ] **395. L14 Q1 option A ✓** · _It did not go through_  
+- [ ] **399. L14 Q1 option A ✓** · _It did not go through_  
   لم يُنفَّذ
 
-- [ ] **396. L14 Q1 option B** · _It went through at 97_  
+- [ ] **400. L14 Q1 option B** · _It went through at 97_  
   نُفِّذ عند 97
 
-- [ ] **397. L14 Q1 option C** · _It went through at 95 anyway_  
+- [ ] **401. L14 Q1 option C** · _It went through at 95 anyway_  
   نُفِّذ عند 95 رغم ذلك
 
-- [ ] **398. L14 Q1 explanation** · _A buy limit goes through only at your price or lower. The price never reached 95._  
+- [ ] **402. L14 Q1 explanation** · _A buy limit goes through only at your price or lower. The price never reached 95._  
   أمر الشراء المحدد لا يُنفَّذ إلا بسعرك أو أقل، والسعر لم يصل إلى 95 أبدًا.
 
-- [ ] **399. L14 Q2** · _What is a stop-loss?_  
+- [ ] **403. L14 Q2** · _What is a stop-loss?_  
   ما هو وقف الخسارة (stop-loss)؟
 
-- [ ] **400. L14 Q2 option A** · _A guarantee that you cannot lose_  
+- [ ] **404. L14 Q2 option A** · _A guarantee that you cannot lose_  
   ضمان بأنك لن تخسر
 
-- [ ] **401. L14 Q2 option B** · _A fee you pay when prices fall_  
+- [ ] **405. L14 Q2 option B** · _A fee you pay when prices fall_  
   رسوم تدفعها عندما تهبط الأسعار
 
-- [ ] **402. L14 Q2 option C ✓** · _A price chosen in advance where a sell order is sent to limit a loss_  
+- [ ] **406. L14 Q2 option C ✓** · _A price chosen in advance where a sell order is sent to limit a loss_  
   سعر تختاره مسبقًا يُرسَل عنده أمر بيع للحدّ من الخسارة
 
-- [ ] **403. L14 Q2 explanation** · _It is an exit chosen before you buy. In a fast drop it can sell a bit lower than planned._  
+- [ ] **407. L14 Q2 explanation** · _It is an exit chosen before you buy. In a fast drop it can sell a bit lower than planned._  
   إنه مخرج يُختار قبل الدخول. وفي الهبوط السريع قد يُنفَّذ بسعر أقل قليلًا مما خُطِّط له.
 
-- [ ] **404. L14 Q3** · _What kind of order does Qirat’s practice wallet place today?_  
+- [ ] **408. L14 Q3** · _What kind of order does Qirat’s practice wallet place today?_  
   ما نوع الأوامر الذي تنفّذه محفظة التدريب في قيراط اليوم؟
 
-- [ ] **405. L14 Q3 option A** · _Limit orders only_  
+- [ ] **409. L14 Q3 option A** · _Limit orders only_  
   أوامر محددة فقط
 
-- [ ] **406. L14 Q3 option B ✓** · _Market orders_  
+- [ ] **410. L14 Q3 option B ✓** · _Market orders_  
   أوامر السوق
 
-- [ ] **407. L14 Q3 option C** · _Stop-loss orders_  
+- [ ] **411. L14 Q3 option C** · _Stop-loss orders_  
   أوامر وقف الخسارة
 
-- [ ] **408. L14 Q3 explanation** · _Practice trades go through at once at the live price, plus the spread. Limit and stop orders are not there yet._  
+- [ ] **412. L14 Q3 explanation** · _Practice trades go through at once at the live price, plus the spread. Limit and stop orders are not there yet._  
   العمليات التجريبية تُنفَّذ فورًا بالسعر الحي مع الفارق. الأوامر المحددة وأوامر الوقف غير موجودة بعد.
 
-- [ ] **409. L14 live button** · _Place a practice market order_  
+- [ ] **413. L14 live button** · _Place a practice market order_  
   نفّذ أمر سوق تجريبيًا
 
 ## Lesson 15: What a karat means (`#learn-karat`)
 
-- [ ] **410. L15 title** · _What a karat means_  
+- [ ] **414. L15 title** · _What a karat means_  
   ماذا يعني القيراط؟
 
-- [ ] **411. L15 hook** · _The way a goldsmith weighs gold, Qirat weighs coins: from 24K down to 10K._  
+- [ ] **415. L15 hook** · _The way a goldsmith weighs gold, Qirat weighs coins: from 24K down to 10K._  
   كما يزن الصائغ الذهب، يزن قيراط العملات: من 24K إلى 10K.
 
-- [ ] **412. L15 section 1 heading** · _From 24K to 10K_  
+- [ ] **416. L15 section 1 heading** · _From 24K to 10K_  
   من 24K إلى 10K
 
-- [ ] **413. L15 section 1 text** · _Gold is graded in karats: 24K is pure, lower karats are mixed. Qirat uses the same idea for coins. 24K means calm and climbing compared with other big coins; 10K means wild or sliding. In between come 22K, 18K and 14K._  
+- [ ] **417. L15 section 1 text** · _Gold is graded in karats: 24K is pure, lower karats are mixed. Qirat uses the same idea for coins. 24K means calm and climbing compared with other big coins; 10K means wild or sliding. In between come 22K, 18K and 14K._  
   يُقاس الذهب بالقيراط: 24K هو الذهب الخالص، والقيراط الأقل يعني ذهبًا مخلوطًا. قيراط يطبّق نفس الفكرة على العملات. 24K تعني عملة هادئة وصاعدة مقارنة بالعملات الكبيرة الأخرى، و10K تعني عملة هائجة أو هابطة. وبينهما 22K و18K و14K.
 
-- [ ] **414. L15 section 2 heading** · _Two things go in_  
+- [ ] **418. L15 section 2 heading** · _Two things go in_  
   عنصران فقط
 
-- [ ] **415. L15 section 2 text** · _First, calm: how little the coin moved over the last 30 days. Second, trend: how much it rose or fell over about 90 days, leaving out the last week. Each coin is ranked on both against 18 big coins that Qirat tracks, from Bitcoin to SUI._  
+- [ ] **419. L15 section 2 text** · _First, calm: how little the coin moved over the last 30 days. Second, trend: how much it rose or fell over about 90 days, leaving out the last week. Each coin is ranked on both against 18 big coins that Qirat tracks, from Bitcoin to SUI._  
   أولًا الهدوء: إلى أي حد كانت حركة العملة قليلة خلال آخر 30 يومًا. ثانيًا الاتجاه: كم ارتفعت أو انخفضت خلال حوالي 90 يومًا، دون احتساب الأسبوع الأخير. وتُرتَّب كل عملة على هذين الأمرين مقارنة بـ 18 عملة كبيرة يتابعها قيراط، من Bitcoin إلى SUI.
 
-- [ ] **416. L15 section 3 heading** · _How the score becomes a karat_  
+- [ ] **420. L15 section 3 heading** · _How the score becomes a karat_  
   كيف تتحول النتيجة إلى قيراط
 
-- [ ] **417. L15 section 3 text** · _Say a coin is calmer than 80% of the big coins and its trend is stronger than 60% of them. Its score is the average: 70. A score of 80 or more gives 24K, 60 or more 22K, 40 or more 18K, 20 or more 14K, and below that 10K. So this coin is 22K._  
+- [ ] **421. L15 section 3 text** · _Say a coin is calmer than 80% of the big coins and its trend is stronger than 60% of them. Its score is the average: 70. A score of 80 or more gives 24K, 60 or more 22K, 40 or more 18K, 20 or more 14K, and below that 10K. So this coin is 22K._  
   لنفترض أن عملة أهدأ من 80% من العملات الكبيرة، واتجاهها أقوى من 60% منها. نتيجتها هي المتوسط: 70. النتيجة 80 أو أكثر تعطي 24K، و60 أو أكثر 22K، و40 أو أكثر 18K، و20 أو أكثر 14K، وما دون ذلك 10K. إذن هذه العملة 22K.
 
-- [ ] **418. L15 section 4 heading** · _A karat compares, it does not protect_  
+- [ ] **422. L15 section 4 heading** · _A karat compares, it does not protect_  
   القيراط يقارن ولا يحمي
 
-- [ ] **419. L15 section 4 text** · _Karats rank coins against each other, and they change as prices change. When the whole market falls, the ranking stays but prices drop together: in a stormy market even 24K coins usually fall. A coin with less than 3 months of history gets no karat yet._  
+- [ ] **423. L15 section 4 text** · _Karats rank coins against each other, and they change as prices change. When the whole market falls, the ranking stays but prices drop together: in a stormy market even 24K coins usually fall. A coin with less than 3 months of history gets no karat yet._  
   القيراط يرتّب العملات مقارنة ببعضها، ويتغيّر عندما تتغيّر الأسعار. عندما يهبط السوق كله، يبقى الترتيب لكن الأسعار تنزل معًا: في سوق عاصف، حتى عملات 24K تهبط عادة. والعملة التي لديها أقل من 3 أشهر من البيانات لا تحصل على قيراط بعد.
 
-- [ ] **420. L15 section 5 heading** · _What the test found_  
+- [ ] **424. L15 section 5 heading** · _What the test found_  
   ماذا وجد الاختبار
 
-- [ ] **421. L15 section 5 text** · _In Qirat’s October 2026 test on past prices, calm coins that rose over 90 days did a little better on average than the rest. That is a small advantage, not a promise: for any single coin, it is often wrong. The risk grade, built from the same 30-day swings, has been the more reliable part._  
+- [ ] **425. L15 section 5 text** · _In Qirat’s October 2026 test on past prices, calm coins that rose over 90 days did a little better on average than the rest. That is a small advantage, not a promise: for any single coin, it is often wrong. The risk grade, built from the same 30-day swings, has been the more reliable part._  
   في اختبار قيراط في أكتوبر 2026 على بيانات سابقة، كانت العملات الهادئة ذات الاتجاه الصاعد على 90 يومًا أفضل قليلًا في المتوسط من غيرها. إنها أفضلية ضعيفة وليست وعدًا: والأفضلية الضعيفة تخطئ كثيرًا مع أي عملة بمفردها. أما درجة المخاطرة، المبنية على نفس تحركات الـ 30 يومًا، فكانت الجزء الأكثر موثوقية.
 
-- [ ] **422. L15 section 6 heading** · _Never an instruction_  
+- [ ] **426. L15 section 6 heading** · _Never an instruction_  
   ليس أمرًا أبدًا
 
-- [ ] **423. L15 section 6 text** · _A karat is never an instruction to buy, sell or hold. Read it next to the coin’s risk grade and its rough month: even the calmest crypto can lose a lot in a bad month._  
+- [ ] **427. L15 section 6 text** · _A karat is never an instruction to buy, sell or hold. Read it next to the coin’s risk grade and its rough month: even the calmest crypto can lose a lot in a bad month._  
   القيراط ليس أبدًا أمرًا بالشراء أو البيع أو الاحتفاظ. اقرأه مع درجة المخاطرة للعملة ومع شهرها الصعب: حتى أهدأ عملة رقمية قد تخسر الكثير في شهر سيئ.
 
-- [ ] **424. L15 takeaway** · _A karat ranks a coin’s calm and 90-day trend against 18 big coins. It compares; it does not predict, protect, or tell you what to do._  
+- [ ] **428. L15 takeaway** · _A karat ranks a coin’s calm and 90-day trend against 18 big coins. It compares; it does not predict, protect, or tell you what to do._  
   القيراط يرتّب هدوء العملة واتجاهها على 90 يومًا مقارنة بـ 18 عملة كبيرة. هو يقارن فقط: لا يتنبأ، ولا يحمي، ولا يقول لك ماذا تفعل.
 
-- [ ] **425. L15 Q1** · _What two things make a coin’s karat?_  
+- [ ] **429. L15 Q1** · _What two things make a coin’s karat?_  
   ما العنصران اللذان يصنعان قيراط العملة؟
 
-- [ ] **426. L15 Q1 option A** · _Its price and how famous it is_  
+- [ ] **430. L15 Q1 option A** · _Its price and how famous it is_  
   سعرها ومدى شهرتها
 
-- [ ] **427. L15 Q1 option B** · _How many people bought it today_  
+- [ ] **431. L15 Q1 option B** · _How many people bought it today_  
   عدد من اشتروها اليوم
 
-- [ ] **428. L15 Q1 option C ✓** · _Its calm over 30 days and its trend over about 90 days_  
+- [ ] **432. L15 Q1 option C ✓** · _Its calm over 30 days and its trend over about 90 days_  
   هدوؤها خلال 30 يومًا واتجاهها خلال حوالي 90 يومًا
 
-- [ ] **429. L15 Q1 explanation** · _Calm and trend, each ranked against 18 big coins, then averaged._  
+- [ ] **433. L15 Q1 explanation** · _Calm and trend, each ranked against 18 big coins, then averaged._  
   الهدوء والاتجاه، كل منهما يُرتَّب مقارنة بـ 18 عملة كبيرة، ثم يُؤخذ المتوسط.
 
-- [ ] **430. L15 Q2** · _The market is stormy. What usually happens to 24K coins?_  
+- [ ] **434. L15 Q2** · _The market is stormy. What usually happens to 24K coins?_  
   السوق عاصف. ماذا يحدث عادة لعملات 24K؟
 
-- [ ] **431. L15 Q2 option A** · _They are protected from falling_  
+- [ ] **435. L15 Q2 option A** · _They are protected from falling_  
   هي محمية من الهبوط
 
-- [ ] **432. L15 Q2 option B ✓** · _They usually fall too_  
+- [ ] **436. L15 Q2 option B ✓** · _They usually fall too_  
   تهبط هي أيضًا عادة
 
-- [ ] **433. L15 Q2 option C** · _They always rise in storms_  
+- [ ] **437. L15 Q2 option C** · _They always rise in storms_  
   ترتفع دائمًا في العاصفة
 
-- [ ] **434. L15 Q2 explanation** · _Karats compare coins with each other. In a storm most coins fall together, 24K ones included._  
+- [ ] **438. L15 Q2 explanation** · _Karats compare coins with each other. In a storm most coins fall together, 24K ones included._  
   القيراط يقارن العملات ببعضها. وفي العاصفة تهبط أغلب العملات معًا، ومنها عملات 24K.
 
-- [ ] **435. L15 Q3** · _A coin is 24K today. What does that tell you to do?_  
+- [ ] **439. L15 Q3** · _A coin is 24K today. What does that tell you to do?_  
   عملة حصلت اليوم على 24K. ماذا يطلب منك ذلك أن تفعل؟
 
-- [ ] **436. L15 Q3 option A ✓** · _Nothing: a karat is never an instruction_  
+- [ ] **440. L15 Q3 option A ✓** · _Nothing: a karat is never an instruction_  
   لا شيء: القيراط ليس أمرًا أبدًا
 
-- [ ] **437. L15 Q3 option B** · _Buy it before it drops_  
+- [ ] **441. L15 Q3 option B** · _Buy it before it drops_  
   أن تشتريها قبل أن تهبط
 
-- [ ] **438. L15 Q3 option C** · _Sell your other coins_  
+- [ ] **442. L15 Q3 option C** · _Sell your other coins_  
   أن تبيع عملاتك الأخرى
 
-- [ ] **439. L15 Q3 explanation** · _It describes calm and trend compared with other coins. What you do is your own decision._  
+- [ ] **443. L15 Q3 explanation** · _It describes calm and trend compared with other coins. What you do is your own decision._  
   هو يصف الهدوء والاتجاه مقارنة بالعملات الأخرى. أما ما تفعله فهو قرارك أنت.
 
 ## Lesson 16: Market weather: moving averages and the crowd (`#learn-market-weather`)
 
-- [ ] **440. L16 title** · _Market weather: moving averages and the crowd_  
+- [ ] **444. L16 title** · _Market weather: moving averages and the crowd_  
   طقس السوق: المتوسطات المتحركة ومزاج الناس
 
-- [ ] **441. L16 hook** · _Before looking at one coin, look at the sky over the whole market._  
+- [ ] **445. L16 hook** · _Before looking at one coin, look at the sky over the whole market._  
   قبل أن تنظر إلى عملة واحدة، انظر إلى سماء السوق كله.
 
-- [ ] **442. L16 section 1 heading** · _What a moving average is_  
+- [ ] **446. L16 section 1 heading** · _What a moving average is_  
   ما هو المتوسط المتحرك
 
-- [ ] **443. L16 section 1 text** · _A 50-day moving average is the average end-of-day price over the last 50 days. Each new day adds one price and drops the oldest, so the line moves slowly behind the price. The 200-day average does the same over a much longer time._  
+- [ ] **447. L16 section 1 text** · _A 50-day moving average is the average end-of-day price over the last 50 days. Each new day adds one price and drops the oldest, so the line moves slowly behind the price. The 200-day average does the same over a much longer time._  
   المتوسط المتحرك (moving average) لـ 50 يومًا هو متوسط أسعار الإغلاق في آخر 50 يومًا. كل يوم جديد يضيف سعرًا ويحذف أقدمها، فيتحرك الخط ببطء خلف السعر. والمتوسط لـ 200 يوم يفعل الشيء نفسه على فترة أطول بكثير.
 
-- [ ] **444. L16 section 2 heading** · _Above or below the line_  
+- [ ] **448. L16 section 2 heading** · _Above or below the line_  
   فوق الخط أو تحته
 
-- [ ] **445. L16 section 2 text** · _When the price is above its 50-day average, it is higher than its recent normal: the recent direction is up. Below it, the recent direction is down. The 200-day line helps tell a short dip apart from a longer fall._  
+- [ ] **449. L16 section 2 text** · _When the price is above its 50-day average, it is higher than its recent normal: the recent direction is up. Below it, the recent direction is down. The 200-day line helps tell a short dip apart from a longer fall._  
   عندما يكون السعر فوق متوسطه لـ 50 يومًا، فهو أعلى من مستواه المعتاد مؤخرًا: الاتجاه الأخير صاعد. وعندما يكون تحته، فالاتجاه الأخير هابط. أما خط الـ 200 يوم فيساعد على التمييز بين نزول قصير واتجاه هابط أطول.
 
-- [ ] **446. L16 section 3 heading** · _Qirat’s three skies_  
+- [ ] **450. L16 section 3 heading** · _Qirat’s three skies_  
   سماوات قيراط الثلاث
 
-- [ ] **447. L16 section 3 text** · _Qirat looks at Bitcoin, because most coins tend to move with it. Calm: Bitcoin is above its 50-day average and the crowd is not too excited. Choppy: Bitcoin is above it but the crowd is too excited, or it fell below the 50-day line but stayed above the 200-day one. Stormy: Bitcoin is below both lines._  
+- [ ] **451. L16 section 3 text** · _Qirat looks at Bitcoin, because most coins tend to move with it. Calm: Bitcoin is above its 50-day average and the crowd is not too excited. Choppy: Bitcoin is above it but the crowd is too excited, or it fell below the 50-day line but stayed above the 200-day one. Stormy: Bitcoin is below both lines._  
   ينظر قيراط إلى Bitcoin، لأن أغلب العملات تميل إلى التحرك معه. هادئ: Bitcoin فوق متوسطه لـ 50 يومًا والناس ليسوا في حالة اندفاع. متقلب: Bitcoin فوقه لكن الناس مندفعون جدًا، أو نزل تحت خط الـ 50 يومًا مع بقائه فوق خط الـ 200 يوم. عاصف: Bitcoin تحت الخطين معًا.
 
-- [ ] **448. L16 section 4 heading** · _How the crowd’s mood counts_  
+- [ ] **452. L16 section 4 heading** · _How the crowd’s mood counts_  
   كيف يُحسب مزاج الناس
 
-- [ ] **449. L16 section 4 text** · _Two numbers measure the crowd. The Fear & Greed index scores the mood around Bitcoin from 0 (extreme fear) to 100 (extreme greed). Funding is a small payment on futures. Traders who bet on a rise with borrowed money pay it to keep their bet open. When it is high, many have bet on a rise. If Fear & Greed is 80 or more, or funding is high, a calm sky turns choppy. The crowd never makes the sky calm on its own._  
+- [ ] **453. L16 section 4 text** · _Two numbers measure the crowd. The Fear & Greed index scores the mood around Bitcoin from 0 (extreme fear) to 100 (extreme greed). Funding is a small payment on futures. Traders who bet on a rise with borrowed money pay it to keep their bet open. When it is high, many have bet on a rise. If Fear & Greed is 80 or more, or funding is high, a calm sky turns choppy. The crowd never makes the sky calm on its own._  
   مقياسان يقيسان مزاج الناس. مؤشر Fear & Greed يقيّم المزاج حول Bitcoin من 0 (خوف شديد) إلى 100 (طمع شديد). ورسوم التمويل (funding) دفعة صغيرة يدفعها من يراهنون على الصعود بأموال مقترضة في العقود الآجلة ليبقوا في مراكزهم، وعندما تكون مرتفعة فهذا يعني أن كثيرين راهنوا على الصعود. إذا كان Fear & Greed عند 80 أو أكثر، أو كان التمويل مرتفعًا، يتحول الطقس الهادئ إلى متقلب. لكن مزاج الناس وحده لا يجعل الطقس هادئًا أبدًا.
 
-- [ ] **450. L16 section 5 heading** · _What the past shows, and what it doesn’t_  
+- [ ] **454. L16 section 5 heading** · _What the past shows, and what it doesn’t_  
   ماذا يُظهر الماضي، وماذا لا يُظهر
 
-- [ ] **451. L16 section 5 text** · _Qirat checked Bitcoin from 2021 to 2026. In months that started with Bitcoin above its 50-day average, the middle result (the median) of the next 30 days was +3.0%. In months that started below it, it was −2.1%. That is a small difference in past data, not a promise: a median hides many months that went the other way._  
+- [ ] **455. L16 section 5 text** · _Qirat checked Bitcoin from 2021 to 2026. In months that started with Bitcoin above its 50-day average, the middle result (the median) of the next 30 days was +3.0%. In months that started below it, it was −2.1%. That is a small difference in past data, not a promise: a median hides many months that went the other way._  
   درس قيراط سعر Bitcoin من 2021 إلى 2026. في الأشهر التي بدأت وBitcoin فوق متوسطه لـ 50 يومًا، كانت النتيجة الوسطى (الوسيط) للـ 30 يومًا التالية +3.0%، وفي الأشهر التي بدأت وهو تحته كانت −2.1%. هذا ميل في بيانات سابقة وليس وعدًا: الوسيط يخفي أشهرًا كثيرة سارت في الاتجاه المعاكس.
 
-- [ ] **452. L16 section 6 heading** · _Weather is not a forecast_  
+- [ ] **456. L16 section 6 heading** · _Weather is not a forecast_  
   الطقس ليس توقعًا
 
-- [ ] **453. L16 section 6 text** · _The weather describes the whole market today. It does not tell you what one coin will do tomorrow, and it is not a signal to buy or sell. It tells you how rough the sea is before you practise._  
+- [ ] **457. L16 section 6 text** · _The weather describes the whole market today. It does not tell you what one coin will do tomorrow, and it is not a signal to buy or sell. It tells you how rough the sea is before you practise._  
   الطقس يصف السوق كله اليوم. لا يخبرك بما ستفعله عملة واحدة غدًا، وليس إشارة للشراء أو البيع. هو يخبرك بحالة البحر قبل أن تتدرّب.
 
-- [ ] **454. L16 takeaway** · _Calm, choppy or stormy comes from Bitcoin against its 50-day and 200-day averages, plus the crowd’s mood. It describes today; it does not predict._  
+- [ ] **458. L16 takeaway** · _Calm, choppy or stormy comes from Bitcoin against its 50-day and 200-day averages, plus the crowd’s mood. It describes today; it does not predict._  
   هادئ أو متقلب أو عاصف: يأتي من موقع Bitcoin مقارنة بمتوسطيه لـ 50 و200 يوم، ومن مزاج الناس. هو يصف اليوم ولا يتنبأ.
 
-- [ ] **455. L16 Q1** · _What is a 50-day moving average?_  
+- [ ] **459. L16 Q1** · _What is a 50-day moving average?_  
   ما هو المتوسط المتحرك لـ 50 يومًا؟
 
-- [ ] **456. L16 Q1 option A** · _The highest price of the last 50 days_  
+- [ ] **460. L16 Q1 option A** · _The highest price of the last 50 days_  
   أعلى سعر في آخر 50 يومًا
 
-- [ ] **457. L16 Q1 option B ✓** · _The average end-of-day price over the last 50 days_  
+- [ ] **461. L16 Q1 option B ✓** · _The average end-of-day price over the last 50 days_  
   متوسط أسعار الإغلاق في آخر 50 يومًا
 
-- [ ] **458. L16 Q1 option C** · _A forecast for the next 50 days_  
+- [ ] **462. L16 Q1 option C** · _A forecast for the next 50 days_  
   توقع للأيام الـ 50 القادمة
 
-- [ ] **459. L16 Q1 explanation** · _It is the average of the last 50 end-of-day prices, so it moves slowly behind the price._  
+- [ ] **463. L16 Q1 explanation** · _It is the average of the last 50 end-of-day prices, so it moves slowly behind the price._  
   هو متوسط آخر 50 سعر إغلاق يومي، لذلك يتحرك ببطء خلف السعر.
 
-- [ ] **460. L16 Q2** · _Bitcoin is below both its 50-day and 200-day averages. What is Qirat’s weather?_  
+- [ ] **464. L16 Q2** · _Bitcoin is below both its 50-day and 200-day averages. What is Qirat’s weather?_  
   Bitcoin تحت متوسطيه لـ 50 يومًا و200 يوم. ما هو طقس قيراط؟
 
-- [ ] **461. L16 Q2 option A** · _Calm_  
+- [ ] **465. L16 Q2 option A** · _Calm_  
   هادئ
 
-- [ ] **462. L16 Q2 option B** · _Choppy_  
+- [ ] **466. L16 Q2 option B** · _Choppy_  
   متقلب
 
-- [ ] **463. L16 Q2 option C ✓** · _Stormy_  
+- [ ] **467. L16 Q2 option C ✓** · _Stormy_  
   عاصف
 
-- [ ] **464. L16 Q2 explanation** · _Below both lines is stormy. In storms most coins fall, even 24K ones._  
+- [ ] **468. L16 Q2 explanation** · _Below both lines is stormy. In storms most coins fall, even 24K ones._  
   تحت الخطين معًا يعني عاصفًا. وفي العاصفة تهبط أغلب العملات، حتى عملات 24K.
 
-- [ ] **465. L16 Q3** · _Bitcoin is above its 50-day average, but Fear & Greed is at 85. What is the weather?_  
+- [ ] **469. L16 Q3** · _Bitcoin is above its 50-day average, but Fear & Greed is at 85. What is the weather?_  
   Bitcoin فوق متوسطه لـ 50 يومًا، لكن مؤشر Fear & Greed عند 85. ما هو الطقس؟
 
-- [ ] **466. L16 Q3 option A ✓** · _Choppy_  
+- [ ] **470. L16 Q3 option A ✓** · _Choppy_  
   متقلب
 
-- [ ] **467. L16 Q3 option B** · _Calm_  
+- [ ] **471. L16 Q3 option B** · _Calm_  
   هادئ
 
-- [ ] **468. L16 Q3 option C** · _Stormy_  
+- [ ] **472. L16 Q3 option C** · _Stormy_  
   عاصف
 
-- [ ] **469. L16 Q3 explanation** · _A crowd that is too excited turns a calm sky choppy. The crowd’s mood never makes it calm on its own._  
+- [ ] **473. L16 Q3 explanation** · _A crowd that is too excited turns a calm sky choppy. The crowd’s mood never makes it calm on its own._  
   اندفاع الناس الشديد يحوّل الطقس الهادئ إلى متقلب. ومزاج الناس وحده لا يجعله هادئًا أبدًا.
 
 ## Lesson 17: FOMO: why buying after a big jump hurts (`#learn-fomo`)
 
-- [ ] **470. L17 title** · _FOMO: why buying after a big jump hurts_  
+- [ ] **474. L17 title** · _FOMO: why buying after a big jump hurts_  
   الـ FOMO: لماذا يؤلم الشراء بعد قفزة كبيرة
 
-- [ ] **471. L17 hook** · _When everyone is talking about a coin, most of the move has often already happened._  
+- [ ] **475. L17 hook** · _When everyone is talking about a coin, most of the move has often already happened._  
   عندما يتحدث الجميع عن عملة ما، يكون أغلب الارتفاع قد حدث في كثير من الأحيان.
 
-- [ ] **472. L17 section 1 heading** · _What FOMO is_  
+- [ ] **476. L17 section 1 heading** · _What FOMO is_  
   ما هو الـ FOMO
 
-- [ ] **473. L17 section 1 text** · _Fear Of Missing Out: the feeling you get when a coin is up 50% this week, your friends are all posting about it, and you feel you have to get in right now._  
+- [ ] **477. L17 section 1 text** · _Fear Of Missing Out: the feeling you get when a coin is up 50% this week, your friends are all posting about it, and you feel you have to get in right now._  
   Fear Of Missing Out، أي الخوف من تفويت الفرصة: هو الشعور الذي ينتابك عندما ترتفع عملة 50% هذا الأسبوع، ويتحدث عنها كل أصدقائك، وتشعر أن عليك الدخول فورًا.
 
-- [ ] **474. L17 section 2 heading** · _Why it hurts_  
+- [ ] **478. L17 section 2 heading** · _Why it hurts_  
   لماذا يؤلم
 
-- [ ] **475. L17 section 2 text** · _Big jumps attract late buyers, and early buyers often sell to them. A fast rise usually comes with bigger swings than normal, in both directions, so a sharp drop soon after you buy is common. Then fear pushes you to sell low. Buying high and selling low is the opposite of what anyone wants._  
+- [ ] **479. L17 section 2 text** · _Big jumps attract late buyers, and early buyers often sell to them. A fast rise usually comes with bigger swings than normal, in both directions, so a sharp drop soon after you buy is common. Then fear pushes you to sell low. Buying high and selling low is the opposite of what anyone wants._  
   القفزات الكبيرة تجذب المشترين المتأخرين، والمشترون الأوائل كثيرًا ما يبيعون لهم. الصعود السريع يأتي عادةً مع تقلبات أكبر من المعتاد، في الاتجاهين، لذلك الهبوط الحاد بعد شرائك بقليل أمر شائع. ثم يدفعك الخوف إلى البيع بسعر منخفض. الشراء غاليًا والبيع رخيصًا هو عكس ما يريده أي شخص.
 
-- [ ] **476. L17 section 3 heading** · _The crowd’s mood_  
+- [ ] **480. L17 section 3 heading** · _The crowd’s mood_  
   مزاج الجمهور
 
-- [ ] **477. L17 section 3 text** · _The Fear & Greed index scores the Bitcoin crowd’s mood from 0 (extreme fear) to 100 (extreme greed). Extreme greed means many people have already bought; it does not tell you when the price will turn. In Qirat, extreme greed is one of the things that turns the market weather from “calm” to “choppy”._  
+- [ ] **481. L17 section 3 text** · _The Fear & Greed index scores the Bitcoin crowd’s mood from 0 (extreme fear) to 100 (extreme greed). Extreme greed means many people have already bought; it does not tell you when the price will turn. In Qirat, extreme greed is one of the things that turns the market weather from “calm” to “choppy”._  
   مؤشر Fear & Greed يقيس مزاج جمهور Bitcoin من 0 (خوف شديد) إلى 100 (طمع شديد). الطمع الشديد يعني أن كثيرًا من الناس اشتروا بالفعل؛ لكنه لا يخبرك متى سينعكس السعر. في قيراط، الطمع الشديد من الأمور التي تحوّل طقس السوق من «هادئ» إلى «متقلب».
 
-- [ ] **478. L17 section 4 heading** · _A calm routine_  
+- [ ] **482. L17 section 4 heading** · _A calm routine_  
   روتين هادئ
 
-- [ ] **479. L17 section 4 text** · _Before any decision, wait 24 hours. Write down why you want it, and what you would do if it fell 30%. Look at its risk grade and its rough month (what you could lose in a bad month). If the only reason is “everyone is buying”, that is FOMO talking. In the practice wallet, the habit coach points it out when you buy a coin that rose more than 15% in 7 days._  
+- [ ] **483. L17 section 4 text** · _Before any decision, wait 24 hours. Write down why you want it, and what you would do if it fell 30%. Look at its risk grade and its rough month (what you could lose in a bad month). If the only reason is “everyone is buying”, that is FOMO talking. In the practice wallet, the habit coach points it out when you buy a coin that rose more than 15% in 7 days._  
   قبل أي قرار، انتظر 24 ساعة. اكتب لماذا تريدها، وماذا ستفعل إذا هبطت 30%. انظر إلى درجة مخاطرتها وإلى شهرها الصعب (كم يمكن أن تخسر في شهر سيئ). إذا كان السبب الوحيد «الجميع يشتري»، فهذا هو الـ FOMO يتكلم. في محفظة التدريب، ينبّهك مدرب العادات عندما تشتري عملة ارتفعت أكثر من 15% في 7 أيام.
 
-- [ ] **480. L17 section 5 heading** · _Missing out is fine_  
+- [ ] **484. L17 section 5 heading** · _Missing out is fine_  
   فاتتك؟ لا بأس
 
-- [ ] **481. L17 section 5 text** · _There will always be another coin and another week. A jump you missed costs you nothing. Chasing one can cost you a lot._  
+- [ ] **485. L17 section 5 text** · _There will always be another coin and another week. A jump you missed costs you nothing. Chasing one can cost you a lot._  
   ستكون هناك دائمًا عملة أخرى وأسبوع آخر. القفزة التي فاتتك لا تكلّفك شيئًا. أما مطاردتها فقد تكلّفك كثيرًا.
 
-- [ ] **482. L17 takeaway** · _Big jump + loud crowd = slow down. A move you missed costs you nothing._  
+- [ ] **486. L17 takeaway** · _Big jump + loud crowd = slow down. A move you missed costs you nothing._  
   قفزة كبيرة + جمهور صاخب = تمهّل. الحركة التي فاتتك لا تكلّفك شيئًا.
 
-- [ ] **483. L17 Q1** · _Which thought is FOMO talking?_  
+- [ ] **487. L17 Q1** · _Which thought is FOMO talking?_  
   أي فكرة هي صوت الـ FOMO؟
 
-- [ ] **484. L17 Q1 option A** · _“Let me check its rough month first”_  
+- [ ] **488. L17 Q1 option A** · _“Let me check its rough month first”_  
   «دعني أنظر إلى شهرها الصعب أولًا»
 
-- [ ] **485. L17 Q1 option B** · _“I’ll wait 24 hours”_  
+- [ ] **489. L17 Q1 option B** · _“I’ll wait 24 hours”_  
   «سأنتظر 24 ساعة»
 
-- [ ] **486. L17 Q1 option C ✓** · _“I must get in now before it’s too late”_  
+- [ ] **490. L17 Q1 option C ✓** · _“I must get in now before it’s too late”_  
   «يجب أن أدخل الآن قبل فوات الأوان»
 
-- [ ] **487. L17 Q1 explanation** · _Urgency with no reason except “it’s going up” is the clear sign of FOMO._  
+- [ ] **491. L17 Q1 explanation** · _Urgency with no reason except “it’s going up” is the clear sign of FOMO._  
   الاستعجال بلا سبب سوى «إنها ترتفع» هو توقيع الـ FOMO.
 
-- [ ] **488. L17 Q2** · _What often comes with a very fast rise?_  
+- [ ] **492. L17 Q2** · _What often comes with a very fast rise?_  
   ما الذي يرافق غالبًا الصعود السريع جدًا؟
 
-- [ ] **489. L17 Q2 option A ✓** · _Bigger swings, including sharp drops_  
+- [ ] **493. L17 Q2 option A ✓** · _Bigger swings, including sharp drops_  
   تقلبات أكبر، منها هبوط حاد
 
-- [ ] **490. L17 Q2 option B** · _Prices that keep rising for sure_  
+- [ ] **494. L17 Q2 option B** · _Prices that keep rising for sure_  
   أسعار تواصل الصعود بالتأكيد
 
-- [ ] **491. L17 Q2 option C** · _A frozen price_  
+- [ ] **495. L17 Q2 option C** · _A frozen price_  
   سعر متجمد
 
-- [ ] **492. L17 Q2 explanation** · _Fast rises pull in late buyers, early buyers often take their profit, and the price swings harder. It can fall back quickly._  
+- [ ] **496. L17 Q2 explanation** · _Fast rises pull in late buyers, early buyers often take their profit, and the price swings harder. It can fall back quickly._  
   الصعود السريع يجذب المتأخرين، والأوائل كثيرًا ما يأخذون أرباحهم، فيتقلب السعر أكثر. وقد يعود إلى الهبوط بسرعة.
 
-- [ ] **493. L17 Q3** · _What does missing a big jump cost you?_  
+- [ ] **497. L17 Q3** · _What does missing a big jump cost you?_  
   كم تكلّفك قفزة كبيرة فاتتك؟
 
-- [ ] **494. L17 Q3 option A** · _A fee_  
+- [ ] **498. L17 Q3 option A** · _A fee_  
   رسومًا
 
-- [ ] **495. L17 Q3 option B ✓** · _Nothing_  
+- [ ] **499. L17 Q3 option B ✓** · _Nothing_  
   لا شيء
 
-- [ ] **496. L17 Q3 option C** · _Your account_  
+- [ ] **500. L17 Q3 option C** · _Your account_  
   حسابك
 
-- [ ] **497. L17 Q3 explanation** · _You lose no money by missing a move. Chasing it is what can cost you._  
+- [ ] **501. L17 Q3 explanation** · _You lose no money by missing a move. Chasing it is what can cost you._  
   لا تخسر أي مال عندما تفوتك حركة. ما قد يكلّفك هو مطاردتها.
 
 # Level 3: Advanced
 
-- [ ] **498. Level 3 name** · _Advanced_  
+- [ ] **502. Level 3 name** · _Advanced_  
   المستوى المتقدم
 
-- [ ] **499. Level 3 description** · _Protect your money and follow a plan: position size, leverage, indicators, spreading out, your journal._  
+- [ ] **503. Level 3 description** · _Protect your money and follow a plan: position size, leverage, indicators, spreading out, your journal._  
   احمِ مالك واتبع خطة: حجم الصفقة، الرافعة المالية، المؤشرات، توزيع المخاطر، ودفتر صفقاتك.
 
 ## Lesson 18: Position size: never all-in (`#learn-position-size`)
 
-- [ ] **500. L18 title** · _Position size: never all-in_  
+- [ ] **504. L18 title** · _Position size: never all-in_  
   حجم الصفقة: لا تضع كل شيء في صفقة واحدة
 
-- [ ] **501. L18 hook** · _Before asking which coin, ask how much. That number decides how hard a mistake can hit you._  
+- [ ] **505. L18 hook** · _Before asking which coin, ask how much. That number decides how hard a mistake can hit you._  
   قبل أن تسأل «أي عملة؟» اسأل «كم؟». هذا الرقم هو الذي يحدد حجم الضرر إذا أخطأت.
 
-- [ ] **502. L18 section 1 heading** · _One trade is only a part_  
+- [ ] **506. L18 section 1 heading** · _One trade is only a part_  
   الصفقة جزء من المحفظة فقط
 
-- [ ] **503. L18 section 1 text** · _A position is what you hold in one coin. Its size is how much of your wallet it takes: $50 out of a $500 practice wallet is 10%. Going all-in means putting the whole wallet on one trade. Then a single bad move hits all of your money at once._  
+- [ ] **507. L18 section 1 text** · _A position is what you hold in one coin. Its size is how much of your wallet it takes: $50 out of a $500 practice wallet is 10%. Going all-in means putting the whole wallet on one trade. Then a single bad move hits all of your money at once._  
   الصفقة (position) هي ما تملكه من عملة واحدة، وحجم الصفقة (position size) هو الجزء الذي تأخذه من محفظتك: 50 دولارًا من محفظة تدريب فيها 500 دولار تساوي 10%. أما «all-in» فمعناه أن تضع المحفظة كلها في صفقة واحدة. عندها تكفي حركة سيئة واحدة لتصيب كل أموالك دفعة واحدة.
 
-- [ ] **504. L18 section 2 heading** · _Losses in a row_  
+- [ ] **508. L18 section 2 heading** · _Losses in a row_  
   خسائر متتالية
 
-- [ ] **505. L18 section 2 text** · _Even careful traders lose several trades in a row. Say each loss takes 10% of what is left: after 5 losses, $1,000 becomes about $590. If each loss takes 1%, the same 5 losses leave about $951. Small positions let you get through a bad run and keep learning._  
+- [ ] **509. L18 section 2 text** · _Even careful traders lose several trades in a row. Say each loss takes 10% of what is left: after 5 losses, $1,000 becomes about $590. If each loss takes 1%, the same 5 losses leave about $951. Small positions let you get through a bad run and keep learning._  
   حتى المتداول الحذر يخسر عدة صفقات متتالية. لنفترض أن كل خسارة تأخذ 10% مما تبقى: بعد 5 خسائر تصبح 1000 دولار حوالي 590 دولارًا. وإذا كانت كل خسارة 1% فقط، يبقى بعد الخسائر الخمس حوالي 951 دولارًا. الصفقات الصغيرة تسمح لك بتجاوز الفترات السيئة ومواصلة التعلم.
 
-- [ ] **506. L18 section 3 heading** · _The 1% idea_  
+- [ ] **510. L18 section 3 heading** · _The 1% idea_  
   قاعدة 1%
 
-- [ ] **507. L18 section 3 text** · _Many trading courses use a simple rule: decide in advance how much one trade may cost you if it goes wrong, often 1% of the wallet. On a $1,000 wallet, that is $10. The point is not profit: it is keeping each loss small and known in advance._  
+- [ ] **511. L18 section 3 text** · _Many trading courses use a simple rule: decide in advance how much one trade may cost you if it goes wrong, often 1% of the wallet. On a $1,000 wallet, that is $10. The point is not profit: it is keeping each loss small and known in advance._  
   كثير من دروس التداول تستعمل قاعدة بسيطة: حدد مسبقًا كم يمكن أن تكلفك صفقة واحدة إذا ساءت، وغالبًا ما تكون 1% من المحفظة. في محفظة فيها 1000 دولار، هذا يعني 10 دولارات. الهدف ليس الربح، بل أن تبقى كل خسارة صغيرة ومعروفة مسبقًا.
 
-- [ ] **508. L18 section 4 heading** · _From the loss you accept to the size_  
+- [ ] **512. L18 section 4 heading** · _From the loss you accept to the size_  
   من الخسارة المقبولة إلى حجم الصفقة
 
-- [ ] **509. L18 section 4 text** · _Size = the amount you accept to lose ÷ the distance to your exit. If you plan to get out 5% below your buy price, $10 ÷ 5% = a $200 position. If the price falls to your exit, you lose about $10, plus fees. A very fast drop can go past your exit, so the real loss can be a bit bigger._  
+- [ ] **513. L18 section 4 text** · _Size = the amount you accept to lose ÷ the distance to your exit. If you plan to get out 5% below your buy price, $10 ÷ 5% = a $200 position. If the price falls to your exit, you lose about $10, plus fees. A very fast drop can go past your exit, so the real loss can be a bit bigger._  
   الحجم = المبلغ الذي تقبل أن تخسره ÷ المسافة حتى نقطة خروجك. إذا قررت أن تخرج عند سعر أقل من سعر دخولك بـ 5%، فإن 10 دولارات ÷ 5% = صفقة بحجم 200 دولار. وإذا نزل السعر إلى نقطة خروجك تخسر حوالي 10 دولارات، مع الرسوم. لكن الهبوط السريع جدًا قد يتجاوز نقطة خروجك، فتكون الخسارة الحقيقية أكبر قليلًا.
 
-- [ ] **510. L18 section 5 heading** · _What the coach watches_  
+- [ ] **514. L18 section 5 heading** · _What the coach watches_  
   ماذا يراقب المدرب؟
 
-- [ ] **511. L18 section 5 text** · _In Qirat’s practice wallet, the habit coach speaks up when one coin passes half of your wallet: its every move becomes your wallet’s move. It does not say the coin is bad. It shows you how much depends on a single coin._  
+- [ ] **515. L18 section 5 text** · _In Qirat’s practice wallet, the habit coach speaks up when one coin passes half of your wallet: its every move becomes your wallet’s move. It does not say the coin is bad. It shows you how much depends on a single coin._  
   في محفظة التدريب في قيراط، ينبهك مدرب العادات عندما تتجاوز عملة واحدة نصف محفظتك: كل حركة لها تصبح حركة لمحفظتك كلها. هو لا يقول إن العملة سيئة، بل يريك كم من أموالك يعتمد على عملة واحدة.
 
-- [ ] **512. L18 takeaway** · _Choose how much before you choose what. Small positions turn a bad run into a lesson instead of a disaster._  
+- [ ] **516. L18 takeaway** · _Choose how much before you choose what. Small positions turn a bad run into a lesson instead of a disaster._  
   اختر «كم» قبل أن تختار «ماذا». الصفقات الصغيرة تجعل سلسلة الخسائر درسًا لا كارثة.
 
-- [ ] **513. L18 Q1** · _You put your whole $500 practice wallet into one coin. What is that called?_  
+- [ ] **517. L18 Q1** · _You put your whole $500 practice wallet into one coin. What is that called?_  
   وضعت كل محفظة التدريب، أي 500 دولار، في عملة واحدة. ماذا يسمى هذا؟
 
-- [ ] **514. L18 Q1 option A ✓** · _Going all-in_  
+- [ ] **518. L18 Q1 option A ✓** · _Going all-in_  
   «all-in»: كل شيء في صفقة واحدة
 
-- [ ] **515. L18 Q1 option B** · _Diversifying_  
+- [ ] **519. L18 Q1 option B** · _Diversifying_  
   التنويع
 
-- [ ] **516. L18 Q1 option C** · _Dollar-cost averaging_  
+- [ ] **520. L18 Q1 option C** · _Dollar-cost averaging_  
   الشراء الدوري (DCA)
 
-- [ ] **517. L18 Q1 explanation** · _All-in means the whole wallet depends on one trade, so one bad move hits everything._  
+- [ ] **521. L18 Q1 explanation** · _All-in means the whole wallet depends on one trade, so one bad move hits everything._  
   «all-in» يعني أن المحفظة كلها معلقة بصفقة واحدة، فحركة سيئة واحدة تصيب كل شيء.
 
-- [ ] **518. L18 Q2** · _Your wallet is $1,000. You accept to lose 1% on a trade, and your exit is 5% below your buy price. Which position size fits?_  
+- [ ] **522. L18 Q2** · _Your wallet is $1,000. You accept to lose 1% on a trade, and your exit is 5% below your buy price. Which position size fits?_  
   محفظتك فيها 1000 دولار. تقبل أن تخسر 1% في صفقة، ونقطة خروجك أقل من سعر دخولك بـ 5%. ما حجم الصفقة المناسب؟
 
-- [ ] **519. L18 Q2 option A** · _$50_  
+- [ ] **523. L18 Q2 option A** · _$50_  
   50 دولارًا
 
-- [ ] **520. L18 Q2 option B ✓** · _$200_  
+- [ ] **524. L18 Q2 option B ✓** · _$200_  
   200 دولار
 
-- [ ] **521. L18 Q2 option C** · _$500_  
+- [ ] **525. L18 Q2 option C** · _$500_  
   500 دولار
 
-- [ ] **522. L18 Q2 explanation** · _1% of $1,000 is $10, and $10 ÷ 5% = $200. If the price falls to your exit, you lose about $10, plus fees._  
+- [ ] **526. L18 Q2 explanation** · _1% of $1,000 is $10, and $10 ÷ 5% = $200. If the price falls to your exit, you lose about $10, plus fees._  
   1% من 1000 دولار هو 10 دولارات، و10 ÷ 5% = 200 دولار. إذا نزل السعر إلى نقطة خروجك تخسر حوالي 10 دولارات، مع الرسوم.
 
-- [ ] **523. L18 Q3** · _Why do small positions help?_  
+- [ ] **527. L18 Q3** · _Why do small positions help?_  
   لماذا تفيد الصفقات الصغيرة؟
 
-- [ ] **524. L18 Q3 option A** · _They make every trade a winner_  
+- [ ] **528. L18 Q3 option A** · _They make every trade a winner_  
   تجعل كل صفقة رابحة
 
-- [ ] **525. L18 Q3 option B** · _They cancel the fees_  
+- [ ] **529. L18 Q3 option B** · _They cancel the fees_  
   تلغي الرسوم
 
-- [ ] **526. L18 Q3 option C ✓** · _A run of losses hurts much less_  
+- [ ] **530. L18 Q3 option C ✓** · _A run of losses hurts much less_  
   سلسلة الخسائر تؤلم أقل بكثير
 
-- [ ] **527. L18 Q3 explanation** · _Five losses of 1% leave about $951 of $1,000. Five losses of 10% leave about $590. Small positions don’t make you win; they keep you in the game._  
+- [ ] **531. L18 Q3 explanation** · _Five losses of 1% leave about $951 of $1,000. Five losses of 10% leave about $590. Small positions don’t make you win; they keep you in the game._  
   خمس خسائر بـ 1% تترك حوالي 951 دولارًا من 1000. وخمس خسائر بـ 10% تترك حوالي 590 دولارًا. الصفقات الصغيرة لا تجعلك تربح، لكنها تبقيك في اللعبة.
 
-- [ ] **528. L18 live button** · _See how your practice wallet is split_  
+- [ ] **532. L18 live button** · _See how your practice wallet is split_  
   شاهد كيف تتوزع محفظة التدريب
 
 ## Lesson 19: Leverage and futures: how x10 wipes you out (`#learn-leverage`)
 
-- [ ] **529. L19 title** · _Leverage and futures: how x10 wipes you out_  
+- [ ] **533. L19 title** · _Leverage and futures: how x10 wipes you out_  
   الرافعة المالية والعقود الآجلة: كيف تمسح x10 رصيدك
 
-- [ ] **530. L19 hook** · _Borrowed money makes every move bigger, the bad ones too. Qirat’s practice wallet has none, on purpose._  
+- [ ] **534. L19 hook** · _Borrowed money makes every move bigger, the bad ones too. Qirat’s practice wallet has none, on purpose._  
   المال المقترض يكبّر كل حركة، والسيئة منها أيضًا. لهذا لا توجد رافعة في محفظة التدريب في قيراط، عن قصد.
 
-- [ ] **531. L19 section 1 heading** · _Trading with borrowed money_  
+- [ ] **535. L19 section 1 heading** · _Trading with borrowed money_  
   التداول بمال مقترض
 
-- [ ] **532. L19 section 1 text** · _Leverage means the platform lends you money so you can trade more than you have. At x10, your $100 controls a $1,000 position. Your $100 is the margin: the part that is really yours, and the first to go._  
+- [ ] **536. L19 section 1 text** · _Leverage means the platform lends you money so you can trade more than you have. At x10, your $100 controls a $1,000 position. Your $100 is the margin: the part that is really yours, and the first to go._  
   الرافعة المالية (leverage) تعني أن المنصة تقرضك مالًا لتتداول بمبلغ أكبر مما تملك. مع x10، تتحكم 100 دولار منك في صفقة بقيمة 1000 دولار. وهذه المئة دولار هي الهامش (margin): الجزء الذي هو مالك فعلًا، وهو أول ما يضيع.
 
-- [ ] **533. L19 section 2 heading** · _Gains and losses, both x10_  
+- [ ] **537. L19 section 2 heading** · _Gains and losses, both x10_  
   الربح والخسارة، كلاهما x10
 
-- [ ] **534. L19 section 2 text** · _If the price rises 10%, the $1,000 position gains $100: your margin doubles. If it falls 10%, it loses $100: your margin is gone. The coin moved only 10%, but for you it is +100% or −100%._  
+- [ ] **538. L19 section 2 text** · _If the price rises 10%, the $1,000 position gains $100: your margin doubles. If it falls 10%, it loses $100: your margin is gone. The coin moved only 10%, but for you it is +100% or −100%._  
   إذا ارتفع السعر 10%، تربح الصفقة البالغة 1000 دولار مبلغ 100 دولار: يتضاعف هامشك. وإذا انخفض 10%، تخسر 100 دولار: يختفي هامشك كله. العملة تحركت 10% فقط، لكن بالنسبة لك هي +100% أو −100%.
 
-- [ ] **535. L19 section 3 heading** · _Liquidation_  
+- [ ] **539. L19 section 3 heading** · _Liquidation_  
   التصفية
 
-- [ ] **536. L19 section 3 text** · _When losses eat the margin, the platform closes your position by itself so its loan stays safe. This is liquidation. At x10 it usually comes a little before a 10% drop, around 9 to 9.6%, because of fees and the minimum margin the platform keeps. At x20, about 5% is enough, and crypto can move 5% in a few hours._  
+- [ ] **540. L19 section 3 text** · _When losses eat the margin, the platform closes your position by itself so its loan stays safe. This is liquidation. At x10 it usually comes a little before a 10% drop, around 9 to 9.6%, because of fees and the minimum margin the platform keeps. At x20, about 5% is enough, and crypto can move 5% in a few hours._  
   عندما تأكل الخسائر الهامش، تغلق المنصة صفقتك من تلقاء نفسها لتحمي قرضها. هذه هي التصفية (liquidation). مع x10 تحدث عادة قبل هبوط 10% بقليل، حوالي 9 إلى 9.6%، بسبب الرسوم والحد الأدنى من الهامش الذي تشترطه المنصة. ومع x20 يكفي هبوط بحوالي 5%، والعملات الرقمية قد تتحرك 5% في بضع ساعات.
 
-- [ ] **537. L19 section 4 heading** · _Futures in one sentence_  
+- [ ] **541. L19 section 4 heading** · _Futures in one sentence_  
   العقود الآجلة باختصار
 
-- [ ] **538. L19 section 4 text** · _Leverage is mostly used through futures: contracts that bet on a coin’s price without owning the coin. The most common kind in crypto, perpetual futures, has no end date. The two sides pay each other a small funding fee every few hours. The longer you stay, the more it adds up._  
+- [ ] **542. L19 section 4 text** · _Leverage is mostly used through futures: contracts that bet on a coin’s price without owning the coin. The most common kind in crypto, perpetual futures, has no end date. The two sides pay each other a small funding fee every few hours. The longer you stay, the more it adds up._  
   تُستعمل الرافعة غالبًا عبر العقود الآجلة (futures): عقود تراهن على سعر العملة دون أن تملكها. والنوع الأكثر انتشارًا في العملات الرقمية هو العقود الدائمة (perpetual futures)، وليس لها تاريخ انتهاء، ويدفع فيها الطرفان لبعضهما رسومًا صغيرة تسمى funding كل بضع ساعات. وكلما بقيت مدة أطول، زادت هذه الرسوم.
 
-- [ ] **539. L19 section 5 heading** · _What regulators saw_  
+- [ ] **543. L19 section 5 heading** · _What regulators saw_  
   ماذا وجدت الهيئات الرقابية؟
 
-- [ ] **540. L19 section 5 text** · _In 2018, Europe’s market regulator, ESMA, found that 74 to 89% of ordinary investors’ accounts typically lose money on leveraged products called CFDs. It then limited leverage on crypto CFDs for ordinary investors to x2. Qirat’s practice wallet has no leverage at all: what you see is the coin’s own move._  
+- [ ] **544. L19 section 5 text** · _In 2018, Europe’s market regulator, ESMA, found that 74 to 89% of ordinary investors’ accounts typically lose money on leveraged products called CFDs. It then limited leverage on crypto CFDs for ordinary investors to x2. Qirat’s practice wallet has no leverage at all: what you see is the coin’s own move._  
   في 2018، وجدت هيئة الأسواق الأوروبية (ESMA) أن ما بين 74% و89% من حسابات المستثمرين الأفراد تخسر عادة في منتجات بالرافعة تسمى CFD. ثم حددت الرافعة على عقود CFD للعملات الرقمية بـ x2 فقط للأفراد. أما محفظة التدريب في قيراط فلا رافعة فيها أبدًا: ما تراه هو حركة العملة نفسها.
 
-- [ ] **541. L19 takeaway** · _Leverage multiplies the move, not your skill. At x10, a 10% move against you can erase all the money you put in._  
+- [ ] **545. L19 takeaway** · _Leverage multiplies the move, not your skill. At x10, a 10% move against you can erase all the money you put in._  
   الرافعة تضاعف الحركة، لا مهارتك. مع x10، حركة بـ 10% ضدك قد تمسح كل ما وضعته.
 
-- [ ] **542. L19 Q1** · _With x10 leverage, your $100 margin controls a position of…_  
+- [ ] **546. L19 Q1** · _With x10 leverage, your $100 margin controls a position of…_  
   مع رافعة x10، يتحكم هامشك البالغ 100 دولار في صفقة قيمتها…
 
-- [ ] **543. L19 Q1 option A** · _$110_  
+- [ ] **547. L19 Q1 option A** · _$110_  
   110 دولارات
 
-- [ ] **544. L19 Q1 option B ✓** · _$1,000_  
+- [ ] **548. L19 Q1 option B ✓** · _$1,000_  
   1000 دولار
 
-- [ ] **545. L19 Q1 option C** · _$100_  
+- [ ] **549. L19 Q1 option C** · _$100_  
   100 دولار
 
-- [ ] **546. L19 Q1 explanation** · _$100 × 10 = $1,000. Every 1% move of the coin becomes a 10% move of your margin._  
+- [ ] **550. L19 Q1 explanation** · _$100 × 10 = $1,000. Every 1% move of the coin becomes a 10% move of your margin._  
   100 × 10 = 1000 دولار. كل حركة بـ 1% في العملة تصبح حركة بـ 10% في هامشك.
 
-- [ ] **547. L19 Q2** · _At x10, the coin falls about 10%. What usually happens?_  
+- [ ] **551. L19 Q2** · _At x10, the coin falls about 10%. What usually happens?_  
   مع x10، هبطت العملة حوالي 10%. ماذا يحدث عادة؟
 
-- [ ] **548. L19 Q2 option A ✓** · _The position is liquidated and the margin is gone_  
+- [ ] **552. L19 Q2 option A ✓** · _The position is liquidated and the margin is gone_  
   تتم تصفية الصفقة ويضيع الهامش
 
-- [ ] **549. L19 Q2 option B** · _You lose $10_  
+- [ ] **553. L19 Q2 option B** · _You lose $10_  
   تخسر 10 دولارات
 
-- [ ] **550. L19 Q2 option C** · _The platform waits for the price to come back_  
+- [ ] **554. L19 Q2 option C** · _The platform waits for the price to come back_  
   تنتظر المنصة حتى يعود السعر
 
-- [ ] **551. L19 Q2 explanation** · _A 10% drop on $1,000 is $100, your whole margin. The platform closes the position, usually even a little before 10%._  
+- [ ] **555. L19 Q2 explanation** · _A 10% drop on $1,000 is $100, your whole margin. The platform closes the position, usually even a little before 10%._  
   هبوط 10% على 1000 دولار يساوي 100 دولار، أي هامشك كله. تغلق المنصة الصفقة، وغالبًا قبل 10% بقليل.
 
-- [ ] **552. L19 Q3** · _What did Europe’s market regulator find in 2018 about leveraged CFDs?_  
+- [ ] **556. L19 Q3** · _What did Europe’s market regulator find in 2018 about leveraged CFDs?_  
   ماذا وجدت هيئة الأسواق الأوروبية في 2018 عن عقود CFD بالرافعة؟
 
-- [ ] **553. L19 Q3 option A** · _Most ordinary accounts made money_  
+- [ ] **557. L19 Q3 option A** · _Most ordinary accounts made money_  
   أغلب حسابات الأفراد ربحت
 
-- [ ] **554. L19 Q3 option B** · _Only crypto CFDs lost money_  
+- [ ] **558. L19 Q3 option B** · _Only crypto CFDs lost money_  
   عقود العملات الرقمية فقط هي التي خسرت
 
-- [ ] **555. L19 Q3 option C ✓** · _74 to 89% of ordinary accounts typically lost money_  
+- [ ] **559. L19 Q3 option C ✓** · _74 to 89% of ordinary accounts typically lost money_  
   ما بين 74% و89% من حسابات الأفراد تخسر عادة
 
-- [ ] **556. L19 Q3 explanation** · _ESMA’s 2018 decision says 74 to 89% of ordinary investors’ accounts lose money. It limited their leverage on crypto CFDs to x2._  
+- [ ] **560. L19 Q3 explanation** · _ESMA’s 2018 decision says 74 to 89% of ordinary investors’ accounts lose money. It limited their leverage on crypto CFDs to x2._  
   قرار ESMA في 2018 يذكر أن ما بين 74% و89% من حسابات الأفراد تخسر، وحدد لهم الرافعة على عقود العملات الرقمية بـ x2.
 
 ## Lesson 20: Trend, support, resistance and RSI (`#learn-indicators`)
 
-- [ ] **557. L20 title** · _Trend, support, resistance and RSI_  
+- [ ] **561. L20 title** · _Trend, support, resistance and RSI_  
   الاتجاه والدعم والمقاومة ومؤشر RSI
 
-- [ ] **558. L20 hook** · _Chart tools describe what already happened. They help you read a chart; they don’t show the future._  
+- [ ] **562. L20 hook** · _Chart tools describe what already happened. They help you read a chart; they don’t show the future._  
   أدوات الرسم البياني تصف ما حدث بالفعل. تساعدك على قراءة الرسم، لكنها لا تكشف المستقبل.
 
-- [ ] **559. L20 section 1 heading** · _Trend: a staircase_  
+- [ ] **563. L20 section 1 heading** · _Trend: a staircase_  
   الاتجاه: سلّم
 
-- [ ] **560. L20 section 1 text** · _An uptrend looks like a staircase going up: each top is higher than the last one, and each dip is higher than the last dip. A downtrend is the opposite: each top and each dip is lower. A trend is easy to see afterwards, and it can end without warning._  
+- [ ] **564. L20 section 1 text** · _An uptrend looks like a staircase going up: each top is higher than the last one, and each dip is higher than the last dip. A downtrend is the opposite: each top and each dip is lower. A trend is easy to see afterwards, and it can end without warning._  
   الاتجاه الصاعد (uptrend) يشبه سلّمًا يصعد: كل قمة أعلى من التي قبلها، وكل قاع أعلى من القاع السابق. والاتجاه الهابط عكسه: قمم أدنى وقيعان أدنى. الاتجاه سهل الرؤية بعد حدوثه، وقد ينتهي دون إنذار.
 
-- [ ] **561. L20 section 2 heading** · _Support and resistance_  
+- [ ] **565. L20 section 2 heading** · _Support and resistance_  
   الدعم والمقاومة
 
-- [ ] **562. L20 section 2 text** · _Support is a price zone where buyers stepped in before and a fall stopped. Resistance is a zone where sellers stepped in and a rise stopped. They are zones where people reacted in the past, not walls: the price often goes right through them._  
+- [ ] **566. L20 section 2 text** · _Support is a price zone where buyers stepped in before and a fall stopped. Resistance is a zone where sellers stepped in and a rise stopped. They are zones where people reacted in the past, not walls: the price often goes right through them._  
   الدعم (support) منطقة سعرية دخل فيها مشترون من قبل فتوقف الهبوط. والمقاومة (resistance) منطقة دخل فيها بائعون فتوقف الصعود. هي مناطق تفاعل فيها الناس في الماضي، وليست جدرانًا: كثيرًا ما يخترقها السعر.
 
-- [ ] **563. L20 section 3 heading** · _RSI: how far and how fast_  
+- [ ] **567. L20 section 3 heading** · _RSI: how far and how fast_  
   مؤشر RSI: كم تحرك السعر وبأي سرعة
 
-- [ ] **564. L20 section 3 text** · _The RSI (Relative Strength Index) is a score from 0 to 100, usually over the last 14 candles. Above 70 is called “overbought”: the price rose a lot, fast. Below 30 is called “oversold”. These are labels, not forecasts: a coin can stay above 70 for weeks._  
+- [ ] **568. L20 section 3 text** · _The RSI (Relative Strength Index) is a score from 0 to 100, usually over the last 14 candles. Above 70 is called “overbought”: the price rose a lot, fast. Below 30 is called “oversold”. These are labels, not forecasts: a coin can stay above 70 for weeks._  
   مؤشر القوة النسبية (RSI) رقم من 0 إلى 100، يُحسب عادة على آخر 14 شمعة. فوق 70 يسمونه «تشبع شرائي» (overbought): أي أن السعر ارتفع كثيرًا وبسرعة. وتحت 30 يسمونه «تشبع بيعي» (oversold). هذه مجرد تسميات وليست توقعات: قد تبقى العملة فوق 70 لأسابيع.
 
-- [ ] **565. L20 section 4 heading** · _Same chart, two stories_  
+- [ ] **569. L20 section 4 heading** · _Same chart, two stories_  
   رسم واحد وقصتان
 
-- [ ] **566. L20 section 4 text** · _Show one chart to two people. One sees support and expects a bounce. The other sees a broken trend and expects more falls. Both are reading the same past, and the chart can’t tell which of them will be right._  
+- [ ] **570. L20 section 4 text** · _Show one chart to two people. One sees support and expects a bounce. The other sees a broken trend and expects more falls. Both are reading the same past, and the chart can’t tell which of them will be right._  
   اعرض الرسم نفسه على شخصين. الأول يرى دعمًا وينتظر ارتدادًا، والثاني يرى اتجاهًا مكسورًا وينتظر مزيدًا من الهبوط. كلاهما يقرأ الماضي نفسه، والرسم لا يستطيع أن يقول من منهما سيكون على حق.
 
-- [ ] **567. L20 section 5 heading** · _What Qirat’s own test found_  
+- [ ] **571. L20 section 5 heading** · _What Qirat’s own test found_  
   ماذا وجد اختبار قيراط؟
 
-- [ ] **568. L20 section 5 text** · _In October 2026, Qirat tested its old 0–100 score on big coins’ prices from 2021 to 2026. That score was built from moving averages, recent moves, volume and the crowd’s mood. It gave no reliable advantage over the next 7 days. What did hold up is how much a coin swings. That is why Qirat shows risk first._  
+- [ ] **572. L20 section 5 text** · _In October 2026, Qirat tested its old 0–100 score on big coins’ prices from 2021 to 2026. That score was built from moving averages, recent moves, volume and the crowd’s mood. It gave no reliable advantage over the next 7 days. What did hold up is how much a coin swings. That is why Qirat shows risk first._  
   في أكتوبر 2026، اختبر قيراط مؤشره القديم من 0 إلى 100، المبني على المتوسطات المتحركة والحركة الأخيرة وحجم التداول ومزاج السوق، على أسعار العملات الكبيرة بين 2021 و2026. لم تكن له أي أفضلية موثوقة خلال 7 أيام بعدها. أما ما صمد فهو مقدار تقلب العملة، ولهذا يعرض قيراط المخاطرة أولًا.
 
-- [ ] **569. L20 takeaway** · _Trend, support, resistance and RSI summarise the past. They describe a chart; they are never an order to buy or sell._  
+- [ ] **573. L20 takeaway** · _Trend, support, resistance and RSI summarise the past. They describe a chart; they are never an order to buy or sell._  
   الاتجاه والدعم والمقاومة وRSI تلخص الماضي. هي تصف الرسم، وليست أبدًا أمرًا بالشراء أو البيع.
 
-- [ ] **570. L20 Q1** · _Which one is an uptrend?_  
+- [ ] **574. L20 Q1** · _Which one is an uptrend?_  
   أيّها اتجاه صاعد؟
 
-- [ ] **571. L20 Q1 option A ✓** · _Each top and each dip higher than the last_  
+- [ ] **575. L20 Q1 option A ✓** · _Each top and each dip higher than the last_  
   قمم أعلى وقيعان أعلى
 
-- [ ] **572. L20 Q1 option B** · _Each top and each dip lower than the last_  
+- [ ] **576. L20 Q1 option B** · _Each top and each dip lower than the last_  
   قمم أدنى وقيعان أدنى
 
-- [ ] **573. L20 Q1 option C** · _A price that barely moves for a month_  
+- [ ] **577. L20 Q1 option C** · _A price that barely moves for a month_  
   سعر لا يكاد يتحرك طوال شهر
 
-- [ ] **574. L20 Q1 explanation** · _An uptrend is a staircase going up: each top and each dip sits above the one before._  
+- [ ] **578. L20 Q1 explanation** · _An uptrend is a staircase going up: each top and each dip sits above the one before._  
   الاتجاه الصاعد سلّم يصعد: كل قمة وكل قاع أعلى من سابقه.
 
-- [ ] **575. L20 Q2** · _A coin’s RSI is 78. What does that tell you?_  
+- [ ] **579. L20 Q2** · _A coin’s RSI is 78. What does that tell you?_  
   مؤشر RSI لعملة ما هو 78. ماذا يخبرك هذا؟
 
-- [ ] **576. L20 Q2 option A** · _It will fall tomorrow_  
+- [ ] **580. L20 Q2 option A** · _It will fall tomorrow_  
   ستهبط غدًا
 
-- [ ] **577. L20 Q2 option B** · _It has the lowest risk in the list_  
+- [ ] **581. L20 Q2 option B** · _It has the lowest risk in the list_  
   هي الأقل مخاطرة في القائمة
 
-- [ ] **578. L20 Q2 option C ✓** · _It rose a lot, fast, recently_  
+- [ ] **582. L20 Q2 option C ✓** · _It rose a lot, fast, recently_  
   ارتفعت كثيرًا وبسرعة مؤخرًا
 
-- [ ] **579. L20 Q2 explanation** · _RSI measures how far and how fast the price moved. “Overbought” is a label, not a forecast: a coin can stay above 70 for weeks._  
+- [ ] **583. L20 Q2 explanation** · _RSI measures how far and how fast the price moved. “Overbought” is a label, not a forecast: a coin can stay above 70 for weeks._  
   RSI يقيس كم تحرك السعر وبأي سرعة. «التشبع الشرائي» تسمية وليس توقعًا: قد تبقى العملة فوق 70 لأسابيع.
 
-- [ ] **580. L20 Q3** · _The price reaches a support zone. What happens next?_  
+- [ ] **584. L20 Q3** · _The price reaches a support zone. What happens next?_  
   وصل السعر إلى منطقة دعم. ماذا يحدث بعد ذلك؟
 
-- [ ] **581. L20 Q3 option A** · _It always bounces back up_  
+- [ ] **585. L20 Q3 option A** · _It always bounces back up_  
   يرتد دائمًا إلى الأعلى
 
-- [ ] **582. L20 Q3 option B ✓** · _Nobody knows: support is where people reacted before, not a wall_  
+- [ ] **586. L20 Q3 option B ✓** · _Nobody knows: support is where people reacted before, not a wall_  
   لا أحد يعرف: الدعم منطقة تفاعل فيها الناس من قبل، وليس جدارًا
 
-- [ ] **583. L20 Q3 option C** · _It always breaks through_  
+- [ ] **587. L20 Q3 option C** · _It always breaks through_  
   يخترقها دائمًا
 
-- [ ] **584. L20 Q3 explanation** · _Support describes past reactions. The price can bounce or go straight through, and the chart can’t tell you which._  
+- [ ] **588. L20 Q3 explanation** · _Support describes past reactions. The price can bounce or go straight through, and the chart can’t tell you which._  
   الدعم يصف تفاعلات الماضي. قد يرتد السعر وقد يخترقه، والرسم لا يستطيع أن يخبرك أيهما سيحدث.
 
 ## Lesson 21: Spreading out and DCA (`#learn-diversify-dca`)
 
-- [ ] **585. L21 title** · _Spreading out and DCA_  
+- [ ] **589. L21 title** · _Spreading out and DCA_  
   توزيع الأموال والشراء الدوري (DCA)
 
-- [ ] **586. L21 hook** · _Two ways people try to soften crypto’s swings, and what each one can’t do._  
+- [ ] **590. L21 hook** · _Two ways people try to soften crypto’s swings, and what each one can’t do._  
   طريقتان يحاول بهما الناس تخفيف تقلبات العملات الرقمية، وما لا تستطيع كل منهما فعله.
 
-- [ ] **587. L21 section 1 heading** · _One coin or a few_  
+- [ ] **591. L21 section 1 heading** · _One coin or a few_  
   عملة واحدة أم عدة عملات
 
-- [ ] **588. L21 section 1 text** · _With everything in one coin, your wallet follows that coin’s every move. Spreading money over several coins is called diversification. If one coin has a disaster of its own, like a hack or a project that fails, only part of the wallet is hit._  
+- [ ] **592. L21 section 1 text** · _With everything in one coin, your wallet follows that coin’s every move. Spreading money over several coins is called diversification. If one coin has a disaster of its own, like a hack or a project that fails, only part of the wallet is hit._  
   إذا وضعت كل شيء في عملة واحدة، تتبع محفظتك كل حركة لها. وتوزيع المال على عدة عملات يسمى التنويع (diversification). فإذا أصابت عملة ما كارثة خاصة بها، مثل اختراق أو فشل مشروعها، يتضرر جزء من المحفظة فقط.
 
-- [ ] **589. L21 section 2 heading** · _Crypto coins fall together_  
+- [ ] **593. L21 section 2 heading** · _Crypto coins fall together_  
   العملات الرقمية تهبط معًا
 
-- [ ] **590. L21 section 2 text** · _Most coins tend to move with Bitcoin. When the market weather turns stormy, most coins fall, even 24K ones. So 5 coins are less spread out than they look: they often drop on the same days. How much prices move together is called correlation._  
+- [ ] **594. L21 section 2 text** · _Most coins tend to move with Bitcoin. When the market weather turns stormy, most coins fall, even 24K ones. So 5 coins are less spread out than they look: they often drop on the same days. How much prices move together is called correlation._  
   معظم العملات تميل إلى التحرك مع Bitcoin. وعندما يصبح طقس السوق عاصفًا، تهبط أغلب العملات، حتى التي عيارها 24K. لذلك فإن 5 عملات أقل تنوعًا مما تبدو: كثيرًا ما تهبط في الأيام نفسها. ومقدار تحرك الأسعار معًا يسمى الارتباط (correlation).
 
-- [ ] **591. L21 section 3 heading** · _Baskets_  
+- [ ] **595. L21 section 3 heading** · _Baskets_  
   السلال
 
-- [ ] **592. L21 section 3 text** · _A basket, or index, holds several coins in fixed parts, often based on their size. So it follows a group of coins instead of one. It spreads the risk of a single coin failing. It still goes down when most coins go down._  
+- [ ] **596. L21 section 3 text** · _A basket, or index, holds several coins in fixed parts, often based on their size. So it follows a group of coins instead of one. It spreads the risk of a single coin failing. It still goes down when most coins go down._  
   السلة أو المؤشر (index) تضم عدة عملات بنسب محددة، غالبًا حسب حجمها، فتتبع مجموعة من العملات بدل عملة واحدة. هي توزع خطر فشل عملة بعينها، لكنها تهبط هي أيضًا عندما تهبط أغلب العملات.
 
-- [ ] **593. L21 section 4 heading** · _DCA: the same amount on a schedule_  
+- [ ] **597. L21 section 4 heading** · _DCA: the same amount on a schedule_  
   الشراء الدوري: المبلغ نفسه في موعد ثابت
 
-- [ ] **594. L21 section 4 text** · _DCA (dollar-cost averaging) means buying for the same amount at regular times, for example $25 every month, whatever the price. A low price buys more coins, a high price fewer. Over 4 months at $10, $5, $8 and $10, $100 buys about 13.1 coins: an average of about $7.62 a coin, before fees._  
+- [ ] **598. L21 section 4 text** · _DCA (dollar-cost averaging) means buying for the same amount at regular times, for example $25 every month, whatever the price. A low price buys more coins, a high price fewer. Over 4 months at $10, $5, $8 and $10, $100 buys about 13.1 coins: an average of about $7.62 a coin, before fees._  
   الشراء الدوري (DCA) يعني أن تشتري بالمبلغ نفسه في أوقات منتظمة، مثلًا 25 دولارًا كل شهر، مهما كان السعر. السعر المنخفض يشتري وحدات أكثر، والمرتفع وحدات أقل. على 4 أشهر بأسعار 10 و5 و8 و10 دولارات، تشتري 100 دولار حوالي 13.1 وحدة: أي حوالي 7.62 دولار للوحدة في المتوسط، قبل الرسوم.
 
-- [ ] **595. L21 section 5 heading** · _What DCA does not do_  
+- [ ] **599. L21 section 5 heading** · _What DCA does not do_  
   ما لا يفعله الشراء الدوري
 
-- [ ] **596. L21 section 5 text** · _DCA evens out the price you pay, but it does not stop losses. If the price keeps falling month after month, every buy ends up worth less than you paid. Each buy also pays a fee. It removes the guessing about when to buy, nothing more._  
+- [ ] **600. L21 section 5 text** · _DCA evens out the price you pay, but it does not stop losses. If the price keeps falling month after month, every buy ends up worth less than you paid. Each buy also pays a fee. It removes the guessing about when to buy, nothing more._  
   الشراء الدوري يوازن السعر الذي تدفعه، لكنه لا يمنع الخسارة. إذا استمر السعر في الهبوط شهرًا بعد شهر، تصبح قيمة كل عملية شراء أقل مما دفعت. وكل عملية شراء تدفع رسومًا أيضًا. هو يزيل التخمين في التوقيت، لا أكثر.
 
-- [ ] **597. L21 takeaway** · _Spreading out and DCA soften some risks, not all. Crypto coins often fall together, and DCA can’t stop a price that keeps falling._  
+- [ ] **601. L21 takeaway** · _Spreading out and DCA soften some risks, not all. Crypto coins often fall together, and DCA can’t stop a price that keeps falling._  
   التنويع والشراء الدوري يخففان بعض المخاطر، لا كلها. العملات الرقمية كثيرًا ما تهبط معًا، والشراء الدوري لا يوقف سعرًا يواصل الهبوط.
 
-- [ ] **598. L21 Q1** · _You hold 5 different coins and the market weather turns stormy. What usually happens?_  
+- [ ] **602. L21 Q1** · _You hold 5 different coins and the market weather turns stormy. What usually happens?_  
   تملك 5 عملات مختلفة وأصبح طقس السوق عاصفًا. ماذا يحدث عادة؟
 
-- [ ] **599. L21 Q1 option A** · _They balance each other, so the wallet stays flat_  
+- [ ] **603. L21 Q1 option A** · _They balance each other, so the wallet stays flat_  
   توازن بعضها بعضًا فتبقى المحفظة ثابتة
 
-- [ ] **600. L21 Q1 option B** · _Only the smallest coin falls_  
+- [ ] **604. L21 Q1 option B** · _Only the smallest coin falls_  
   تهبط أصغر عملة فقط
 
-- [ ] **601. L21 Q1 option C ✓** · _Most of them fall together_  
+- [ ] **605. L21 Q1 option C ✓** · _Most of them fall together_  
   يهبط أغلبها معًا
 
-- [ ] **602. L21 Q1 explanation** · _Most coins move with Bitcoin. In storms most coins fall, even 24K ones, so 5 coins are less spread out than they look._  
+- [ ] **606. L21 Q1 explanation** · _Most coins move with Bitcoin. In storms most coins fall, even 24K ones, so 5 coins are less spread out than they look._  
   معظم العملات تتحرك مع Bitcoin. في الطقس العاصف تهبط أغلبها، حتى التي عيارها 24K، لذلك فإن 5 عملات أقل تنوعًا مما تبدو.
 
-- [ ] **603. L21 Q2** · _$25 a month buys a coin at $10, then at $5. How many coins in total?_  
+- [ ] **607. L21 Q2** · _$25 a month buys a coin at $10, then at $5. How many coins in total?_  
   25 دولارًا كل شهر تشتري عملة بسعر 10 دولارات، ثم بسعر 5 دولارات. كم وحدة في المجموع؟
 
-- [ ] **604. L21 Q2 option A** · _5 coins_  
+- [ ] **608. L21 Q2 option A** · _5 coins_  
   5 وحدات
 
-- [ ] **605. L21 Q2 option B ✓** · _7.5 coins_  
+- [ ] **609. L21 Q2 option B ✓** · _7.5 coins_  
   7.5 وحدة
 
-- [ ] **606. L21 Q2 option C** · _2.5 coins_  
+- [ ] **610. L21 Q2 option C** · _2.5 coins_  
   2.5 وحدة
 
-- [ ] **607. L21 Q2 explanation** · _$25 ÷ $10 = 2.5 coins, then $25 ÷ $5 = 5 coins: 7.5 in total. A lower price buys more._  
+- [ ] **611. L21 Q2 explanation** · _$25 ÷ $10 = 2.5 coins, then $25 ÷ $5 = 5 coins: 7.5 in total. A lower price buys more._  
   25 ÷ 10 = 2.5 وحدة، ثم 25 ÷ 5 = 5 وحدات: المجموع 7.5. السعر الأقل يشتري أكثر.
 
-- [ ] **608. L21 Q3** · _What can DCA NOT do?_  
+- [ ] **612. L21 Q3** · _What can DCA NOT do?_  
   ما الذي لا يستطيع الشراء الدوري فعله؟
 
-- [ ] **609. L21 Q3 option A ✓** · _Protect you if the price keeps falling_  
+- [ ] **613. L21 Q3 option A ✓** · _Protect you if the price keeps falling_  
   حمايتك إذا استمر السعر في الهبوط
 
-- [ ] **610. L21 Q3 option B** · _Buy more coins when the price is low_  
+- [ ] **614. L21 Q3 option B** · _Buy more coins when the price is low_  
   شراء وحدات أكثر عندما يكون السعر منخفضًا
 
-- [ ] **611. L21 Q3 option C** · _Spread your buys over time_  
+- [ ] **615. L21 Q3 option C** · _Spread your buys over time_  
   توزيع مشترياتك على مدة زمنية
 
-- [ ] **612. L21 Q3 explanation** · _DCA evens out the price you pay. If the price keeps falling, every buy is still worth less than you paid._  
+- [ ] **616. L21 Q3 explanation** · _DCA evens out the price you pay. If the price keeps falling, every buy is still worth less than you paid._  
   الشراء الدوري يوازن السعر الذي تدفعه. وإذا استمر السعر في الهبوط، تبقى قيمة كل عملية شراء أقل مما دفعت.
 
 ## Lesson 22: Your plan and your journal (`#learn-trading-plan`)
 
-- [ ] **613. L22 title** · _Your plan and your journal_  
+- [ ] **617. L22 title** · _Your plan and your journal_  
   خطتك ودفتر صفقاتك
 
-- [ ] **614. L22 hook** · _Decide before the trade, write it down after. Paper remembers what feelings forget._  
+- [ ] **618. L22 hook** · _Decide before the trade, write it down after. Paper remembers what feelings forget._  
   قرر قبل الصفقة، ودوّن بعدها. الورق يتذكر ما تنساه المشاعر.
 
-- [ ] **615. L22 section 1 heading** · _The plan, before you click_  
+- [ ] **619. L22 section 1 heading** · _The plan, before you click_  
   الخطة قبل أن تضغط
 
-- [ ] **616. L22 section 1 text** · _A trading plan fits on a small card written before the trade: why this trade, where you get in, where you get out if it goes well, where you get out if it goes wrong (the stop), and how much (the size). If you can’t fill in the card, the trade isn’t ready._  
+- [ ] **620. L22 section 1 text** · _A trading plan fits on a small card written before the trade: why this trade, where you get in, where you get out if it goes well, where you get out if it goes wrong (the stop), and how much (the size). If you can’t fill in the card, the trade isn’t ready._  
   خطة التداول (trading plan) تكفيها بطاقة صغيرة تكتبها قبل الصفقة: لماذا هذه الصفقة، أين تدخل، أين تخرج إن سارت جيدًا، أين تخرج إن ساءت (نقطة الإيقاف أو stop)، وكم المبلغ (الحجم). إذا لم تستطع ملء البطاقة، فالصفقة ليست جاهزة.
 
-- [ ] **617. L22 section 2 heading** · _Why write it first_  
+- [ ] **621. L22 section 2 heading** · _Why write it first_  
   لماذا تكتبها أولًا؟
 
-- [ ] **618. L22 section 2 text** · _Once money is moving, fear and excitement start making the choices. A plan written while calm lets you compare what you decided with what you did. A common gap: moving the stop further away “just this once”._  
+- [ ] **622. L22 section 2 text** · _Once money is moving, fear and excitement start making the choices. A plan written while calm lets you compare what you decided with what you did. A common gap: moving the stop further away “just this once”._  
   عندما يبدأ المال في الحركة، يبدأ الخوف والحماس في اتخاذ القرارات. الخطة المكتوبة وأنت هادئ تسمح لك بمقارنة ما قررته بما فعلته. ومن الفروق الشائعة: إبعاد نقطة الإيقاف «هذه المرة فقط».
 
-- [ ] **619. L22 section 3 heading** · _The journal_  
+- [ ] **623. L22 section 3 heading** · _The journal_  
   دفتر الصفقات
 
-- [ ] **620. L22 section 3 text** · _After each trade, write one line: date, coin, why you got in, what happened, and how you felt. After 20 trades, read them again. Patterns show up: the time of day you trade worst, the feeling that comes before your worst trades._  
+- [ ] **624. L22 section 3 text** · _After each trade, write one line: date, coin, why you got in, what happened, and how you felt. After 20 trades, read them again. Patterns show up: the time of day you trade worst, the feeling that comes before your worst trades._  
   بعد كل صفقة، اكتب سطرًا واحدًا في دفتر الصفقات (journal): التاريخ، العملة، لماذا دخلت، ماذا حدث، وبماذا شعرت. وبعد 20 صفقة، أعد قراءتها. ستظهر أنماط: الوقت من اليوم الذي تتداول فيه بشكل أسوأ، والشعور الذي يسبق أسوأ صفقاتك.
 
-- [ ] **621. L22 section 4 heading** · _Revenge trading_  
+- [ ] **625. L22 section 4 heading** · _Revenge trading_  
   التداول الانتقامي
 
-- [ ] **622. L22 section 4 text** · _After a loss, the urge to win it back straight away is strong. That rushed trade, often bigger than usual, is called revenge trading, and it often turns one loss into two. The plan card is the brake: no card, no trade._  
+- [ ] **626. L22 section 4 text** · _After a loss, the urge to win it back straight away is strong. That rushed trade, often bigger than usual, is called revenge trading, and it often turns one loss into two. The plan card is the brake: no card, no trade._  
   بعد الخسارة تكون الرغبة في استرجاعها فورًا قوية. تلك الصفقة المتسرعة، وغالبًا ما تكون أكبر من المعتاد، تسمى التداول الانتقامي (revenge trading)، وكثيرًا ما تحوّل خسارة واحدة إلى خسارتين. بطاقة الخطة هي الفرامل: لا بطاقة، لا صفقة.
 
-- [ ] **623. L22 section 5 heading** · _Test it where it costs nothing_  
+- [ ] **627. L22 section 5 heading** · _Test it where it costs nothing_  
   جرّبها حيث لا تكلفك شيئًا
 
-- [ ] **624. L22 section 5 text** · _Qirat’s practice wallet is a place to try a plan for a few weeks with pretend money. The habit coach works as a mirror: it notes a buy after a big 7-day jump, a sale during a sharp 24-hour fall, more than half the wallet in one coin, or 5 trades in a day. The goal is to learn how you behave, not to get rich._  
+- [ ] **628. L22 section 5 text** · _Qirat’s practice wallet is a place to try a plan for a few weeks with pretend money. The habit coach works as a mirror: it notes a buy after a big 7-day jump, a sale during a sharp 24-hour fall, more than half the wallet in one coin, or 5 trades in a day. The goal is to learn how you behave, not to get rich._  
   محفظة التدريب في قيراط مكان لتجربة خطتك لبضعة أسابيع بأموال وهمية. ومدرب العادات يعمل كمرآة: ينبهك إلى شراء بعد قفزة كبيرة خلال 7 أيام، أو بيع أثناء هبوط حاد خلال 24 ساعة، أو أكثر من نصف المحفظة في عملة واحدة، أو 5 صفقات في يوم واحد. الهدف أن تتعلم كيف تتصرف، لا أن تصبح غنيًا.
 
-- [ ] **625. L22 takeaway** · _Plan before, journal after. Together they teach you more about your own habits than any chart._  
+- [ ] **629. L22 takeaway** · _Plan before, journal after. Together they teach you more about your own habits than any chart._  
   الخطة قبل الصفقة، والدفتر بعدها. معًا يعلمانك عن عاداتك أكثر من أي رسم بياني.
 
-- [ ] **626. L22 Q1** · _What goes on a plan card written before a trade?_  
+- [ ] **630. L22 Q1** · _What goes on a plan card written before a trade?_  
   ماذا تكتب في بطاقة الخطة قبل الصفقة؟
 
-- [ ] **627. L22 Q1 option A** · _A tip from a group chat_  
+- [ ] **631. L22 Q1 option A** · _A tip from a group chat_  
   نصيحة من مجموعة دردشة
 
-- [ ] **628. L22 Q1 option B ✓** · _Why, where you get in and out, the stop and how much_  
+- [ ] **632. L22 Q1 option B ✓** · _Why, where you get in and out, the stop and how much_  
   السبب، الدخول، الخروج، نقطة الإيقاف والحجم
 
-- [ ] **629. L22 Q1 option C** · _Only the coin’s name_  
+- [ ] **633. L22 Q1 option C** · _Only the coin’s name_  
   اسم العملة فقط
 
-- [ ] **630. L22 Q1 explanation** · _The card holds the whole decision, written while calm: why, where in, where out both ways, and how much._  
+- [ ] **634. L22 Q1 explanation** · _The card holds the whole decision, written while calm: why, where in, where out both ways, and how much._  
   البطاقة تحمل القرار كاملًا، مكتوبًا وأنت هادئ: لماذا، أين تدخل، أين تخرج في الحالتين، وكم المبلغ.
 
-- [ ] **631. L22 Q2** · _You just lost on a trade and want to win it back right now with a bigger one. What is this?_  
+- [ ] **635. L22 Q2** · _You just lost on a trade and want to win it back right now with a bigger one. What is this?_  
   خسرت للتو في صفقة وتريد استرجاع الخسارة فورًا بصفقة أكبر. ماذا يسمى هذا؟
 
-- [ ] **632. L22 Q2 option A** · _Diversification_  
+- [ ] **636. L22 Q2 option A** · _Diversification_  
   التنويع
 
-- [ ] **633. L22 Q2 option B** · _Position sizing_  
+- [ ] **637. L22 Q2 option B** · _Position sizing_  
   حساب حجم الصفقة
 
-- [ ] **634. L22 Q2 option C ✓** · _Revenge trading_  
+- [ ] **638. L22 Q2 option C ✓** · _Revenge trading_  
   التداول الانتقامي
 
-- [ ] **635. L22 Q2 explanation** · _A rushed, bigger trade to erase a loss is revenge trading. It often turns one loss into two._  
+- [ ] **639. L22 Q2 explanation** · _A rushed, bigger trade to erase a loss is revenge trading. It often turns one loss into two._  
   الصفقة المتسرعة والأكبر لمسح خسارة هي التداول الانتقامي، وكثيرًا ما تحوّل خسارة واحدة إلى خسارتين.
 
-- [ ] **636. L22 Q3** · _What is the point of testing a plan for a few weeks in the practice wallet?_  
+- [ ] **640. L22 Q3** · _What is the point of testing a plan for a few weeks in the practice wallet?_  
   ما فائدة تجربة خطة لبضعة أسابيع في محفظة التدريب؟
 
-- [ ] **637. L22 Q3 option A ✓** · _To learn how you behave, with no real money at stake_  
+- [ ] **641. L22 Q3 option A ✓** · _To learn how you behave, with no real money at stake_  
   أن تتعلم كيف تتصرف دون أن تخاطر بمال حقيقي
 
-- [ ] **638. L22 Q3 option B** · _To find a coin that always wins_  
+- [ ] **642. L22 Q3 option B** · _To find a coin that always wins_  
   أن تجد عملة تربح دائمًا
 
-- [ ] **639. L22 Q3 option C** · _To earn a reward from Qirat_  
+- [ ] **643. L22 Q3 option C** · _To earn a reward from Qirat_  
   أن تحصل على مكافأة من قيراط
 
-- [ ] **640. L22 Q3 explanation** · _The practice wallet uses pretend money. Your plan, your journal and the coach’s notes show your habits; there are no prizes and no coin that always wins._  
+- [ ] **644. L22 Q3 explanation** · _The practice wallet uses pretend money. Your plan, your journal and the coach’s notes show your habits; there are no prizes and no coin that always wins._  
   محفظة التدريب تستعمل أموالًا وهمية. خطتك ودفترك وملاحظات المدرب تكشف عاداتك، ولا توجد جوائز ولا عملة تربح دائمًا.
 
-- [ ] **641. L22 live button** · _Try a plan in the practice wallet_  
+- [ ] **645. L22 live button** · _Try a plan in the practice wallet_  
   جرّب خطة في محفظة التدريب
 
 ## Glossary
 
-- [ ] **642. crypto: term** · _Crypto_  
+- [ ] **646. crypto: term** · _Crypto_  
   العملات الرقمية (crypto)
 
-- [ ] **643. crypto: definition** · _Digital money or other things of value recorded on a blockchain. No bank or state guarantees them._  
+- [ ] **647. crypto: definition** · _Digital money or other things of value recorded on a blockchain. No bank or state guarantees them._  
   أموال أو أصول رقمية مسجلة على blockchain، لا يضمنها أي بنك ولا أي دولة.
 
-- [ ] **644. blockchain: term** · _Blockchain_  
+- [ ] **648. blockchain: term** · _Blockchain_  
   blockchain
 
-- [ ] **645. blockchain: definition** · _A shared record copied on thousands of computers. Nobody can secretly change past lines._  
+- [ ] **649. blockchain: definition** · _A shared record copied on thousands of computers. Nobody can secretly change past lines._  
   سجل مشترك منسوخ على آلاف الحواسيب. لا أحد يستطيع تغيير السطور القديمة في الخفاء.
 
-- [ ] **646. bitcoin: term** · _Bitcoin (BTC)_  
+- [ ] **650. bitcoin: term** · _Bitcoin (BTC)_  
   Bitcoin (BTC)
 
-- [ ] **647. bitcoin: definition** · _The first crypto, running since January 2009. There will never be more than 21 million._  
+- [ ] **651. bitcoin: definition** · _The first crypto, running since January 2009. There will never be more than 21 million._  
   أول عملة رقمية، تعمل منذ يناير 2009. لن يتجاوز عددها أبدًا 21 مليونًا.
 
-- [ ] **648. satoshi: term** · _Satoshi_  
+- [ ] **652. satoshi: term** · _Satoshi_  
   satoshi
 
-- [ ] **649. satoshi: definition** · _The smallest piece of a bitcoin: 0.00000001 BTC. One bitcoin is 100 million satoshis._  
+- [ ] **653. satoshi: definition** · _The smallest piece of a bitcoin: 0.00000001 BTC. One bitcoin is 100 million satoshis._  
   أصغر جزء من الـ bitcoin: ‎0.00000001 BTC. الـ bitcoin الواحد يساوي 100 مليون satoshi.
 
-- [ ] **650. stablecoin: term** · _Stablecoin_  
+- [ ] **654. stablecoin: term** · _Stablecoin_  
   عملة مستقرة (stablecoin)
 
-- [ ] **651. stablecoin: definition** · _A crypto designed to stay at a fixed price, usually 1 US dollar._  
+- [ ] **655. stablecoin: definition** · _A crypto designed to stay at a fixed price, usually 1 US dollar._  
   عملة رقمية مصممة لتبقى عند سعر ثابت، عادةً 1 دولار أمريكي.
 
-- [ ] **652. usdt: term** · _USDT (Tether)_  
+- [ ] **656. usdt: term** · _USDT (Tether)_  
   USDT (Tether)
 
-- [ ] **653. usdt: definition** · _The biggest stablecoin, made by the company Tether. It aims to stay at $1._  
+- [ ] **657. usdt: definition** · _The biggest stablecoin, made by the company Tether. It aims to stay at $1._  
   أكبر عملة مستقرة، تصدرها شركة Tether. تهدف إلى البقاء عند 1 دولار.
 
-- [ ] **654. depeg: term** · _Depeg_  
+- [ ] **658. depeg: term** · _Depeg_  
   فك الارتباط (depeg)
 
-- [ ] **655. depeg: definition** · _When a stablecoin falls away from its $1 target._  
+- [ ] **659. depeg: definition** · _When a stablecoin falls away from its $1 target._  
   عندما تبتعد عملة مستقرة عن هدفها، أي 1 دولار.
 
-- [ ] **656. volatility: term** · _Volatility_  
+- [ ] **660. volatility: term** · _Volatility_  
   التقلب (volatility)
 
-- [ ] **657. volatility: definition** · _How much a price usually moves. Qirat shows it as “a typical day”._  
+- [ ] **661. volatility: definition** · _How much a price usually moves. Qirat shows it as “a typical day”._  
   كم يتحرك السعر عادةً. يعرضه قيراط كـ«يوم عادي».
 
-- [ ] **658. risk-grade: term** · _Risk grade_  
+- [ ] **662. risk-grade: term** · _Risk grade_  
   درجة المخاطرة
 
-- [ ] **659. risk-grade: definition** · _Qirat’s low, medium or high. It ranks how much a coin moved in the past 30 days against 18 big coins. “Low” is low for crypto: still far more than savings._  
+- [ ] **663. risk-grade: definition** · _Qirat’s low, medium or high. It ranks how much a coin moved in the past 30 days against 18 big coins. “Low” is low for crypto: still far more than savings._  
   منخفضة أو متوسطة أو عالية في قيراط: ترتيب حركة العملة في آخر 30 يومًا بين 18 عملة كبيرة. «منخفضة» بالنسبة للعملات الرقمية، وتبقى أعلى بكثير من التوفير.
 
-- [ ] **660. rough-month: term** · _Rough month_  
+- [ ] **664. rough-month: term** · _Rough month_  
   الشهر الصعب
 
-- [ ] **661. rough-month: definition** · _How much you could lose in a bad month, the kind that comes about once in 20 months. It comes from past moves and is not the worst case._  
+- [ ] **665. rough-month: definition** · _How much you could lose in a bad month, the kind that comes about once in 20 months. It comes from past moves and is not the worst case._  
   كم يمكن أن تخسر في شهر سيئ، من النوع الذي يأتي تقريبًا مرة كل 20 شهرًا. محسوب من الحركة الماضية، وليس أسوأ الاحتمالات.
 
-- [ ] **662. liquidity: term** · _Liquidity_  
+- [ ] **666. liquidity: term** · _Liquidity_  
   السيولة (liquidity)
 
-- [ ] **663. liquidity: definition** · _How easily a coin can be bought or sold without moving its price. Small coins have little._  
+- [ ] **667. liquidity: definition** · _How easily a coin can be bought or sold without moving its price. Small coins have little._  
   مدى سهولة شراء عملة أو بيعها دون أن يتحرك سعرها. العملات الصغيرة سيولتها قليلة.
 
-- [ ] **664. signals: term** · _Signals_  
+- [ ] **668. signals: term** · _Signals_  
   التوصيات (signals)
 
-- [ ] **665. signals: definition** · _Paid “buy now / sell now” tips sold in groups. Often the first step of a scam._  
+- [ ] **669. signals: definition** · _Paid “buy now / sell now” tips sold in groups. Often the first step of a scam._  
   نصائح مدفوعة من نوع «اشترِ الآن / بِع الآن» تُباع في المجموعات. غالبًا تكون أول خطوة في احتيال.
 
-- [ ] **666. ponzi: term** · _Ponzi scheme_  
+- [ ] **670. ponzi: term** · _Ponzi scheme_  
   مخطط Ponzi
 
-- [ ] **667. ponzi: definition** · _A scheme that pays early members with newer members’ money, until it collapses._  
+- [ ] **671. ponzi: definition** · _A scheme that pays early members with newer members’ money, until it collapses._  
   مخطط يدفع للأعضاء الأوائل من أموال الأعضاء الجدد، إلى أن ينهار.
 
-- [ ] **668. fake-platform: term** · _Fake platform_  
+- [ ] **672. fake-platform: term** · _Fake platform_  
   منصة مزيفة
 
-- [ ] **669. fake-platform: definition** · _A site or app that shows a fake growing balance, then blocks withdrawals or asks for “fees”._  
+- [ ] **673. fake-platform: definition** · _A site or app that shows a fake growing balance, then blocks withdrawals or asks for “fees”._  
   موقع أو تطبيق يعرض رصيدًا مزيفًا يكبر، ثم يمنع السحب أو يطلب «رسومًا».
 
-- [ ] **670. phishing: term** · _Phishing_  
+- [ ] **674. phishing: term** · _Phishing_  
   التصيّد (phishing)
 
-- [ ] **671. phishing: definition** · _A fake page or message that copies a real service to steal your password or keys._  
+- [ ] **675. phishing: definition** · _A fake page or message that copies a real service to steal your password or keys._  
   صفحة أو رسالة مزيفة تقلّد خدمة حقيقية لتسرق كلمة المرور أو المفاتيح.
 
-- [ ] **672. fomo: term** · _FOMO_  
+- [ ] **676. fomo: term** · _FOMO_  
   FOMO
 
-- [ ] **673. fomo: definition** · _Fear Of Missing Out: the urge to jump in because a price is rising and everyone is talking about it._  
+- [ ] **677. fomo: definition** · _Fear Of Missing Out: the urge to jump in because a price is rising and everyone is talking about it._  
   Fear Of Missing Out: الرغبة في الدخول لأن السعر يرتفع والجميع يتحدث عنه.
 
-- [ ] **674. candle: term** · _Candle_  
+- [ ] **678. candle: term** · _Candle_  
   الشمعة (candle)
 
-- [ ] **675. candle: definition** · _One bar on a price chart. On Qirat it covers one day. Green: the day ended higher than it began. Red: it ended lower. The thin line shows the day’s high and low._  
+- [ ] **679. candle: definition** · _One bar on a price chart. On Qirat it covers one day. Green: the day ended higher than it began. Red: it ended lower. The thin line shows the day’s high and low._  
   عمود على الرسم البياني للسعر. في قيراط تمثل يومًا: الخضراء أُغلقت أعلى من الافتتاح، والحمراء أدنى، والخط الرفيع هو أعلى وأدنى سعر في اليوم.
 
-- [ ] **676. pullback: term** · _Pullback_  
+- [ ] **680. pullback: term** · _Pullback_  
   التراجع (pullback)
 
-- [ ] **677. pullback: definition** · _A drop in price after a rise._  
+- [ ] **681. pullback: definition** · _A drop in price after a rise._  
   هبوط في السعر بعد صعود.
 
-- [ ] **678. order-book: term** · _Order book_  
+- [ ] **682. order-book: term** · _Order book_  
   دفتر الأوامر (order book)
 
-- [ ] **679. order-book: definition** · _The list of people waiting to buy below the price and to sell above it. Trades happen when someone takes one of these offers._  
+- [ ] **683. order-book: definition** · _The list of people waiting to buy below the price and to sell above it. Trades happen when someone takes one of these offers._  
   قائمة الأشخاص الذين ينتظرون الشراء تحت السعر والبيع فوقه. تتمّ الصفقة عندما يأخذ أحدهم أحد هذه العروض.
 
-- [ ] **680. bid-ask: term** · _Bid and ask_  
+- [ ] **684. bid-ask: term** · _Bid and ask_  
   سعر الشراء والبيع (bid / ask)
 
-- [ ] **681. bid-ask: definition** · _Bid: the most anyone will pay right now. Ask: the least anyone will sell for. The ask is always a little higher._  
+- [ ] **685. bid-ask: definition** · _Bid: the most anyone will pay right now. Ask: the least anyone will sell for. The ask is always a little higher._  
   الـ bid: أعلى مبلغ يدفعه أحد الآن. الـ ask: أقل مبلغ يقبل أحد البيع به. الـ ask دائماً أعلى قليلاً.
 
-- [ ] **682. spread: term** · _Spread_  
+- [ ] **686. spread: term** · _Spread_  
   الفارق (spread)
 
-- [ ] **683. spread: definition** · _The gap between the best buy and best sell price. You pay it on every trade made straight away. In Qirat’s practice wallet it is 0.05% each way._  
+- [ ] **687. spread: definition** · _The gap between the best buy and best sell price. You pay it on every trade made straight away. In Qirat’s practice wallet it is 0.05% each way._  
   الفرق بين أفضل سعر شراء وأفضل سعر بيع. تدفعه في كل عملية فورية. في محفظة التدريب في قيراط هو 0.05% في كل اتجاه.
 
-- [ ] **684. market-cap: term** · _Market cap_  
+- [ ] **688. market-cap: term** · _Market cap_  
   القيمة السوقية (market cap)
 
-- [ ] **685. market-cap: definition** · _Price × number of coins in circulation. It is how coins are compared in size; the price of one coin alone says little._  
+- [ ] **689. market-cap: definition** · _Price × number of coins in circulation. It is how coins are compared in size; the price of one coin alone says little._  
   السعر × عدد العملات المتداولة. بها تُقارَن أحجام العملات، أما سعر العملة الواحدة وحده فلا يقول الكثير.
 
-- [ ] **686. emergency-fund: term** · _Emergency fund_  
+- [ ] **690. emergency-fund: term** · _Emergency fund_  
   صندوق الطوارئ
 
-- [ ] **687. emergency-fund: definition** · _Money set aside for sudden costs, like a repair or a doctor. It comes before any crypto._  
+- [ ] **691. emergency-fund: definition** · _Money set aside for sudden costs, like a repair or a doctor. It comes before any crypto._  
   مال تضعه جانباً للمصاريف المفاجئة، مثل إصلاح أو طبيب. يأتي قبل أي عملة رقمية.
 
-- [ ] **688. drawdown: term** · _Drawdown_  
+- [ ] **692. drawdown: term** · _Drawdown_  
   التراجع من القمّة (drawdown)
 
-- [ ] **689. drawdown: definition** · _How far a value has fallen from its highest point. A 50% drawdown needs a 100% gain to come back._  
+- [ ] **693. drawdown: definition** · _How far a value has fallen from its highest point. A 50% drawdown needs a 100% gain to come back._  
   كم نزلت القيمة عن أعلى نقطة وصلتها. تراجع 50% يحتاج ربح 100% للعودة.
 
-- [ ] **690. wallet: term** · _Wallet_  
+- [ ] **694. wallet: term** · _Wallet_  
   المحفظة (wallet)
 
-- [ ] **691. wallet: definition** · _Where the keys to your crypto are kept. A platform can hold them for you, or you can hold them yourself._  
+- [ ] **695. wallet: definition** · _Where the keys to your crypto are kept. A platform can hold them for you, or you can hold them yourself._  
   المكان الذي تُحفظ فيه مفاتيح عملاتك الرقمية. يمكن أن تحفظها منصّة بدلاً منك، أو تحفظها أنت بنفسك.
 
-- [ ] **692. private-key: term** · _Private key_  
+- [ ] **696. private-key: term** · _Private key_  
   المفتاح السرّي (private key)
 
-- [ ] **693. private-key: definition** · _The secret code that allows coins to be moved. Whoever controls it controls the coins._  
+- [ ] **697. private-key: definition** · _The secret code that allows coins to be moved. Whoever controls it controls the coins._  
   الرمز السرّي الذي يسمح بتحريك العملات. من يتحكّم فيه يتحكّم في العملات.
 
-- [ ] **694. seed-phrase: term** · _Seed phrase_  
+- [ ] **698. seed-phrase: term** · _Seed phrase_  
   كلمات الاسترجاع (seed phrase)
 
-- [ ] **695. seed-phrase: definition** · _Usually 12 or 24 words that can rebuild your own wallet. Whoever has them has your crypto. Never share them._  
+- [ ] **699. seed-phrase: definition** · _Usually 12 or 24 words that can rebuild your own wallet. Whoever has them has your crypto. Never share them._  
   عادةً 12 أو 24 كلمة تستطيع إعادة بناء محفظتك الخاصة. من يملكها يملك عملاتك. لا تشاركها أبداً.
 
-- [ ] **696. exchange: term** · _Exchange_  
+- [ ] **700. exchange: term** · _Exchange_  
   منصّة التداول (exchange)
 
-- [ ] **697. exchange: definition** · _A company where people buy and sell crypto. It usually holds the keys for its customers. Qirat does not recommend any._  
+- [ ] **701. exchange: definition** · _A company where people buy and sell crypto. It usually holds the keys for its customers. Qirat does not recommend any._  
   شركة يشتري فيها الناس العملات الرقمية ويبيعونها. عادةً تحفظ المفاتيح بدلاً من عملائها. قيراط لا ينصح بأيّ منها.
 
-- [ ] **698. self-custody: term** · _Self-custody_  
+- [ ] **702. self-custody: term** · _Self-custody_  
   الحفظ الذاتي (self-custody)
 
-- [ ] **699. self-custody: definition** · _Holding your own keys instead of leaving them with a company. Full control, and nobody can reset it if you lose them._  
+- [ ] **703. self-custody: definition** · _Holding your own keys instead of leaving them with a company. Full control, and nobody can reset it if you lose them._  
   أن تحفظ مفاتيحك بنفسك بدل تركها عند شركة. تحكّم كامل، ولا أحد يستطيع استرجاعها إذا ضاعت.
 
-- [ ] **700. p2p: term** · _P2P_  
+- [ ] **704. p2p: term** · _P2P_  
   التعامل المباشر (P2P)
 
-- [ ] **701. p2p: definition** · _Buying or selling crypto directly with another person instead of with an exchange. The other side is a stranger._  
+- [ ] **705. p2p: definition** · _Buying or selling crypto directly with another person instead of with an exchange. The other side is a stranger._  
   شراء أو بيع العملات الرقمية مباشرة مع شخص آخر بدل المنصّة. الطرف الآخر شخص غريب.
 
-- [ ] **702. escrow: term** · _Escrow_  
+- [ ] **706. escrow: term** · _Escrow_  
   الحجز (escrow)
 
-- [ ] **703. escrow: definition** · _A platform holds the crypto during a P2P deal until both sides confirm. Outside the platform, there is none._  
+- [ ] **707. escrow: definition** · _A platform holds the crypto during a P2P deal until both sides confirm. Outside the platform, there is none._  
   المنصّة تحجز العملة خلال صفقة P2P حتى يؤكّد الطرفان. خارج المنصّة لا يوجد حجز.
 
-- [ ] **704. bct: term** · _BCT_  
-  البنك المركزي التونسي (BCT)
-
-- [ ] **705. bct: definition** · _Banque Centrale de Tunisie, Tunisia’s central bank. It watches over the rules on foreign currency set by the 1976 law._  
-  البنك المركزي التونسي. يراقب قواعد الصرف بموجب قانون 1976.
-
-- [ ] **706. legal-tender: term** · _Legal tender_  
+- [ ] **708. legal-tender: term** · _Legal tender_  
   العملة القانونية (legal tender)
 
-- [ ] **707. legal-tender: definition** · _The money a country’s law recognises for payments. In Tunisia it is the dinar._  
-  العملة التي يعترف بها قانون البلد في الدفع. في تونس هي الدينار.
+- [ ] **709. legal-tender: definition** · _The money a country’s law accepts for payments: the dirham in Morocco, the pound in Egypt, the riyal in Saudi Arabia. In Arab countries, no crypto is legal tender._  
+  العملة التي يقبلها قانون البلد في الدفع: الدرهم في المغرب، والجنيه في مصر، والريال في السعودية. لا توجد عملة رقمية لها صفة العملة القانونية في الدول العربية.
 
-- [ ] **708. exchange-code: term** · _Exchange code (Tunisia)_  
-  مجلّة الصرف (تونس)
+- [ ] **710. regulator: term** · _Regulator_  
+  الهيئة الرقابية (regulator)
 
-- [ ] **709. exchange-code: definition** · _Law 76-18 of 21 January 1976 on foreign currency. A new code has been drafted since 2023 but is not law as of November 2026._  
-  القانون 76-18 المؤرّخ في 21 جانفي 1976 الخاص بالعملة الأجنبية. توجد مشاريع لمجلّة جديدة منذ 2023، لكنها ليست قانوناً إلى غاية نوفمبر 2026.
+- [ ] **711. regulator: definition** · _The public body that makes and checks the rules for money markets in a country, often the central bank or a markets authority. Only it can license a crypto platform there._  
+  الجهة العامة التي تضع قواعد الأسواق المالية في البلد وتراقبها، وغالبًا ما تكون البنك المركزي أو هيئة الأسواق. وهي وحدها التي يمكنها أن ترخّص لمنصة عملات رقمية في ذلك البلد.
 
-- [ ] **710. trading: term** · _Trading_  
+- [ ] **712. trading: term** · _Trading_  
   التداول (trading)
 
-- [ ] **711. trading: definition** · _Buying and selling often to catch price moves. Every trade pays costs and is a new decision._  
+- [ ] **713. trading: definition** · _Buying and selling often to catch price moves. Every trade pays costs and is a new decision._  
   الشراء والبيع بشكل متكرر للاستفادة من حركات السعر. كل عملية تدفع تكاليف وتتطلب قرارًا جديدًا.
 
-- [ ] **712. holding: term** · _Holding (HODL)_  
+- [ ] **714. holding: term** · _Holding (HODL)_  
   الاحتفاظ (holding)
 
-- [ ] **713. holding: definition** · _Buying a coin and keeping it for months or years without reacting to every move._  
+- [ ] **715. holding: definition** · _Buying a coin and keeping it for months or years without reacting to every move._  
   شراء عملة والاحتفاظ بها أشهرًا أو سنوات دون التفاعل مع كل حركة.
 
-- [ ] **714. day-trading: term** · _Day trading_  
+- [ ] **716. day-trading: term** · _Day trading_  
   التداول اليومي (day trading)
 
-- [ ] **715. day-trading: definition** · _Opening and closing trades within the same day, often many times. Studies of real day traders found that most lose money._  
+- [ ] **717. day-trading: definition** · _Opening and closing trades within the same day, often many times. Studies of real day traders found that most lose money._  
   فتح الصفقات وإغلاقها في نفس اليوم، وغالبًا عدة مرات. الدراسات على متداولين يوميين حقيقيين وجدت أن أغلبهم يخسرون.
 
-- [ ] **716. timeframe: term** · _Timeframe_  
+- [ ] **718. timeframe: term** · _Timeframe_  
   الإطار الزمني (timeframe)
 
-- [ ] **717. timeframe: definition** · _How much time one candle covers: 1 minute, 1 hour, 1 day, 1 week. On Qirat, one candle is one day._  
+- [ ] **719. timeframe: definition** · _How much time one candle covers: 1 minute, 1 hour, 1 day, 1 week. On Qirat, one candle is one day._  
   المدة التي تغطيها الشمعة الواحدة: دقيقة أو ساعة أو يوم أو أسبوع. في قيراط، الشمعة يوم واحد.
 
-- [ ] **718. volume: term** · _Volume_  
+- [ ] **720. volume: term** · _Volume_  
   الحجم (volume)
 
-- [ ] **719. volume: definition** · _How much of a coin was traded in a period. It shows how many took part in a move, not what comes next._  
+- [ ] **721. volume: definition** · _How much of a coin was traded in a period. It shows how many took part in a move, not what comes next._  
   كمية العملة التي تم تداولها خلال فترة. يبيّن كم شخصًا شارك في الحركة، لا ما سيأتي بعدها.
 
-- [ ] **720. fee: term** · _Fee_  
+- [ ] **722. fee: term** · _Fee_  
   الرسوم (fee)
 
-- [ ] **721. fee: definition** · _What a platform charges on each trade. Qirat’s practice wallet uses 0.1%, like Binance’s basic fee for simple (spot) trades._  
+- [ ] **723. fee: definition** · _What a platform charges on each trade. Qirat’s practice wallet uses 0.1%, like Binance’s basic fee for simple (spot) trades._  
   ما تأخذه المنصّة على كل عملية. محفظة التدريب في قيراط تأخذ 0.1%، مثل الرسوم الأساسية للتداول الفوري في Binance.
 
-- [ ] **722. market-order: term** · _Market order_  
+- [ ] **724. market-order: term** · _Market order_  
   أمر السوق (market order)
 
-- [ ] **723. market-order: definition** · _An order to buy or sell right now at the best price available. Fast, but the price you get can differ a little._  
+- [ ] **725. market-order: definition** · _An order to buy or sell right now at the best price available. Fast, but the price you get can differ a little._  
   أمر بالشراء أو البيع فورًا بأفضل سعر متوفر. سريع، لكن السعر قد ينزلق.
 
-- [ ] **724. limit-order: term** · _Limit order_  
+- [ ] **726. limit-order: term** · _Limit order_  
   الأمر المحدد السعر (limit order)
 
-- [ ] **725. limit-order: definition** · _An order that goes through only at your price or better. It may never go through._  
+- [ ] **727. limit-order: definition** · _An order that goes through only at your price or better. It may never go through._  
   أمر لا يُنفَّذ إلا بسعرك أو بسعر أفضل منه، وقد لا يُنفَّذ أبدًا.
 
-- [ ] **726. stop-loss: term** · _Stop-loss_  
+- [ ] **728. stop-loss: term** · _Stop-loss_  
   وقف الخسارة (stop-loss)
 
-- [ ] **727. stop-loss: definition** · _A price chosen in advance where a sell order is sent to limit a loss. In a fast drop it can sell lower._  
+- [ ] **729. stop-loss: definition** · _A price chosen in advance where a sell order is sent to limit a loss. In a fast drop it can sell lower._  
   سعر تختاره مسبقًا يُرسَل عنده أمر بيع للحدّ من الخسارة. في الهبوط السريع قد يُنفَّذ بسعر أقل.
 
-- [ ] **728. take-profit: term** · _Take-profit_  
+- [ ] **730. take-profit: term** · _Take-profit_  
   جني الأرباح (take-profit)
 
-- [ ] **729. take-profit: definition** · _A price chosen in advance, above your buy price, where a sell order is sent if the coin rises._  
+- [ ] **731. take-profit: definition** · _A price chosen in advance, above your buy price, where a sell order is sent if the coin rises._  
   سعر تختاره مسبقًا فوق سعر دخولك، يُرسَل عنده أمر بيع إذا ارتفعت العملة.
 
-- [ ] **730. slippage: term** · _Slippage_  
+- [ ] **732. slippage: term** · _Slippage_  
   الانزلاق (slippage)
 
-- [ ] **731. slippage: definition** · _The gap between the price you expected and the price you got. Bigger on small coins and big orders._  
+- [ ] **733. slippage: definition** · _The gap between the price you expected and the price you got. Bigger on small coins and big orders._  
   الفرق بين السعر الذي توقعته والسعر الذي حصلت عليه. يكون أكبر في العملات الصغيرة والأوامر الكبيرة.
 
-- [ ] **732. karat: term** · _Karat (24K–10K)_  
+- [ ] **734. karat: term** · _Karat (24K–10K)_  
   القيراط (24K–10K)
 
-- [ ] **733. karat: definition** · _Qirat’s grade for a coin, from 24K (calm and climbing) to 10K (wild or sliding). It ranks two things against 18 big coins: calm over 30 days, and the rise or fall over 90 days. Never an instruction to buy or sell._  
+- [ ] **735. karat: definition** · _Qirat’s grade for a coin, from 24K (calm and climbing) to 10K (wild or sliding). It ranks two things against 18 big coins: calm over 30 days, and the rise or fall over 90 days. Never an instruction to buy or sell._  
   تقييم قيراط للعملة، من 24K (هادئة وصاعدة) إلى 10K (هائجة أو هابطة). يرتّب هدوء آخر 30 يومًا واتجاه 90 يومًا مقارنة بـ 18 عملة كبيرة. وليس أبدًا أمرًا بالشراء أو البيع.
 
-- [ ] **734. momentum: term** · _Trend (momentum)_  
+- [ ] **736. momentum: term** · _Trend (momentum)_  
   الاتجاه (momentum)
 
-- [ ] **735. momentum: definition** · _How much a price rose or fell over a period. Qirat’s karat uses about 90 days, leaving out the last week._  
+- [ ] **737. momentum: definition** · _How much a price rose or fell over a period. Qirat’s karat uses about 90 days, leaving out the last week._  
   مقدار ارتفاع السعر أو انخفاضه خلال فترة. قيراط يستعمل حوالي 90 يومًا دون الأسبوع الأخير.
 
-- [ ] **736. moving-average: term** · _Moving average_  
+- [ ] **738. moving-average: term** · _Moving average_  
   المتوسط المتحرك (moving average)
 
-- [ ] **737. moving-average: definition** · _The average end-of-day price over a set number of days, such as 50 or 200. It moves slowly behind the price._  
+- [ ] **739. moving-average: definition** · _The average end-of-day price over a set number of days, such as 50 or 200. It moves slowly behind the price._  
   متوسط أسعار الإغلاق في آخر عدد من الأيام، مثل 50 أو 200 يوم. يتحرك ببطء خلف السعر.
 
-- [ ] **738. funding-rate: term** · _Funding rate_  
+- [ ] **740. funding-rate: term** · _Funding rate_  
   رسوم التمويل (funding)
 
-- [ ] **739. funding-rate: definition** · _A small payment between traders on perpetual futures (futures with no end date), usually every 8 hours. When it is high, many traders using borrowed money have bet on a rise._  
+- [ ] **741. funding-rate: definition** · _A small payment between traders on perpetual futures (futures with no end date), usually every 8 hours. When it is high, many traders using borrowed money have bet on a rise._  
   دفعة صغيرة بين المتداولين في العقود الآجلة الدائمة، عادة كل 8 ساعات. عندما تكون مرتفعة، فهذا يعني أن كثيرًا من المتداولين بأموال مقترضة راهنوا على الصعود.
 
-- [ ] **740. fear-greed: term** · _Fear & Greed index_  
+- [ ] **742. fear-greed: term** · _Fear & Greed index_  
   مؤشر Fear & Greed
 
-- [ ] **741. fear-greed: definition** · _A daily score of the mood around Bitcoin, from 0 (extreme fear) to 100 (extreme greed). It comes from price swings, trading activity, social media and web searches. In Qirat, 80 or more turns a calm market choppy._  
+- [ ] **743. fear-greed: definition** · _A daily score of the mood around Bitcoin, from 0 (extreme fear) to 100 (extreme greed). It comes from price swings, trading activity, social media and web searches. In Qirat, 80 or more turns a calm market choppy._  
   نتيجة يومية من 0 (خوف شديد) إلى 100 (طمع شديد) لمزاج الناس حول Bitcoin، محسوبة من تقلبات السعر ونشاط التداول ووسائل التواصل والبحث على الإنترنت. في قيراط، 80 أو أكثر تحوّل السوق الهادئ إلى متقلب.
 
-- [ ] **742. position-size: term** · _Position size_  
+- [ ] **744. position-size: term** · _Position size_  
   حجم الصفقة (position size)
 
-- [ ] **743. position-size: definition** · _How much of your wallet one trade takes, for example $200 out of $1,000._  
+- [ ] **745. position-size: definition** · _How much of your wallet one trade takes, for example $200 out of $1,000._  
   الجزء الذي تأخذه صفقة واحدة من محفظتك، مثلًا 200 دولار من 1000.
 
-- [ ] **744. concentration: term** · _Concentration_  
+- [ ] **746. concentration: term** · _Concentration_  
   التركّز
 
-- [ ] **745. concentration: definition** · _Having a large share of your wallet in one coin. Qirat’s habit coach notes it when one coin passes half the wallet._  
+- [ ] **747. concentration: definition** · _Having a large share of your wallet in one coin. Qirat’s habit coach notes it when one coin passes half the wallet._  
   أن يكون جزء كبير من محفظتك في عملة واحدة. ينبهك مدرب العادات في قيراط عندما تتجاوز عملة واحدة نصف المحفظة.
 
-- [ ] **746. leverage: term** · _Leverage_  
+- [ ] **748. leverage: term** · _Leverage_  
   الرافعة المالية (leverage)
 
-- [ ] **747. leverage: definition** · _Trading with borrowed money. At x10, $100 controls a $1,000 trade, and every move counts ten times, losses included._  
+- [ ] **749. leverage: definition** · _Trading with borrowed money. At x10, $100 controls a $1,000 trade, and every move counts ten times, losses included._  
   التداول بمال مقترض. مع x10 تتحكم 100 دولار في صفقة بـ 1000 دولار، وكل حركة تُحسب 10 مرات، والخسائر أيضًا.
 
-- [ ] **748. margin: term** · _Margin_  
+- [ ] **750. margin: term** · _Margin_  
   الهامش (margin)
 
-- [ ] **749. margin: definition** · _The money that is really yours in a leveraged trade. Losses come out of it first._  
+- [ ] **751. margin: definition** · _The money that is really yours in a leveraged trade. Losses come out of it first._  
   المال الذي هو ملكك فعلًا في صفقة بالرافعة. منه تُخصم الخسائر أولًا.
 
-- [ ] **750. liquidation: term** · _Liquidation_  
+- [ ] **752. liquidation: term** · _Liquidation_  
   التصفية (liquidation)
 
-- [ ] **751. liquidation: definition** · _When a platform closes a leveraged trade by itself, because losses ate the margin. At x10 it comes a little before a 10% move._  
+- [ ] **753. liquidation: definition** · _When a platform closes a leveraged trade by itself, because losses ate the margin. At x10 it comes a little before a 10% move._  
   عندما تغلق المنصة صفقة بالرافعة من تلقاء نفسها لأن الخسائر أكلت الهامش. مع x10 تحدث قبل حركة 10% بقليل.
 
-- [ ] **752. futures: term** · _Futures_  
+- [ ] **754. futures: term** · _Futures_  
   العقود الآجلة (futures)
 
-- [ ] **753. futures: definition** · _Contracts that bet on a coin’s price without owning the coin. Perpetual futures have no end date and charge a funding fee every few hours._  
+- [ ] **755. futures: definition** · _Contracts that bet on a coin’s price without owning the coin. Perpetual futures have no end date and charge a funding fee every few hours._  
   عقود تراهن على سعر العملة دون امتلاكها. العقود الدائمة ليس لها تاريخ انتهاء وتُدفع فيها رسوم funding كل بضع ساعات.
 
-- [ ] **754. trend: term** · _Trend_  
+- [ ] **756. trend: term** · _Trend_  
   الاتجاه (trend)
 
-- [ ] **755. trend: definition** · _The direction of a chart. Going up: each top and each dip is higher than the one before. Going down: each one is lower._  
+- [ ] **757. trend: definition** · _The direction of a chart. Going up: each top and each dip is higher than the one before. Going down: each one is lower._  
   اتجاه الرسم البياني: قمم وقيعان أعلى في الصعود، وقمم وقيعان أدنى في الهبوط.
 
-- [ ] **756. support-resistance: term** · _Support and resistance_  
+- [ ] **758. support-resistance: term** · _Support and resistance_  
   الدعم والمقاومة
 
-- [ ] **757. support-resistance: definition** · _Price zones where buyers (support) or sellers (resistance) reacted before. Zones, not walls: the price often goes through._  
+- [ ] **759. support-resistance: definition** · _Price zones where buyers (support) or sellers (resistance) reacted before. Zones, not walls: the price often goes through._  
   مناطق سعرية تفاعل فيها المشترون (الدعم) أو البائعون (المقاومة) من قبل. مناطق وليست جدرانًا: كثيرًا ما يخترقها السعر.
 
-- [ ] **758. rsi: term** · _RSI_  
+- [ ] **760. rsi: term** · _RSI_  
   مؤشر RSI
 
-- [ ] **759. rsi: definition** · _Relative Strength Index: a 0–100 score of how far and fast the price moved, usually over 14 candles. Above 70 is called “overbought”, which is not a forecast._  
+- [ ] **761. rsi: definition** · _Relative Strength Index: a 0–100 score of how far and fast the price moved, usually over 14 candles. Above 70 is called “overbought”, which is not a forecast._  
   مؤشر القوة النسبية: رقم من 0 إلى 100 يقيس كم تحرك السعر وبأي سرعة، عادة على 14 شمعة. فوق 70 يسمونه «تشبع شرائي»، وهذا ليس توقعًا.
 
-- [ ] **760. diversification: term** · _Diversification_  
+- [ ] **762. diversification: term** · _Diversification_  
   التنويع (diversification)
 
-- [ ] **761. diversification: definition** · _Spreading money over several coins instead of one. In crypto it helps less than it looks, because most coins fall together._  
+- [ ] **763. diversification: definition** · _Spreading money over several coins instead of one. In crypto it helps less than it looks, because most coins fall together._  
   توزيع المال على عدة عملات بدل عملة واحدة. في العملات الرقمية يفيد أقل مما يبدو، لأن أغلبها يهبط معًا.
 
-- [ ] **762. correlation: term** · _Correlation_  
+- [ ] **764. correlation: term** · _Correlation_  
   الارتباط (correlation)
 
-- [ ] **763. correlation: definition** · _How much two prices move together. Most crypto coins move a lot with Bitcoin._  
+- [ ] **765. correlation: definition** · _How much two prices move together. Most crypto coins move a lot with Bitcoin._  
   مدى تحرك سعرين معًا. أغلب العملات الرقمية تتحرك كثيرًا مع Bitcoin.
 
-- [ ] **764. dca: term** · _DCA_  
+- [ ] **766. dca: term** · _DCA_  
   الشراء الدوري (DCA)
 
-- [ ] **765. dca: definition** · _Dollar-cost averaging: buying for the same amount at regular times, whatever the price. It evens out the price you pay, but it does not stop losses._  
+- [ ] **767. dca: definition** · _Dollar-cost averaging: buying for the same amount at regular times, whatever the price. It evens out the price you pay, but it does not stop losses._  
   الشراء بالمبلغ نفسه في أوقات منتظمة مهما كان السعر. يوازن السعر الذي تدفعه، لكنه لا يمنع الخسارة.
 
-- [ ] **766. trading-plan: term** · _Trading plan_  
+- [ ] **768. trading-plan: term** · _Trading plan_  
   خطة التداول
 
-- [ ] **767. trading-plan: definition** · _A short note written before a trade: why, where you get in and out, your stop and how much._  
+- [ ] **769. trading-plan: definition** · _A short note written before a trade: why, where you get in and out, your stop and how much._  
   ملاحظة قصيرة تُكتب قبل الصفقة: السبب، الدخول، الخروج، نقطة الإيقاف والحجم.
 
-- [ ] **768. journal: term** · _Trading journal_  
+- [ ] **770. journal: term** · _Trading journal_  
   دفتر الصفقات (journal)
 
-- [ ] **769. journal: definition** · _A record of every trade: date, coin, why, what happened and how you felt._  
+- [ ] **771. journal: definition** · _A record of every trade: date, coin, why, what happened and how you felt._  
   سجل لكل صفقة: التاريخ، العملة، السبب، ماذا حدث وبماذا شعرت.
 
-- [ ] **770. revenge-trading: term** · _Revenge trading_  
+- [ ] **772. revenge-trading: term** · _Revenge trading_  
   التداول الانتقامي (revenge trading)
 
-- [ ] **771. revenge-trading: definition** · _A rushed trade, often bigger than usual, to win back a loss straight away. It often turns one loss into two._  
+- [ ] **773. revenge-trading: definition** · _A rushed trade, often bigger than usual, to win back a loss straight away. It often turns one loss into two._  
   صفقة متسرعة، غالبًا أكبر من المعتاد، لاسترجاع خسارة فورًا. كثيرًا ما تحوّل خسارة واحدة إلى خسارتين.
 
 ## Learn screen
 
-- [ ] **772. nav.learn (top bar and bottom bar)** · _Learn_  
+- [ ] **774. nav.learn (top bar and bottom bar)** · _Learn_  
   تعلّم
 
-- [ ] **773. title** · _Learn_  
+- [ ] **775. title** · _Learn_  
   تعلّم
 
-- [ ] **774. subtitle** · _Crypto and trading from zero, step by step: basics, then intermediate, then advanced. No hype, no tips._  
+- [ ] **776. subtitle** · _Crypto and trading from zero, step by step: basics, then intermediate, then advanced. No hype, no tips._  
   العملات الرقمية والتداول من الصفر، خطوة بخطوة: الأساسيات، ثم المتوسط، ثم المتقدم. بلا تهويل وبلا توصيات.
 
-- [ ] **775. startTitle** · _Start here_  
+- [ ] **777. startTitle** · _Start here_  
   ابدأ من هنا
 
-- [ ] **776. startBody** · _Qirat teaches you trading from zero. Short lessons in three levels. A practice wallet with 100, 500 or 1000 pretend dollars at real prices. And an honest risk grade for every coin._  
+- [ ] **778. startBody** · _Qirat teaches you trading from zero. Short lessons in three levels. A practice wallet with 100, 500 or 1000 pretend dollars at real prices. And an honest risk grade for every coin._  
   قيراط يعلّمك التداول من الصفر: دروس قصيرة على ثلاثة مستويات، ومحفظة تدريب فيها 100 أو 500 أو 1000 دولار تجريبية بالأسعار الحقيقية، ودرجة مخاطرة صادقة لكل عملة.
 
-- [ ] **777. startLesson** · _Start lesson 1_  
+- [ ] **779. startLesson** · _Start lesson 1_  
   ابدأ الدرس 1
 
-- [ ] **778. startPractice** · _Try it with {n} pretend dollars_  
+- [ ] **780. startPractice** · _Try it with {n} pretend dollars_  
   جرّب بـ {n} دولار تجريبية
 
-- [ ] **779. startNote** · _Free during the beta. Qirat never tells you to buy or sell._  
+- [ ] **781. startNote** · _Free during the beta. Qirat never tells you to buy or sell._  
   مجاني خلال الفترة التجريبية. قيراط لا يقول لك أبدًا اشترِ أو بِع.
 
-- [ ] **780. yourKarat** · _Your karat_  
+- [ ] **782. yourKarat** · _Your karat_  
   قيراطك
 
-- [ ] **781. karatHint** · _You start at 10K. Read lessons and pass their quizzes to rise toward 24K._  
+- [ ] **783. karatHint** · _You start at 10K. Read lessons and pass their quizzes to rise toward 24K._  
   تبدأ من 10K. اقرأ الدروس ونجح في اختباراتها لترتفع نحو 24K.
 
-- [ ] **782. toNext** · _{n} more steps to {k}K_  
+- [ ] **784. toNext** · _{n} more steps to {k}K_  
   الخطوات المتبقية حتى {k}K: {n}
 
-- [ ] **783. maxed** · _Pure gold. New lessons are on the way._  
+- [ ] **785. maxed** · _Pure gold. New lessons are on the way._  
   ذهب خالص. دروس جديدة في الطريق.
 
-- [ ] **784. lessonsDone** · _{d} of {n} lessons passed_  
+- [ ] **786. lessonsDone** · _{d} of {n} lessons passed_  
   الدروس الناجحة: {d} من {n}
 
-- [ ] **785. level10** · _Just starting_  
+- [ ] **787. level10** · _Just starting_  
   في البداية
 
-- [ ] **786. level14** · _Starting to shine_  
+- [ ] **788. level14** · _Starting to shine_  
   بدأت تلمع
 
-- [ ] **787. level18** · _Solid gold_  
+- [ ] **789. level18** · _Solid gold_  
   ذهب متين
 
-- [ ] **788. level22** · _Almost pure_  
+- [ ] **790. level22** · _Almost pure_  
   قريب من الخالص
 
-- [ ] **789. level24** · _Pure gold_  
+- [ ] **791. level24** · _Pure gold_  
   ذهب خالص
 
-- [ ] **790. today** · _Today’s lesson_  
+- [ ] **792. today** · _Today’s lesson_  
   درس اليوم
 
-- [ ] **791. allLessons** · _All lessons_  
+- [ ] **793. allLessons** · _All lessons_  
   كل الدروس
 
-- [ ] **792. levelN** · _Level {n}_  
+- [ ] **794. levelN** · _Level {n}_  
   المستوى {n}
 
-- [ ] **793. levelProgress** · _{d} of {n} passed_  
+- [ ] **795. levelProgress** · _{d} of {n} passed_  
   {d} من {n} ناجحة
 
-- [ ] **794. minutes** · _{n} min read_  
+- [ ] **796. minutes** · _{n} min read_  
   مدة القراءة: {n} د
 
-- [ ] **795. start** · _Start_  
+- [ ] **797. start** · _Start_  
   ابدأ
 
-- [ ] **796. read** · _Read_  
+- [ ] **798. read** · _Read_  
   مقروء
 
-- [ ] **797. passed** · _Passed_  
+- [ ] **799. passed** · _Passed_  
   ناجح
 
-- [ ] **798. comingSoon** · _Coming soon_  
+- [ ] **800. comingSoon** · _Coming soon_  
   قريبًا
 
-- [ ] **799. inThisLesson** · _What it will cover_  
+- [ ] **801. inThisLesson** · _What it will cover_  
   ماذا سيتناول
 
-- [ ] **800. back** · _All lessons_  
+- [ ] **802. back** · _All lessons_  
   كل الدروس
 
-- [ ] **801. lessonN** · _Lesson {n}_  
+- [ ] **803. lessonN** · _Lesson {n}_  
   الدرس {n}
 
-- [ ] **802. takeaway** · _The short version_  
+- [ ] **804. takeaway** · _The short version_  
   الخلاصة
 
-- [ ] **803. wholeLesson** · _The whole lesson on one page_  
+- [ ] **805. wholeLesson** · _The whole lesson on one page_  
   الدرس كاملًا في صفحة واحدة
 
-- [ ] **804. tryLive** · _See it live in Qirat_  
+- [ ] **806. tryLive** · _See it live in Qirat_  
   شاهدها مباشرة في قيراط
 
-- [ ] **805. openCoins** · _Open all coins_  
+- [ ] **807. openCoins** · _Open all coins_  
   افتح كل العملات
 
-- [ ] **806. liveLoading** · _Loading today’s data…_  
+- [ ] **808. liveLoading** · _Loading today’s data…_  
   جارٍ تحميل بيانات اليوم…
 
-- [ ] **807. liveTypicalDay** · _A typical day_  
+- [ ] **809. liveTypicalDay** · _A typical day_  
   يوم عادي
 
-- [ ] **808. liveRoughMonth** · _A rough month_  
+- [ ] **810. liveRoughMonth** · _A rough month_  
   شهر صعب
 
-- [ ] **809. liveOn100** · _100 TND could become about {v} TND_  
-  100 دينار قد تصبح حوالي {v} دينار
+- [ ] **811. liveOn100** · _$100 could become about ${v}_  
+  100 دولار قد تصبح حوالي {v} دولار
 
-- [ ] **810. liveRiskiest** · _Riskiest in your list_  
+- [ ] **812. liveRiskiest** · _Riskiest in your list_  
   الأعلى مخاطرة في قائمتك
 
-- [ ] **811. liveMood** · _Crowd mood (Fear & Greed)_  
+- [ ] **813. liveMood** · _Crowd mood (Fear & Greed)_  
   مزاج السوق (Fear & Greed)
 
-- [ ] **812. weatherCalm** · _Calm_  
+- [ ] **814. weatherCalm** · _Calm_  
   هادئ
 
-- [ ] **813. weatherChoppy** · _Choppy_  
+- [ ] **815. weatherChoppy** · _Choppy_  
   متقلب
 
-- [ ] **814. weatherStormy** · _Stormy_  
+- [ ] **816. weatherStormy** · _Stormy_  
   عاصف
 
-- [ ] **815. weatherToday** · _Market weather today_  
+- [ ] **817. weatherToday** · _Market weather today_  
   طقس السوق اليوم
 
-- [ ] **816. karatToday** · _Today’s coins by karat_  
+- [ ] **818. karatToday** · _Today’s coins by karat_  
   عملات اليوم حسب القيراط
 
-- [ ] **817. quiz** · _Quick quiz_  
+- [ ] **819. quiz** · _Quick quiz_  
   اختبار قصير
 
-- [ ] **818. quizHint** · _Get 2 of 3 right to pass and raise your karat._  
+- [ ] **820. quizHint** · _Get 2 of 3 right to pass and raise your karat._  
   أجب إجابة صحيحة عن 2 من 3 لتنجح ويرتفع قيراطك.
 
-- [ ] **819. questionN** · _Question {n} of {m}_  
+- [ ] **821. questionN** · _Question {n} of {m}_  
   السؤال {n} من {m}
 
-- [ ] **820. right** · _Right!_  
+- [ ] **822. right** · _Right!_  
   صحيح!
 
-- [ ] **821. wrong** · _Not quite._  
+- [ ] **823. wrong** · _Not quite._  
   ليس تمامًا.
 
-- [ ] **822. next** · _Next question_  
+- [ ] **824. next** · _Next question_  
   السؤال التالي
 
-- [ ] **823. seeScore** · _See my score_  
+- [ ] **825. seeScore** · _See my score_  
   أرني النتيجة
 
-- [ ] **824. score** · _{s} of {m} right_  
+- [ ] **826. score** · _{s} of {m} right_  
   {s} صحيحة من {m}
 
-- [ ] **825. passMsg** · _Passed. Your karat went up._  
+- [ ] **827. passMsg** · _Passed. Your karat went up._  
   نجحت. ارتفع قيراطك.
 
-- [ ] **826. passAgainMsg** · _Passed again. Nice._  
+- [ ] **828. passAgainMsg** · _Passed again. Nice._  
   نجحت مرة أخرى. أحسنت.
 
-- [ ] **827. failMsg** · _Almost. Reread the lesson and try again: it only takes a minute._  
+- [ ] **829. failMsg** · _Almost. Reread the lesson and try again: it only takes a minute._  
   قريب. أعد قراءة الدرس وحاول مرة أخرى: الأمر يأخذ دقيقة فقط.
 
-- [ ] **828. retry** · _Try again_  
+- [ ] **830. retry** · _Try again_  
   حاول مجددًا
 
-- [ ] **829. nextStep** · _Next_  
+- [ ] **831. nextStep** · _Next_  
   التالي
 
-- [ ] **830. prevStep** · _Back_  
+- [ ] **832. prevStep** · _Back_  
   رجوع
 
-- [ ] **831. reread** · _Reread the lesson_  
+- [ ] **833. reread** · _Reread the lesson_  
   أعد قراءة الدرس
 
-- [ ] **832. nextLesson** · _Next lesson_  
+- [ ] **834. nextLesson** · _Next lesson_  
   الدرس التالي
 
-- [ ] **833. terms** · _Words in this lesson_  
+- [ ] **835. terms** · _Words in this lesson_  
   كلمات هذا الدرس
 
-- [ ] **834. glossary** · _Glossary_  
+- [ ] **836. glossary** · _Glossary_  
   القاموس
 
-- [ ] **835. glossaryHint** · _Every crypto and trading word from the lessons, in plain language._  
+- [ ] **837. glossaryHint** · _Every crypto and trading word from the lessons, in plain language._  
   كل كلمات العملات الرقمية والتداول من الدروس، بلغة بسيطة.
 
-- [ ] **836. search** · _Search a word_  
+- [ ] **838. search** · _Search a word_  
   ابحث عن كلمة
 
-- [ ] **837. noMatch** · _No word matches that._  
+- [ ] **839. noMatch** · _No word matches that._  
   لا توجد كلمة مطابقة.
 
-- [ ] **838. fromLesson** · _From: {t}_  
+- [ ] **840. fromLesson** · _From: {t}_  
   من درس: {t}
 
-- [ ] **839. copyLink** · _Copy link_  
+- [ ] **841. copyLink** · _Copy link_  
   انسخ الرابط
 
-- [ ] **840. copied** · _Link copied_  
+- [ ] **842. copied** · _Link copied_  
   تم نسخ الرابط
 
-- [ ] **841. notAdvice** · _Education only. Not financial advice. Qirat never tells you to buy or sell._  
+- [ ] **843. notAdvice** · _Education only. Not financial advice. Qirat never tells you to buy or sell._  
   للتعليم فقط. ليست نصيحة مالية. قيراط لا يقول لك أبدًا اشترِ أو بِع.
 
-- [ ] **842. reset** · _Reset my progress_  
+- [ ] **844. reset** · _Reset my progress_  
   أعد تقدّمي إلى الصفر
 
-- [ ] **843. resetConfirm** · _Start again from 10K?_  
+- [ ] **845. resetConfirm** · _Start again from 10K?_  
   هل تريد البدء من جديد من 10K؟
 
-- [ ] **844. savedHere** · _Progress is saved on this device only, for now._  
+- [ ] **846. savedHere** · _Progress is saved on this device only, for now._  
   تقدّمك محفوظ على هذا الجهاز فقط، حاليًا.
 
 ## Telegram `/learn`
 
-- [ ] **845. bot lesson title bitcoin** · _What is crypto? Start with Bitcoin_  
+- [ ] **847. bot lesson title bitcoin** · _What is crypto? Start with Bitcoin_  
   ما هي العملات الرقمية؟ لنبدأ بـ Bitcoin
 
-- [ ] **846. bot lesson title usdt** · _USDT, the “digital dollar”_  
+- [ ] **848. bot lesson title usdt** · _USDT, the “digital dollar”_  
   USDT، «الدولار الرقمي»
 
-- [ ] **847. bot lesson title market-price** · _Who sets the price?_  
+- [ ] **849. bot lesson title market-price** · _Who sets the price?_  
   من يحدّد السعر؟
 
-- [ ] **848. bot lesson title price-swings** · _Why crypto prices swing so much_  
+- [ ] **850. bot lesson title price-swings** · _Why crypto prices swing so much_  
   لماذا تتحرك أسعار العملات الرقمية كثيرًا؟
 
-- [ ] **849. bot lesson title only-what-you-can-lose** · _Only put in what you can lose_  
+- [ ] **851. bot lesson title only-what-you-can-lose** · _Only put in what you can lose_  
   لا تضع إلا ما تستطيع خسارته
 
-- [ ] **850. bot lesson title wallets** · _Wallets and secret keys_  
+- [ ] **852. bot lesson title wallets** · _Wallets and secret keys_  
   المحافظ والمفاتيح السرّية
 
-- [ ] **851. bot lesson title scams** · _How scammers find you_  
+- [ ] **853. bot lesson title scams** · _How scammers find you_  
   كيف يصل إليك المحتالون
 
-- [ ] **852. bot lesson title p2p** · _P2P: where the danger hides_  
+- [ ] **854. bot lesson title p2p** · _P2P: where the danger hides_  
   التعامل المباشر (P2P): أين يختبئ الخطر
 
-- [ ] **853. bot lesson title law-tunisia** · _Crypto and the law in Tunisia_  
-  العملات الرقمية والقانون في تونس
+- [ ] **855. bot lesson title crypto-law-arab-world** · _Crypto and the law in Arab countries_  
+  العملات الرقمية والقانون في الدول العربية
 
-- [ ] **854. bot lesson title trading-vs-holding** · _Trading and holding: two different games_  
+- [ ] **856. bot lesson title trading-vs-holding** · _Trading and holding: two different games_  
   التداول والاحتفاظ: لعبتان مختلفتان
 
-- [ ] **855. bot lesson title candles** · _Red and green candles: how to read a chart_  
+- [ ] **857. bot lesson title candles** · _Red and green candles: how to read a chart_  
   الشموع الحمراء والخضراء: كيف تقرأ الرسم البياني
 
-- [ ] **856. bot lesson title timeframes-volume** · _Timeframes and volume: zoom in, zoom out_  
+- [ ] **858. bot lesson title timeframes-volume** · _Timeframes and volume: zoom in, zoom out_  
   الإطار الزمني والحجم: قرّب الصورة وبعّدها
 
-- [ ] **857. bot lesson title fees-spread** · _Fees and spread: what a trade really costs_  
+- [ ] **859. bot lesson title fees-spread** · _Fees and spread: what a trade really costs_  
   الرسوم والفارق: كم تكلّف العملية فعلًا
 
-- [ ] **858. bot lesson title order-types** · _Order types: market, limit, stop-loss_  
+- [ ] **860. bot lesson title order-types** · _Order types: market, limit, stop-loss_  
   أنواع الأوامر: أمر السوق، الأمر المحدد، ووقف الخسارة
 
-- [ ] **859. bot lesson title karat** · _What a karat means_  
+- [ ] **861. bot lesson title karat** · _What a karat means_  
   ماذا يعني القيراط؟
 
-- [ ] **860. bot lesson title market-weather** · _Market weather: moving averages and the crowd_  
+- [ ] **862. bot lesson title market-weather** · _Market weather: moving averages and the crowd_  
   طقس السوق: المتوسطات المتحركة ومزاج الناس
 
-- [ ] **861. bot lesson title fomo** · _FOMO: why buying after a big jump hurts_  
+- [ ] **863. bot lesson title fomo** · _FOMO: why buying after a big jump hurts_  
   الـ FOMO: لماذا يؤلم الشراء بعد قفزة كبيرة
 
-- [ ] **862. bot lesson title position-size** · _Position size: never all-in_  
+- [ ] **864. bot lesson title position-size** · _Position size: never all-in_  
   حجم الصفقة: لا تضع كل شيء في صفقة واحدة
 
-- [ ] **863. bot lesson title leverage** · _Leverage and futures: how x10 wipes you out_  
+- [ ] **865. bot lesson title leverage** · _Leverage and futures: how x10 wipes you out_  
   الرافعة المالية والعقود الآجلة: كيف تمسح x10 رصيدك
 
-- [ ] **864. bot lesson title indicators** · _Trend, support, resistance and RSI_  
+- [ ] **866. bot lesson title indicators** · _Trend, support, resistance and RSI_  
   الاتجاه والدعم والمقاومة ومؤشر RSI
 
-- [ ] **865. bot lesson title diversify-dca** · _Spreading out and DCA_  
+- [ ] **867. bot lesson title diversify-dca** · _Spreading out and DCA_  
   توزيع الأموال والشراء الدوري (DCA)
 
-- [ ] **866. bot lesson title trading-plan** · _Your plan and your journal_  
+- [ ] **868. bot lesson title trading-plan** · _Your plan and your journal_  
   خطتك ودفتر صفقاتك
 
-- [ ] **867. bot learn_text** · _📚 <b>Today’s lesson</b> ⏎ {title} ⏎  ⏎ A 2-minute read and 3 quick questions. Your karat rises as you learn. ⏎  ⏎ <i>Education only. Not financial advice.</i>_  
+- [ ] **869. bot learn_text** · _📚 <b>Today’s lesson</b> ⏎ {title} ⏎  ⏎ A 2-minute read and 3 quick questions. Your karat rises as you learn. ⏎  ⏎ <i>Education only. Not financial advice.</i>_  
   📚 <b>درس اليوم</b> ⏎ {title} ⏎  ⏎ قراءة في دقيقتين و3 أسئلة قصيرة. قيراطك يرتفع كلما تعلّمت. ⏎  ⏎ <i>للتعليم فقط. ليست نصيحة مالية.</i>
 
-- [ ] **868. bot learn_btn** · _Read the lesson_  
+- [ ] **870. bot learn_btn** · _Read the lesson_  
   اقرأ الدرس
 
-- [ ] **869. bot learn_all** · _All lessons_  
+- [ ] **871. bot learn_all** · _All lessons_  
   كل الدروس

@@ -212,7 +212,7 @@ export const BASICS: Lesson[] = [
         },
         options: [
           { en: 'The same as Bitcoin', fr: 'Autant que le Bitcoin', ar: 'مثل Bitcoin' },
-          { en: '1 Tunisian dinar', fr: '1 dinar tunisien', ar: '1 دينار تونسي' },
+          { en: '1 euro', fr: '1 euro', ar: '1 يورو' },
           { en: 'About 1 US dollar', fr: 'Environ 1 dollar américain', ar: 'حوالي 1 دولار أمريكي' },
         ],
         answer: 2,
@@ -1058,124 +1058,139 @@ export const BASICS: Lesson[] = [
   },
 
   {
-    slug: 'law-tunisia',
+    // Replaced the Tunisia-only lesson (law-tunisia) on 2026-11-20. Facts checked
+    // against dated sources that day; only confirmed points are used, and no
+    // platform is named so that nothing reads as a recommendation.
+    slug: 'crypto-law-arab-world',
     level: 1,
-    minutes: 3,
+    minutes: 4,
     title: {
-      en: 'Crypto and the law in Tunisia',
-      fr: 'La crypto et la loi en Tunisie',
-      ar: 'العملات الرقمية والقانون في تونس',
+      en: 'Crypto and the law in Arab countries',
+      fr: 'La crypto et la loi dans les pays arabes',
+      ar: 'العملات الرقمية والقانون في الدول العربية',
     },
     hook: {
-      en: 'Facts with dates, up to date in November 2026. This is not legal advice.',
-      fr: 'Des faits datés, à jour en novembre 2026. Ce n’est pas un conseil juridique.',
-      ar: 'وقائع بتواريخها، إلى غاية نوفمبر 2026. هذا ليس استشارة قانونية.',
+      en: 'Each country has its own rules, and they change. Facts with dates, checked in November 2026. This is not legal advice.',
+      fr: 'Chaque pays a ses propres règles, et elles changent. Des faits datés, vérifiés en novembre 2026. Ce n’est pas un conseil juridique.',
+      ar: 'لكل بلد قواعده، وهي تتغيّر. وقائع بتواريخها، تمّ التحقق منها في نوفمبر 2026. هذا ليس استشارة قانونية.',
     },
-    terms: ['bct', 'legal-tender', 'exchange-code'],
+    terms: ['legal-tender', 'regulator'],
     sections: [
       {
-        h: { en: 'The only legal currency', fr: 'La seule monnaie légale', ar: 'العملة القانونية الوحيدة' },
+        h: { en: 'Where you live decides', fr: 'C’est votre pays qui décide', ar: 'بلدك هو الذي يحدّد' },
         p: {
-          en: 'In Tunisia the dinar is the only legal currency (legal tender). In November 2026, no law allows crypto.',
-          fr: 'En Tunisie, le dinar est la seule monnaie légale (cours légal). En novembre 2026, aucune loi n’autorise la crypto.',
-          ar: 'في تونس، الدينار هو العملة القانونية الوحيدة (legal tender). وإلى غاية نوفمبر 2026، لا يوجد قانون يسمح بالعملات الرقمية.',
+          en: 'The same Bitcoin purchase can be a crime in one Arab country and legal in another. What counts is the law of the country where you live, not where the app comes from. Arab countries fall into three groups: banned, allowed through licensed firms, and unclear.',
+          fr: 'Le même achat de Bitcoin peut être un délit dans un pays arabe et légal dans un autre. Ce qui compte, c’est la loi du pays où vous vivez, pas l’origine de l’application. Les pays arabes se rangent en trois groupes : interdit, autorisé via des sociétés agréées, et flou.',
+          ar: 'شراء Bitcoin نفسه قد يكون جريمة في بلد عربي وقانونيًا في بلد آخر. المهم هو قانون البلد الذي تعيش فيه، لا البلد الذي جاء منه التطبيق. وتنقسم الدول العربية إلى ثلاث مجموعات: منع، أو سماح عبر شركات مرخّصة، أو وضع غير واضح.',
         },
       },
       {
-        h: { en: 'The 1976 exchange law', fr: 'La loi des changes de 1976', ar: 'قانون الصرف لسنة 1976' },
+        h: { en: 'Banned: Algeria and Egypt', fr: 'Interdit : Algérie et Égypte', ar: 'ممنوعة: الجزائر ومصر' },
         p: {
-          en: 'Foreign money is covered by law no. 76-18 of 21 January 1976, called the foreign-exchange code. It sets the rules for holding and moving money and other things of value in foreign currency. The central bank (BCT) is in charge of it. Crypto cases have been taken to court under this law.',
-          fr: 'Tout ce qui touche aux devises (les monnaies étrangères) dépend de la loi n° 76-18 du 21 janvier 1976, appelée le code des changes. Elle fixe les règles pour garder et transférer de l’argent et d’autres biens en devises. C’est la banque centrale (BCT) qui contrôle. Des affaires de crypto sont allées en justice sur la base de cette loi.',
-          ar: 'مسائل العملات الأجنبية يحكمها القانون عدد 76-18 المؤرّخ في 21 جانفي 1976، أي مجلّة الصرف. هذا القانون ينظّم امتلاك وتحويل الأموال والأصول بالعملة الأجنبية، تحت رقابة البنك المركزي (BCT). وقد رُفعت قضايا تتعلّق بالعملات الرقمية على أساس هذا القانون.',
+          en: 'Algeria: a law of July 2025 bans buying, selling, holding and promoting crypto. The penalty is 2 months to 1 year in prison, a fine, or both. Egypt: the 2020 central bank law (Law 194, Article 206) bans trading and promoting crypto without a licence from the central bank, and it has given none.',
+          fr: 'Algérie : une loi de juillet 2025 interdit d’acheter, de vendre, de garder et de promouvoir la crypto. La peine va de 2 mois à 1 an de prison, une amende, ou les deux. Égypte : la loi de 2020 sur la banque centrale (loi 194, article 206) interdit de trader et de promouvoir la crypto sans licence de la banque centrale, qui n’en a donné aucune.',
+          ar: 'الجزائر: قانون صدر في يوليو 2025 يمنع شراء العملات الرقمية وبيعها وحيازتها والترويج لها. العقوبة سجن من شهرين إلى سنة، أو غرامة، أو الاثنان معًا. مصر: قانون البنك المركزي لسنة 2020 (القانون 194، المادة 206) يمنع تداول العملات الرقمية والترويج لها دون ترخيص من البنك المركزي، ولم يمنح البنك أي ترخيص.',
         },
       },
       {
-        h: { en: 'A case from 2021', fr: 'Une affaire de 2021', ar: 'قضية من سنة 2021' },
+        h: { en: 'Also closed', fr: 'Fermé aussi', ar: 'مغلقة أيضًا' },
         p: {
-          en: 'In May 2021, an engineering student was arrested in a bitcoin case and charged under the exchange law. He was set free at the end of May 2021. In December 2021, the court closed the case. In June 2021, the finance minister said that owning bitcoin should no longer be a crime.',
-          fr: 'En mai 2021, un étudiant ingénieur a été arrêté dans une affaire de bitcoin et poursuivi sur la base de la loi des changes. Il a été libéré fin mai 2021. En décembre 2021, la justice a fermé le dossier (non-lieu). En juin 2021, le ministre des Finances a dit qu’avoir du bitcoin ne devrait plus être puni par la loi.',
-          ar: 'في ماي 2021، أُوقف طالب هندسة ووُجّهت إليه تهم بموجب قانون الصرف في قضية تتعلّق بالـ bitcoin. أُطلق سراحه في آخر ماي 2021، وحفظت المحكمة القضية (عدم سماع الدعوى) في ديسمبر 2021. وفي جوان 2021 قال وزير المالية إن امتلاك الـ bitcoin يجب ألّا يبقى جريمة.',
+          en: 'Kuwait banned crypto as a way to pay or invest in July 2023, and gives no licences. In 2025 it cut the power to homes caught mining (using computers to make new coins). Qatar does not allow crypto services. In Libya, the central bank banned crypto deals in 2018, and in 2025 nine people got 3 years in prison for mining in a factory.',
+          fr: 'Le Koweït a interdit la crypto comme moyen de payer ou d’investir en juillet 2023, et ne donne aucune licence. En 2025, il a coupé l’électricité de maisons qui minaient (faisaient tourner des ordinateurs pour créer de nouvelles cryptos). Le Qatar n’autorise pas les services crypto. En Libye, la banque centrale a interdit les opérations en crypto en 2018, et en 2025 neuf personnes ont pris 3 ans de prison pour avoir miné dans une usine.',
+          ar: 'منعت الكويت في يوليو 2023 استعمال العملات الرقمية للدفع أو الاستثمار، ولا تمنح أي ترخيص. وفي 2025 قطعت الكهرباء عن منازل كانت تقوم بالتعدين (تشغيل حواسيب لإنتاج عملات جديدة). قطر لا تسمح بخدمات العملات الرقمية. وفي ليبيا منع البنك المركزي معاملات العملات الرقمية في 2018، وفي 2025 حُكم على تسعة أشخاص بالسجن 3 سنوات بسبب التعدين في مصنع.',
         },
       },
       {
-        h: { en: 'The new exchange code', fr: 'Le nouveau code des changes', ar: 'مجلّة الصرف الجديدة' },
+        h: { en: 'Allowed through licensed firms', fr: 'Autorisé via des sociétés agréées', ar: 'مسموحة عبر شركات مرخّصة' },
         p: {
-          en: 'In February 2023, a draft of a new exchange code said that crypto is not a currency. On 14 March 2024, a ministerial council (a meeting of ministers) approved a government draft. It aimed to allow crypto deals with the BCT’s permission. In October 2025, members of parliament put forward their own bill (a proposed law). A parliament committee studied it in 2026.',
-          fr: 'En février 2023, un projet de nouveau code des changes disait que la crypto n’est pas une monnaie. Le 14 mars 2024, un conseil ministériel (une réunion de ministres) a approuvé un projet du gouvernement. Il voulait permettre les opérations en crypto avec l’accord de la BCT. En octobre 2025, des députés ont déposé leur propre proposition de loi. Une commission du Parlement l’a étudiée en 2026.',
-          ar: 'في فيفري 2023، نصّ مشروع لمجلّة صرف جديدة على أن الأصول الرقمية ليست عملة. وفي 14 مارس 2024 صادق مجلس وزاري على مشروع حكومي، كان هدفه السماح بمعاملات العملات الرقمية بترخيص من البنك المركزي. وفي أكتوبر 2025 قدّم نوّاب في البرلمان مقترح قانون خاصاً بهم، ونوقش في اللجنة خلال 2026.',
+          en: 'In the UAE, a crypto firm needs a licence: from VARA in Dubai, from the FSRA in Abu Dhabi’s ADGM, or from the federal markets authority. Firms without one may not advertise there. Bahrain’s central bank has licensed crypto firms since 2019. Jordan ended its ban with a law in force since September 2025, but we found no licensed firm there yet in November 2026.',
+          fr: 'Aux Émirats, une société crypto doit avoir une licence : de la VARA à Dubaï, de la FSRA dans l’ADGM d’Abou Dhabi, ou de l’autorité fédérale des marchés. Sans licence, elle ne peut pas y faire de publicité. La banque centrale de Bahreïn agrée des sociétés crypto depuis 2019. La Jordanie a mis fin à son interdiction avec une loi en vigueur depuis septembre 2025, mais nous n’y avons trouvé aucune société agréée en novembre 2026.',
+          ar: 'في الإمارات، تحتاج شركة العملات الرقمية إلى ترخيص: من VARA في دبي، أو من FSRA في سوق أبوظبي العالمي (ADGM)، أو من الهيئة الاتحادية للأسواق. والشركة غير المرخّصة لا يحق لها الإعلان هناك. والبنك المركزي في البحرين يرخّص لشركات العملات الرقمية منذ 2019. أما الأردن فأنهى المنع بقانون نافذ منذ سبتمبر 2025، لكننا لم نجد فيه أي شركة مرخّصة حتى نوفمبر 2026.',
         },
       },
       {
-        h: { en: 'Where things are now', fr: 'Où on en est', ar: 'أين وصل الأمر' },
+        h: { en: 'Morocco and Tunisia: drafts, not laws', fr: 'Maroc et Tunisie : des projets, pas des lois', ar: 'المغرب وتونس: مشاريع وليست قوانين' },
         p: {
-          en: 'In November 2026, the new code is not law, so the 1976 law still applies. Rules can change: check the date of anything you read on this topic. For your own situation, ask a lawyer. This page is not legal advice.',
-          fr: 'En novembre 2026, le nouveau code n’est pas une loi : la loi de 1976 s’applique donc toujours. Les règles peuvent changer : vérifiez la date de tout ce que vous lisez sur le sujet. Pour votre propre situation, demandez à un avocat. Cette page n’est pas un conseil juridique.',
-          ar: 'إلى غاية نوفمبر 2026، المجلّة الجديدة ليست قانوناً بعد، لذلك ما زال قانون 1976 هو المطبّق. القواعد قد تتغيّر: تحقّق من تاريخ كل ما تقرؤه في هذا الموضوع. ولوضعك الخاص، اسأل محامياً. هذه الصفحة ليست استشارة قانونية.',
+          en: 'Morocco’s authorities have said since 2017 that crypto deals are not allowed. A draft crypto law (no. 42-25) is planned for 2027 but not passed. Since May 2026, the exchange office has opened cases against residents who held crypto abroad. In Tunisia, the 1976 exchange law still applies. A new exchange code that would cover crypto was still in a parliament committee in mid-November 2026.',
+          fr: 'Au Maroc, les autorités disent depuis 2017 que les opérations en crypto ne sont pas autorisées. Un projet de loi crypto (n° 42-25) est prévu pour 2027 mais n’est pas voté. Depuis mai 2026, l’Office des changes a ouvert des dossiers contre des résidents qui avaient de la crypto à l’étranger. En Tunisie, la loi des changes de 1976 s’applique toujours. Un nouveau code des changes qui couvrirait la crypto était encore en commission au Parlement mi-novembre 2026.',
+          ar: 'في المغرب، تقول السلطات منذ 2017 إن معاملات العملات الرقمية غير مسموح بها. وهناك مشروع قانون للعملات الرقمية (رقم 42-25) مبرمج لسنة 2027 لكنه لم يُعتمد بعد. ومنذ مايو 2026 فتح مكتب الصرف ملفات ضد مقيمين امتلكوا عملات رقمية في الخارج. وفي تونس، ما زال قانون الصرف لسنة 1976 مطبّقًا، ومشروع قانون صرف جديد يشمل العملات الرقمية كان ما زال في لجنة بالبرلمان في منتصف نوفمبر 2026.',
+        },
+      },
+      {
+        h: { en: 'No clear law', fr: 'Pas de loi claire', ar: 'لا يوجد قانون واضح' },
+        p: {
+          en: 'Saudi Arabia has no crypto law and no licensed local platform for the public, and its authorities warn that crypto is not authorised. Iraq’s central bank bans using bank cards and e-wallets for crypto (2022). In Lebanon, payment firms may not deal in crypto without the central bank’s approval (2026). No law does not mean allowed.',
+          fr: 'L’Arabie saoudite n’a ni loi crypto ni plateforme locale agréée pour le public, et ses autorités avertissent que la crypto n’est pas autorisée. En Irak, la banque centrale interdit d’utiliser les cartes bancaires et les portefeuilles électroniques pour la crypto (2022). Au Liban, les sociétés de paiement ne peuvent pas toucher à la crypto sans l’accord de la banque centrale (2026). Pas de loi ne veut pas dire autorisé.',
+          ar: 'في السعودية لا يوجد قانون للعملات الرقمية ولا منصة محلية مرخّصة للعموم، وتحذّر السلطات من أنها غير مرخّصة. وفي العراق يمنع البنك المركزي استعمال البطاقات البنكية والمحافظ الإلكترونية للعملات الرقمية (2022). وفي لبنان لا يحق لشركات الدفع التعامل بالعملات الرقمية دون موافقة البنك المركزي (2026). غياب القانون لا يعني أنها مسموحة.',
+        },
+      },
+      {
+        h: { en: 'What this means for you', fr: 'Ce que cela veut dire pour vous', ar: 'ماذا يعني هذا بالنسبة لك' },
+        p: {
+          en: 'A licence covers only the country that gave it: an app licensed in Dubai is not licensed in Tunisia or Egypt. Without a local licence, nobody protects you if the platform fails or cheats you. Promoting crypto can be a crime too. Check your own central bank or regulator’s website, look at the date, and ask a lawyer about your case.',
+          fr: 'Une licence ne vaut que dans le pays qui l’a donnée : une application agréée à Dubaï ne l’est pas en Tunisie ou en Égypte. Sans licence locale, personne ne vous protège si la plateforme fait faillite ou vous trompe. Promouvoir la crypto peut aussi être un délit. Vérifiez le site de la banque centrale ou du régulateur de votre pays, regardez la date, et demandez à un avocat pour votre cas.',
+          ar: 'الترخيص صالح فقط في البلد الذي منحه: تطبيق مرخّص في دبي ليس مرخّصًا في تونس أو مصر. ومن دون ترخيص محلي، لا أحد يحميك إذا أفلست المنصة أو خدعتك. والترويج للعملات الرقمية قد يكون جريمة أيضًا. تحقّق من موقع البنك المركزي أو الهيئة الرقابية في بلدك، وانظر إلى التاريخ، واسأل محاميًا عن حالتك.',
         },
       },
     ],
     takeaway: {
-      en: 'In November 2026: the dinar is the only legal currency, the 1976 exchange law still applies, and the new exchange code has not been passed.',
-      fr: 'En novembre 2026 : le dinar est la seule monnaie légale, la loi des changes de 1976 s’applique toujours, et le nouveau code des changes n’est pas adopté.',
-      ar: 'إلى غاية نوفمبر 2026: الدينار هو العملة القانونية الوحيدة، وقانون الصرف لسنة 1976 ما زال مطبّقاً، ومجلّة الصرف الجديدة لم يُصادَق عليها.',
+      en: 'In November 2026: Algeria and Egypt ban crypto, the UAE and Bahrain license firms, and Morocco and Tunisia have no crypto law yet. Your own country’s law counts, and a licence elsewhere does not cover you.',
+      fr: 'En novembre 2026 : l’Algérie et l’Égypte interdisent la crypto, les Émirats et Bahreïn agréent des sociétés, et le Maroc et la Tunisie n’ont pas encore de loi crypto. C’est la loi de votre pays qui compte, et une licence ailleurs ne vous couvre pas.',
+      ar: 'في نوفمبر 2026: الجزائر ومصر تمنعان العملات الرقمية، والإمارات والبحرين ترخّصان للشركات، والمغرب وتونس ليس لديهما قانون للعملات الرقمية بعد. قانون بلدك هو المهم، والترخيص في بلد آخر لا يحميك.',
     },
     quiz: [
       {
         q: {
-          en: 'In November 2026, which law still sets the rules for foreign money in Tunisia?',
-          fr: 'En novembre 2026, quelle loi s’applique encore aux devises en Tunisie ?',
-          ar: 'إلى غاية نوفمبر 2026، أيّ قانون ما زال ينظّم الصرف في تونس؟',
+          en: 'What decides if crypto is legal for you?',
+          fr: 'Qu’est-ce qui décide si la crypto est légale pour vous ?',
+          ar: 'ما الذي يحدّد إن كانت العملات الرقمية قانونية بالنسبة لك؟',
         },
         options: [
-          { en: 'The new exchange code of 2024', fr: 'Le nouveau code des changes de 2024', ar: 'مجلّة الصرف الجديدة لسنة 2024' },
-          { en: 'Law 76-18 of 1976', fr: 'La loi 76-18 de 1976', ar: 'القانون 76-18 لسنة 1976' },
-          { en: 'A crypto law passed in 2023', fr: 'Une loi crypto votée en 2023', ar: 'قانون للعملات الرقمية صدر في 2023' },
+          { en: 'The country the app comes from', fr: 'Le pays d’où vient l’application', ar: 'البلد الذي جاء منه التطبيق' },
+          { en: 'The law of the country where you live', fr: 'La loi du pays où vous vivez', ar: 'قانون البلد الذي تعيش فيه' },
+          { en: 'How many people use it', fr: 'Le nombre de personnes qui l’utilisent', ar: 'عدد الأشخاص الذين يستعملونها' },
         ],
         answer: 1,
         why: {
-          en: 'The 2024 text was a draft and no crypto law was passed in 2023. Law 76-18 still applies.',
-          fr: 'Le texte de 2024 était un projet, et aucune loi crypto n’a été votée en 2023. La loi 76-18 s’applique toujours.',
-          ar: 'نصّ 2024 كان مشروعاً فقط، ولم يصدر أي قانون للعملات الرقمية في 2023. القانون 76-18 ما زال مطبّقاً.',
+          en: 'The same purchase can be a crime in Algeria and legal through a licensed firm in the UAE. Your own country’s law is what counts.',
+          fr: 'Le même achat peut être un délit en Algérie et légal via une société agréée aux Émirats. C’est la loi de votre pays qui compte.',
+          ar: 'الشراء نفسه قد يكون جريمة في الجزائر وقانونيًا عبر شركة مرخّصة في الإمارات. قانون بلدك هو المهم.',
         },
       },
       {
         q: {
-          en: 'What happened in the 2021 student bitcoin case?',
-          fr: 'Que s’est-il passé dans l’affaire de l’étudiant et du bitcoin en 2021 ?',
-          ar: 'ماذا حدث في قضية الطالب والـ bitcoin سنة 2021؟',
+          en: 'Where does a 2025 law ban holding and promoting crypto, with prison terms?',
+          fr: 'Où une loi de 2025 interdit-elle de garder et de promouvoir la crypto, avec de la prison ?',
+          ar: 'أين يمنع قانون صدر في 2025 حيازة العملات الرقمية والترويج لها، مع عقوبة السجن؟',
         },
         options: [
-          { en: 'He was given a crypto licence', fr: 'Il a obtenu une licence crypto', ar: 'حصل على رخصة للعملات الرقمية' },
-          { en: 'He was sentenced to ten years', fr: 'Il a été condamné à dix ans', ar: 'حُكم عليه بعشر سنوات' },
-          {
-            en: 'He was arrested, then the case was closed in December 2021',
-            fr: 'Il a été arrêté, puis le dossier a été fermé en décembre 2021',
-            ar: 'أُوقف، ثم حُفظت القضية في ديسمبر 2021',
-          },
+          { en: 'Bahrain', fr: 'Bahreïn', ar: 'البحرين' },
+          { en: 'Algeria', fr: 'Algérie', ar: 'الجزائر' },
+          { en: 'The UAE', fr: 'Les Émirats', ar: 'الإمارات' },
+        ],
+        answer: 1,
+        why: {
+          en: 'Algeria’s July 2025 law bans buying, selling, holding and promoting crypto. Bahrain and the UAE license crypto firms.',
+          fr: 'La loi algérienne de juillet 2025 interdit d’acheter, de vendre, de garder et de promouvoir la crypto. Bahreïn et les Émirats agréent des sociétés crypto.',
+          ar: 'قانون الجزائر الصادر في يوليو 2025 يمنع شراء العملات الرقمية وبيعها وحيازتها والترويج لها. أما البحرين والإمارات فترخّصان لشركات العملات الرقمية.',
+        },
+      },
+      {
+        q: {
+          en: 'An app has a licence in Dubai. Is it licensed in your country too?',
+          fr: 'Une application a une licence à Dubaï. Est-elle agréée dans votre pays aussi ?',
+          ar: 'تطبيق لديه ترخيص في دبي. هل هو مرخّص في بلدك أيضًا؟',
+        },
+        options: [
+          { en: 'Yes, in every Arab country', fr: 'Oui, dans tous les pays arabes', ar: 'نعم، في كل الدول العربية' },
+          { en: 'Only if it is in Arabic', fr: 'Seulement si elle est en arabe', ar: 'فقط إذا كان باللغة العربية' },
+          { en: 'No. A licence covers only the country that gave it', fr: 'Non. Une licence ne vaut que dans le pays qui l’a donnée', ar: 'لا. الترخيص صالح فقط في البلد الذي منحه' },
         ],
         answer: 2,
         why: {
-          en: 'He was charged under the exchange law and set free at the end of May 2021. The case was closed in December 2021.',
-          fr: 'Il a été poursuivi sur la base de la loi des changes et libéré fin mai 2021. Le dossier a été fermé en décembre 2021 (non-lieu).',
-          ar: 'وُجّهت إليه تهم بموجب قانون الصرف، وأُطلق سراحه في آخر ماي 2021، ثم حُفظت القضية في ديسمبر 2021.',
-        },
-      },
-      {
-        q: {
-          en: 'What is the status of the new exchange code in November 2026?',
-          fr: 'Où en est le nouveau code des changes en novembre 2026 ?',
-          ar: 'أين وصلت مجلّة الصرف الجديدة في نوفمبر 2026؟',
-        },
-        options: [
-          { en: 'Drafts exist, but it is not law yet', fr: 'Des projets existent, mais ce n’est pas encore une loi', ar: 'توجد مشاريع، لكنها ليست قانوناً بعد' },
-          { en: 'It became law in 2023', fr: 'Il est devenu loi en 2023', ar: 'أصبحت قانوناً في 2023' },
-          { en: 'It replaced the 1976 law in 2024', fr: 'Il a remplacé la loi de 1976 en 2024', ar: 'عوّضت قانون 1976 في 2024' },
-        ],
-        answer: 0,
-        why: {
-          en: 'There have been drafts since 2023, and a bill in parliament since October 2025. But nothing was passed by November 2026.',
-          fr: 'Il y a des projets depuis 2023 et une proposition au Parlement depuis octobre 2025, mais rien d’adopté en novembre 2026.',
-          ar: 'توجد مشاريع منذ 2023 ومقترح قانون في البرلمان منذ أكتوبر 2025، لكن لا شيء صودق عليه إلى غاية نوفمبر 2026.',
+          en: 'Each country gives its own licences. Check your own regulator’s list before you trust a platform.',
+          fr: 'Chaque pays donne ses propres licences. Vérifiez la liste de votre régulateur avant de faire confiance à une plateforme.',
+          ar: 'كل بلد يمنح تراخيصه بنفسه. تحقّق من قائمة الهيئة الرقابية في بلدك قبل أن تثق بأي منصة.',
         },
       },
     ],

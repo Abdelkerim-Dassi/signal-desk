@@ -169,7 +169,7 @@ const P = {
   resetDone: { en: 'Fresh start: {start} USDT of practice money.', fr: 'Nouveau départ : {start} USDT fictifs.', ar: 'بداية جديدة: {start} USDT من المال التجريبي.' },
   traded: { en: 'Practice trade done.', fr: 'Opération fictive effectuée.', ar: 'تمّت الصفقة التجريبية.' },
 
-  // the tap that opens the rules, the dinar rate and how the coach works
+  // the tap that opens the rules and how the coach works
   // the first word of the rules below
   rulesOpen: { en: 'The rules', fr: 'Les règles', ar: 'القواعد' },
   rules: {
@@ -177,8 +177,6 @@ const P = {
     fr: 'Règles : 0,1 % de frais et 0,05 % d’écart à chaque opération. 1 USDT minimum. Achat et vente simples seulement : pas d’argent emprunté, pas de pari sur la baisse. Les prix viennent de Binance. Votre portefeuille reste sur cet appareil. Rien ici n’est un conseil.',
     ar: 'القواعد: رسوم 0.1% وفارق 0.05% على كل صفقة، والحد الأدنى 1 USDT، وتداول فوري فقط (بلا رافعة مالية وبلا بيع على المكشوف). الأسعار من Binance. محفظتك تبقى على هذا الجهاز. لا شيء هنا نصيحة.',
   },
-  tndNote: { en: 'TND rate: {rate} per USDT', fr: 'Taux TND : {rate} par USDT', ar: 'سعر الدينار: {rate} لكل USDT' },
-  tndEstimate: { en: '(estimate)', fr: '(estimation)', ar: '(تقريبي)' },
   loading: { en: 'Loading live prices…', fr: 'Chargement des prix…', ar: 'جارٍ تحميل الأسعار الحية…' },
   loadFailed: { en: 'Live prices are unavailable right now. Try again in a minute.', fr: 'Prix indisponibles pour le moment. Réessayez dans une minute.', ar: 'الأسعار الحية غير متوفرة الآن. حاول مرة أخرى بعد دقيقة.' },
   retry: { en: 'Try again', fr: 'Réessayer', ar: 'حاول مرة أخرى' },

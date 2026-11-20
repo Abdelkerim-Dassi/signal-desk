@@ -131,9 +131,9 @@ const UI = {
   'risk.day': { en: 'A typical day', fr: 'Une journée normale', ar: 'يوم عادي' },
   'risk.month': { en: 'A rough month (1 in 20)', fr: 'Un mauvais mois (1 sur 20)', ar: 'شهر صعب (مرة كل 20 شهرًا)' },
   'risk.money': {
-    en: 'On 100 TND, a rough month could cost about {v} TND.',
-    fr: 'Sur 100 TND, un mauvais mois pourrait coûter environ {v} TND.',
-    ar: 'على 100 دينار، قد يكلّفك شهر صعب حوالي {v} دينار.',
+    en: 'On $100, a rough month could cost about ${v}.',
+    fr: 'Sur 100 $, un mauvais mois pourrait coûter environ {v} $.',
+    ar: 'على 100 دولار، قد يكلّفك شهر صعب حوالي {v} دولار.',
   },
   'risk.note': {
     en: 'These are past moves, not a forecast. Risk is the most reliable part of the grade. "Low" means low next to other coins: crypto still moves much more than savings or gold.',
@@ -460,9 +460,9 @@ const UI = {
   },
   'guide.3t': { en: 'Know the risk', fr: 'Connaissez le risque', ar: 'اعرف المخاطرة' },
   'guide.3b': {
-    en: 'Tap any coin to see its risk: how much it moves on a typical day and what a rough month could cost on 100 TND. Risk is the most reliable part of the grade.',
-    fr: 'Touchez une crypto pour voir son risque : combien elle bouge un jour normal et ce qu’un mauvais mois pourrait coûter sur 100 TND. Le risque est la partie la plus fiable de la note.',
-    ar: 'انقر على أي عملة لترى مخاطرتها: كم تتحرك في يوم عادي، وكم قد يكلّفك شهر صعب على 100 دينار. المخاطرة هي الجزء الأكثر موثوقية في التقييم.',
+    en: 'Tap any coin to see its risk: how much it moves on a typical day and what a rough month could cost on $100. Risk is the most reliable part of the grade.',
+    fr: 'Touchez une crypto pour voir son risque : combien elle bouge un jour normal et ce qu’un mauvais mois pourrait coûter sur 100 $. Le risque est la partie la plus fiable de la note.',
+    ar: 'انقر على أي عملة لترى مخاطرتها: كم تتحرك في يوم عادي، وكم قد يكلّفك شهر صعب على 100 دولار. المخاطرة هي الجزء الأكثر موثوقية في التقييم.',
   },
   'guide.4t': { en: 'Check the weather', fr: 'Regardez la météo', ar: 'انظر إلى الطقس' },
   'guide.4b': {

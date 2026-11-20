@@ -273,11 +273,6 @@ export function usdt(n: number | null | undefined, digits = 2): string {
   return `${n.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })} USDT`
 }
 
-export function tnd(n: number | null | undefined, rate: number): string {
-  if (n == null || !Number.isFinite(n)) return '--'
-  return `≈ ${(n * rate).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TND`
-}
-
 export function qty(n: number): string {
   return n.toLocaleString('en-US', { maximumSignificantDigits: 6 })
 }

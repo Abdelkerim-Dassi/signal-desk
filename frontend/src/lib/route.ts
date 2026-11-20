@@ -19,6 +19,14 @@ const LEARN = /^\/(?:(fr|en)\/)?learn(?:\/([a-z0-9-]+))?\/?$/
 
 const isLesson = (slug: string) => LESSONS.some((l) => l.slug === slug)
 
+/** Lessons that changed address: old hash links (#learn-<old>) open the new one.
+ *  The real addresses are redirected in vercel.json. */
+const RENAMED: Record<string, string> = {
+  // Tunisia-only law lesson, replaced by the Arab-world one on 2026-11-20
+  'learn-law-tunisia': 'learn-crypto-law-arab-world',
+}
+const currentId = (id: string) => RENAMED[id] ?? id
+
 /** What a course or lesson address names; null for any other address. */
 export function learnPath(): { lang: Lang; slug: string | null } | null {
   const m = LEARN.exec(window.location.pathname)
@@ -34,7 +42,7 @@ export const pathFor = (lang: Lang, slug?: string | null) => `${lang === 'ar' ? 
 /** What the app should show: the hash if the address has one, else what its path stands for
  *  ("learn", "learn-<slug>"), else "" for the first screen. */
 export function routeId(): string {
-  const id = decodeURIComponent(window.location.hash.replace('#', ''))
+  const id = currentId(decodeURIComponent(window.location.hash.replace('#', '')))
   if (id) return id
   const p = learnPath()
   return p ? (p.slug ? `learn-${p.slug}` : 'learn') : ''
@@ -44,7 +52,7 @@ export function routeId(): string {
  *  it rewrites the address in place. */
 export function tidyAddress(lang: Lang): void {
   const { pathname, search, hash } = window.location
-  const id = decodeURIComponent(hash.replace('#', ''))
+  const id = currentId(decodeURIComponent(hash.replace('#', '')))
   let want: string | null = null
   if (id === 'learn') want = pathFor(lang) + search
   else if (id.startsWith('learn-') && isLesson(id.slice('learn-'.length))) want = pathFor(lang, id.slice('learn-'.length)) + search

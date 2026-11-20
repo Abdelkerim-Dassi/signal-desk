@@ -167,9 +167,9 @@ export const LEARN_UI = {
   liveTypicalDay: { en: 'A typical day', fr: 'Une journée normale', ar: 'يوم عادي' },
   liveRoughMonth: { en: 'A rough month', fr: 'Un mauvais mois', ar: 'شهر صعب' },
   liveOn100: {
-    en: '100 TND could become about {v} TND',
-    fr: '100 TND pourraient devenir environ {v} TND',
-    ar: '100 دينار قد تصبح حوالي {v} دينار',
+    en: '$100 could become about ${v}',
+    fr: '100 $ pourraient devenir environ {v} $',
+    ar: '100 دولار قد تصبح حوالي {v} دولار',
   },
   liveRiskiest: { en: 'Riskiest in your list', fr: 'La plus risquée de votre liste', ar: 'الأعلى مخاطرة في قائمتك' },
   liveMood: { en: 'Crowd mood (Fear & Greed)', fr: 'Humeur de la foule (Fear & Greed)', ar: 'مزاج السوق (Fear & Greed)' },

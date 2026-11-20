@@ -251,28 +251,20 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
       ar: 'المنصّة تحجز العملة خلال صفقة P2P حتى يؤكّد الطرفان. خارج المنصّة لا يوجد حجز.',
     },
   },
-  bct: {
-    term: { en: 'BCT', fr: 'BCT', ar: 'البنك المركزي التونسي (BCT)' },
-    def: {
-      en: 'Banque Centrale de Tunisie, Tunisia’s central bank. It watches over the rules on foreign currency set by the 1976 law.',
-      fr: 'La Banque Centrale de Tunisie. Elle surveille les règles sur les devises fixées par la loi de 1976.',
-      ar: 'البنك المركزي التونسي. يراقب قواعد الصرف بموجب قانون 1976.',
-    },
-  },
   'legal-tender': {
     term: { en: 'Legal tender', fr: 'Cours légal', ar: 'العملة القانونية (legal tender)' },
     def: {
-      en: 'The money a country’s law recognises for payments. In Tunisia it is the dinar.',
-      fr: 'La monnaie que la loi d’un pays reconnaît pour les paiements. En Tunisie, c’est le dinar.',
-      ar: 'العملة التي يعترف بها قانون البلد في الدفع. في تونس هي الدينار.',
+      en: 'The money a country’s law accepts for payments: the dirham in Morocco, the pound in Egypt, the riyal in Saudi Arabia. In Arab countries, no crypto is legal tender.',
+      fr: 'La monnaie que la loi d’un pays accepte pour payer : le dirham au Maroc, la livre en Égypte, le riyal en Arabie saoudite. Dans les pays arabes, aucune crypto n’a cours légal.',
+      ar: 'العملة التي يقبلها قانون البلد في الدفع: الدرهم في المغرب، والجنيه في مصر، والريال في السعودية. لا توجد عملة رقمية لها صفة العملة القانونية في الدول العربية.',
     },
   },
-  'exchange-code': {
-    term: { en: 'Exchange code (Tunisia)', fr: 'Code des changes (Tunisie)', ar: 'مجلّة الصرف (تونس)' },
+  regulator: {
+    term: { en: 'Regulator', fr: 'Régulateur', ar: 'الهيئة الرقابية (regulator)' },
     def: {
-      en: 'Law 76-18 of 21 January 1976 on foreign currency. A new code has been drafted since 2023 but is not law as of November 2026.',
-      fr: 'La loi 76-18 du 21 janvier 1976 sur les devises. Un nouveau code est en projet depuis 2023 mais n’est pas une loi en novembre 2026.',
-      ar: 'القانون 76-18 المؤرّخ في 21 جانفي 1976 الخاص بالعملة الأجنبية. توجد مشاريع لمجلّة جديدة منذ 2023، لكنها ليست قانوناً إلى غاية نوفمبر 2026.',
+      en: 'The public body that makes and checks the rules for money markets in a country, often the central bank or a markets authority. Only it can license a crypto platform there.',
+      fr: 'L’organisme public qui fixe et contrôle les règles des marchés dans un pays, souvent la banque centrale ou une autorité des marchés. Lui seul peut autoriser une plateforme crypto dans ce pays.',
+      ar: 'الجهة العامة التي تضع قواعد الأسواق المالية في البلد وتراقبها، وغالبًا ما تكون البنك المركزي أو هيئة الأسواق. وهي وحدها التي يمكنها أن ترخّص لمنصة عملات رقمية في ذلك البلد.',
     },
   },
   trading: {
