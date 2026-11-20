@@ -166,6 +166,16 @@ def test_the_chat_calls_paying_to_withdraw_a_scam_sign_without_exceptions() -> N
     # live, it once said "don't pay withdrawal fees before you see real profit"
     assert "before you can take your money out" in ai.CHAT_SYSTEM_PROMPT
     assert "never word it as if paying such a fee could be fine" in ai.CHAT_SYSTEM_PROMPT
+    # live it still opened with "don't pay any fees before your profits are withdrawn",
+    # and offered the practice wallet (which has no withdrawals) to try one
+    assert "your first words are 'Do not pay.'" in ai.CHAT_SYSTEM_PROMPT
+    assert "no deposits, withdrawals or transfers" in ai.CHAT_SYSTEM_PROMPT
+
+
+def test_the_chat_gets_the_risk_words_in_its_own_language() -> None:
+    # live, a French answer ended with "Risque : low"
+    assert "faible, moyen, élevé" in ai._chat_messages("?", None, [], "fr")[-1]["content"]
+    assert "منخفضة، متوسطة، عالية" in ai._chat_messages("?", None, [], "ar")[-1]["content"]
 
 
 @pytest.mark.parametrize(

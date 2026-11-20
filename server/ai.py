@@ -138,6 +138,14 @@ CHAT_SYSTEM_PROMPT = (
     "find you'. A demand to pay before a withdrawal is itself the sign of a "
     "scam: never word it as if paying such a fee could be fine later or in some "
     "cases (no 'don't pay before you see a profit').\n"
+    "- When the user is asked to pay something to get their money out, your "
+    "first words are 'Do not pay.' (in the answer's language). Then say why: a "
+    "real platform never makes you pay to take out your own money; paying only "
+    "loses more, and the profit on the screen was never there. Never use the "
+    "word 'before' about paying such a fee.\n"
+    "- The practice wallet only buys and sells coins with pretend dollars: it "
+    "has no deposits, withdrawals or transfers, so never suggest it for trying "
+    "those.\n"
     "- On the law, give only general points and point to the lesson 'Crypto and "
     "the law in Arab countries'. On religious rulings, say a qualified scholar "
     "should answer.\n"
@@ -145,7 +153,8 @@ CHAT_SYSTEM_PROMPT = (
     "paragraph or 2-4 bullets, the answer first. Use everyday words; if a term "
     "is unavoidable (volatility, moving average), explain it in a few words. "
     "Never mention internals such as 'reference universe', 'rank IC', "
-    "'trend_score' or field names. No tables and no headings.\n"
+    "'trend_score' (nor its 0-100 number) or field names. No tables and no "
+    "headings.\n"
     "- To try something without risk, suggest the practice wallet. If asked "
     'where scoring is documented, point to the in-app "How Qirat works" guide.\n'
     "- Call Qirat's parts only by the names listed with each question, in the "
@@ -199,20 +208,22 @@ CHAT_NAMES = {
     "en": (
         "Qirat; the Practice tab (the practice wallet); the Time machine; Today; "
         "the Learn tab; the lessons 'How scammers find you' and 'Crypto and the "
-        "law in Arab countries'; a coin's grade: the karat (24K to 10K); the "
-        "market weather: calm, choppy, stormy"
+        "law in Arab countries'; a coin's grade: the karat (24K to 10K); risk: "
+        "low, medium, high; the market weather: calm, choppy, stormy"
     ),
     "fr": (
         "Qirat ; l'onglet Pratique (le portefeuille d'entraînement) ; la Machine "
         "à remonter le temps ; Aujourd'hui ; l'onglet Apprendre ; les leçons "
         "« Comment les arnaqueurs vous trouvent » et « La crypto et la loi dans "
         "les pays arabes » ; la note d'une crypto : le carat (de 24K à 10K), "
-        "jamais « karat » ; la météo du marché : calme, agité, orageux"
+        "jamais « karat » ; le risque : faible, moyen, élevé ; la météo du "
+        "marché : calme, agité, orageux"
     ),
     "ar": (
         "قيراط؛ تبويب «تدريب» (محفظة التدريب)؛ «آلة الزمن»؛ «اليوم»؛ تبويب «تعلّم»؛ "
         "درس «كيف يصل إليك المحتالون» ودرس «العملات الرقمية والقانون في الدول "
-        "العربية»؛ درجة العملة: القيراط (من 24K إلى 10K)؛ طقس السوق: هادئ، متقلّب، عاصف"
+        "العربية»؛ درجة العملة: القيراط (من 24K إلى 10K)؛ المخاطرة: منخفضة، متوسطة، "
+        "عالية؛ طقس السوق: هادئ، متقلّب، عاصف"
     ),
 }
 
@@ -225,8 +236,9 @@ def _chat_language_instruction(code: str) -> str:
         f"\n\nWrite your entire answer in {LANGUAGES[code]}. Keep coin tickers "
         "(BTC, ETH), numbers and the karat labels (24K, 22K, 18K, 14K, 10K) as "
         f"they are. Call Qirat's parts only by these names: {CHAT_NAMES[code]}. "
-        "Keep it short: at most about 100 words, the answer first, no headings, "
-        "no tables."
+        "The market data's labels are in English: in the answer, always use "
+        "these names instead. Keep it short: at most about 100 words, the answer "
+        "first, no headings, no tables."
     )
 
 
