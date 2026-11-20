@@ -26,6 +26,7 @@ from typing import Any, AsyncIterator
 
 from . import upstash
 from .cache import narrative_cache
+from .labels import ENGINE, te
 
 # Override with ANTHROPIC_MODEL to trade quality for cost — e.g.
 # claude-haiku-4-5 ($1/$5 per MTok) or claude-sonnet-4-6 ($3/$15) instead of
@@ -144,9 +145,12 @@ CHAT_SYSTEM_PROMPT = (
     "cases (no 'don't pay before you see a profit').\n"
     "- When the user is asked to pay something to get their money out, your "
     "first words are 'Do not pay.' (in the answer's language). Then say why: a "
-    "real platform never makes you pay to take out your own money; paying only "
-    "loses more, and the profit on the screen was never there. Never use the "
-    "word 'before' about paying such a fee.\n"
+    "real platform never asks you to send extra money, a 'tax' or an 'unlock "
+    "fee' to take out your own money; paying only loses more, and the profit on "
+    "the screen was never there. Real exchanges do take a small network fee out "
+    "of the amount you withdraw, and that is normal: never claim that real "
+    "platforms charge no withdrawal fee at all. Never tell the user not to pay "
+    "'before' something (it sounds as if paying later were fine).\n"
     "- The practice wallet only buys and sells coins with pretend dollars: it "
     "has no deposits, withdrawals or transfers, so never suggest it for trying "
     "those.\n"
@@ -405,19 +409,36 @@ def _narrative_key(brief: dict[str, Any], language: str = "en") -> str:
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
-def _brief_digest(brief: dict[str, Any]) -> str:
-    """Render the brief into a compact textual prompt for Claude."""
+# The market data's own words in the app's French and Arabic. The chat's copy of
+# the data carries them from the start: with only a word list to go by, the live
+# model still let "stormy" and "low" slip into French answers (2026-11-20).
+DATA_WORDS: dict[str, dict[str, str]] = {
+    "fr": {"calm": "calme", "choppy": "agité", "stormy": "orageux", "low": "faible", "medium": "moyen", "high": "élevé"},
+    "ar": {"calm": "هادئ", "choppy": "متقلّب", "stormy": "عاصف", "low": "منخفضة", "medium": "متوسطة", "high": "عالية"},
+}
+
+
+def _data_word(value: Any, lang: str | None) -> Any:
+    """A weather, risk or mood label in ``lang`` (fr or ar); anything else as it is."""
+    if lang not in DATA_WORDS or not isinstance(value, str):
+        return value
+    return DATA_WORDS[lang].get(value) or (te(lang, value) if value in ENGINE else value)
+
+
+def _brief_digest(brief: dict[str, Any], lang: str | None = None) -> str:
+    """Render the brief into a compact textual prompt for Claude. With ``lang``
+    (fr or ar, for the chat) the weather, risk and mood labels are in that language."""
     sentiment = brief.get("sentiment", {})
     glob = brief.get("global", {})
     lines = [
         f"Exchange/source: {brief.get('exchange_label', 'CoinGecko')} "
         f"(quote {brief.get('quote_asset', 'USD')})",
-        f"Fear & Greed: {sentiment.get('score', 'n/a')}/100 — {sentiment.get('status', 'Neutral')}",
+        f"Fear & Greed: {sentiment.get('score', 'n/a')}/100 — {_data_word(sentiment.get('status', 'Neutral'), lang)}",
     ]
     w = brief.get("weather") or {}
     if w.get("state") in ("calm", "choppy", "stormy"):
         lines.append(
-            f"Market weather: {w['state']} — BTC ${w.get('btc_price') or 0:,.0f} is "
+            f"Market weather: {_data_word(w['state'], lang)} — BTC ${w.get('btc_price') or 0:,.0f} is "
             f"{w.get('vs_ma50_pct') or 0:+.1f}% vs its 50-day average"
             + (f" and {w['vs_ma200_pct']:+.1f}% vs its 200-day" if w.get("vs_ma200_pct") is not None else "")
             + (f"; overheated: {', '.join(w['hot'])}" if w.get("hot") else "")
@@ -436,7 +457,7 @@ def _brief_digest(brief: dict[str, Any]) -> str:
         g = o.get("grade") or {}
         karat = f"{g['karat']}K" if g.get("karat") else "no karat yet (too new)"
         lines.append(
-            f"- {str(o.get('symbol', '')).upper()} ({o.get('name', '')}): {karat} | risk {g.get('risk', 'n/a')} | "
+            f"- {str(o.get('symbol', '')).upper()} ({o.get('name', '')}): {karat} | risk {_data_word(g.get('risk', 'n/a'), lang)} | "
             f"${price:,.6g} | 24h {o.get('change_24h', 0):+.2f}% | 7d {o.get('change_7d', 0):+.2f}%"
         )
         if g:
@@ -455,7 +476,7 @@ def _brief_digest(brief: dict[str, Any]) -> str:
             pnl_s = f"{pnl:+.2f}%" if isinstance(pnl, (int, float)) else "n/a"
             lines.append(
                 f"- {str(o.get('symbol', '')).upper()}: value ${h.get('value') or 0:,.2f}, "
-                f"unrealized P&L {pnl_s}, karat {(o.get('grade') or {}).get('karat')}K, risk {(o.get('grade') or {}).get('risk')}"
+                f"unrealized P&L {pnl_s}, karat {(o.get('grade') or {}).get('karat')}K, risk {_data_word((o.get('grade') or {}).get('risk'), lang)}"
             )
 
     return "\n".join(lines)
@@ -595,7 +616,8 @@ def _chat_messages(
     if brief:
         final += (
             "Current market snapshot:\n"
-            f"{_brief_digest(brief)}\n\n"
+            # the market's words in the answer's language, so none is left in English to copy
+            f"{_brief_digest(brief, answer_language)}\n\n"
             f"User question: {question}"
         )
     else:

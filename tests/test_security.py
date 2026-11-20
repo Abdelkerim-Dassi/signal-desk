@@ -147,6 +147,54 @@ def test_the_screen_note_is_one_line_and_the_lesson_is_fenced() -> None:
     assert ai._page_note(None, "text with no screen") == ""
 
 
+def _market() -> dict:
+    grade = {
+        "karat": 22, "risk": "low", "mom90_pct": -11.4, "momentum_pct": 47,
+        "typical_day_pct": 2.2, "calm_pct": 100, "rough_month_pct": 18, "trend_score": 73.5,
+    }
+    row = {"symbol": "BTC", "name": "Bitcoin", "current_price": 61000, "grade": grade}
+    held = {**row, "holding": {"value": 100, "unrealized_pnl": -3.0}}
+    return {
+        "sentiment": {"score": 12, "status": "Extreme Fear"},
+        "weather": {"state": "stormy", "btc_price": 61000, "vs_ma50_pct": -8.0},
+        "opportunities": [row],
+        "portfolio": [held],
+    }
+
+
+@pytest.mark.parametrize(
+    "lang,words,english",
+    [
+        ("fr", ["orageux", "risk faible", "Peur extrême"], ["stormy", "risk low", "Extreme Fear"]),
+        ("ar", ["عاصف", "risk منخفضة", "خوف شديد"], ["stormy", "risk low", "Extreme Fear"]),
+    ],
+)
+def test_the_chat_sees_the_market_words_in_its_own_language(lang, words, english) -> None:
+    # live, French answers still wrote « stormy » and "Risque : low" with only a word list to go by
+    content = ai._chat_messages("?", _market(), [], lang)[-1]["content"]
+    assert all(w in content for w in words)
+    assert not any(e in content for e in english)
+
+
+def test_the_market_words_follow_the_language_the_question_is_typed_in() -> None:
+    # a question typed in French on the Arabic page is answered in French
+    content = ai._chat_messages("Pourquoi le marché est-il orageux ?", _market(), [], "ar")[-1]["content"]
+    assert "Market weather: orageux" in content and "risk faible" in content
+    assert "عاصف —" not in content
+
+
+def test_the_briefing_and_english_chat_keep_the_market_words_as_they_are() -> None:
+    assert ai._brief_digest(_market()) == ai._brief_digest(_market(), "en")
+    assert "Market weather: stormy" in ai._brief_digest(_market())
+    assert "risk low" in ai._chat_messages("?", _market(), [], "en")[-1]["content"]
+
+
+def test_the_chat_knows_a_small_withdrawal_fee_is_normal() -> None:
+    # live, a "Do not pay" answer added that real platforms charge no withdrawal fee at all
+    assert "small network fee out of the amount you withdraw" in ai.CHAT_SYSTEM_PROMPT
+    assert "never claim that real platforms charge no withdrawal fee" in ai.CHAT_SYSTEM_PROMPT
+
+
 def test_a_chat_question_names_qirats_parts_in_its_own_language_only() -> None:
     """The live model copied a three-language name list into Arabic answers
     ("Apprendre / تعلّم"), so each question carries one language's names."""
