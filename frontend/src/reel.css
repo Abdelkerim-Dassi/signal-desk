@@ -10,7 +10,8 @@
    .stamp    says what kind of thing this is: pretend money
    .who      the cast's name tags (.who-sami, .who-youssef, .who-mariem)
    .band     the one gold band a page may have
-   .arrive   the first screen's one arrival moment                                  */
+   .arrive   the first screen's one arrival moment
+   .ask-fab  the Ask Qirat bubble at the bottom of every screen                      */
 
 .poster {
   font-family: var(--font-poster);
@@ -293,4 +294,21 @@
 /* Latin words are wider than the Arabic ones: the stamp's word shrinks to stay inside its ring */
 :root[dir='ltr'] .stamp {
   font-size: 1.2rem;
+}
+
+/* The Ask Qirat bubble (AskBubble.tsx). On a phone it floats just above the tab bar,
+   and above the bar a screen pins there too (data-dock: a lesson's Back / Next, the
+   Time machine's Next day), so it never covers the button that moves you on. */
+.ask-fab {
+  bottom: calc(5.5rem + env(safe-area-inset-bottom));
+}
+@media (max-width: 767.98px) {
+  body:has([data-dock]) .ask-fab {
+    bottom: calc(11.25rem + env(safe-area-inset-bottom));
+  }
+}
+@media (min-width: 768px) {
+  .ask-fab {
+    bottom: 1.5rem;
+  }
 }

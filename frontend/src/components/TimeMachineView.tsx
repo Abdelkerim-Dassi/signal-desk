@@ -477,7 +477,7 @@ function Play({ sc, game, onChange, onLeave }: { sc: ReplayScenario; game: Game;
 
       {/* stays in reach above the phone's tab bar: the month is thirty taps long.
           The strip's paper runs on behind the tab bar, so nothing shows between the two. */}
-      <div className="sticky bottom-[4.75rem] z-30 -mx-4 mt-5 flex items-center gap-5 max-md:mt-auto bg-bg px-4 pt-3 pb-3.5 shadow-[0_-10px_14px_-10px_rgba(21,23,28,.18)] after:absolute after:inset-x-0 after:top-full after:h-8 after:bg-bg md:static md:mx-0 md:mt-8 md:bg-transparent md:p-0 md:shadow-none md:after:hidden lg:col-start-2">
+      <div data-dock className="sticky bottom-[4.75rem] z-30 -mx-4 mt-5 flex items-center gap-5 max-md:mt-auto bg-bg px-4 pt-3 pb-3.5 shadow-[0_-10px_14px_-10px_rgba(21,23,28,.18)] after:absolute after:inset-x-0 after:top-full after:h-8 after:bg-bg md:static md:mx-0 md:mt-8 md:bg-transparent md:p-0 md:shadow-none md:after:hidden lg:col-start-2">
         {left > 5 && (
           <button type="button" onClick={() => advance(5)} className="alt num shrink-0 py-3 text-[15px]">
             {tr('skip')}

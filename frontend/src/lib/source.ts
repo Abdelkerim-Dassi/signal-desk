@@ -10,7 +10,7 @@
 // as ours, qirat.tn/#own-off removes the mark (see ownerSwitch below).
 
 export type Source = 't' | 'i' | 'f' | 'w' | 'y'
-export type Place = 'scam' | 'quiz' | 'practice' | 'footer'
+export type Place = 'quiz' | 'practice' | 'footer'
 
 const PATHS: Record<string, Source> = { '/t': 't', '/i': 'i', '/f': 'f', '/w': 'w', '/y': 'y' }
 const SRC_KEY = 'qirat.src'
@@ -121,7 +121,7 @@ export function arrive(): Arrival {
 
   // A new or tagged visitor lands on the first screen (HomeView), which leads
   // to the practice wallet and lesson 1. A link that names a screen
-  // (#scamcheck, #practice, a lesson) opens that screen.
+  // (#practice, a lesson) opens that screen.
 
   if (source) {
     // Tidy the address so a copied link doesn't pass "came from TikTok" on to

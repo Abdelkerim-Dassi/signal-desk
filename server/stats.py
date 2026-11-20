@@ -1,9 +1,9 @@
 """Private usage counters: daily totals only, nothing about any one visitor.
 
 The 90-day scorecard needs numbers the page-view counter can't give: visits
-by platform, scam checks run, lessons passed, practice trades, bot starts and
+by platform, questions asked, lessons passed, practice trades, bot starts and
 where they came from. Each event is one field in a Redis hash per day
-(``stats:2026-11-10`` → ``{"visit:t": 12, "scamcheck:high": 3, ...}``). No IP,
+(``stats:2026-11-10`` → ``{"visit:t": 12, "lesson_pass": 3, ...}``). No IP,
 no device id, no text is stored.
 
 Reading is private: ``GET /api/stats`` needs the jobs secret, and the bot's
@@ -26,8 +26,8 @@ KEEP_DAYS = 400  # long enough to compare this Ramadan with the next
 
 # Short paths typed from a video or tapped in a bio: qirat.tn/t, /i, /f, /w.
 SOURCES = {"t": "TikTok", "i": "Instagram", "f": "Facebook", "w": "WhatsApp", "y": "YouTube", "direct": "Direct"}
-VIEWS = {"home", "today", "learn", "practice", "replay", "scamcheck", "ask", "portfolio", "record"}
-PLACES = {"scam", "quiz", "practice", "footer"}
+VIEWS = {"home", "today", "learn", "practice", "replay", "portfolio", "record"}
+PLACES = {"quiz", "practice", "footer"}
 # The first screen, for a browser that has not read a lesson or traded yet:
 # shown, then which of its two buttons was tapped (lesson 1, or the practice
 # wallet). Until 2026-11 this was the "start here" strip on Learn; the counter
@@ -79,6 +79,9 @@ CLIENT_EVENTS: dict[str, set[str] | None] = {
     "social": SOCIALS,
     "bot_click": PLACES,
     "share": PLACES,
+    # Ask Qirat, the bubble on every screen: opened, by the screen it was opened on.
+    # Each question sent is counted on the server ("ask").
+    "chat_open": VIEWS,
 }
 
 _memory: dict[str, dict[str, int]] = {}
@@ -114,6 +117,7 @@ def client_field(event: str, value: str | None) -> str | None:
     return f"{event}:{value}" if value in allowed else None
 
 
+# "scam" stays readable: links made before the Scam check was removed (2026-11-20) still say it
 _START = re.compile(r"^(t|i|f|w|web)-(scam|quiz|practice|footer)$")
 
 
@@ -194,8 +198,6 @@ def owner_report(days: int = 7) -> str:
         f"Visits: {_sum(t, 'visit')}  ({_by(t, 'visit', SOURCES)})",
         f"Start here shown: {t.get('start:shown', 0)} · lesson 1 tapped: {t.get('start:lesson', 0)}"
         f" · practice tapped: {t.get('start:practice', 0)}",
-        f"Scam checks on the site: {_sum(t, 'scamcheck')}  ({_by(t, 'scamcheck')})",
-        f"Scam checks in the bot: {_sum(t, 'scamcheck_bot')}",
         f"Results shared: {_sum(t, 'share')}",
         f"Lessons opened: {t.get('lesson_open', 0)} · passed: {t.get('lesson_pass', 0)}",
         f"People who passed a first lesson: {t.get('lesson_first', 0)} · finished Level 1: {t.get('level_done:1', 0)}"
@@ -213,7 +215,7 @@ def owner_report(days: int = 7) -> str:
         f" · first visits on a shared link {_sum(t, 'replay_arrive')}",
         f"Story videos opened: {_sum(t, 'story')}  ({_by(t, 'story')})",
         f"Taps on our accounts: {_sum(t, 'social')}  ({_by(t, 'social')})",
-        f"Questions asked: {t.get('ask', 0)}",
+        f"Ask Qirat opened: {_sum(t, 'chat_open')}  ({_by(t, 'chat_open')}) · questions asked: {t.get('ask', 0)}",
         f"Bot button taps: {_sum(t, 'bot_click')}  ({_by(t, 'bot_click')})",
         f"Bot starts: {_sum(t, 'bot_start')}  ({_by(t, 'bot_start')})",
         f"New bot chats: {t.get('bot_new_chat', 0)}",

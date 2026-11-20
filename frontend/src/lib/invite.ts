@@ -10,11 +10,6 @@ export const INVITE = {
     fr: 'Gardez Qirat sur Telegram',
     ar: 'احتفظ بقيراط في Telegram',
   },
-  body: {
-    en: 'Send the bot any message and it checks it for scam signs, or a coin to see its karat.',
-    fr: 'Envoyez n’importe quel message au bot : il y cherche les signes d’arnaque. Ou une crypto, pour voir son carat.',
-    ar: 'أرسل إلى البوت أي رسالة ليفحصها بحثًا عن علامات الاحتيال، أو اسم عملة ليعرض لك قيراطها.',
-  },
   open: { en: 'Open the bot', fr: 'Ouvrir le bot', ar: 'افتح البوت' },
   trust: {
     en: 'Free. Qirat never messages you first, never asks you to send money and has no VIP group.',

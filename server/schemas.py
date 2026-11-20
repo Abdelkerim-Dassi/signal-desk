@@ -45,20 +45,10 @@ class ChatRequest(Watchlist):
     # The app sends the last few turns; the model sees at most 12 of them.
     history: list[ChatMessage] = Field(default_factory=list, max_length=24)
     language: str = Field(default="en", max_length=5)
-
-
-class ScamCheckRequest(BaseModel):
-    """Anything a user wants checked; every field is optional. ``text`` may be a
-    pasted message, a link, a contract/wallet address or a platform name: the
-    server detects which."""
-
-    text: str | None = Field(default=None, max_length=8000)
-    url: str | None = Field(default=None, max_length=2000)
-    address: str | None = Field(default=None, max_length=120)
-    chain: str | None = Field(default=None, max_length=20)
-    platform: str | None = Field(default=None, max_length=200)
-    language: str = "en"
-    explain: bool = True
+    # Where the visitor is when they ask (the bubble is on every screen): a few
+    # words for the screen, and on a lesson that lesson's own text.
+    page: str | None = Field(default=None, max_length=200)
+    page_text: str | None = Field(default=None, max_length=6000)
 
 
 class StatsEvent(BaseModel):

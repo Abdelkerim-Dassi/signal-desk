@@ -815,15 +815,6 @@ export const BASICS: Lesson[] = [
       ar: 'لا ينتظرونك. يراسلونك أولًا، ويعدونك بالكثير، ويستعجلونك.',
     },
     terms: ['signals', 'ponzi', 'fake-platform', 'phishing'],
-    live: {
-      kind: 'view',
-      view: 'scamcheck',
-      label: {
-        en: 'Got a strange message? Check it for red flags',
-        fr: 'Un message bizarre ? Vérifiez les signaux d’alerte',
-        ar: 'وصلتك رسالة غريبة؟ افحص علامات الخطر فيها',
-      },
-    },
     sections: [
       {
         h: { en: 'The VIP group', fr: 'Le groupe VIP', ar: 'مجموعة الـ VIP' },

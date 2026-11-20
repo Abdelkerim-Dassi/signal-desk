@@ -148,7 +148,7 @@ function Takeaway({ lesson }: { lesson: Lesson }) {
  *  On a phone it stays in view above the bottom bar when a screen is taller than the phone. */
 function BackNext({ back, next, onBack, onNext }: { back: string; next: string; onBack: () => void; onNext: () => void }) {
   return (
-    <div className="sticky bottom-[calc(4.75rem+env(safe-area-inset-bottom))] z-10 -mx-5 mt-auto flex items-center gap-5 bg-linear-to-t from-bg from-75% to-transparent px-5 pt-8 pb-3 md:static md:mx-0 md:bg-none md:px-0 md:pb-0">
+    <div data-dock className="sticky bottom-[calc(4.75rem+env(safe-area-inset-bottom))] z-10 -mx-5 mt-auto flex items-center gap-5 bg-linear-to-t from-bg from-75% to-transparent px-5 pt-8 pb-3 md:static md:mx-0 md:bg-none md:px-0 md:pb-0">
       <button type="button" onClick={onBack} className="alt min-h-11 shrink-0 px-1">
         {back}
       </button>

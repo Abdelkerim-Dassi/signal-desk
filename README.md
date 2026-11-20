@@ -28,7 +28,7 @@ The 2-minute dashboard poll only ever hits the free heuristic endpoint. Claude i
 | POST | `/api/analyze` | heuristic brief (cached, free, polled) |
 | GET | `/api/brief` | query-param variant |
 | POST | `/api/ai/briefing` | Claude narrative over a brief (rate-limited) |
-| POST | `/api/ai/chat` | streaming SSE chat grounded in the brief (rate-limited) |
+| POST | `/api/ai/chat` | streaming SSE chat behind the Ask Qirat bubble on every screen: grounded in the brief, told which screen (and lesson) the question came from (rate-limited) |
 | GET | `/api/track-record` | live log summary + backtest (logs today's snapshot if missing) |
 | GET | `/api/cron/snapshot` | daily snapshot trigger (Vercel Cron, 00:05 UTC; `CRON_SECRET` bearer if set) |
 
@@ -92,7 +92,7 @@ Note: Groq's free tier has its own per-minute rate limits — if a traffic burst
 Daily totals only, with no cookie and nothing about any one visitor (`server/stats.py`). Visits are tagged by the short address used (`qirat.tn/t`, `/i`, `/f`, `/w`, `/y`). Read the totals with `GET /api/stats` (jobs secret) or the bot's `/stats` command.
 
 **Keep our own visits out of the numbers.** Before any check or screen capture on the live site, open `qirat.tn/#own-on` once in that browser: a short note confirms it, and from then on that browser sends no visit, tap, lesson, practice-trade or page-view count. `qirat.tn/#own-off` turns counting back on.
-The mark is kept in that browser's local storage, so a new profile, a private window or cleared site data needs `#own-on` again. Scam checks, Ask questions and Telegram bot starts are counted on the server, so they still count from a marked browser.
+The mark is kept in that browser's local storage, so a new profile, a private window or cleared site data needs `#own-on` again. Ask Qirat questions and Telegram bot starts are counted on the server, so they still count from a marked browser.
 
 ## Deploy (Vercel)
 

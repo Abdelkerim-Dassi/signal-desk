@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import AskView from './components/AskView'
+import AskBubble from './components/AskBubble'
 import BotInvite from './components/BotInvite'
 import CoinList from './components/CoinList'
 import FeedbackModal from './components/FeedbackModal'
@@ -10,7 +10,6 @@ import MarketMoves from './components/MarketMoves'
 import { BottomNav, TopBar } from './components/Navigation'
 import PortfolioView from './components/PortfolioView'
 import PracticeView from './components/PracticeView'
-import ScamCheckView from './components/ScamCheckView'
 import SiteFooter from './components/SiteFooter'
 import TimeMachineView from './components/TimeMachineView'
 import TodayHero from './components/TodayHero'
@@ -90,10 +89,10 @@ export default function App() {
 
   useEffect(() => track('view', view), [view])
 
-  // The first screen, Scam check and Practice don't use the market brief, so a
+  // The first screen, Practice and the Time machine don't use the market brief, so a
   // visitor who lands there doesn't wait for it (or pay for it on mobile data).
   // It loads the first time a screen that shows it is opened, and stays on.
-  const showsBrief = view !== 'home' && view !== 'scamcheck' && view !== 'practice' && view !== 'replay'
+  const showsBrief = view !== 'home' && view !== 'practice' && view !== 'replay'
   const [briefOn, setBriefOn] = useState(showsBrief)
   if (showsBrief && !briefOn) setBriefOn(true)
   const briefQuery = useBrief(config, briefOn)
@@ -113,8 +112,9 @@ export default function App() {
   const updatedAt = brief?.generated_at ? new Date(brief.generated_at) : null
   const error = briefQuery.error ? (briefQuery.error as Error).message : null
 
+  // room at the bottom so the last line can scroll clear of the tab bar and the Ask bubble
   return (
-    <div className="min-h-screen pb-24 md:pb-8">
+    <div className="min-h-screen pb-40 md:pb-24">
       <TopBar view={tab} onView={go} onHelp={() => setShowGuide(true)} />
 
       {/* the first screen runs edge to edge; every other screen sits in one column */}
@@ -143,10 +143,6 @@ export default function App() {
         {view === 'practice' && <PracticeView onToast={setToast} />}
         {view === 'replay' && <TimeMachineView onView={go} />}
         {view === 'learn' && <LearnView brief={brief} onView={go} />}
-        {view === 'scamcheck' && <ScamCheckView />}
-        {view === 'ask' && (
-          <AskView brief={brief} watchlist={toAnalyzeParams(config)} aiEnabled={Boolean(statusQuery.data?.ai_enabled)} />
-        )}
         {view === 'portfolio' && (
           <PortfolioView
             brief={brief}
@@ -155,16 +151,15 @@ export default function App() {
           />
         )}
 
-        {/* On Scam check this sits right under the result, so it carries that tag.
-            Learn and Practice show their own after a passed quiz or a trade. */}
-        {view !== 'home' && view !== 'learn' && view !== 'practice' && view !== 'replay' && (
-          <BotInvite place={view === 'scamcheck' ? 'scam' : 'footer'} />
-        )}
+        {/* Learn and Practice show their own after a passed quiz or a trade. */}
+        {view !== 'home' && view !== 'learn' && view !== 'practice' && view !== 'replay' && <BotInvite place="footer" />}
       </main>
 
       <SiteFooter onFeedback={() => setShowFeedback(true)} />
 
       <BottomNav view={tab} onView={go} />
+      {/* Ask Qirat: the gold bar at the bottom of every screen */}
+      <AskBubble view={view} brief={brief} watchlist={toAnalyzeParams(config)} aiEnabled={Boolean(statusQuery.data?.ai_enabled)} />
       <GuideModal open={showGuide} onClose={() => setShowGuide(false)} />
       <FeedbackModal open={showFeedback} onClose={() => setShowFeedback(false)} />
 

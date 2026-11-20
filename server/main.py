@@ -37,11 +37,11 @@ from fastapi.staticfiles import StaticFiles
 
 from advisor_engine import build_market_brief, normalize_asset_ids, parse_holdings
 
-from . import ai, cards, keep, paper, replay, scamcheck, stats, telegram_bot, track_record
+from . import ai, cards, keep, paper, replay, stats, telegram_bot, track_record
 from .cache import TTLCache, brief_cache
-from .ratelimit import RateLimiter, check_ai_allowance, check_scam_allowance
+from .ratelimit import RateLimiter, check_ai_allowance
 from .schemas import (
-    AnalyzeRequest, BriefingRequest, ChatRequest, ScamCheckRequest, StatsEvent,
+    AnalyzeRequest, BriefingRequest, ChatRequest, StatsEvent,
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -322,7 +322,7 @@ async def ai_chat(req: ChatRequest, request: Request) -> Response:
         # Errors mid-stream can't change the status code anymore, so they're
         # delivered as a {"error": ...} event the client renders inline.
         try:
-            async for chunk in ai.stream_chat(question, market, history, req.language):
+            async for chunk in ai.stream_chat(question, market, history, req.language, req.page, req.page_text):
                 yield f"data: {json.dumps({'text': chunk})}\n\n"
             yield 'data: {"done": true}\n\n'
         except Exception:
@@ -337,49 +337,6 @@ async def ai_chat(req: ChatRequest, request: Request) -> Response:
             "X-Accel-Buffering": "no",  # ask reverse proxies not to buffer SSE
         },
     )
-
-
-@app.post("/api/scamcheck")
-async def scam_check(req: ScamCheckRequest, request: Request) -> JSONResponse:
-    """Red flags for a pasted message, link, token/wallet address or platform name.
-    Never says something is safe; see server/scamcheck.py."""
-    # Only the plain-words explanation calls the AI. The check itself (rules and
-    # lookups) must not spend the AI allowance: phones on one mobile carrier
-    # share an address, and a busy evening would lock real people out.
-    if req.explain and _ai_enabled():
-        limited = _ai_rate_limited(request)
-        if limited is not None:
-            return limited
-    allowed, retry = await asyncio.to_thread(check_scam_allowance, _client_ip(request))
-    if not allowed:
-        return JSONResponse(
-            {"ok": False, "error": f"Too many checks — try again in ~{retry}s."},
-            status_code=429,
-            headers={"Retry-After": str(retry)},
-        )
-    fields = {
-        "text": (req.text or "").strip() or None,
-        "url": (req.url or "").strip() or None,
-        "address": (req.address or "").strip() or None,
-        "chain": (req.chain or "").strip() or None,
-        "platform": (req.platform or "").strip() or None,
-    }
-    if not any(fields[k] for k in ("text", "url", "address", "platform")):
-        return JSONResponse({"ok": False, "error": "Nothing to check."}, status_code=400)
-    try:
-        result = await asyncio.to_thread(lambda: scamcheck.check(**fields, language=req.language))
-    except Exception as exc:
-        log.exception("scamcheck failed")
-        return JSONResponse({"ok": False, "error": str(exc)}, status_code=502)
-    if not result.get("ok"):
-        return JSONResponse(result, status_code=400)
-    # The app asks twice for a flagged result (rules first, then the plain-words
-    # explanation); only the first call counts as a check.
-    if not req.explain:
-        await asyncio.to_thread(stats.bump, f"scamcheck:{result.get('level', 'none')}")
-    source_text = "\n".join(v for v in (fields["text"], fields["url"], fields["platform"]) if v)
-    result["explanation"] = await scamcheck.explain(source_text, result) if req.explain else None
-    return JSONResponse(result, headers={"Cache-Control": "no-store"})
 
 
 def _load_backtest() -> dict | None:

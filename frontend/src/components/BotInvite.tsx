@@ -6,9 +6,9 @@ import { IconTelegram } from './Icons'
 
 /**
  * The one invitation on the site: start the Telegram bot. It sits where a
- * visitor has just got something (a scam result, a passed quiz, a practice
- * trade): one line and one button, with the promise under them, because
- * "join us on Telegram" is also what the scams say.
+ * visitor has just got something (a passed quiz, a practice trade): one line
+ * and one button, with the promise under them, because "join us on Telegram"
+ * is also what the scams say.
  *
  * On a page it closes the screen under a dashed rule; `inset` drops the rule
  * for a spot inside another piece (the quiz result).
@@ -31,8 +31,7 @@ export default function BotInvite({ place, inset = false }: { place: Place; inse
           {s('open')}
         </a>
       </div>
-      {/* the Scam check screen prints this promise itself, next to its own button */}
-      {place !== 'scam' && <p className="mt-2.5 text-[13px] text-muted">{s('trust')}</p>}
+      <p className="mt-2.5 text-[13px] text-muted">{s('trust')}</p>
     </div>
   )
 }

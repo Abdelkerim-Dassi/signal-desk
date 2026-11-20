@@ -217,16 +217,10 @@ export async function getStatus(): Promise<AppStatus> {
   return asJson<AppStatus>(res)
 }
 
-export async function generateBriefing(
-  watchlist: AnalyzeParams,
-  language = 'en',
-): Promise<{ text: string; cached: boolean }> {
-  const res = await fetch('/api/ai/briefing', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ...watchlist, language }),
-  })
-  return asJson<{ text: string; cached: boolean }>(res)
+/** Where the visitor is when they ask: a few words for the screen, and a lesson's own text. */
+export interface PageContext {
+  page: string
+  page_text?: string
 }
 
 /**
@@ -239,6 +233,7 @@ export async function streamChat(
   history: ChatMessage[],
   onChunk: (text: string) => void,
   language = 'en',
+  context?: PageContext,
   signal?: AbortSignal,
 ): Promise<void> {
   const res = await fetch('/api/ai/chat', {
@@ -250,6 +245,7 @@ export async function streamChat(
       question,
       history: history.slice(-12).map((m) => ({ role: m.role, content: m.content.slice(0, 4000) })),
       language,
+      ...context,
     }),
     signal,
   })

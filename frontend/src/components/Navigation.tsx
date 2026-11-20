@@ -117,7 +117,7 @@ export function BottomNav({ view, onView }: { view: View; onView: (v: View) => v
           </div>
         </>
       )}
-      <div className="mx-auto grid max-w-md px-2 py-2" style={{ gridTemplateColumns: `repeat(${PHONE_TABS.length + 1}, minmax(0, 1fr))` }}>
+      <div className="mx-auto grid max-w-md px-2 py-2" style={{ gridTemplateColumns: `repeat(${PHONE_TABS.length + (PHONE_MORE.length ? 1 : 0)}, minmax(0, 1fr))` }}>
         {PHONE_TABS.map(({ id, label, Icon }) => (
           <button key={id} onClick={() => pick(id)} aria-current={view === id ? 'page' : undefined} className={tabClass(view === id)}>
             <span className={blobClass(view === id)}>
@@ -131,12 +131,14 @@ export function BottomNav({ view, onView }: { view: View; onView: (v: View) => v
             {t(label)}
           </button>
         ))}
-        <button onClick={() => setMoreOpen((open) => !open)} aria-expanded={moreOpen} className={tabClass(inMore || moreOpen)}>
-          <span className={blobClass(inMore || moreOpen)}>
-            <IconMore />
-          </span>
-          {t('nav.more')}
-        </button>
+        {PHONE_MORE.length > 0 && (
+          <button onClick={() => setMoreOpen((open) => !open)} aria-expanded={moreOpen} className={tabClass(inMore || moreOpen)}>
+            <span className={blobClass(inMore || moreOpen)}>
+              <IconMore />
+            </span>
+            {t('nav.more')}
+          </button>
+        )}
       </div>
     </nav>
   )

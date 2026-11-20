@@ -32,7 +32,7 @@ export type LiveLink =
   | { kind: 'risk' } // Bitcoin next to the riskiest coin in the user's list
   | { kind: 'weather' } // today's market weather and crowd mood
   | { kind: 'karat' } // the karat ladder with today's coins on it
-  | { kind: 'view'; view: 'today' | 'ask' | 'portfolio' | 'practice' | 'scamcheck'; label: Text }
+  | { kind: 'view'; view: 'today' | 'portfolio' | 'practice'; label: Text }
 
 export interface QuizQuestion {
   q: Text

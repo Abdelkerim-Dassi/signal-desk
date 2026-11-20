@@ -36,7 +36,6 @@ def test_read_ignores_days_outside_the_window():
         ("visit", "t", "visit:t"),
         ("visit", "direct", "visit:direct"),
         ("visit", "y", "visit:y"),
-        ("view", "scamcheck", "view:scamcheck"),
         ("view", "learn", "view:learn"),
         ("view", "home", "view:home"),
         ("story", "same-trade", "story:same-trade"),
@@ -48,8 +47,10 @@ def test_read_ignores_days_outside_the_window():
         ("lesson_pass", "anything", "lesson_pass"),
         ("practice_first", "tap", "practice_first:tap"),
         ("practice_first", "form", "practice_first:form"),
-        ("bot_click", "scam", "bot_click:scam"),
-        ("share", "scam", "share:scam"),
+        ("bot_click", "quiz", "bot_click:quiz"),
+        ("share", "practice", "share:practice"),
+        ("chat_open", "learn", "chat_open:learn"),
+        ("chat_open", "practice", "chat_open:practice"),
     ],
 )
 def test_client_events_that_count(event, value, field):
@@ -62,6 +63,11 @@ def test_client_events_that_count(event, value, field):
         ("visit", "x"),
         ("visit", None),
         ("view", "admin"),
+        ("view", "scamcheck"),  # the Scam check screen was removed on 2026-11-20
+        ("view", "ask"),  # Ask is the bubble now, counted as chat_open
+        ("bot_click", "scam"),
+        ("chat_open", None),
+        ("chat_open", "admin"),
         ("start", "scam"),
         ("story", "other"),
         ("social", "x"),
@@ -101,7 +107,9 @@ def test_upstash_flat_hash_is_parsed():
 def test_owner_report_reads_like_a_note():
     stats.bump("visit:t")
     stats.bump("visit:i")
-    stats.bump("scamcheck:high")
+    stats.bump("chat_open:learn")
+    stats.bump("ask")
+    stats.bump("ask")
     stats.bump("bot_start:t-scam")
     stats.bump("start:shown")
     stats.bump("start:shown")
@@ -112,7 +120,8 @@ def test_owner_report_reads_like_a_note():
     report = stats.owner_report(7)
     assert "Visits: 2" in report and "TikTok 1" in report and "Instagram 1" in report
     assert "Start here shown: 2 · lesson 1 tapped: 1 · practice tapped: 0" in report
-    assert "Scam checks on the site: 1" in report
+    assert "Scam" not in report
+    assert "Ask Qirat opened: 1  (learn 1) · questions asked: 2" in report
     assert "Practice trades: 2" in report and "First practice trades: 1  (tap 1)" in report
     assert "Bot starts: 1" in report
 
@@ -155,15 +164,13 @@ def test_owner_read_key_opens_the_counters_and_nothing_else(client, monkeypatch)
     assert client.get("/api/cron/snapshot", headers={"X-Stats-Key": "reader-key"}).status_code == 401
 
 
-@pytest.mark.parametrize(
-    "text,expected",
-    [
-        ("hello", False),
-        ("what is this", False),
-        ("Join our VIP group, guaranteed 3% a day!", True),
-        ("binance-support.com http://x.io", True),
-        ("ربح مضمون 3% كل نهار ابعث USDT", True),
-    ],
-)
-def test_bot_treats_pasted_messages_as_scam_checks(text, expected):
-    assert telegram_bot.looks_like_a_message(text) is expected
+def test_bot_answers_a_pasted_message_with_its_help(monkeypatch):
+    """Since the Scam check was removed (2026-11-20), text the bot does not
+    understand gets the help message, never a verdict on the message."""
+    sent = []
+    monkeypatch.setattr(telegram_bot, "send", lambda chat_id, text, buttons=None: sent.append(text))
+    monkeypatch.setattr(telegram_bot, "ensure_chat", lambda chat, user: {"lang": "en", "watch": []})
+    pasted = "Join our VIP group today, guaranteed 3% a day! Send USDT to this wallet: http://x.io"
+    telegram_bot.handle_message({"chat": {"id": 1, "type": "private"}, "text": pasted})
+    assert sent == [telegram_bot.t("en", "help")]
+    assert "scam" not in sent[0].lower()
