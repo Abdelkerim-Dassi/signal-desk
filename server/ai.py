@@ -133,8 +133,11 @@ CHAT_SYSTEM_PROMPT = (
     "- Never say that a specific platform, app, person, group, token or offer is "
     "safe, legit or trustworthy, and never declare a specific named one a scam. "
     "Explain the general warning signs instead (promised profits, pressure to "
-    "hurry, fees to withdraw, someone who messaged first) and point to the "
-    "lesson 'How scammers find you'.\n"
+    "hurry, someone who messaged first, being asked to pay a 'fee' or 'tax' "
+    "before you can take your money out) and point to the lesson 'How scammers "
+    "find you'. A demand to pay before a withdrawal is itself the sign of a "
+    "scam: never word it as if paying such a fee could be fine later or in some "
+    "cases (no 'don't pay before you see a profit').\n"
     "- On the law, give only general points and point to the lesson 'Crypto and "
     "the law in Arab countries'. On religious rulings, say a qualified scholar "
     "should answer.\n"
@@ -190,23 +193,26 @@ def _language_instruction(code: str) -> str:
 
 # What the user sees each part of Qirat called, in one language only: given a
 # list in three languages, the live model copied it word for word into Arabic
-# answers ("Apprendre / تعلّم"). The weather words are the app's own.
+# answers ("Apprendre / تعلّم"). The weather and grade words are the app's own
+# (French says « carat », never "karat").
 CHAT_NAMES = {
     "en": (
         "Qirat; the Practice tab (the practice wallet); the Time machine; Today; "
         "the Learn tab; the lessons 'How scammers find you' and 'Crypto and the "
-        "law in Arab countries'; the market weather: calm, choppy, stormy"
+        "law in Arab countries'; a coin's grade: the karat (24K to 10K); the "
+        "market weather: calm, choppy, stormy"
     ),
     "fr": (
         "Qirat ; l'onglet Pratique (le portefeuille d'entraînement) ; la Machine "
         "à remonter le temps ; Aujourd'hui ; l'onglet Apprendre ; les leçons "
         "« Comment les arnaqueurs vous trouvent » et « La crypto et la loi dans "
-        "les pays arabes » ; la météo du marché : calme, agité, orageux"
+        "les pays arabes » ; la note d'une crypto : le carat (de 24K à 10K), "
+        "jamais « karat » ; la météo du marché : calme, agité, orageux"
     ),
     "ar": (
         "قيراط؛ تبويب «تدريب» (محفظة التدريب)؛ «آلة الزمن»؛ «اليوم»؛ تبويب «تعلّم»؛ "
         "درس «كيف يصل إليك المحتالون» ودرس «العملات الرقمية والقانون في الدول "
-        "العربية»؛ طقس السوق: هادئ، متقلّب، عاصف"
+        "العربية»؛ درجة العملة: القيراط (من 24K إلى 10K)؛ طقس السوق: هادئ، متقلّب، عاصف"
     ),
 }
 

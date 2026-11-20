@@ -155,10 +155,17 @@ def test_a_chat_question_names_qirats_parts_in_its_own_language_only() -> None:
     assert "Apprendre" not in ar and "Pratique" not in ar and "stormy" not in ar
     fr = ai._chat_messages("?", None, [], "fr")[-1]["content"]
     assert "Apprendre" in fr and "تعلّم" not in fr
+    assert "le carat" in fr  # the app's French word; the live model wrote "karat"
     for lang in ("en", "fr", "ar"):
         content = ai._chat_messages("?", None, [], lang)[-1]["content"]
         assert "no headings" in content and "headings (translate them)" not in content
     assert "Apprendre" not in ai.CHAT_SYSTEM_PROMPT and "تعلّم" not in ai.CHAT_SYSTEM_PROMPT
+
+
+def test_the_chat_calls_paying_to_withdraw_a_scam_sign_without_exceptions() -> None:
+    # live, it once said "don't pay withdrawal fees before you see real profit"
+    assert "before you can take your money out" in ai.CHAT_SYSTEM_PROMPT
+    assert "never word it as if paying such a fee could be fine" in ai.CHAT_SYSTEM_PROMPT
 
 
 @pytest.mark.parametrize(
