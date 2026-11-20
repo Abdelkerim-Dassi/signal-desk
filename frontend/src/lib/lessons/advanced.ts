@@ -51,28 +51,28 @@ export const ADVANCED: Lesson[] = [
       {
         h: { en: 'The 1% idea', fr: 'L’idée du 1 %', ar: 'قاعدة 1%' },
         p: {
-          en: 'Many trading courses use a simple rule of thumb: decide in advance how much one trade may cost you if it goes wrong, often 1% of the wallet. On a $1,000 wallet, that is $10. The point is not profit: it is keeping each loss small and known in advance.',
+          en: 'Many trading courses use a simple rule: decide in advance how much one trade may cost you if it goes wrong, often 1% of the wallet. On a $1,000 wallet, that is $10. The point is not profit: it is keeping each loss small and known in advance.',
           fr: 'Beaucoup de cours de trading utilisent une règle simple : décider à l’avance combien une opération peut vous coûter si elle tourne mal, souvent 1 % du portefeuille. Sur 1 000 $, cela fait 10 $. Le but n’est pas le gain : c’est que chaque perte reste petite et connue à l’avance.',
           ar: 'كثير من دروس التداول تستعمل قاعدة بسيطة: حدد مسبقًا كم يمكن أن تكلفك صفقة واحدة إذا ساءت، وغالبًا ما تكون 1% من المحفظة. في محفظة فيها 1000 دولار، هذا يعني 10 دولارات. الهدف ليس الربح، بل أن تبقى كل خسارة صغيرة ومعروفة مسبقًا.',
         },
       },
       {
         h: {
-          en: 'From the risk to the size',
+          en: 'From the loss you accept to the size',
           fr: 'De la perte acceptée à la taille',
           ar: 'من الخسارة المقبولة إلى حجم الصفقة',
         },
         p: {
-          en: 'Size = the amount you accept to lose ÷ the distance to your exit. If you plan to get out 5% below your entry, $10 ÷ 5% = a $200 position. If the price falls to your exit, you lose about $10, plus fees. A very fast drop can go past your exit, so the real loss can be a bit bigger.',
-          fr: 'Taille = la perte que vous acceptez ÷ la distance jusqu’à votre sortie. Si vous prévoyez de sortir 5 % sous votre prix d’entrée, 10 $ ÷ 5 % = une position de 200 $. Si le prix tombe jusqu’à votre sortie, vous perdez environ 10 $, plus les frais. Une chute très rapide peut dépasser votre sortie : la perte réelle peut alors être un peu plus grande.',
+          en: 'Size = the amount you accept to lose ÷ the distance to your exit. If you plan to get out 5% below your buy price, $10 ÷ 5% = a $200 position. If the price falls to your exit, you lose about $10, plus fees. A very fast drop can go past your exit, so the real loss can be a bit bigger.',
+          fr: 'Taille = la perte que vous acceptez ÷ la distance jusqu’à votre sortie. Si vous prévoyez de sortir 5 % sous votre prix d’achat, 10 $ ÷ 5 % = une position de 200 $. Si le prix tombe jusqu’à votre sortie, vous perdez environ 10 $, plus les frais. Une chute très rapide peut dépasser votre sortie : la perte réelle peut alors être un peu plus grande.',
           ar: 'الحجم = المبلغ الذي تقبل أن تخسره ÷ المسافة حتى نقطة خروجك. إذا قررت أن تخرج عند سعر أقل من سعر دخولك بـ 5%، فإن 10 دولارات ÷ 5% = صفقة بحجم 200 دولار. وإذا نزل السعر إلى نقطة خروجك تخسر حوالي 10 دولارات، مع الرسوم. لكن الهبوط السريع جدًا قد يتجاوز نقطة خروجك، فتكون الخسارة الحقيقية أكبر قليلًا.',
         },
       },
       {
         h: { en: 'What the coach watches', fr: 'Ce que surveille le coach', ar: 'ماذا يراقب المدرب؟' },
         p: {
-          en: 'In Qirat’s practice wallet, the habit coach speaks up when one coin passes half of your wallet: its every move becomes your wallet’s move. It does not say the coin is bad. It shows you how much rides on a single coin.',
-          fr: 'Dans le portefeuille d’entraînement de Qirat, le coach des habitudes réagit quand une crypto dépasse la moitié de votre portefeuille : chacun de ses mouvements devient celui de votre portefeuille. Il ne dit pas que cette crypto est mauvaise. Il vous montre combien repose sur une seule crypto.',
+          en: 'In Qirat’s practice wallet, the habit coach speaks up when one coin passes half of your wallet: its every move becomes your wallet’s move. It does not say the coin is bad. It shows you how much depends on a single coin.',
+          fr: 'Dans le portefeuille d’entraînement de Qirat, le coach des habitudes réagit quand une crypto dépasse la moitié de votre portefeuille : chacun de ses mouvements devient celui de votre portefeuille. Il ne dit pas que cette crypto est mauvaise. Il vous montre combien dépend d’une seule crypto.',
           ar: 'في محفظة التدريب في قيراط، ينبهك مدرب العادات عندما تتجاوز عملة واحدة نصف محفظتك: كل حركة لها تصبح حركة لمحفظتك كلها. هو لا يقول إن العملة سيئة، بل يريك كم من أموالك يعتمد على عملة واحدة.',
         },
       },
@@ -96,15 +96,15 @@ export const ADVANCED: Lesson[] = [
         ],
         answer: 0,
         why: {
-          en: 'All-in means the whole wallet rides on one trade, so one bad move hits everything.',
+          en: 'All-in means the whole wallet depends on one trade, so one bad move hits everything.',
           fr: '« All-in » veut dire que tout le portefeuille dépend d’une seule opération : un seul mauvais mouvement touche tout.',
           ar: '«all-in» يعني أن المحفظة كلها معلقة بصفقة واحدة، فحركة سيئة واحدة تصيب كل شيء.',
         },
       },
       {
         q: {
-          en: 'Your wallet is $1,000. You accept to lose 1% on a trade, and your exit is 5% below your entry. Which position size fits?',
-          fr: 'Votre portefeuille fait 1 000 $. Vous acceptez de perdre 1 % sur une opération, et votre sortie est 5 % sous votre entrée. Quelle taille de position convient ?',
+          en: 'Your wallet is $1,000. You accept to lose 1% on a trade, and your exit is 5% below your buy price. Which position size fits?',
+          fr: 'Votre portefeuille fait 1 000 $. Vous acceptez de perdre 1 % sur une opération, et votre sortie est 5 % sous votre prix d’achat. Quelle taille de position convient ?',
           ar: 'محفظتك فيها 1000 دولار. تقبل أن تخسر 1% في صفقة، ونقطة خروجك أقل من سعر دخولك بـ 5%. ما حجم الصفقة المناسب؟',
         },
         options: [
@@ -183,8 +183,8 @@ export const ADVANCED: Lesson[] = [
       {
         h: { en: 'Futures in one sentence', fr: 'Les futures en une phrase', ar: 'العقود الآجلة باختصار' },
         p: {
-          en: 'Leverage is mostly used through futures: contracts that bet on a coin’s price without owning the coin. The most common kind in crypto, perpetual futures, has no end date, and the two sides pay each other a small funding fee every few hours. The longer you stay, the more it adds up.',
-          fr: 'Le levier passe surtout par les futures : des contrats qui parient sur le prix d’une crypto sans la posséder. Le type le plus courant en crypto, les futures perpétuels, n’a pas de date de fin, et les deux camps se versent de petits frais de financement (funding) toutes les quelques heures. Plus vous restez, plus ça s’additionne.',
+          en: 'Leverage is mostly used through futures: contracts that bet on a coin’s price without owning the coin. The most common kind in crypto, perpetual futures, has no end date. The two sides pay each other a small funding fee every few hours. The longer you stay, the more it adds up.',
+          fr: 'Le levier passe surtout par les futures : des contrats qui parient sur le prix d’une crypto sans la posséder. Le type le plus courant en crypto, les futures perpétuels, n’a pas de date de fin. Les deux camps se versent de petits frais de financement (funding) toutes les quelques heures. Plus vous restez, plus ça s’additionne.',
           ar: 'تُستعمل الرافعة غالبًا عبر العقود الآجلة (futures): عقود تراهن على سعر العملة دون أن تملكها. والنوع الأكثر انتشارًا في العملات الرقمية هو العقود الدائمة (perpetual futures)، وليس لها تاريخ انتهاء، ويدفع فيها الطرفان لبعضهما رسومًا صغيرة تسمى funding كل بضع ساعات. وكلما بقيت مدة أطول، زادت هذه الرسوم.',
         },
       },
@@ -198,7 +198,7 @@ export const ADVANCED: Lesson[] = [
       },
     ],
     takeaway: {
-      en: 'Leverage multiplies the move, not your skill. At x10, a 10% move against you can erase your whole stake.',
+      en: 'Leverage multiplies the move, not your skill. At x10, a 10% move against you can erase all the money you put in.',
       fr: 'Le levier multiplie le mouvement, pas votre talent. À x10, un mouvement de 10 % contre vous peut effacer toute votre mise.',
       ar: 'الرافعة تضاعف الحركة، لا مهارتك. مع x10، حركة بـ 10% ضدك قد تمسح كل ما وضعته.',
     },
@@ -264,8 +264,8 @@ export const ADVANCED: Lesson[] = [
         ],
         answer: 2,
         why: {
-          en: 'ESMA’s 2018 decision cites 74 to 89% of retail accounts losing money, and it capped crypto CFD leverage for them at x2.',
-          fr: 'La décision de l’ESMA de 2018 cite 74 à 89 % de comptes de particuliers perdants, et elle a limité leur levier sur les CFD crypto à x2.',
+          en: 'ESMA’s 2018 decision says 74 to 89% of ordinary investors’ accounts lose money. It limited their leverage on crypto CFDs to x2.',
+          fr: 'La décision de l’ESMA de 2018 parle de 74 à 89 % de comptes de particuliers qui perdent de l’argent. Elle a limité leur levier sur les CFD crypto à x2.',
           ar: 'قرار ESMA في 2018 يذكر أن ما بين 74% و89% من حسابات الأفراد تخسر، وحدد لهم الرافعة على عقود العملات الرقمية بـ x2.',
         },
       },
@@ -292,7 +292,7 @@ export const ADVANCED: Lesson[] = [
       {
         h: { en: 'Trend: a staircase', fr: 'La tendance : un escalier', ar: 'الاتجاه: سلّم' },
         p: {
-          en: 'An uptrend looks like a staircase going up: each high is above the last one, and each low is above the last low. A downtrend is the opposite: lower highs and lower lows. A trend is easy to see afterwards, and it can end without warning.',
+          en: 'An uptrend looks like a staircase going up: each top is higher than the last one, and each dip is higher than the last dip. A downtrend is the opposite: each top and each dip is lower. A trend is easy to see afterwards, and it can end without warning.',
           fr: 'Une tendance haussière ressemble à un escalier qui monte : chaque sommet dépasse le précédent, et chaque creux aussi. Une tendance baissière, c’est l’inverse : des sommets et des creux de plus en plus bas. Une tendance se voit facilement après coup, et elle peut s’arrêter sans prévenir.',
           ar: 'الاتجاه الصاعد (uptrend) يشبه سلّمًا يصعد: كل قمة أعلى من التي قبلها، وكل قاع أعلى من القاع السابق. والاتجاه الهابط عكسه: قمم أدنى وقيعان أدنى. الاتجاه سهل الرؤية بعد حدوثه، وقد ينتهي دون إنذار.',
         },
@@ -324,8 +324,8 @@ export const ADVANCED: Lesson[] = [
       {
         h: { en: 'What Qirat’s own test found', fr: 'Ce qu’a trouvé le test de Qirat', ar: 'ماذا وجد اختبار قيراط؟' },
         p: {
-          en: 'In October 2026, Qirat tested its old 0–100 score, built from moving averages, recent moves, volume and the crowd’s mood, on 2021–2026 prices of big coins. It had no reliable edge over the next 7 days. What did hold up is how much a coin swings. That is why Qirat shows risk first.',
-          fr: 'En octobre 2026, Qirat a testé son ancien score de 0 à 100, construit à partir de moyennes mobiles, des mouvements récents, du volume et de l’humeur de la foule, sur les prix 2021–2026 des grandes cryptos. Il n’avait aucun avantage fiable sur les 7 jours suivants. Ce qui a tenu, c’est l’ampleur des variations d’une crypto. C’est pour ça que Qirat montre le risque en premier.',
+          en: 'In October 2026, Qirat tested its old 0–100 score on big coins’ prices from 2021 to 2026. That score was built from moving averages, recent moves, volume and the crowd’s mood. It gave no reliable advantage over the next 7 days. What did hold up is how much a coin swings. That is why Qirat shows risk first.',
+          fr: 'En octobre 2026, Qirat a testé son ancien score de 0 à 100 sur les prix des grandes cryptos de 2021 à 2026. Ce score venait des moyennes mobiles, des mouvements récents, du volume et de l’humeur de la foule. Il ne donnait aucun avantage fiable sur les 7 jours suivants. Ce qui a tenu, c’est à quel point une crypto bouge. C’est pour ça que Qirat montre le risque en premier.',
           ar: 'في أكتوبر 2026، اختبر قيراط مؤشره القديم من 0 إلى 100، المبني على المتوسطات المتحركة والحركة الأخيرة وحجم التداول ومزاج السوق، على أسعار العملات الكبيرة بين 2021 و2026. لم تكن له أي أفضلية موثوقة خلال 7 أيام بعدها. أما ما صمد فهو مقدار تقلب العملة، ولهذا يعرض قيراط المخاطرة أولًا.',
         },
       },
@@ -343,13 +343,13 @@ export const ADVANCED: Lesson[] = [
           ar: 'أيّها اتجاه صاعد؟',
         },
         options: [
-          { en: 'Higher highs and higher lows', fr: 'Des sommets et des creux de plus en plus hauts', ar: 'قمم أعلى وقيعان أعلى' },
-          { en: 'Lower highs and lower lows', fr: 'Des sommets et des creux de plus en plus bas', ar: 'قمم أدنى وقيعان أدنى' },
+          { en: 'Each top and each dip higher than the last', fr: 'Des sommets et des creux de plus en plus hauts', ar: 'قمم أعلى وقيعان أعلى' },
+          { en: 'Each top and each dip lower than the last', fr: 'Des sommets et des creux de plus en plus bas', ar: 'قمم أدنى وقيعان أدنى' },
           { en: 'A price that barely moves for a month', fr: 'Un prix qui bouge à peine pendant un mois', ar: 'سعر لا يكاد يتحرك طوال شهر' },
         ],
         answer: 0,
         why: {
-          en: 'An uptrend is a staircase going up: each high and each low sits above the one before.',
+          en: 'An uptrend is a staircase going up: each top and each dip sits above the one before.',
           fr: 'Une tendance haussière est un escalier qui monte : chaque sommet et chaque creux dépassent le précédent.',
           ar: 'الاتجاه الصاعد سلّم يصعد: كل قمة وكل قاع أعلى من سابقه.',
         },
@@ -433,8 +433,8 @@ export const ADVANCED: Lesson[] = [
       {
         h: { en: 'Baskets', fr: 'Les paniers', ar: 'السلال' },
         p: {
-          en: 'A basket, or index, holds several coins in set shares, often by their size, so it follows a group of coins instead of one. It spreads the risk of a single coin failing. It still goes down when most coins go down.',
-          fr: 'Un panier, ou indice, contient plusieurs cryptos dans des proportions fixées, souvent selon leur taille : il suit un groupe de cryptos au lieu d’une seule. Il répartit le risque qu’une crypto échoue. Mais il baisse quand même quand la plupart des cryptos baissent.',
+          en: 'A basket, or index, holds several coins in fixed parts, often based on their size. So it follows a group of coins instead of one. It spreads the risk of a single coin failing. It still goes down when most coins go down.',
+          fr: 'Un panier, ou indice, contient plusieurs cryptos en parts fixes, souvent selon leur taille : il suit un groupe de cryptos au lieu d’une seule. Il répartit le risque qu’une crypto échoue. Mais il baisse quand même quand la plupart des cryptos baissent.',
           ar: 'السلة أو المؤشر (index) تضم عدة عملات بنسب محددة، غالبًا حسب حجمها، فتتبع مجموعة من العملات بدل عملة واحدة. هي توزع خطر فشل عملة بعينها، لكنها تهبط هي أيضًا عندما تهبط أغلب العملات.',
         },
       },
@@ -453,8 +453,8 @@ export const ADVANCED: Lesson[] = [
       {
         h: { en: 'What DCA does not do', fr: 'Ce que le DCA ne fait pas', ar: 'ما لا يفعله الشراء الدوري' },
         p: {
-          en: 'DCA smooths the price you pay; it does not stop losses. If the price keeps falling month after month, every buy ends up worth less than you paid. Each buy also pays a fee. It removes the guessing about timing, nothing more.',
-          fr: 'Le DCA lisse le prix payé, il n’empêche pas les pertes. Si le prix baisse mois après mois, chaque achat finit par valoir moins que ce que vous avez payé. Chaque achat paie aussi des frais. Il enlève le pari sur le bon moment, rien de plus.',
+          en: 'DCA evens out the price you pay, but it does not stop losses. If the price keeps falling month after month, every buy ends up worth less than you paid. Each buy also pays a fee. It removes the guessing about when to buy, nothing more.',
+          fr: 'Le DCA fait la moyenne du prix payé, mais il n’empêche pas les pertes. Si le prix baisse mois après mois, chaque achat finit par valoir moins que ce que vous avez payé. Chaque achat paie aussi des frais. Il enlève le pari sur le bon moment, rien de plus.',
           ar: 'الشراء الدوري يوازن السعر الذي تدفعه، لكنه لا يمنع الخسارة. إذا استمر السعر في الهبوط شهرًا بعد شهر، تصبح قيمة كل عملية شراء أقل مما دفعت. وكل عملية شراء تدفع رسومًا أيضًا. هو يزيل التخمين في التوقيت، لا أكثر.',
         },
       },
@@ -526,8 +526,8 @@ export const ADVANCED: Lesson[] = [
         ],
         answer: 0,
         why: {
-          en: 'DCA smooths the price you pay. If the price keeps falling, every buy is still worth less than you paid.',
-          fr: 'Le DCA lisse le prix payé. Si le prix continue de baisser, chaque achat vaut quand même moins que ce que vous avez payé.',
+          en: 'DCA evens out the price you pay. If the price keeps falling, every buy is still worth less than you paid.',
+          fr: 'Le DCA fait la moyenne du prix payé. Si le prix continue de baisser, chaque achat vaut quand même moins que ce que vous avez payé.',
           ar: 'الشراء الدوري يوازن السعر الذي تدفعه. وإذا استمر السعر في الهبوط، تبقى قيمة كل عملية شراء أقل مما دفعت.',
         },
       },
@@ -571,7 +571,7 @@ export const ADVANCED: Lesson[] = [
         h: { en: 'Why write it first', fr: 'Pourquoi l’écrire avant', ar: 'لماذا تكتبها أولًا؟' },
         p: {
           en: 'Once money is moving, fear and excitement start making the choices. A plan written while calm lets you compare what you decided with what you did. A common gap: moving the stop further away “just this once”.',
-          fr: 'Une fois l’argent en jeu, la peur et l’excitation se mettent à décider. Un plan écrit à froid permet de comparer ce que vous aviez décidé avec ce que vous avez fait. Un écart fréquent : éloigner le stop « juste pour cette fois ».',
+          fr: 'Une fois l’argent en jeu, la peur et l’excitation se mettent à décider. Un plan écrit au calme permet de comparer ce que vous aviez décidé avec ce que vous avez fait. Un écart fréquent : éloigner le stop « juste pour cette fois ».',
           ar: 'عندما يبدأ المال في الحركة، يبدأ الخوف والحماس في اتخاذ القرارات. الخطة المكتوبة وأنت هادئ تسمح لك بمقارنة ما قررته بما فعلته. ومن الفروق الشائعة: إبعاد نقطة الإيقاف «هذه المرة فقط».',
         },
       },
@@ -619,8 +619,8 @@ export const ADVANCED: Lesson[] = [
         options: [
           { en: 'A tip from a group chat', fr: 'Un tuyau lu dans un groupe', ar: 'نصيحة من مجموعة دردشة' },
           {
-            en: 'Why, entry, exits, stop and size',
-            fr: 'Pourquoi, l’entrée, les sorties, le stop et la taille',
+            en: 'Why, where you get in and out, the stop and how much',
+            fr: 'Pourquoi, où entrer et sortir, le stop et combien',
             ar: 'السبب، الدخول، الخروج، نقطة الإيقاف والحجم',
           },
           { en: 'Only the coin’s name', fr: 'Seulement le nom de la crypto', ar: 'اسم العملة فقط' },
@@ -628,7 +628,7 @@ export const ADVANCED: Lesson[] = [
         answer: 1,
         why: {
           en: 'The card holds the whole decision, written while calm: why, where in, where out both ways, and how much.',
-          fr: 'La fiche contient toute la décision, écrite à froid : pourquoi, où entrer, où sortir dans les deux cas, et combien.',
+          fr: 'La fiche contient toute la décision, écrite au calme : pourquoi, où entrer, où sortir dans les deux cas, et combien.',
           ar: 'البطاقة تحمل القرار كاملًا، مكتوبًا وأنت هادئ: لماذا، أين تدخل، أين تخرج في الحالتين، وكم المبلغ.',
         },
       },

@@ -6,8 +6,8 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
   crypto: {
     term: { en: 'Crypto', fr: 'Crypto', ar: 'العملات الرقمية (crypto)' },
     def: {
-      en: 'Digital money or assets recorded on a blockchain, with no bank or state guaranteeing them.',
-      fr: 'De l’argent ou des actifs numériques inscrits sur une blockchain, sans banque ni État pour les garantir.',
+      en: 'Digital money or other things of value recorded on a blockchain. No bank or state guarantees them.',
+      fr: 'De l’argent ou d’autres biens numériques inscrits sur une blockchain. Aucune banque ni aucun État ne les garantit.',
       ar: 'أموال أو أصول رقمية مسجلة على blockchain، لا يضمنها أي بنك ولا أي دولة.',
     },
   },
@@ -46,8 +46,8 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
   usdt: {
     term: { en: 'USDT (Tether)', fr: 'USDT (Tether)', ar: 'USDT (Tether)' },
     def: {
-      en: 'The biggest stablecoin, issued by the company Tether. It aims to stay at $1.',
-      fr: 'Le plus gros stablecoin, émis par la société Tether. Il vise à rester à 1 $.',
+      en: 'The biggest stablecoin, made by the company Tether. It aims to stay at $1.',
+      fr: 'Le plus gros stablecoin, créé par la société Tether. Il vise à rester à 1 $.',
       ar: 'أكبر عملة مستقرة، تصدرها شركة Tether. تهدف إلى البقاء عند 1 دولار.',
     },
   },
@@ -63,15 +63,15 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
     term: { en: 'Volatility', fr: 'Volatilité', ar: 'التقلب (volatility)' },
     def: {
       en: 'How much a price usually moves. Qirat shows it as “a typical day”.',
-      fr: 'L’ampleur habituelle des mouvements d’un prix. Qirat l’affiche comme « une journée normale ».',
+      fr: 'De combien un prix bouge d’habitude. Qirat l’affiche comme « une journée normale ».',
       ar: 'كم يتحرك السعر عادةً. يعرضه قيراط كـ«يوم عادي».',
     },
   },
   'risk-grade': {
     term: { en: 'Risk grade', fr: 'Note de risque', ar: 'درجة المخاطرة' },
     def: {
-      en: 'Qirat’s low, medium or high: where a coin’s moves over the past 30 days rank among 18 big coins. “Low” is low for crypto, still far more than savings.',
-      fr: 'Le faible, moyen ou élevé de Qirat : le rang des mouvements d’une crypto sur 30 jours parmi 18 grandes cryptos. « Faible » l’est pour une crypto, c’est toujours bien plus qu’une épargne.',
+      en: 'Qirat’s low, medium or high. It ranks how much a coin moved in the past 30 days against 18 big coins. “Low” is low for crypto: still far more than savings.',
+      fr: 'Le faible, moyen ou élevé de Qirat. Il classe combien une crypto a bougé sur 30 jours face à 18 grandes cryptos. « Faible » l’est pour une crypto : c’est toujours bien plus qu’une épargne.',
       ar: 'منخفضة أو متوسطة أو عالية في قيراط: ترتيب حركة العملة في آخر 30 يومًا بين 18 عملة كبيرة. «منخفضة» بالنسبة للعملات الرقمية، وتبقى أعلى بكثير من التوفير.',
     },
   },
@@ -134,8 +134,8 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
   candle: {
     term: { en: 'Candle', fr: 'Bougie', ar: 'الشمعة (candle)' },
     def: {
-      en: 'One bar on a price chart. On Qirat it covers one day: green closed higher than it opened, red closed lower, the thin line is the day’s high and low.',
-      fr: 'Une barre sur un graphique de prix. Sur Qirat, elle couvre un jour : verte a clôturé plus haut qu’à l’ouverture, rouge plus bas, le trait fin est le plus haut et le plus bas du jour.',
+      en: 'One bar on a price chart. On Qirat it covers one day. Green: the day ended higher than it began. Red: it ended lower. The thin line shows the day’s high and low.',
+      fr: 'Une barre sur un graphique de prix. Sur Qirat, elle couvre un jour. Verte : le jour a fini plus haut qu’au début. Rouge : il a fini plus bas. Le trait fin montre le plus haut et le plus bas du jour.',
       ar: 'عمود على الرسم البياني للسعر. في قيراط تمثل يومًا: الخضراء أُغلقت أعلى من الافتتاح، والحمراء أدنى، والخط الرفيع هو أعلى وأدنى سعر في اليوم.',
     },
   },
@@ -159,7 +159,7 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
     term: { en: 'Bid and ask', fr: 'Bid et ask', ar: 'سعر الشراء والبيع (bid / ask)' },
     def: {
       en: 'Bid: the most anyone will pay right now. Ask: the least anyone will sell for. The ask is always a little higher.',
-      fr: 'Bid : le plus que quelqu’un paiera maintenant. Ask : le moins pour lequel quelqu’un vendra. L’ask est toujours un peu plus haut.',
+      fr: 'Bid : le prix le plus haut que quelqu’un paiera maintenant. Ask : le prix le plus bas auquel quelqu’un vendra. L’ask est toujours un peu plus haut.',
       ar: 'الـ bid: أعلى مبلغ يدفعه أحد الآن. الـ ask: أقل مبلغ يقبل أحد البيع به. الـ ask دائماً أعلى قليلاً.',
     },
   },
@@ -254,8 +254,8 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
   bct: {
     term: { en: 'BCT', fr: 'BCT', ar: 'البنك المركزي التونسي (BCT)' },
     def: {
-      en: 'Banque Centrale de Tunisie, Tunisia’s central bank. It oversees foreign-exchange rules under the 1976 law.',
-      fr: 'La Banque Centrale de Tunisie. Elle veille aux règles de change prévues par la loi de 1976.',
+      en: 'Banque Centrale de Tunisie, Tunisia’s central bank. It watches over the rules on foreign currency set by the 1976 law.',
+      fr: 'La Banque Centrale de Tunisie. Elle surveille les règles sur les devises fixées par la loi de 1976.',
       ar: 'البنك المركزي التونسي. يراقب قواعد الصرف بموجب قانون 1976.',
     },
   },
@@ -318,40 +318,40 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
   fee: {
     term: { en: 'Fee', fr: 'Frais', ar: 'الرسوم (fee)' },
     def: {
-      en: 'What a platform charges on each trade. Qirat’s practice wallet uses 0.1%, like Binance’s basic spot fee.',
-      fr: 'Ce que prend une plateforme sur chaque opération. Le portefeuille d’entraînement de Qirat applique 0,1 %, comme les frais spot de base de Binance.',
+      en: 'What a platform charges on each trade. Qirat’s practice wallet uses 0.1%, like Binance’s basic fee for simple (spot) trades.',
+      fr: 'Ce que prend une plateforme sur chaque opération. Le portefeuille d’entraînement de Qirat applique 0,1 %, comme les frais de base de Binance pour un achat ou une vente simple (spot).',
       ar: 'ما تأخذه المنصّة على كل عملية. محفظة التدريب في قيراط تأخذ 0.1%، مثل الرسوم الأساسية للتداول الفوري في Binance.',
     },
   },
   'market-order': {
     term: { en: 'Market order', fr: 'Ordre au marché', ar: 'أمر السوق (market order)' },
     def: {
-      en: 'An order to buy or sell right now at the best price available. Fast, but the price can slip.',
-      fr: 'Un ordre d’achat ou de vente immédiat au meilleur prix disponible. Rapide, mais le prix peut glisser.',
+      en: 'An order to buy or sell right now at the best price available. Fast, but the price you get can differ a little.',
+      fr: 'Un ordre d’achat ou de vente immédiat au meilleur prix disponible. Rapide, mais le prix obtenu peut être un peu différent.',
       ar: 'أمر بالشراء أو البيع فورًا بأفضل سعر متوفر. سريع، لكن السعر قد ينزلق.',
     },
   },
   'limit-order': {
     term: { en: 'Limit order', fr: 'Ordre à cours limité', ar: 'الأمر المحدد السعر (limit order)' },
     def: {
-      en: 'An order that fills only at your price or better. It may never fill.',
-      fr: 'Un ordre qui ne s’exécute qu’à votre prix ou mieux. Il peut ne jamais s’exécuter.',
+      en: 'An order that goes through only at your price or better. It may never go through.',
+      fr: 'Un ordre qui ne passe qu’à votre prix ou mieux. Il peut ne jamais passer.',
       ar: 'أمر لا يُنفَّذ إلا بسعرك أو بسعر أفضل منه، وقد لا يُنفَّذ أبدًا.',
     },
   },
   'stop-loss': {
     term: { en: 'Stop-loss', fr: 'Stop-loss', ar: 'وقف الخسارة (stop-loss)' },
     def: {
-      en: 'A price chosen in advance where a sell order is sent to limit a loss. In a fast drop it can fill lower.',
-      fr: 'Un prix choisi à l’avance où un ordre de vente part pour limiter une perte. Dans une chute rapide, il peut s’exécuter plus bas.',
+      en: 'A price chosen in advance where a sell order is sent to limit a loss. In a fast drop it can sell lower.',
+      fr: 'Un prix choisi à l’avance où un ordre de vente part pour limiter une perte. Dans une chute rapide, la vente peut se faire plus bas.',
       ar: 'سعر تختاره مسبقًا يُرسَل عنده أمر بيع للحدّ من الخسارة. في الهبوط السريع قد يُنفَّذ بسعر أقل.',
     },
   },
   'take-profit': {
     term: { en: 'Take-profit', fr: 'Take-profit', ar: 'جني الأرباح (take-profit)' },
     def: {
-      en: 'A price chosen in advance, above your entry, where a sell order is sent if the coin rises.',
-      fr: 'Un prix choisi à l’avance, au-dessus de votre prix d’entrée, où un ordre de vente part si la crypto monte.',
+      en: 'A price chosen in advance, above your buy price, where a sell order is sent if the coin rises.',
+      fr: 'Un prix choisi à l’avance, au-dessus de votre prix d’achat, où un ordre de vente part si la crypto monte.',
       ar: 'سعر تختاره مسبقًا فوق سعر دخولك، يُرسَل عنده أمر بيع إذا ارتفعت العملة.',
     },
   },
@@ -366,8 +366,8 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
   karat: {
     term: { en: 'Karat (24K–10K)', fr: 'Carat (24K–10K)', ar: 'القيراط (24K–10K)' },
     def: {
-      en: 'Qirat’s grade for a coin, from 24K (calm and climbing) to 10K (wild or sliding). It ranks 30-day calm and the 90-day trend against 18 big coins. Never an instruction to buy or sell.',
-      fr: 'La note Qirat d’une crypto, de 24K (calme et en hausse) à 10K (agitée ou en baisse). Elle classe le calme sur 30 jours et la tendance sur 90 jours face à 18 grandes cryptos. Jamais une consigne d’achat ou de vente.',
+      en: 'Qirat’s grade for a coin, from 24K (calm and climbing) to 10K (wild or sliding). It ranks two things against 18 big coins: calm over 30 days, and the rise or fall over 90 days. Never an instruction to buy or sell.',
+      fr: 'La note Qirat d’une crypto, de 24K (calme et en hausse) à 10K (agitée ou en baisse). Elle classe deux choses face à 18 grandes cryptos : le calme sur 30 jours, et la hausse ou la baisse sur 90 jours. Jamais une consigne d’achat ou de vente.',
       ar: 'تقييم قيراط للعملة، من 24K (هادئة وصاعدة) إلى 10K (هائجة أو هابطة). يرتّب هدوء آخر 30 يومًا واتجاه 90 يومًا مقارنة بـ 18 عملة كبيرة. وليس أبدًا أمرًا بالشراء أو البيع.',
     },
   },
@@ -382,24 +382,24 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
   'moving-average': {
     term: { en: 'Moving average', fr: 'Moyenne mobile', ar: 'المتوسط المتحرك (moving average)' },
     def: {
-      en: 'The average closing price of the last N days, such as 50 or 200. It moves slowly behind the price.',
-      fr: 'Le prix de clôture moyen des N derniers jours, par exemple 50 ou 200. Elle avance lentement derrière le prix.',
+      en: 'The average end-of-day price over a set number of days, such as 50 or 200. It moves slowly behind the price.',
+      fr: 'Le prix moyen de fin de journée sur un nombre de jours donné, par exemple 50 ou 200. Elle avance lentement derrière le prix.',
       ar: 'متوسط أسعار الإغلاق في آخر عدد من الأيام، مثل 50 أو 200 يوم. يتحرك ببطء خلف السعر.',
     },
   },
   'funding-rate': {
     term: { en: 'Funding rate', fr: 'Taux de financement (funding)', ar: 'رسوم التمويل (funding)' },
     def: {
-      en: 'A small payment between traders on perpetual futures, usually every 8 hours. When it is high, many traders using borrowed money have bet on a rise.',
-      fr: 'Un petit paiement entre traders sur les contrats à terme perpétuels, en général toutes les 8 heures. Quand il est élevé, beaucoup de traders à levier ont parié sur une hausse.',
+      en: 'A small payment between traders on perpetual futures (futures with no end date), usually every 8 hours. When it is high, many traders using borrowed money have bet on a rise.',
+      fr: 'Un petit paiement entre traders sur les contrats à terme perpétuels (sans date de fin), en général toutes les 8 heures. Quand il est élevé, beaucoup de traders qui utilisent de l’argent emprunté ont parié sur une hausse.',
       ar: 'دفعة صغيرة بين المتداولين في العقود الآجلة الدائمة، عادة كل 8 ساعات. عندما تكون مرتفعة، فهذا يعني أن كثيرًا من المتداولين بأموال مقترضة راهنوا على الصعود.',
     },
   },
   'fear-greed': {
     term: { en: 'Fear & Greed index', fr: 'Indice Fear & Greed', ar: 'مؤشر Fear & Greed' },
     def: {
-      en: 'A daily score from 0 (extreme fear) to 100 (extreme greed) of the mood around Bitcoin, built from price swings, trading activity, social media and web searches. In Qirat, 80 or more turns a calm market choppy.',
-      fr: 'Un score quotidien de 0 (peur extrême) à 100 (avidité extrême) de l’humeur autour du Bitcoin, calculé à partir des variations de prix, de l’activité des échanges, des réseaux sociaux et des recherches en ligne. Dans Qirat, 80 ou plus fait passer un marché calme à agité.',
+      en: 'A daily score of the mood around Bitcoin, from 0 (extreme fear) to 100 (extreme greed). It comes from price swings, trading activity, social media and web searches. In Qirat, 80 or more turns a calm market choppy.',
+      fr: 'Un score quotidien de l’humeur autour du Bitcoin, de 0 (peur extrême) à 100 (avidité extrême). Il vient des variations de prix, de l’activité des échanges, des réseaux sociaux et des recherches en ligne. Dans Qirat, 80 ou plus fait passer un marché calme à agité.',
       ar: 'نتيجة يومية من 0 (خوف شديد) إلى 100 (طمع شديد) لمزاج الناس حول Bitcoin، محسوبة من تقلبات السعر ونشاط التداول ووسائل التواصل والبحث على الإنترنت. في قيراط، 80 أو أكثر تحوّل السوق الهادئ إلى متقلب.',
     },
   },
@@ -422,8 +422,8 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
   leverage: {
     term: { en: 'Leverage', fr: 'Levier', ar: 'الرافعة المالية (leverage)' },
     def: {
-      en: 'Trading with borrowed money. At x10, $100 controls a $1,000 position, and every move counts ten times, losses included.',
-      fr: 'Trader avec de l’argent emprunté. À x10, 100 $ contrôlent une position de 1 000 $, et chaque mouvement compte dix fois, pertes comprises.',
+      en: 'Trading with borrowed money. At x10, $100 controls a $1,000 trade, and every move counts ten times, losses included.',
+      fr: 'Trader avec de l’argent emprunté. À x10, 100 $ contrôlent une opération de 1 000 $, et chaque mouvement compte dix fois, pertes comprises.',
       ar: 'التداول بمال مقترض. مع x10 تتحكم 100 دولار في صفقة بـ 1000 دولار، وكل حركة تُحسب 10 مرات، والخسائر أيضًا.',
     },
   },
@@ -438,8 +438,8 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
   liquidation: {
     term: { en: 'Liquidation', fr: 'Liquidation', ar: 'التصفية (liquidation)' },
     def: {
-      en: 'When a platform closes a leveraged position by itself because losses ate the margin. At x10 it comes a little before a 10% move.',
-      fr: 'Quand une plateforme ferme d’elle-même une position à levier parce que les pertes ont mangé la marge. À x10, elle arrive un peu avant un mouvement de 10 %.',
+      en: 'When a platform closes a leveraged trade by itself, because losses ate the margin. At x10 it comes a little before a 10% move.',
+      fr: 'Quand une plateforme ferme d’elle-même une opération à levier, parce que les pertes ont mangé la marge. À x10, elle arrive un peu avant un mouvement de 10 %.',
       ar: 'عندما تغلق المنصة صفقة بالرافعة من تلقاء نفسها لأن الخسائر أكلت الهامش. مع x10 تحدث قبل حركة 10% بقليل.',
     },
   },
@@ -454,8 +454,8 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
   trend: {
     term: { en: 'Trend', fr: 'Tendance', ar: 'الاتجاه (trend)' },
     def: {
-      en: 'The direction of a chart: higher highs and higher lows going up, lower highs and lower lows going down.',
-      fr: 'La direction d’un graphique : des sommets et des creux de plus en plus hauts à la hausse, de plus en plus bas à la baisse.',
+      en: 'The direction of a chart. Going up: each top and each dip is higher than the one before. Going down: each one is lower.',
+      fr: 'La direction d’un graphique. À la hausse : chaque sommet et chaque creux est plus haut que le précédent. À la baisse : chacun est plus bas.',
       ar: 'اتجاه الرسم البياني: قمم وقيعان أعلى في الصعود، وقمم وقيعان أدنى في الهبوط.',
     },
   },
@@ -494,16 +494,16 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
   dca: {
     term: { en: 'DCA', fr: 'DCA (investissement programmé)', ar: 'الشراء الدوري (DCA)' },
     def: {
-      en: 'Dollar-cost averaging: buying for the same amount at regular times, whatever the price. It smooths the price you pay; it does not stop losses.',
-      fr: 'Dollar-cost averaging : acheter pour le même montant à intervalles réguliers, quel que soit le prix. Il lisse le prix payé, il n’empêche pas les pertes.',
+      en: 'Dollar-cost averaging: buying for the same amount at regular times, whatever the price. It evens out the price you pay, but it does not stop losses.',
+      fr: 'Dollar-cost averaging : acheter pour le même montant à dates régulières, quel que soit le prix. Il fait la moyenne du prix payé, mais il n’empêche pas les pertes.',
       ar: 'الشراء بالمبلغ نفسه في أوقات منتظمة مهما كان السعر. يوازن السعر الذي تدفعه، لكنه لا يمنع الخسارة.',
     },
   },
   'trading-plan': {
     term: { en: 'Trading plan', fr: 'Plan de trading', ar: 'خطة التداول' },
     def: {
-      en: 'A short note written before a trade: why, entry, exits, stop and size.',
-      fr: 'Une courte note écrite avant une opération : pourquoi, l’entrée, les sorties, le stop et la taille.',
+      en: 'A short note written before a trade: why, where you get in and out, your stop and how much.',
+      fr: 'Une courte note écrite avant une opération : pourquoi, où entrer et sortir, le stop et combien.',
       ar: 'ملاحظة قصيرة تُكتب قبل الصفقة: السبب، الدخول، الخروج، نقطة الإيقاف والحجم.',
     },
   },
@@ -511,7 +511,7 @@ export const GLOSSARY: Record<string, { term: Text; def: Text }> = {
     term: { en: 'Trading journal', fr: 'Journal de trading', ar: 'دفتر الصفقات (journal)' },
     def: {
       en: 'A record of every trade: date, coin, why, what happened and how you felt.',
-      fr: 'Un relevé de chaque opération : la date, la crypto, pourquoi, ce qui s’est passé et ce que vous avez ressenti.',
+      fr: 'Un carnet où l’on note chaque opération : la date, la crypto, pourquoi, ce qui s’est passé et ce que vous avez ressenti.',
       ar: 'سجل لكل صفقة: التاريخ، العملة، السبب، ماذا حدث وبماذا شعرت.',
     },
   },

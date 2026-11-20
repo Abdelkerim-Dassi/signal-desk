@@ -9,6 +9,9 @@
 //   'out'  the card opens `out` (the post on a platform) in a new tab
 // At 20 visitors a week the site cannot feed the platforms' view counts, and
 // a visitor who leaves rarely comes back, so every card plays here for now.
+//
+// The titles are light Arabic like the rest of the app; the videos themselves
+// speak Tunisian Darija and stay as they were posted.
 
 import type { Lang } from './i18n'
 
@@ -33,7 +36,7 @@ export const CAST_NAME: Record<Cast, Record<Lang, string>> = {
 export const STORIES: Story[] = [
   {
     id: 'same-trade',
-    title: { en: 'Same trade, two results', fr: 'Le même trade, deux résultats', ar: 'نفس الشرية، وزوز نتايج' },
+    title: { en: 'Same trade, two results', fr: 'La même opération, deux résultats', ar: 'نفس الصفقة، ونتيجتان' },
     cast: ['sami', 'youssef'],
     seconds: 35,
     play: 'here',
@@ -43,7 +46,7 @@ export const STORIES: Story[] = [
     title: {
       en: 'Mariem put all 1000 in one coin',
       fr: 'Mariem a mis les 1000 sur une seule crypto',
-      ar: 'مريم حطّت الـ 1000 الكل في coin وحدة',
+      ar: 'مريم وضعت الـ 1000 كلها في عملة واحدة',
     },
     cast: ['mariem'],
     seconds: 28,
@@ -54,7 +57,7 @@ export const STORIES: Story[] = [
     title: {
       en: '“Bitcoin is too expensive, I’ll buy the cheap coin”',
       fr: '« Bitcoin est trop cher, j’achète la crypto pas chère »',
-      ar: '«Bitcoin غالي، نشري الـ coin الرخيصة»',
+      ar: '«Bitcoin غالٍ جدًا، سأشتري العملة الرخيصة»',
     },
     cast: ['sami', 'youssef'],
     seconds: 38,
@@ -64,8 +67,8 @@ export const STORIES: Story[] = [
     id: 'ten-trades',
     title: {
       en: '10 trades in two minutes',
-      fr: '10 trades en deux minutes',
-      ar: '10 trades في دقيقتين',
+      fr: '10 opérations en deux minutes',
+      ar: '10 صفقات في دقيقتين',
     },
     cast: ['sami', 'youssef'],
     seconds: 34,

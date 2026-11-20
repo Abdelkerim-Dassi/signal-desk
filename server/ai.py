@@ -134,12 +134,20 @@ CHAT_SYSTEM_PROMPT = (
 # Languages the UI ships in. The instruction rides in the user turn (not the
 # system prompt) so the cached system prompt stays byte-identical across them.
 LANGUAGES = {
-    "en": "English",
-    "fr": "French",
-    # Tunisian Darija, matching the app and the social posts (2026-11).
-    "ar": ("Tunisian Darija (the everyday Tunisian dialect, written in Arabic script, "
-           "not Modern Standard Arabic). Keep words like crypto, coin, Bitcoin, risk "
-           "and wallet in Latin letters, and write every number with Western digits (0-9)"),
+    # Plain English and French for crypto beginners (owner's decision, 2026-11-20).
+    "en": ("plain, simple English (short sentences and everyday words that a crypto "
+           "beginner understands at first read; if you need a market word, explain it "
+           "in a few plain words)"),
+    "fr": ("plain, simple French (short sentences and everyday words that a crypto "
+           "beginner understands at first read; if you need a market word, explain it "
+           "in a few plain words; address the reader as « vous »)"),
+    # Light Arabic: simple Modern Standard Arabic understood from Morocco to the
+    # Gulf, matching the app and the lessons (owner's decision, 2026-11-20).
+    "ar": ("simple, light Modern Standard Arabic (short sentences and everyday words "
+           "that readers in every Arab country understand; no Tunisian Darija and no "
+           "other dialect). Say العملات الرقمية for crypto and عملة for a coin; keep brand "
+           "names such as Bitcoin, USDT and Binance in Latin letters, and write every "
+           "number with Western digits (0-9)"),
 }
 
 
@@ -149,7 +157,7 @@ def _language(code: str | None) -> str:
 
 def _language_instruction(code: str) -> str:
     if code == "en":
-        return ""
+        return f"\n\nWrite your entire answer in {LANGUAGES['en']}."
     return (
         f"\n\nWrite your entire answer in {LANGUAGES[code]}, including the section "
         "headings (translate them). Keep coin tickers (BTC, ETH), numbers and the "

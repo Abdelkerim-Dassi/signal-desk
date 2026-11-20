@@ -884,247 +884,247 @@ L = dict[str, str]
 
 FLAG_TEXT: dict[str, tuple[L, L]] = {
     "guaranteed_returns": (
-        {"en": "Promises guaranteed or risk-free profit", "fr": "Promet un gain garanti ou sans risque", "ar": "يوعد بربح مضمون ولا بلا risk"},
-        {"en": "Nobody can guarantee crypto profits. A promise of 'no risk' is the most common sign of an investment scam.", "fr": "Personne ne peut garantir des gains en crypto. Promettre « zéro risque » est le signe le plus courant d'une arnaque à l'investissement.", "ar": "حتى حدّ ما ينجّم يضمن ربح في الـ crypto. الوعد بـ«بلا risk» هو أشهر علامة متاع تحيّل في الاستثمار."},
+        {"en": "Promises guaranteed or risk-free profit", "fr": "Promet un gain garanti ou sans risque", "ar": "يعد بربح مضمون أو بلا مخاطرة"},
+        {"en": "Nobody can guarantee crypto profits. A promise of 'no risk' is the most common sign of an investment scam.", "fr": "Personne ne peut garantir des gains en crypto. Promettre « zéro risque » est le signe le plus courant d'une arnaque à l'investissement.", "ar": "لا أحد يستطيع أن يضمن أرباحًا في العملات الرقمية. الوعد بـ«بلا مخاطرة» هو أشهر علامة على الاحتيال في الاستثمار."},
     ),
     "fixed_returns": (
-        {"en": "Promises a fixed % per day, week or month", "fr": "Promet un % fixe par jour, semaine ou mois", "ar": "يوعد بنسبة ثابتة في النهار، الجمعة ولا الشهر"},
-        {"en": "Real markets go up and down. Fixed returns like '3% a day' or 'x10 in a month' are how Ponzi schemes pay old members with new members' money.", "fr": "Les vrais marchés montent et baissent. Un rendement fixe comme « 3 % par jour » ou « x10 en un mois », c'est ainsi que les pyramides paient les anciens avec l'argent des nouveaux.", "ar": "الأسواق الحقيقية تطلع وتهبط. أرباح ثابتة كيما «3% كل نهار» ولا «x10 في شهر» هي الطريقة متاع الـ Ponzi باش يخلّصو القدام بفلوس الجدد."},
+        {"en": "Promises a fixed % per day, week or month", "fr": "Promet un % fixe par jour, semaine ou mois", "ar": "يعد بنسبة ثابتة في اليوم أو الأسبوع أو الشهر"},
+        {"en": "Real markets go up and down. A fixed gain like '3% a day' or 'x10 in a month' is how a Ponzi scheme works: it pays old members with new members' money.", "fr": "Les vrais marchés montent et baissent. Un gain fixe comme « 3 % par jour » ou « x10 en un mois », c'est le système de la pyramide : les anciens sont payés avec l'argent des nouveaux.", "ar": "الأسواق الحقيقية تصعد وتهبط. الأرباح الثابتة مثل «3% كل يوم» أو «x10 في شهر» هي الطريقة التي تدفع بها مخططات Ponzi للأعضاء القدامى من أموال الأعضاء الجدد."},
     ),
     "send_to_wallet": (
-        {"en": "Asks you to send crypto to their wallet", "fr": "Vous demande d'envoyer de la crypto à leur adresse", "ar": "يطلب منك تبعث crypto للـ wallet متاعهم"},
-        {"en": "Crypto sent to a stranger's wallet cannot be reversed or recovered. Real platforms never ask you to pay a person's address.", "fr": "Une crypto envoyée à l'adresse d'un inconnu ne peut être ni annulée ni récupérée. Une vraie plateforme ne demande jamais de payer l'adresse d'une personne.", "ar": "الـ crypto اللي تبعثها لـ wallet متاع واحد ما تعرفوش ما ترجعش وما تتسترجعش. المنصّات الحقيقية عمرها ما تطلب تخلّص لعنوان متاع شخص."},
+        {"en": "Asks you to send crypto to their wallet", "fr": "Vous demande d'envoyer de la crypto à leur adresse", "ar": "يطلب منك إرسال عملات رقمية إلى محفظتهم"},
+        {"en": "Once you send crypto to a stranger's wallet, you can't cancel it or get it back. Real platforms never ask you to pay a person's address.", "fr": "Une crypto envoyée à l'adresse d'un inconnu ne peut plus être annulée ni récupérée. Une vraie plateforme ne demande jamais de payer l'adresse d'une personne.", "ar": "العملات الرقمية التي ترسلها إلى محفظة شخص لا تعرفه لا يمكن إلغاؤها ولا استرجاعها. المنصات الحقيقية لا تطلب منك أبدًا أن تدفع إلى عنوان شخص."},
     ),
     "unlock_fee": (
-        {"en": "Asks for a fee before you can withdraw", "fr": "Demande des frais avant de pouvoir retirer", "ar": "يطلب frais قبل ما تنجّم تسحب"},
-        {"en": "'Pay a tax / unlock fee / activation pack to withdraw' is the last step of fake platforms. After you pay, they ask again. Real fees come out of your balance.", "fr": "« Payez une taxe / des frais de déblocage / un pack d'activation pour retirer » est la dernière étape des fausses plateformes. Après paiement, ils redemandent. Les vrais frais sont prélevés sur le solde.", "ar": "«خلّص ضريبة ولا frais de déblocage ولا pack d’activation باش تسحب» هي آخر خطوة في المنصّات الفالصو. كي تخلّص يطلبو مرّة أخرى. الـ frais الحقيقية تتنحّى من الرصيد متاعك."},
+        {"en": "Asks for a fee before you can withdraw", "fr": "Demande des frais avant de pouvoir retirer", "ar": "يطلب رسومًا قبل أن تستطيع السحب"},
+        {"en": "'Pay a tax / unlock fee / activation pack to withdraw' is the last step of fake platforms. After you pay, they ask again. Real fees come out of your balance.", "fr": "« Payez une taxe / des frais de déblocage / un pack d'activation pour retirer » est la dernière étape des fausses plateformes. Quand vous payez, ils demandent encore. Les vrais frais sont pris sur votre solde.", "ar": "«ادفع ضريبة أو رسوم فك التجميد أو باقة تفعيل لتسحب» هي آخر خطوة في المنصات المزيفة. بعد أن تدفع، يطلبون مرة أخرى. الرسوم الحقيقية تُخصم من رصيدك."},
     ),
     "advance_fee": (
-        {"en": "Asks you to pay first to start earning or to receive something", "fr": "Demande de payer d'abord pour commencer à gagner ou pour recevoir quelque chose", "ar": "يطلب منك تخلّص قبل، باش تبدا تربح ولا باش توصلك حاجة"},
-        {"en": "A real job pays you; it never asks you to pay to start. 'Activation fee', 'registration fee', 'pay 10% first', 'pay the delivery to get your prize': after you pay, they ask again or disappear.", "fr": "Un vrai travail vous paie ; il ne demande jamais de payer pour commencer. « Frais d'activation », « frais d'inscription », « payez 10 % d'avance », « payez la livraison pour recevoir votre lot » : après le paiement, ils redemandent ou disparaissent.", "ar": "الخدمة الحقيقية هي اللي تخلّصك، وعمرها ما تطلب منك تخلّص باش تبدا. «frais d’activation»، «frais d’inscription»، «خلّص 10% مسبّق»، «خلّص الـ livraison باش توصلك الهدية»: كي تخلّص، يطلبو مرّة أخرى ولا يغيبو."},
+        {"en": "Asks you to pay first to start earning or to receive something", "fr": "Demande de payer d'abord pour commencer à gagner ou pour recevoir quelque chose", "ar": "يطلب منك أن تدفع أولًا لتبدأ الربح أو لتستلم شيئًا"},
+        {"en": "A real job pays you; it never asks you to pay to start. 'Activation fee', 'registration fee', 'pay 10% first', 'pay the delivery to get your prize': after you pay, they ask again or disappear.", "fr": "Un vrai travail vous paie ; il ne demande jamais de payer pour commencer. « Frais d'activation », « frais d'inscription », « payez 10 % d'avance », « payez la livraison pour recevoir votre lot » : après le paiement, ils redemandent ou disparaissent.", "ar": "العمل الحقيقي يدفع لك، ولا يطلب منك أبدًا أن تدفع لتبدأ. «رسوم التفعيل»، «رسوم التسجيل»، «ادفع 10% مسبقًا»، «ادفع رسوم التوصيل لتستلم جائزتك»: بعد أن تدفع، يطلبون مرة أخرى أو يختفون."},
     ),
     "testimonial_bait": (
-        {"en": "A success story that sends you to a 'trader'", "fr": "Un témoignage de gains qui vous envoie vers un « trader »", "ar": "حكاية ربح تبعثك لـ«trader»"},
-        {"en": "'I made $4,000, message her' posts are written by the scammers themselves, often from stolen accounts. The 'trader' then asks for a deposit.", "fr": "Les messages « j'ai gagné 4 000 $, écris-lui » sont écrits par les escrocs eux-mêmes, souvent depuis des comptes volés. Le « trader » demande ensuite un dépôt.", "ar": "الميساجات متاع «ربحت 4000 دولار، ابعثلها» يكتبوهم المتحيّلين بيدهم، وبرشا مرّات من كونطات مسروقة. ومن بعد الـ«trader» يطلب منك إيداع."},
+        {"en": "A success story that sends you to a 'trader'", "fr": "Un témoignage de gains qui vous envoie vers un « trader »", "ar": "قصة ربح ترسلك إلى «متداول»"},
+        {"en": "'I made $4,000, message her' posts are written by the scammers themselves, often from stolen accounts. The 'trader' then asks for a deposit.", "fr": "Les messages « j'ai gagné 4 000 $, écris-lui » sont écrits par les escrocs eux-mêmes, souvent depuis des comptes volés. Le « trader » demande ensuite un dépôt.", "ar": "منشورات «ربحت 4000 دولار، راسلها» يكتبها المحتالون أنفسهم، وغالبًا من حسابات مسروقة. ثم يطلب منك «المتداول» إيداعًا."},
     ),
     "recruit": (
-        {"en": "Pays you to recruit friends", "fr": "Vous paie pour recruter des proches", "ar": "يخلّصك باش تجيب صحابك"},
-        {"en": "When earnings come from bringing in new people, it is a pyramid. It collapses, and your friends lose money too.", "fr": "Quand les gains viennent du recrutement, c'est une pyramide. Elle s'effondre, et vos proches perdent aussi.", "ar": "كي الربح يجي من جلب ناس جدد، هذا هرم. يطيح، وصحابك يخسرو زادة."},
+        {"en": "Pays you to bring in friends", "fr": "Vous paie pour recruter des proches", "ar": "يدفع لك لتجلب أصدقاءك"},
+        {"en": "When earnings come from bringing in new people, it is a pyramid. It collapses, and your friends lose money too.", "fr": "Quand les gains viennent du recrutement, c'est une pyramide. Elle s'effondre, et vos proches perdent aussi.", "ar": "عندما يأتي الربح من جلب أشخاص جدد، فهذا مخطط هرمي. ينهار، ويخسر أصدقاؤك أموالهم أيضًا."},
     ),
     "managed_money": (
-        {"en": "Offers to trade or manage your money for you", "fr": "Propose de trader ou gérer votre argent à votre place", "ar": "يعرض باش يتاجر ولا يتصرّف في فلوسك في بلاصتك"},
-        {"en": "In Tunisia, managing money for others is reserved to licensed brokers, management companies and banks. The CMF warned about exactly this kind of offer on social media.", "fr": "En Tunisie, gérer l'argent d'autrui est réservé aux intermédiaires, sociétés de gestion et banques agréés. Le CMF a mis en garde contre ce type d'offre sur les réseaux sociaux.", "ar": "في تونس، التصرّف في فلوس الناس محصور في الوسطاء، شركات التصرّف والبانكات المرخّصين. والـ CMF حذّرت من العروض هاذي في السوشيال ميديا."},
+        {"en": "Offers to trade or manage your money for you", "fr": "Propose de trader ou gérer votre argent à votre place", "ar": "يعرض أن يتداول أو يدير أموالك بدلًا منك"},
+        {"en": "In Tunisia, only licensed brokers, management companies and banks may manage money for others. The CMF warned about this exact kind of offer on social media.", "fr": "En Tunisie, seuls les intermédiaires, sociétés de gestion et banques agréés peuvent gérer l'argent des autres. Le CMF a mis en garde contre ce type d'offre sur les réseaux sociaux.", "ar": "في تونس، إدارة أموال الآخرين محصورة في الوسطاء وشركات إدارة الأموال والبنوك المرخّصة. وقد حذّرت هيئة السوق المالية (CMF) من هذا النوع من العروض على مواقع التواصل الاجتماعي."},
     ),
     "secret_phrase": (
-        {"en": "Asks for your secret phrase, private key or password", "fr": "Demande votre phrase secrète, clé privée ou mot de passe", "ar": "يطلب الكلمات السرّية، الـ private key ولا الـ password متاعك"},
-        {"en": "Whoever has your 12/24 words or private key owns your wallet. No exchange, support agent or app ever needs them.", "fr": "Celui qui a vos 12/24 mots ou votre clé privée possède votre portefeuille. Aucune plateforme, aucun support n'en a besoin.", "ar": "اللي عندو الـ 12 ولا 24 كلمة ولا الـ private key متاعك، يملك الـ wallet متاعك. حتى منصّة وحتى support ما يستحقّهم."},
+        {"en": "Asks for your secret phrase, private key or password", "fr": "Demande votre phrase secrète, clé privée ou mot de passe", "ar": "يطلب كلمات الاسترجاع أو المفتاح السرّي أو كلمة المرور"},
+        {"en": "Whoever has your 12/24 words or private key owns your wallet. No exchange, support agent or app ever needs them.", "fr": "Celui qui a vos 12/24 mots ou votre clé privée possède votre portefeuille. Aucune plateforme, aucun support n'en a besoin.", "ar": "من يملك كلماتك الـ 12 أو 24 أو مفتاحك السرّي يملك محفظتك. لا منصة ولا موظف دعم ولا تطبيق يحتاجها أبدًا."},
     ),
     "wallet_drainer": (
-        {"en": "'Connect your wallet to claim' or 'send and get double'", "fr": "« Connectez votre wallet pour réclamer » ou « envoyez et recevez le double »", "ar": "«اربط الـ wallet متاعك باش تاخذ الهدية» ولا «ابعث وخوذ الضعف»"},
-        {"en": "Fake airdrops and giveaways get you to sign a transaction that empties your wallet, or to send coins that never come back.", "fr": "Les faux airdrops et giveaways vous font signer une transaction qui vide votre wallet, ou envoyer des cryptos qui ne reviennent jamais.", "ar": "الـ airdrops والهدايا الفالصو يخلّيوك تمضي على عملية تفرّغ الـ wallet متاعك، ولا تبعث crypto ما ترجعش."},
+        {"en": "'Connect your wallet to claim' or 'send and get double'", "fr": "« Connectez votre wallet pour réclamer » ou « envoyez et recevez le double »", "ar": "«اربط محفظتك لتستلم الهدية» أو «أرسل واحصل على الضعف»"},
+        {"en": "Fake airdrops and giveaways (free coins) trick you into approving a transaction that empties your wallet, or into sending coins that never come back.", "fr": "Les faux airdrops et cadeaux (cryptos gratuites) vous font valider une opération qui vide votre wallet, ou envoyer des cryptos qui ne reviennent jamais.", "ar": "التوزيعات المجانية (airdrops) والهدايا المزيفة تجعلك توقّع على عملية تُفرغ محفظتك، أو ترسل عملات لا تعود أبدًا."},
     ),
     "recovery_scam": (
-        {"en": "Offers to recover lost money", "fr": "Propose de récupérer de l'argent perdu", "ar": "يعرض باش يرجّعلك فلوس ضاعت"},
-        {"en": "Victims of a scam are often targeted again by 'recovery experts' who ask for a fee first. Only the police and courts can do this.", "fr": "Les victimes d'arnaque sont souvent ciblées à nouveau par des « experts en récupération » qui demandent des frais d'abord. Seules la police et la justice peuvent agir.", "ar": "اللي تحيّلو عليهم برشا مرّات يتعاودو يتستهدفو من «خبراء استرجاع» يطلبو frais قبل. كان البوليس والقضاء ينجّمو يعملو هكّا."},
+        {"en": "Offers to get back lost money", "fr": "Propose de récupérer de l'argent perdu", "ar": "يعرض استرجاع أموال ضائعة"},
+        {"en": "People who lost money to a scam are often scammed again by 'recovery experts' who ask for a fee first. Only the police and courts can do this.", "fr": "Les victimes d'arnaque se font souvent arnaquer une deuxième fois par des « experts en récupération » qui demandent des frais d'abord. Seules la police et la justice peuvent agir.", "ar": "ضحايا الاحتيال يُستهدفون غالبًا مرة أخرى من «خبراء استرجاع» يطلبون رسومًا أولًا. الشرطة والقضاء فقط يستطيعان فعل ذلك."},
     ),
     "p2p_meetup": (
-        {"en": "Cheap crypto, cash meetups or P2P payment tricks", "fr": "Crypto pas chère, rencontre en espèces ou astuces de paiement P2P", "ar": "crypto رخيص، لقاء بالكاش ولا حيل خلاص P2P"},
-        {"en": "In 2026 'cheap crypto' meetups in Manouba turned into armed robberies. In P2P, fake 'paid' marks and third-party payments get bank accounts frozen.", "fr": "En 2026, des rendez-vous « crypto pas chère » à la Manouba ont fini en vols à main armée. En P2P, les faux « payé » et paiements par des tiers font geler des comptes.", "ar": "في 2026، لقاءات «crypto رخيص» في منوبة ولّات براكاجات بالسلاح. وفي الـ P2P، «خلّصتك» الفالصو والخلاص من كونط واحد آخر يخلّيو الكونطات تتجمّد."},
+        {"en": "Cheap crypto, cash meetups or P2P payment tricks", "fr": "Crypto pas chère, rencontre en espèces ou astuces de paiement P2P", "ar": "عملات رقمية رخيصة، لقاءات بالنقد أو حيل دفع في P2P"},
+        {"en": "In 2026 'cheap crypto' meetups in Manouba turned into armed robberies. In P2P, fake 'paid' marks and payments from someone else's account get bank accounts frozen.", "fr": "En 2026, des rendez-vous « crypto pas chère » à la Manouba ont fini en vols à main armée. En P2P, les faux « payé » et les paiements depuis le compte d'une autre personne font bloquer des comptes.", "ar": "في 2026، تحوّلت لقاءات «عملات رقمية رخيصة» في منوبة إلى عمليات سطو مسلّح. وفي الـ P2P، علامات «تم الدفع» المزيفة والدفع من حساب شخص آخر تؤدي إلى تجميد الحسابات البنكية."},
     ),
     "fake_regulator": (
-        {"en": "Claims approval from a regulator (CMF, AMMC, SEC…)", "fr": "Se dit agréé par un régulateur (CMF, AMMC, SEC…)", "ar": "يقول إنّو مرخّص من هيئة (CMF، AMMC، SEC…)"},
-        {"en": "The CMF and the AMMC both warned in 2026 that scammers copy their logos and send fake approval certificates. Check the regulator's own website, never a document they send you.", "fr": "Le CMF et l'AMMC ont averti en 2026 que des escrocs copient leurs logos et envoient de faux certificats. Vérifiez sur le site du régulateur, jamais sur un document envoyé.", "ar": "الـ CMF في تونس والـ AMMC في المغرب حذّرو في 2026 من متحيّلين ينسخو الـ logo متاعهم ويبعثو شهائد فالصو. فركس في السيت متاع الهيئة بيدها، موش في وثيقة يبعثوهالك."},
+        {"en": "Says a regulator approved it (CMF, AMMC, SEC…)", "fr": "Se dit autorisé par un régulateur (CMF, AMMC, SEC…)", "ar": "يدّعي ترخيصًا من هيئة رقابية (CMF، AMMC، SEC…)"},
+        {"en": "The CMF and the AMMC both warned in 2026 that scammers copy their logos and send fake approval certificates. Check the regulator's own website, never a document they send you.", "fr": "Le CMF et l'AMMC ont averti en 2026 que des escrocs copient leurs logos et envoient de faux certificats. Vérifiez sur le site du régulateur, jamais sur un document envoyé.", "ar": "حذّرت الـ CMF في تونس والـ AMMC في المغرب في 2026 من محتالين ينسخون شعاراتهما ويرسلون شهادات ترخيص مزيفة. تحقّق من موقع الهيئة نفسها، وليس من وثيقة يرسلونها لك."},
     ),
     "fake_platform_pattern": (
-        {"en": "Matches the fake-platform pattern regulators describe", "fr": "Correspond au schéma des fausses plateformes décrit par les régulateurs", "ar": "يشبه للطريقة متاع المنصّات الفالصو اللي توصفها الهيئات"},
-        {"en": "Ad on social media → WhatsApp/Telegram group → a 'mentor' → sign up on a platform → small deposit and fake profits → withdrawal blocked until you pay a fee. That is the AMMC's 6-step pattern.", "fr": "Pub sur les réseaux → groupe WhatsApp/Telegram → un « mentor » → inscription sur une plateforme → petit dépôt et faux gains → retrait bloqué contre des frais. C'est le schéma en 6 étapes de l'AMMC.", "ar": "إشهار في السوشيال ميديا ← قروب WhatsApp/Telegram ← «كوتش» ← تسجيل في منصّة ← إيداع صغير وأرباح فالصو ← السحب مسكّر حتى تخلّص frais. هذي هي الستّة خطوات اللي وصفتها الـ AMMC."},
+        {"en": "Follows the fake-platform steps regulators describe", "fr": "Suit les étapes des fausses plateformes décrites par les régulateurs", "ar": "يشبه نمط المنصات المزيفة الذي تصفه الهيئات الرقابية"},
+        {"en": "Ad on social media → WhatsApp/Telegram group → a 'mentor' → sign up on a platform → small deposit and fake profits → withdrawal blocked until you pay a fee. Those are the 6 steps the AMMC describes.", "fr": "Pub sur les réseaux → groupe WhatsApp/Telegram → un « mentor » → inscription sur une plateforme → petit dépôt et faux gains → retrait bloqué contre des frais. Ce sont les 6 étapes décrites par l'AMMC.", "ar": "إعلان على مواقع التواصل ← مجموعة WhatsApp/Telegram ← «مرشد» ← تسجيل في منصة ← إيداع صغير وأرباح مزيفة ← السحب مغلق حتى تدفع رسومًا. هذا هو نمط الخطوات الست الذي وصفته الـ AMMC."},
     ),
     "task_scam": (
-        {"en": "Pays for simple 'tasks' (likes, ratings, orders)", "fr": "Paie des « tâches » simples (likes, avis, commandes)", "ar": "يخلّص على «مهام» ساهلة (likes، تقييمات، commandes)"},
-        {"en": "Task scams pay a little first, then ask you to 'recharge' or deposit USDT to unlock bigger tasks. The deposits are lost.", "fr": "Les arnaques aux tâches paient un peu d'abord, puis demandent de « recharger » ou de déposer des USDT pour débloquer plus. Les dépôts sont perdus.", "ar": "تحيّل المهام يخلّص شويّة في الأوّل، ومن بعد يطلب «recharge» ولا إيداع USDT باش يحلّ مهام أكبر. والإيداعات تضيع."},
+        {"en": "Pays for simple 'tasks' (likes, ratings, orders)", "fr": "Paie des « tâches » simples (likes, avis, commandes)", "ar": "يدفع مقابل «مهام» بسيطة (إعجابات، تقييمات، طلبات)"},
+        {"en": "Task scams pay a little first, then ask you to 'recharge' or deposit USDT to unlock bigger tasks. The deposits are lost.", "fr": "Les arnaques aux tâches paient un peu d'abord, puis demandent de « recharger » ou de déposer des USDT pour débloquer plus. Les dépôts sont perdus.", "ar": "احتيال المهام يدفع قليلًا في البداية، ثم يطلب منك «إعادة الشحن» أو إيداع USDT لفتح مهام أكبر. وتضيع الإيداعات."},
     ),
     "impersonation": (
-        {"en": "Pretends to be an exchange's support or warns your account will be blocked", "fr": "Se fait passer pour le support d'une plateforme ou menace de bloquer votre compte", "ar": "يعمل روحو support متاع منصّة ولا يهدّد بتسكير الكونط متاعك"},
-        {"en": "Real support never contacts you first on WhatsApp or Telegram. Open the official app yourself to check.", "fr": "Le vrai support ne vous contacte jamais en premier sur WhatsApp ou Telegram. Ouvrez vous-même l'application officielle pour vérifier.", "ar": "الـ support الحقيقي عمرو ما يكلّمك هو الأوّل في WhatsApp ولا Telegram. حلّ التطبيقة الرسمية بيدك باش تثبّت."},
+        {"en": "Pretends to be an exchange's support or warns your account will be blocked", "fr": "Se fait passer pour le support d'une plateforme ou menace de bloquer votre compte", "ar": "ينتحل صفة دعم منصة أو يهدد بحظر حسابك"},
+        {"en": "Real support never contacts you first on WhatsApp or Telegram. Open the official app yourself to check.", "fr": "Le vrai support ne vous contacte jamais en premier sur WhatsApp ou Telegram. Ouvrez vous-même l'application officielle pour vérifier.", "ar": "الدعم الحقيقي لا يتواصل معك أولًا على WhatsApp أو Telegram أبدًا. افتح التطبيق الرسمي بنفسك لتتحقق."},
     ),
     "vip_signals": (
-        {"en": "Pushes a VIP or signals group", "fr": "Pousse vers un groupe VIP ou de signaux", "ar": "يدزّك لقروب VIP ولا signals"},
-        {"en": "Paid 'VIP signal' groups sell screenshots, not results. Many are the first step towards a fake platform or a pump-and-dump.", "fr": "Les groupes « VIP » de signaux vendent des captures d'écran, pas des résultats. Beaucoup sont la première étape vers une fausse plateforme ou un pump-and-dump.", "ar": "قروبات «VIP signals» بالفلوس يبيعو screenshots موش نتائج. وبرشا منهم أوّل خطوة لمنصّة فالصو ولا لعب في السوم."},
+        {"en": "Pushes a VIP or 'signals' (trade tips) group", "fr": "Pousse vers un groupe VIP ou de « signaux » (conseils de trading)", "ar": "يدفعك إلى مجموعة VIP أو مجموعة توصيات"},
+        {"en": "Paid 'VIP signal' groups sell screenshots, not results. Many are the first step towards a fake platform or a pump-and-dump (a price pushed up on purpose, then it crashes).", "fr": "Les groupes « VIP » de signaux vendent des captures d'écran, pas des résultats. Beaucoup sont la première étape vers une fausse plateforme ou un pump-and-dump (un prix gonflé exprès, puis qui s'effondre).", "ar": "مجموعات «توصيات VIP» المدفوعة تبيع لقطات شاشة، لا نتائج. وكثير منها أول خطوة نحو منصة مزيفة أو تلاعب بالسعر (pump-and-dump)."},
     ),
     "income_promise": (
-        {"en": "Promises a set income (per day or month)", "fr": "Promet un revenu fixe (par jour ou par mois)", "ar": "يوعد بدخل ثابت (في النهار ولا الشهر)"},
-        {"en": "A fixed income from crypto or 'from your phone' is not how markets work. Ask where the money really comes from.", "fr": "Un revenu fixe grâce à la crypto ou « depuis votre téléphone », ce n'est pas comme ça que marchent les marchés. Demandez d'où vient vraiment l'argent.", "ar": "دخل ثابت من الـ crypto ولا «من تلفونك» موش هكّا تخدم الأسواق. اسأل منين تجي الفلوس بالحقّ."},
+        {"en": "Promises a set income (per day or month)", "fr": "Promet un revenu fixe (par jour ou par mois)", "ar": "يعد بدخل ثابت (في اليوم أو الشهر)"},
+        {"en": "A fixed income from crypto or 'from your phone' is not how markets work. Ask where the money really comes from.", "fr": "Un revenu fixe grâce à la crypto ou « depuis votre téléphone », ce n'est pas comme ça que marchent les marchés. Demandez d'où vient vraiment l'argent.", "ar": "الدخل الثابت من العملات الرقمية أو «من هاتفك» ليس طريقة عمل الأسواق. اسأل من أين يأتي المال حقًا."},
     ),
     "urgency": (
-        {"en": "Pressures you to act fast", "fr": "Vous pousse à agir vite", "ar": "يزربك باش تقرّر فيسع"},
-        {"en": "'Last chance', 'only today', 'limited places': pressure stops you from checking. A real opportunity is still there tomorrow.", "fr": "« Dernière chance », « aujourd'hui seulement », « places limitées » : la pression empêche de vérifier. Une vraie opportunité sera encore là demain.", "ar": "«آخر فرصة»، «كان اليوم»، «بلايص محدودة»: الزربة تمنعك باش تثبّت. الفرصة الحقيقية تقعد موجودة غدوة."},
+        {"en": "Pressures you to act fast", "fr": "Vous pousse à agir vite", "ar": "يضغط عليك لتقرر بسرعة"},
+        {"en": "'Last chance', 'only today', 'limited places': pressure stops you from checking. A real opportunity is still there tomorrow.", "fr": "« Dernière chance », « aujourd'hui seulement », « places limitées » : la pression empêche de vérifier. Une vraie opportunité sera encore là demain.", "ar": "«آخر فرصة»، «اليوم فقط»، «أماكن محدودة»: الضغط يمنعك من التحقق. الفرصة الحقيقية تبقى موجودة غدًا."},
     ),
     "high_leverage": (
-        {"en": "Very high leverage (1:100 or more)", "fr": "Effet de levier très élevé (1:100 ou plus)", "ar": "leverage عالي برشا (1:100 ولا أكثر)"},
-        {"en": "With 1:200 leverage a 0.5% move against you wipes out your deposit. Unlicensed forex/crypto brokers advertise this to beginners.", "fr": "Avec un levier de 1:200, un mouvement de 0,5 % contre vous efface votre dépôt. Les courtiers non agréés le vantent aux débutants.", "ar": "بـ leverage 1:200، حركة 0.5% ضدّك تكفي باش تمسح الإيداع متاعك. الوسطاء الموش مرخّصين يبيعوها للمبتدئين."},
+        {"en": "Very high leverage (1:100 or more)", "fr": "Effet de levier très élevé (1:100 ou plus)", "ar": "رافعة مالية عالية جدًا (1:100 أو أكثر)"},
+        {"en": "With 1:200 leverage (you trade 200 times what you put in), a 0.5% move against you wipes out your deposit. Forex and crypto brokers with no licence advertise this to beginners.", "fr": "Avec un levier de 1:200 (vous tradez 200 fois ce que vous avez mis), une variation de 0,5 % dans le mauvais sens efface votre dépôt. Les courtiers sans licence en font la pub auprès des débutants.", "ar": "برافعة 1:200، تكفي حركة 0.5% ضدك لتمحو إيداعك. الوسطاء غير المرخّصين في الفوركس والعملات الرقمية يروّجون لها للمبتدئين."},
     ),
     "warned_entity": (
         {"en": "Named in a public warning: {name}", "fr": "Cité dans une mise en garde publique : {name}", "ar": "مذكور في تحذير رسمي: {name}"},
         {"en": "{summary}", "fr": "{summary}", "ar": "{summary}"},
     ),
     "phishing_list": (
-        {"en": "Listed as a phishing site ({lists})", "fr": "Listé comme site de phishing ({lists})", "ar": "مكتوب كموقع phishing ({lists})"},
-        {"en": "{host} is on a public list of crypto phishing sites. Sites like this copy a real wallet or exchange to steal logins and drain wallets.", "fr": "{host} figure sur une liste publique de sites de phishing crypto. Ces sites copient un vrai wallet ou une vraie plateforme pour voler identifiants et fonds.", "ar": "{host} موجود في ليستة عامة متاع مواقع phishing في الـ crypto. المواقع هاذي تقلّد wallet ولا منصّة حقيقية باش تسرق الدخول وتفرّغ الـ wallets."},
+        {"en": "Listed as a fake 'phishing' site ({lists})", "fr": "Listé comme faux site de phishing ({lists})", "ar": "مُدرج كموقع تصيّد ({lists})"},
+        {"en": "{host} is on a public list of crypto phishing sites. Sites like this copy a real wallet or exchange to steal your login and empty your wallet.", "fr": "{host} figure sur une liste publique de sites de phishing crypto. Ces sites copient un vrai wallet ou une vraie plateforme pour voler vos identifiants et votre argent.", "ar": "{host} موجود في قائمة عامة لمواقع التصيّد (phishing) في العملات الرقمية. هذه المواقع تقلّد محفظة أو منصة حقيقية لتسرق بيانات الدخول وتُفرغ المحافظ."},
     ),
     "lookalike": (
-        {"en": "Looks like {brand} but is not its official site", "fr": "Ressemble à {brand} mais n'est pas son site officiel", "ar": "يشبه لـ {brand} أما موش السيت الرسمي متاعو"},
-        {"en": "{host} imitates {brand}. The official site is {official}. Fake exchange sites look identical and steal your login or deposit.", "fr": "{host} imite {brand}. Le site officiel est {official}. Les fausses plateformes sont identiques et volent identifiants ou dépôts.", "ar": "{host} يقلّد {brand}. السيت الرسمي هو {official}. المواقع الفالصو تبان كيف كيف وتسرق الدخول ولا الإيداع."},
+        {"en": "Looks like {brand} but is not its official site", "fr": "Ressemble à {brand} mais n'est pas son site officiel", "ar": "يشبه {brand} لكنه ليس موقعه الرسمي"},
+        {"en": "{host} copies {brand}. The official site is {official}. Fake exchange sites look the same and steal your login or your deposit.", "fr": "{host} imite {brand}. Le site officiel est {official}. Les fausses plateformes ont l'air identiques et volent vos identifiants ou vos dépôts.", "ar": "{host} يقلّد {brand}. الموقع الرسمي هو {official}. المواقع المزيفة تبدو مطابقة تمامًا وتسرق بيانات دخولك أو إيداعك."},
     ),
     "new_domain": (
-        {"en": "Website registered only {days} days ago", "fr": "Site enregistré il y a seulement {days} jours", "ar": "السيت تسجّل من {days} يوم برك"},
-        {"en": "{host} is very new. Fake platforms change domains every few weeks after victims complain.", "fr": "{host} est très récent. Les fausses plateformes changent de domaine toutes les quelques semaines après les plaintes.", "ar": "{host} جديد برشا. المنصّات الفالصو يبدّلو الـ domain كل كم جمعة بعد شكاوي الضحايا."},
+        {"en": "Website registered only {days} days ago", "fr": "Site enregistré il y a seulement {days} jours", "ar": "الموقع مسجّل منذ {days} يوم فقط"},
+        {"en": "{host} is very new. Fake platforms change their web address every few weeks after victims complain.", "fr": "{host} est très récent. Les fausses plateformes changent d'adresse web toutes les quelques semaines, après les plaintes des victimes.", "ar": "{host} جديد جدًا. المنصات المزيفة تغيّر اسم النطاق (domain) كل بضعة أسابيع بعد شكاوى الضحايا."},
     ),
     "punycode": (
-        {"en": "Uses look-alike letters in the address", "fr": "Utilise des lettres trompeuses dans l'adresse", "ar": "يستعمل حروف تشبه بعضها في العنوان"},
-        {"en": "{host} contains special characters that can imitate normal letters (for example a Cyrillic 'а').", "fr": "{host} contient des caractères spéciaux qui imitent des lettres normales (par exemple un « а » cyrillique).", "ar": "{host} فيه رموز خاصة تقلّد الحروف العادية."},
+        {"en": "Uses look-alike letters in the address", "fr": "Utilise des lettres trompeuses dans l'adresse", "ar": "يستعمل حروفًا متشابهة في العنوان"},
+        {"en": "{host} has special characters that can look like normal letters (for example a Cyrillic 'а').", "fr": "{host} contient des caractères spéciaux qui ressemblent à des lettres normales (par exemple un « а » cyrillique).", "ar": "{host} يحتوي على رموز خاصة يمكن أن تقلّد الحروف العادية (مثل حرف «а» الكيريلي)."},
     ),
     "ip_link": (
-        {"en": "Link is a raw IP address", "fr": "Le lien est une adresse IP brute", "ar": "اللينك هو عنوان IP مباشر"},
-        {"en": "Real services use a domain name. A bare IP address hides who runs the site.", "fr": "Les vrais services utilisent un nom de domaine. Une IP brute cache qui gère le site.", "ar": "الخدمات الحقيقية تستعمل اسم domain. عنوان IP عريان يخبّي شكون يدير السيت."},
+        {"en": "Link is just an IP address (numbers)", "fr": "Le lien n'est qu'une adresse IP (des chiffres)", "ar": "الرابط عنوان IP مباشر"},
+        {"en": "Real services use a website name. An IP address alone hides who runs the site.", "fr": "Les vrais services utilisent un nom de site. Une adresse IP seule cache qui gère le site.", "ar": "الخدمات الحقيقية تستعمل اسم نطاق. عنوان IP وحده يُخفي من يدير الموقع."},
     ),
     "shortener": (
-        {"en": "Shortened link hides the real destination", "fr": "Lien raccourci qui cache la vraie destination", "ar": "لينك مقصّر يخبّي وين يهزّك بالحقّ"},
-        {"en": "You can't see where {host} leads before you open it.", "fr": "Impossible de voir où mène {host} avant de l'ouvrir.", "ar": "ما تنجّمش تشوف وين يهزّك {host} قبل ما تحلّو."},
+        {"en": "Shortened link hides the real destination", "fr": "Lien raccourci qui cache la vraie destination", "ar": "رابط مختصر يُخفي وجهته الحقيقية"},
+        {"en": "You can't see where {host} leads before you open it.", "fr": "Impossible de voir où mène {host} avant de l'ouvrir.", "ar": "لا يمكنك أن ترى إلى أين يأخذك {host} قبل أن تفتحه."},
     ),
     "chat_invite": (
-        {"en": "Invite to a private chat group", "fr": "Invitation vers un groupe de discussion privé", "ar": "عرضة لقروب chat خاص"},
-        {"en": "Moving you to a private WhatsApp/Telegram group is step 2 of most investment scams: no one outside can see or warn you.", "fr": "Vous faire passer dans un groupe WhatsApp/Telegram privé est l'étape 2 de la plupart des arnaques : personne d'extérieur ne peut vous prévenir.", "ar": "كي يهزّوك لقروب WhatsApp/Telegram خاص، هذي الخطوة الثانية في أغلب التحيّل: حتى حدّ من برّا ما ينجّم ينبّهك."},
+        {"en": "Invite to a private chat group", "fr": "Invitation vers un groupe de discussion privé", "ar": "دعوة إلى مجموعة دردشة خاصة"},
+        {"en": "Moving you to a private WhatsApp/Telegram group is step 2 of most investment scams: no one outside can see or warn you.", "fr": "Vous faire passer dans un groupe WhatsApp/Telegram privé est l'étape 2 de la plupart des arnaques : personne d'extérieur ne peut vous prévenir.", "ar": "نقلك إلى مجموعة WhatsApp/Telegram خاصة هو الخطوة الثانية في أغلب عمليات الاحتيال في الاستثمار: لا أحد من الخارج يستطيع أن يرى أو أن ينبّهك."},
     ),
     "risky_tld": (
-        {"en": "Cheap domain ending often used by throwaway sites", "fr": "Extension de domaine bon marché souvent utilisée par des sites jetables", "ar": "آخر domain رخيص تستعملو برشا المواقع اللي تتلوح"},
-        {"en": "Many legit sites use it too, but fake platforms like endings such as .{tld} because they cost almost nothing.", "fr": "Beaucoup de sites légitimes l'utilisent aussi, mais les fausses plateformes aiment les extensions comme .{tld} car elles ne coûtent presque rien.", "ar": "مواقع نظيفة زادة تستعملو، أما المنصّات الفالصو يحبّو النهايات كيما ‎.{tld} خاطر تقريب بلاش."},
+        {"en": "Cheap web address ending, often used by short-lived sites", "fr": "Extension de domaine bon marché souvent utilisée par des sites jetables", "ar": "نهاية نطاق رخيصة تستعملها كثيرًا المواقع المؤقتة"},
+        {"en": "Many real sites use it too, but fake platforms like endings such as .{tld} because they cost almost nothing.", "fr": "Beaucoup de vrais sites l'utilisent aussi, mais les fausses plateformes aiment les extensions comme .{tld} car elles ne coûtent presque rien.", "ar": "مواقع حقيقية كثيرة تستعملها أيضًا، لكن المنصات المزيفة تحب نهايات مثل ‎.{tld} لأنها تكاد تكون مجانية."},
     ),
     "official_domain": (
-        {"en": "This is the official domain of {brand}", "fr": "C'est le domaine officiel de {brand}", "ar": "هذا هو الـ domain الرسمي متاع {brand}"},
-        {"en": "The spelling of {host} matches {brand}'s official site. That says nothing about who sent you the link or what they ask you to do there.", "fr": "L'orthographe de {host} correspond au site officiel de {brand}. Cela ne dit rien de la personne qui a envoyé le lien ni de ce qu'elle vous demande.", "ar": "الكتيبة متاع {host} تطابق السيت الرسمي متاع {brand}. هذا ما يقول حتى شي على شكون بعثلك اللينك ولا على شنوّة يطلب منك غادي."},
+        {"en": "This is the official domain of {brand}", "fr": "C'est le domaine officiel de {brand}", "ar": "هذا هو النطاق الرسمي لـ {brand}"},
+        {"en": "The spelling of {host} matches {brand}'s official site. That says nothing about who sent you the link or what they ask you to do there.", "fr": "L'orthographe de {host} correspond au site officiel de {brand}. Cela ne dit rien de la personne qui a envoyé le lien ni de ce qu'elle vous demande.", "ar": "كتابة {host} تطابق الموقع الرسمي لـ {brand}. هذا لا يقول شيئًا عمّن أرسل لك الرابط ولا عمّا يطلبه منك هناك."},
     ),
     "token_honeypot": (
-        {"en": "Honeypot: holders may not be able to sell", "fr": "Honeypot : les détenteurs ne peuvent peut-être pas vendre", "ar": "Honeypot: اللي شراوها ممكن ما ينجّموش يبيعو"},
-        {"en": "GoPlus flags this token's contract as a honeypot. The price can only go up because almost nobody is allowed to sell.", "fr": "GoPlus signale ce contrat comme un honeypot. Le prix ne fait que monter car presque personne ne peut vendre.", "ar": "GoPlus يصنّف الـ contract متاع الـ token هذا كـ honeypot. السوم يطلع برك خاطر تقريب حتى حدّ ما مسموحلو يبيع."},
+        {"en": "Honeypot (a trap): buyers may not be able to sell", "fr": "Honeypot (piège) : les acheteurs ne pourront peut-être pas vendre", "ar": "Honeypot: من اشتروها قد لا يستطيعون بيعها"},
+        {"en": "GoPlus marks this token's contract as a honeypot. The price can only go up because almost nobody is allowed to sell.", "fr": "GoPlus signale ce contrat comme un honeypot. Le prix ne fait que monter car presque personne ne peut vendre.", "ar": "يصنّف GoPlus العقد الذكي لهذه العملة على أنه honeypot. السعر لا يمكنه إلا أن يصعد لأن لا أحد تقريبًا يُسمح له بالبيع."},
     ),
     "token_cannot_sell": (
-        {"en": "Holders cannot sell all their tokens", "fr": "Impossible de vendre tous ses tokens", "ar": "اللي عندهم ما ينجّموش يبيعو الـ tokens الكل"},
-        {"en": "The contract blocks selling the full balance.", "fr": "Le contrat empêche de vendre la totalité du solde.", "ar": "الـ contract يمنع بيع الرصيد الكل."},
+        {"en": "Holders cannot sell all their tokens", "fr": "Impossible de vendre tous ses tokens", "ar": "حاملو العملة لا يستطيعون بيع كل ما يملكون"},
+        {"en": "The contract blocks selling the full balance.", "fr": "Le contrat empêche de vendre la totalité du solde.", "ar": "العقد يمنع بيع الرصيد كله."},
     ),
     "token_owner_balance": (
-        {"en": "The owner can change people's balances", "fr": "Le propriétaire peut modifier les soldes", "ar": "المالك ينجّم يبدّل أرصدة الناس"},
-        {"en": "Whoever controls the contract can take tokens out of any holder's wallet.", "fr": "Celui qui contrôle le contrat peut retirer des tokens de n'importe quel wallet.", "ar": "اللي يتحكّم في الـ contract ينجّم يهزّ tokens من أي wallet."},
+        {"en": "The owner can change people's balances", "fr": "Le propriétaire peut modifier les soldes", "ar": "المالك يستطيع تغيير أرصدة الناس"},
+        {"en": "Whoever controls the contract can take tokens out of any holder's wallet.", "fr": "Celui qui contrôle le contrat peut retirer des tokens de n'importe quel wallet.", "ar": "من يتحكّم في العقد يستطيع أخذ عملات من محفظة أي حامل لها."},
     ),
     "token_hidden_owner": (
-        {"en": "Hidden owner", "fr": "Propriétaire caché", "ar": "مالك مخبّي"},
-        {"en": "The contract keeps owner powers even though it looks renounced.", "fr": "Le contrat garde des pouvoirs de propriétaire alors qu'il semble y avoir renoncé.", "ar": "الـ contract يحتفظ بصلاحيات المالك حتى كان يبان إنّو تخلّى عليها."},
+        {"en": "Hidden owner", "fr": "Propriétaire caché", "ar": "مالك مخفي"},
+        {"en": "The contract keeps owner powers even though the owner seems to have given them up.", "fr": "Le contrat garde des pouvoirs de propriétaire alors qu'il semble y avoir renoncé.", "ar": "العقد يحتفظ بصلاحيات المالك رغم أنه يبدو أنه تخلّى عنها."},
     ),
     "token_take_back": (
-        {"en": "Ownership can be taken back", "fr": "La propriété peut être reprise", "ar": "الملكية تنجّم ترجع"},
-        {"en": "A 'renounced' owner can regain control of the contract later.", "fr": "Un propriétaire « renoncé » peut reprendre le contrôle plus tard.", "ar": "مالك «تخلّى» ينجّم يرجّع التحكّم في الـ contract من بعد."},
+        {"en": "Ownership can be taken back", "fr": "La propriété peut être reprise", "ar": "يمكن استرجاع الملكية"},
+        {"en": "An owner who seemed to give up control can take it back later.", "fr": "Un propriétaire qui semblait avoir renoncé peut reprendre le contrôle plus tard.", "ar": "المالك الذي «تخلّى» عن العقد يستطيع أن يستعيد التحكّم فيه لاحقًا."},
     ),
     "token_selfdestruct": (
-        {"en": "The contract can self-destruct", "fr": "Le contrat peut s'autodétruire", "ar": "الـ contract ينجّم يفسخ روحو"},
-        {"en": "The code can delete the contract, and the tokens with it.", "fr": "Le code peut supprimer le contrat, et les tokens avec.", "ar": "الـ code ينجّم يفسخ الـ contract والـ tokens معاه."},
+        {"en": "The contract can self-destruct", "fr": "Le contrat peut s'autodétruire", "ar": "العقد يستطيع تدمير نفسه"},
+        {"en": "The code can delete the contract, and the tokens with it.", "fr": "Le code peut supprimer le contrat, et les tokens avec.", "ar": "الكود يستطيع حذف العقد، والعملات معه."},
     ),
     "token_airdrop_scam": (
-        {"en": "Known airdrop scam token", "fr": "Token d'arnaque à l'airdrop connu", "ar": "token تحيّل airdrop معروف"},
-        {"en": "This token was sent to wallets for free to lure people to a phishing site.", "fr": "Ce token a été envoyé gratuitement pour attirer vers un site de phishing.", "ar": "الـ token هذا تبعث بلاش للـ wallets باش يجرّ الناس لسيت phishing."},
+        {"en": "Known scam token sent for free (airdrop)", "fr": "Token d'arnaque connu, envoyé gratuitement (airdrop)", "ar": "عملة احتيال معروفة بالتوزيع المجاني (airdrop)"},
+        {"en": "This token was sent to wallets for free to pull people to a fake (phishing) site.", "fr": "Ce token a été envoyé gratuitement pour attirer les gens vers un faux site (phishing).", "ar": "أُرسلت هذه العملة مجانًا إلى المحافظ لجرّ الناس إلى موقع تصيّد."},
     ),
     "token_fake": (
-        {"en": "Copy of a well-known token", "fr": "Copie d'un token connu", "ar": "نسخة من token معروف"},
-        {"en": "GoPlus says this contract imitates a real token. Compare the address with the project's official site.", "fr": "GoPlus indique que ce contrat imite un vrai token. Comparez l'adresse avec le site officiel du projet.", "ar": "GoPlus يقول إنّو الـ contract هذا يقلّد token حقيقي. قارن العنوان مع السيت الرسمي متاع المشروع."},
+        {"en": "Copy of a well-known token", "fr": "Copie d'un token connu", "ar": "نسخة من عملة معروفة"},
+        {"en": "GoPlus says this contract copies a real token. Compare the address with the project's official site.", "fr": "GoPlus indique que ce contrat imite un vrai token. Comparez l'adresse avec le site officiel du projet.", "ar": "يقول GoPlus إن هذا العقد يقلّد عملة حقيقية. قارن العنوان مع الموقع الرسمي للمشروع."},
     ),
     "token_sell_tax": (
         {"en": "High sell tax: {tax}%", "fr": "Taxe de vente élevée : {tax} %", "ar": "ضريبة بيع عالية: {tax}%"},
-        {"en": "Every sale loses {tax}% to the contract.", "fr": "Chaque vente perd {tax} % au profit du contrat.", "ar": "كل بيعة تخسر {tax}% للـ contract."},
+        {"en": "Every sale loses {tax}% to the contract.", "fr": "Chaque vente perd {tax} % au profit du contrat.", "ar": "كل عملية بيع تخسر {tax}% لصالح العقد."},
     ),
     "token_buy_tax": (
         {"en": "High buy tax: {tax}%", "fr": "Taxe d'achat élevée : {tax} %", "ar": "ضريبة شراء عالية: {tax}%"},
-        {"en": "Every purchase loses {tax}% to the contract.", "fr": "Chaque achat perd {tax} % au profit du contrat.", "ar": "كل شراية تخسر {tax}% للـ contract."},
+        {"en": "Every purchase loses {tax}% to the contract.", "fr": "Chaque achat perd {tax} % au profit du contrat.", "ar": "كل عملية شراء تخسر {tax}% لصالح العقد."},
     ),
     "token_closed_source": (
-        {"en": "Contract code is not public", "fr": "Le code du contrat n'est pas public", "ar": "الـ code متاع الـ contract موش منشور"},
-        {"en": "Nobody can read what the contract really does.", "fr": "Personne ne peut lire ce que fait vraiment le contrat.", "ar": "حتى حدّ ما ينجّم يقرا شنوّة يعمل الـ contract بالحقّ."},
+        {"en": "Contract code is not public", "fr": "Le code du contrat n'est pas public", "ar": "كود العقد غير منشور"},
+        {"en": "Nobody can read what the contract really does.", "fr": "Personne ne peut lire ce que fait vraiment le contrat.", "ar": "لا أحد يستطيع أن يقرأ ما يفعله العقد حقًا."},
     ),
     "token_mintable": (
-        {"en": "New tokens can be created", "fr": "De nouveaux tokens peuvent être créés", "ar": "ينجّمو يطلّعو tokens جدد"},
-        {"en": "The owner can print more tokens. Big stablecoins work like this too; for a small token it can dilute holders to zero.", "fr": "Le propriétaire peut créer plus de tokens. Les grands stablecoins aussi ; pour un petit token, cela peut diluer les détenteurs à zéro.", "ar": "المالك ينجّم يطبع tokens زايدين. الـ stablecoins الكبار يخدمو هكّا زادة؛ أما في token صغير، اللي عندهم ينجّمو يخسرو القيمة الكل."},
+        {"en": "New tokens can be created", "fr": "De nouveaux tokens peuvent être créés", "ar": "يمكن إنشاء عملات جديدة"},
+        {"en": "The owner can print more tokens. Big stablecoins work like this too. But for a small token, it can make holders' tokens worth nothing.", "fr": "Le propriétaire peut créer plus de tokens. Les grands stablecoins aussi. Mais pour un petit token, cela peut rendre les tokens des détenteurs sans valeur.", "ar": "المالك يستطيع طباعة المزيد من العملات. العملات المستقرة الكبيرة تعمل هكذا أيضًا؛ لكن في عملة صغيرة قد يُضعف ذلك قيمة ما يملكه الحاملون حتى الصفر."},
     ),
     "token_blacklist": (
-        {"en": "The owner can block wallets", "fr": "Le propriétaire peut bloquer des wallets", "ar": "المالك ينجّم يبلوكي wallets"},
-        {"en": "Specific holders can be stopped from moving their tokens.", "fr": "Des détenteurs peuvent être empêchés de déplacer leurs tokens.", "ar": "ينجّمو يمنعو ناس معيّنين باش يحرّكو الـ tokens متاعهم."},
+        {"en": "The owner can block wallets", "fr": "Le propriétaire peut bloquer des wallets", "ar": "المالك يستطيع حظر محافظ"},
+        {"en": "Specific holders can be stopped from moving their tokens.", "fr": "Des détenteurs peuvent être empêchés de déplacer leurs tokens.", "ar": "يمكن منع حاملين معيّنين من تحريك عملاتهم."},
     ),
     "token_pausable": (
-        {"en": "Transfers can be paused or frozen", "fr": "Les transferts peuvent être suspendus ou gelés", "ar": "التحويلات تنجّم تتوقّف ولا تتجمّد"},
-        {"en": "The owner can freeze all transfers at any time.", "fr": "Le propriétaire peut geler tous les transferts à tout moment.", "ar": "المالك ينجّم يجمّد التحويلات الكل في أي وقت."},
+        {"en": "Transfers can be paused or frozen", "fr": "Les transferts peuvent être suspendus ou gelés", "ar": "يمكن إيقاف التحويلات أو تجميدها"},
+        {"en": "The owner can freeze all transfers at any time.", "fr": "Le propriétaire peut geler tous les transferts à tout moment.", "ar": "المالك يستطيع تجميد كل التحويلات في أي وقت."},
     ),
     "token_tax_changeable": (
-        {"en": "Taxes can be changed by the owner", "fr": "Les taxes peuvent être modifiées par le propriétaire", "ar": "المالك ينجّم يبدّل الضرائب"},
-        {"en": "A low tax today can become 100% tomorrow.", "fr": "Une taxe basse aujourd'hui peut passer à 100 % demain.", "ar": "ضريبة صغيرة اليوم تنجّم تولّي 100% غدوة."},
+        {"en": "Taxes can be changed by the owner", "fr": "Les taxes peuvent être modifiées par le propriétaire", "ar": "المالك يستطيع تغيير الضرائب"},
+        {"en": "A low tax today can become 100% tomorrow.", "fr": "Une taxe basse aujourd'hui peut passer à 100 % demain.", "ar": "ضريبة منخفضة اليوم قد تصبح 100% غدًا."},
     ),
     "token_proxy": (
-        {"en": "Upgradeable contract", "fr": "Contrat modifiable", "ar": "contract ينجّم يتبدّل"},
-        {"en": "The code can be replaced later. Common in big projects; it means you trust the owner.", "fr": "Le code peut être remplacé plus tard. Courant dans les gros projets ; cela suppose de faire confiance au propriétaire.", "ar": "الـ code ينجّم يتبدّل من بعد. عادي في المشاريع الكبار؛ ومعناها إنك واثق في المالك."},
+        {"en": "The contract can be changed", "fr": "Contrat modifiable", "ar": "عقد قابل للتعديل"},
+        {"en": "The code can be replaced later. Common in big projects; it means you have to trust the owner.", "fr": "Le code peut être remplacé plus tard. Courant dans les gros projets ; cela veut dire faire confiance au propriétaire.", "ar": "يمكن استبدال الكود لاحقًا. هذا شائع في المشاريع الكبيرة؛ ومعناه أنك تثق في المالك."},
     ),
     "token_trusted": (
-        {"en": "On GoPlus's list of well-known tokens", "fr": "Sur la liste GoPlus des tokens connus", "ar": "في ليستة GoPlus متاع الـ tokens المعروفين"},
-        {"en": "This contract is a widely used token. That only confirms the address, not that any offer around it is real.", "fr": "Ce contrat est un token très utilisé. Cela confirme l'adresse, pas qu'une offre autour soit réelle.", "ar": "الـ contract هذا token مستعمل برشا. هذا يأكّد العنوان برك، موش صحّة أي عرض عليه."},
+        {"en": "On GoPlus's list of well-known tokens", "fr": "Sur la liste GoPlus des tokens connus", "ar": "في قائمة GoPlus للعملات المعروفة"},
+        {"en": "This contract is a widely used token. That only confirms the address, not that any offer around it is real.", "fr": "Ce contrat est un token très utilisé. Cela confirme l'adresse, pas qu'une offre autour soit réelle.", "ar": "هذا العقد عملة مستعملة على نطاق واسع. هذا يؤكد العنوان فقط، ولا يعني أن أي عرض حوله حقيقي."},
     ),
     "address_reported": (
-        {"en": "This wallet is reported for: {reasons}", "fr": "Ce wallet est signalé pour : {reasons}", "ar": "الـ wallet هذا مبلّغ عليه على خاطر: {reasons}"},
-        {"en": "GoPlus security data links this address to malicious activity. Do not send anything to it.", "fr": "Les données GoPlus relient cette adresse à des activités malveillantes. N'y envoyez rien.", "ar": "معطيات GoPlus تربط العنوان هذا بنشاط خبيث. ما تبعثلو حتى شي."},
+        {"en": "This wallet is reported for: {reasons}", "fr": "Ce wallet est signalé pour : {reasons}", "ar": "هذه المحفظة مُبلَّغ عنها بسبب: {reasons}"},
+        {"en": "GoPlus security data links this address to harmful activity. Do not send anything to it.", "fr": "Les données GoPlus relient cette adresse à des activités malveillantes. N'y envoyez rien.", "ar": "بيانات GoPlus الأمنية تربط هذا العنوان بنشاط خبيث. لا ترسل إليه أي شيء."},
     ),
     "no_known_flags": (
-        {"en": "Nothing on the lists we checked", "fr": "Rien sur les listes vérifiées", "ar": "حتى شي في الليستات اللي فركسناها"},
-        {"en": "That only means nobody has reported it yet. New scams appear every day.", "fr": "Cela veut seulement dire que personne ne l'a encore signalé. De nouvelles arnaques apparaissent chaque jour.", "ar": "هذا معناها برك إنّو حتى حدّ ما بلّغ عليه توّا. تحيّل جديد يطلع كل نهار."},
+        {"en": "Nothing on the lists we checked", "fr": "Rien sur les listes vérifiées", "ar": "لا شيء في القوائم التي فحصناها"},
+        {"en": "That only means nobody has reported it yet. New scams appear every day.", "fr": "Cela veut seulement dire que personne ne l'a encore signalé. De nouvelles arnaques apparaissent chaque jour.", "ar": "هذا يعني فقط أن أحدًا لم يبلّغ عنه بعد. عمليات احتيال جديدة تظهر كل يوم."},
     ),
     # The next four explain an "unsure" result: why Qirat cannot say more.
     "money_request": (
-        {"en": "Asks you to send or pay money", "fr": "Vous demande d'envoyer ou de payer de l'argent", "ar": "يطلب منك تبعث ولا تخلّص فلوس"},
-        {"en": "It matches no scam pattern we know, so we can't say more. If you don't know the sender, or they want payment before you get anything, treat that as a warning sign.", "fr": "Cela ne correspond à aucun schéma d'arnaque que nous connaissons, nous ne pouvons donc pas en dire plus. Si vous ne connaissez pas l'expéditeur, ou s'il veut être payé avant que vous receviez quoi que ce soit, prenez-le comme un signal d'alerte.", "ar": "ما يشبه لحتى طريقة تحيّل نعرفوها، وما ننجّموش نقولو أكثر. كان ما تعرفش اللي بعثلك، ولا يحب يتخلّص قبل ما توصلك حتى حاجة، اعتبرها علامة خطر."},
+        {"en": "Asks you to send or pay money", "fr": "Vous demande d'envoyer ou de payer de l'argent", "ar": "يطلب منك أن ترسل مالًا أو تدفعه"},
+        {"en": "It doesn't look like any scam we know, so we can't say more. If you don't know the sender, or they want payment before you get anything, treat that as a warning sign.", "fr": "Cela ne ressemble à aucune arnaque que nous connaissons. Nous ne pouvons donc pas en dire plus. Si vous ne connaissez pas l'expéditeur, ou s'il veut être payé avant que vous receviez quoi que ce soit, prenez-le comme un signal d'alerte.", "ar": "لا يشبه أي نمط احتيال نعرفه، لذلك لا نستطيع قول المزيد. إذا كنت لا تعرف المرسل، أو كان يريد أن تدفع قبل أن تستلم أي شيء، فاعتبر ذلك علامة تحذير."},
     ),
     "lookup_unavailable": (
-        {"en": "Some checks did not answer", "fr": "Certaines vérifications n'ont pas répondu", "ar": "فمّا فحوصات ما جاوبوش"},
-        {"en": "We could not reach: {names}. This result is incomplete. Try again in a minute.", "fr": "Nous n'avons pas pu joindre : {names}. Ce résultat est incomplet. Réessayez dans une minute.", "ar": "ما نجّمناش نوصلو لـ: {names}. النتيجة هاذي ناقصة. عاود بعد دقيقة."},
+        {"en": "Some checks did not answer", "fr": "Certaines vérifications n'ont pas répondu", "ar": "بعض الفحوصات لم تُجب"},
+        {"en": "We could not reach: {names}. This result is incomplete. Try again in a minute.", "fr": "Nous n'avons pas pu joindre : {names}. Ce résultat est incomplet. Réessayez dans une minute.", "ar": "لم نستطع الوصول إلى: {names}. هذه النتيجة ناقصة. أعد المحاولة بعد دقيقة."},
     ),
     "address_unsupported": (
-        {"en": "We can't look up this kind of address yet", "fr": "Nous ne savons pas encore vérifier ce type d'adresse", "ar": "مازلنا ما ننجّموش نفركسو النوع هذا من العناوين"},
-        {"en": "We can check Ethereum-style (0x…), TRON and Solana addresses. For a Bitcoin address we have no list to check against, so this result tells you nothing about it.", "fr": "Nous savons vérifier les adresses de type Ethereum (0x…), TRON et Solana. Pour une adresse Bitcoin, nous n'avons aucune liste à consulter : ce résultat ne dit donc rien sur elle.", "ar": "ننجّمو نفركسو عناوين Ethereum (0x…)، TRON وSolana. عنوان Bitcoin ما عندناش ليستة نفركسوه فيها، يعني النتيجة هاذي ما تقول عليه حتى شي."},
+        {"en": "We can't look up this kind of address yet", "fr": "Nous ne savons pas encore vérifier ce type d'adresse", "ar": "لا نستطيع بعدُ فحص هذا النوع من العناوين"},
+        {"en": "We can check Ethereum-style (0x…), TRON and Solana addresses. For a Bitcoin address we have no list to check against, so this result tells you nothing about it.", "fr": "Nous savons vérifier les adresses de type Ethereum (0x…), TRON et Solana. Pour une adresse Bitcoin, nous n'avons aucune liste à consulter : ce résultat ne dit donc rien sur elle.", "ar": "نستطيع فحص عناوين Ethereum (0x…) وTRON وSolana. أما عنوان Bitcoin فليست لدينا قائمة نفحصه فيها، لذلك هذه النتيجة لا تقول عنه شيئًا."},
     ),
     "arabizi_partial": (
         {"en": "Darija written in Latin letters", "fr": "Darija écrite en lettres latines", "ar": "دارجة مكتوبة بحروف لاتينية"},
-        {"en": "Our rules only partly read Darija typed like this (sa7bi, 5alles, 9bal). We may have missed something, so read the checks below.", "fr": "Nos règles ne lisent qu'en partie la darija écrite ainsi (sa7bi, 5alles, 9bal). Nous avons peut-être manqué quelque chose : lisez les vérifications ci-dessous.", "ar": "القواعد متاعنا تقرا كان شويّة من الدارجة المكتوبة هكّا (sa7bi، 5alles، 9bal). ممكن فاتتنا حاجة، اقرا الفحوصات اللي لوطة."},
+        {"en": "Our rules only partly read Darija typed like this (sa7bi, 5alles, 9bal). We may have missed something, so read the checks below.", "fr": "Nos règles ne lisent qu'en partie la darija écrite ainsi (sa7bi, 5alles, 9bal). Nous avons peut-être manqué quelque chose : lisez les vérifications ci-dessous.", "ar": "قواعدنا لا تقرأ إلا جزءًا من الدارجة المكتوبة بهذه الطريقة (sa7bi، 5alles، 9bal). ربما فاتنا شيء، لذلك اقرأ الفحوصات أدناه."},
     ),
 }
 
 CHECK_TEXT: dict[str, L] = {
-    "regulator_lookup": {"en": "Look the company up yourself on cmf.tn (Tunisia, 'Mises en garde') or ammc.ma (Morocco). No regulator licenses anyone to sell crypto or manage your money through WhatsApp or Telegram.", "fr": "Cherchez vous-même la société sur cmf.tn (Tunisie, « Mises en garde ») ou ammc.ma (Maroc). Aucun régulateur n'autorise à vendre de la crypto ou gérer votre argent via WhatsApp ou Telegram.", "ar": "لوّج بيدك على الشركة في cmf.tn (تونس، «Mises en garde») ولا ammc.ma (المغرب). حتى هيئة ما ترخّص لحدّ باش يبيع crypto ولا يتصرّف في فلوسك في WhatsApp ولا Telegram."},
-    "small_withdrawal": {"en": "Before you put in more, ask to withdraw a small amount, with no fee and no new deposit. If they refuse or ask for a fee, stop.", "fr": "Avant de mettre plus, demandez à retirer une petite somme, sans frais ni nouveau dépôt. S'ils refusent ou demandent des frais, arrêtez.", "ar": "قبل ما تحطّ أكثر، اطلب تسحب مبلغ صغير بلا frais وبلا إيداع جديد. كان رفضو ولا طلبو frais، وقّف."},
-    "search_name": {"en": "Search the name plus 'arnaque' or 'scam', and ask in a group you already trust.", "fr": "Cherchez le nom avec « arnaque » ou « scam », et demandez dans un groupe de confiance.", "ar": "لوّج على الاسم مع «arnaque» ولا «scam»، واسأل في قروب تثق فيه من قبل."},
-    "talk_first": {"en": "Talk to someone you trust before you pay anything. Scammers push you to decide alone and fast.", "fr": "Parlez-en à quelqu'un de confiance avant de payer quoi que ce soit. Les escrocs poussent à décider seul et vite.", "ar": "احكي مع واحد تثق فيه قبل ما تخلّص أي حاجة. المتحيّلين يدزّوك باش تقرّر وحدك وفيسع."},
-    "type_it_yourself": {"en": "Don't open the link from the message. Type the official address yourself or use the official app.", "fr": "N'ouvrez pas le lien du message. Tapez vous-même l'adresse officielle ou utilisez l'application officielle.", "ar": "ما تحلّش اللينك اللي في الميساج. اكتب العنوان الرسمي بيدك ولا استعمل التطبيقة الرسمية."},
-    "spelling": {"en": "Compare the address letter by letter with the official one (binance.com, not binance-app.com or blnance.com).", "fr": "Comparez l'adresse lettre par lettre avec l'officielle (binance.com, pas binance-app.com ni blnance.com).", "ar": "قارن العنوان حرف بحرف مع الرسمي (binance.com موش binance-app.com ولا blnance.com)."},
-    "never_secret": {"en": "Never type your 12/24 secret words or connect your wallet on a site someone sent you.", "fr": "Ne tapez jamais vos 12/24 mots secrets et ne connectez pas votre wallet sur un site envoyé par quelqu'un.", "ar": "عمرك ما تكتب الـ 12 ولا 24 كلمة السرّية متاعك ولا تربط الـ wallet متاعك في سيت بعثهولك واحد."},
-    "token_official": {"en": "Get the contract address from the project's official site, not from a group. Copies with the same name are common.", "fr": "Prenez l'adresse du contrat sur le site officiel du projet, pas dans un groupe. Les copies au même nom sont fréquentes.", "ar": "خوذ عنوان الـ contract من السيت الرسمي متاع المشروع، موش من قروب. النسخ بنفس الاسم برشا."},
-    "token_liquidity": {"en": "Check that other people have been able to sell it, and who holds most of the supply.", "fr": "Vérifiez que d'autres ont pu le vendre, et qui détient la majorité de l'offre.", "ar": "ثبّت إنّو ناس أخرين نجّمو يبيعوه، وشكون عندو أكبر كمية."},
-    "address_never": {"en": "Never send money to a wallet someone gives you in a chat to 'unlock', 'activate' or 'invest'.", "fr": "N'envoyez jamais d'argent à une adresse donnée dans un chat pour « débloquer », « activer » ou « investir ».", "ar": "عمرك ما تبعث فلوس لـ wallet عطاهولك واحد في chat باش «يحلّ» ولا «يفعّل» ولا «يستثمر»."},
-    "clean_not_safe": {"en": "A clean result only means nobody has reported it yet.", "fr": "Un résultat vierge veut seulement dire que personne ne l'a encore signalé.", "ar": "نتيجة نظيفة معناها برك إنّو حتى حدّ ما بلّغ عليه توّا."},
-    "licence_number": {"en": "Ask for their licence number and check it on the regulator's own website, not on a certificate they send.", "fr": "Demandez leur numéro d'agrément et vérifiez-le sur le site du régulateur, pas sur un certificat qu'ils envoient.", "ar": "اطلب نومرو الترخيص وفركسو في السيت متاع الهيئة بيدها، موش من شهادة يبعثوهالك."},
-    "fees_from_balance": {"en": "Real platforms take fees out of your balance. They never ask you to send more money to get your money out.", "fr": "Les vraies plateformes prélèvent les frais sur le solde. Elles ne demandent jamais d'envoyer plus pour récupérer votre argent.", "ar": "المنصّات الحقيقية تنحّي الـ frais من الرصيد متاعك، وعمرها ما تطلب تبعث فلوس زايدة باش تسحب فلوسك."},
-    "p2p_safety": {"en": "Never meet strangers to swap cash for crypto. In P2P, only release after the money is really in your account, from the buyer's own name.", "fr": "Ne rencontrez jamais d'inconnus pour échanger espèces contre crypto. En P2P, ne libérez qu'une fois l'argent vraiment reçu, au nom de l'acheteur.", "ar": "عمرك ما تتلاقى مع ناس ما تعرفهمش باش تبدّل كاش بـ crypto. وفي الـ P2P ما تطلقش الـ crypto كان كي الفلوس توصل بالحقّ لكونطك، باسم الشاري بيدو."},
-    "pay_first": {"en": "A real job or a real prize never asks you to pay first. Don't pay an 'activation', 'registration' or 'delivery' fee to someone you don't know.", "fr": "Un vrai travail ou un vrai lot ne demande jamais de payer d'abord. Ne payez pas de frais « d'activation », « d'inscription » ou « de livraison » à un inconnu.", "ar": "الخدمة الحقيقية ولا الربح الحقيقي عمرهم ما يطلبو منك تخلّص قبل. ما تخلّصش frais متاع «activation» ولا «inscription» ولا «livraison» لواحد ما تعرفوش."},
-    "report": {"en": "If you already paid: stop paying, keep screenshots, and report it to the police (in Tunisia, the cybercrime brigade).", "fr": "Si vous avez déjà payé : arrêtez de payer, gardez les captures et portez plainte (en Tunisie, la brigade de lutte contre la cybercriminalité).", "ar": "كان خلّصت قبل: وقّف الخلاص، خبّي الـ screenshots، واشكي للبوليس (في تونس، فرقة مكافحة الجرائم الإلكترونية)."},
+    "regulator_lookup": {"en": "Look the company up yourself on cmf.tn (Tunisia, 'Mises en garde') or ammc.ma (Morocco). No regulator allows anyone to sell crypto or manage your money through WhatsApp or Telegram.", "fr": "Cherchez vous-même la société sur cmf.tn (Tunisie, « Mises en garde ») ou ammc.ma (Maroc). Aucun régulateur n'autorise à vendre de la crypto ou gérer votre argent via WhatsApp ou Telegram.", "ar": "ابحث بنفسك عن الشركة في cmf.tn (تونس، «Mises en garde») أو ammc.ma (المغرب). لا توجد هيئة رقابية ترخّص لأحد أن يبيع العملات الرقمية أو يدير أموالك عبر WhatsApp أو Telegram."},
+    "small_withdrawal": {"en": "Before you put in more, ask to withdraw a small amount, with no fee and no new deposit. If they refuse or ask for a fee, stop.", "fr": "Avant de mettre plus, demandez à retirer une petite somme, sans frais ni nouveau dépôt. S'ils refusent ou demandent des frais, arrêtez.", "ar": "قبل أن تضع المزيد، اطلب سحب مبلغ صغير بلا رسوم وبلا إيداع جديد. إذا رفضوا أو طلبوا رسومًا، توقّف."},
+    "search_name": {"en": "Search the name plus 'arnaque' or 'scam', and ask in a group you already trust.", "fr": "Cherchez le nom avec « arnaque » ou « scam », et demandez dans un groupe de confiance.", "ar": "ابحث عن الاسم مع «arnaque» أو «scam»، واسأل في مجموعة تثق بها أصلًا."},
+    "talk_first": {"en": "Talk to someone you trust before you pay anything. Scammers push you to decide alone and fast.", "fr": "Parlez-en à quelqu'un de confiance avant de payer quoi que ce soit. Les escrocs poussent à décider seul et vite.", "ar": "تحدّث مع شخص تثق به قبل أن تدفع أي شيء. المحتالون يدفعونك لتقرر وحدك وبسرعة."},
+    "type_it_yourself": {"en": "Don't open the link from the message. Type the official address yourself or use the official app.", "fr": "N'ouvrez pas le lien du message. Tapez vous-même l'adresse officielle ou utilisez l'application officielle.", "ar": "لا تفتح الرابط الموجود في الرسالة. اكتب العنوان الرسمي بنفسك أو استعمل التطبيق الرسمي."},
+    "spelling": {"en": "Compare the address letter by letter with the official one (binance.com, not binance-app.com or blnance.com).", "fr": "Comparez l'adresse lettre par lettre avec l'officielle (binance.com, pas binance-app.com ni blnance.com).", "ar": "قارن العنوان حرفًا بحرف مع العنوان الرسمي (binance.com، وليس binance-app.com أو blnance.com)."},
+    "never_secret": {"en": "Never type your 12/24 secret words or connect your wallet on a site someone sent you.", "fr": "Ne tapez jamais vos 12/24 mots secrets et ne connectez pas votre wallet sur un site envoyé par quelqu'un.", "ar": "لا تكتب أبدًا كلمات الاسترجاع (12 أو 24 كلمة) ولا تربط محفظتك في موقع أرسله لك أحد."},
+    "token_official": {"en": "Get the contract address from the project's official site, not from a group. Copies with the same name are common.", "fr": "Prenez l'adresse du contrat sur le site officiel du projet, pas dans un groupe. Les copies au même nom sont fréquentes.", "ar": "خذ عنوان العقد من الموقع الرسمي للمشروع، وليس من مجموعة. النسخ التي تحمل الاسم نفسه كثيرة."},
+    "token_liquidity": {"en": "Check that other people have been able to sell it, and who owns most of the tokens.", "fr": "Vérifiez que d'autres ont pu le vendre, et qui possède la plupart des tokens.", "ar": "تحقّق من أن أشخاصًا آخرين استطاعوا بيعها، ومن يملك أكبر كمية منها."},
+    "address_never": {"en": "Never send money to a wallet someone gives you in a chat to 'unlock', 'activate' or 'invest'.", "fr": "N'envoyez jamais d'argent à une adresse donnée dans un chat pour « débloquer », « activer » ou « investir ».", "ar": "لا ترسل أبدًا مالًا إلى محفظة أعطاك إياها أحد في دردشة من أجل «فك التجميد» أو «التفعيل» أو «الاستثمار»."},
+    "clean_not_safe": {"en": "A clean result only means nobody has reported it yet.", "fr": "Un résultat vierge veut seulement dire que personne ne l'a encore signalé.", "ar": "النتيجة النظيفة تعني فقط أن أحدًا لم يبلّغ عنه بعد."},
+    "licence_number": {"en": "Ask for their licence number and check it on the regulator's own website, not on a certificate they send.", "fr": "Demandez leur numéro d'agrément et vérifiez-le sur le site du régulateur, pas sur un certificat qu'ils envoient.", "ar": "اطلب رقم الترخيص وتحقّق منه في موقع الهيئة نفسها، وليس من شهادة يرسلونها لك."},
+    "fees_from_balance": {"en": "Real platforms take fees out of your balance. They never ask you to send more money to get your money out.", "fr": "Les vraies plateformes prennent les frais sur votre solde. Elles ne demandent jamais d'envoyer plus pour récupérer votre argent.", "ar": "المنصات الحقيقية تخصم الرسوم من رصيدك. ولا تطلب منك أبدًا أن ترسل مالًا إضافيًا لتسحب مالك."},
+    "p2p_safety": {"en": "Never meet strangers to swap cash for crypto. In P2P, only release the crypto once the money is really in your account, sent in the buyer's own name.", "fr": "Ne rencontrez jamais d'inconnus pour échanger espèces contre crypto. En P2P, ne libérez la crypto qu'une fois l'argent vraiment reçu, envoyé au nom de l'acheteur.", "ar": "لا تلتقِ أبدًا بغرباء لتبادل النقد بالعملات الرقمية. وفي الـ P2P، لا تُطلق العملات إلا بعد أن يصل المال فعلًا إلى حسابك، باسم المشتري نفسه."},
+    "pay_first": {"en": "A real job or a real prize never asks you to pay first. Don't pay an 'activation', 'registration' or 'delivery' fee to someone you don't know.", "fr": "Un vrai travail ou un vrai lot ne demande jamais de payer d'abord. Ne payez pas de frais « d'activation », « d'inscription » ou « de livraison » à un inconnu.", "ar": "العمل الحقيقي أو الجائزة الحقيقية لا يطلبان منك أبدًا أن تدفع أولًا. لا تدفع رسوم «تفعيل» أو «تسجيل» أو «توصيل» لشخص لا تعرفه."},
+    "report": {"en": "If you already paid: stop paying, keep screenshots, and report it to the police (in Tunisia, the cybercrime brigade).", "fr": "Si vous avez déjà payé : arrêtez de payer, gardez les captures et portez plainte (en Tunisie, la brigade de lutte contre la cybercriminalité).", "ar": "إذا دفعت من قبل: توقّف عن الدفع، واحتفظ بلقطات الشاشة، وقدّم شكوى للشرطة (في تونس، فرقة مكافحة الجرائم الإلكترونية)."},
 }
 
 UI_TEXT: dict[str, L] = {
     "verdict_high": {"en": "Strong warning signs", "fr": "Signaux d'alerte forts", "ar": "علامات خطر قويّة"},
-    "verdict_medium": {"en": "Some warning signs", "fr": "Quelques signaux d'alerte", "ar": "شويّة علامات خطر"},
-    "verdict_low": {"en": "Minor warning signs", "fr": "Signaux d'alerte mineurs", "ar": "علامات خطر خفاف"},
-    "verdict_none": {"en": "No known warning signs found", "fr": "Aucun signal d'alerte connu trouvé", "ar": "ما لقينا حتى علامة خطر معروفة"},
+    "verdict_medium": {"en": "Some warning signs", "fr": "Quelques signaux d'alerte", "ar": "بعض علامات الخطر"},
+    "verdict_low": {"en": "Small warning signs", "fr": "Petits signaux d'alerte", "ar": "علامات خطر بسيطة"},
+    "verdict_none": {"en": "No known warning signs found", "fr": "Aucun signal d'alerte connu trouvé", "ar": "لم نجد أي علامة خطر معروفة"},
     # Not "no warning signs": something stopped us from judging (see check()).
-    "verdict_unsure": {"en": "We could not judge this one", "fr": "Nous n'avons pas pu juger celui-ci", "ar": "ما نجّمناش نحكمو على هذا"},
-    "disclaimer": {"en": "No check can prove something is safe. We list warning signs and what to verify; the decision is yours.", "fr": "Aucune vérification ne peut prouver qu'une chose est sûre. Nous listons les signaux d'alerte et quoi vérifier ; la décision vous appartient.", "ar": "حتى فحص ما ينجّم يثبت إنّو حاجة مضمونة. نورّيوك علامات الخطر وشنوّة لازمك تثبّت؛ والقرار متاعك."},
+    "verdict_unsure": {"en": "We could not judge this one", "fr": "Nous n'avons pas pu juger celui-ci", "ar": "لم نستطع الحكم على هذا"},
+    "disclaimer": {"en": "No check can prove something is safe. We list warning signs and what to check. The decision is yours.", "fr": "Aucune vérification ne peut prouver qu'une chose est sûre. Nous montrons les signaux d'alerte et ce qu'il faut vérifier. C'est vous qui décidez.", "ar": "لا يوجد فحص يستطيع أن يثبت أن شيئًا ما آمن. نعرض علامات الخطر وما يجب أن تتحقق منه؛ والقرار لك."},
 }
 
 SOURCE_INFO: dict[str, tuple[str, str]] = {
@@ -1534,7 +1534,8 @@ def check(
 # ── LLM explanation ──────────────────────────────────────────────────────────
 
 EXPLAIN_SYSTEM = (
-    "You are Qirat's scam-check helper for crypto beginners in Tunisia and North Africa. "
+    "You are Qirat's scam-check helper for crypto beginners in North Africa and the Arab world "
+    "who read Arabic, French or English. "
     "You get something a user wants to check (a message, link, token or platform name) and the red "
     "flags a rule-based checker found. In at most 90 words, explain in plain, calm words how this kind "
     "of scam usually works and why these specific flags matter, then the one thing to verify first.\n"
@@ -1547,9 +1548,10 @@ EXPLAIN_SYSTEM = (
     "- No headings. Two short paragraphs at most."
 )
 EXPLAIN_LANG = {
-    "en": "Write in simple English.",
-    "fr": "Écris en français simple.",
-    "ar": "Write in simple, warm Tunisian Darija (the everyday Tunisian dialect in Arabic script, not Modern Standard Arabic). Keep words like USDT, crypto, VIP, wallet in Latin letters and use Western digits (0-9).",
+    "en": "Write in plain, simple English for crypto beginners: short sentences and everyday words. If you need a crypto word, explain it in a few plain words.",
+    "fr": "Écris en français simple et clair pour des débutants en crypto : phrases courtes et mots de tous les jours. Si un mot de crypto est nécessaire, explique-le en quelques mots simples. Vouvoie le lecteur.",
+    # Light Arabic: simple Modern Standard Arabic for every Arab country (2026-11-20).
+    "ar": "Write in simple, warm, light Modern Standard Arabic that readers in every Arab country understand: short sentences and everyday words, no Tunisian Darija and no other dialect. Keep brand and ticker names like USDT, Bitcoin, Binance and VIP in Latin letters, and use Western digits (0-9).",
 }
 _SAFE_CLAIM = re.compile(
     r"\b(?:is|looks|seems|appears|are)\s+(?:completely\s+|totally\s+|probably\s+)?(?:safe|legit\w*|trustworthy|genuine)\b"
@@ -1651,12 +1653,12 @@ TG_TEXT: dict[str, L] = {
     "usage": {
         "en": "<b>Scam check</b> 🛡\nSend <code>/scamcheck</code> followed by the message, link, platform name or token address you want checked. You can also reply <code>/scamcheck</code> to a forwarded message.\n\nExample: <code>/scamcheck binance-support.com</code>",
         "fr": "<b>Vérif arnaque</b> 🛡\nEnvoyez <code>/scamcheck</code> suivi du message, du lien, du nom de la plateforme ou de l'adresse du token à vérifier. Vous pouvez aussi répondre <code>/scamcheck</code> à un message transféré.\n\nExemple : <code>/scamcheck binance-support.com</code>",
-        "ar": "<b>فحص الاحتيال</b> 🛡\nابعث <code>/scamcheck</code> ومن بعدها الرسالة أو الرابط أو اسم المنصة أو عنوان العملة اللي تحب تفحصها. تنجم زادة تردّ بـ<code>/scamcheck</code> على رسالة محوّلة.\n\nمثال: <code>/scamcheck binance-support.com</code>",
+        "ar": "<b>فحص الاحتيال</b> 🛡\nأرسل <code>/scamcheck</code> وبعده الرسالة أو الرابط أو اسم المنصة أو عنوان العملة الذي تريد فحصه. يمكنك أيضًا الرد بـ<code>/scamcheck</code> على رسالة محوّلة.\n\nمثال: <code>/scamcheck binance-support.com</code>",
     },
     "flags": {"en": "Red flags", "fr": "Signaux d'alerte", "ar": "علامات الخطر"},
-    "checks": {"en": "Before you trust it", "fr": "Avant de faire confiance", "ar": "قبل ما تثق"},
-    "sources": {"en": "Checked with", "fr": "Vérifié avec", "ar": "فركسنا في"},
-    "more": {"en": "+{n} more in the app", "fr": "+{n} de plus dans l'app", "ar": "+{n} أخرين في التطبيق"},
+    "checks": {"en": "Before you trust it", "fr": "Avant de faire confiance", "ar": "قبل أن تثق"},
+    "sources": {"en": "Checked with", "fr": "Vérifié avec", "ar": "فحصنا عبر"},
+    "more": {"en": "+{n} more in the app", "fr": "+{n} de plus dans l'app", "ar": "+{n} أخرى في التطبيق"},
 }
 TG_ICON = {"high": "🔴", "medium": "🟠", "low": "🟡", "info": "ℹ️", "none": "⚪️", "unsure": "❔"}
 MAX_TG_FLAGS = 6

@@ -13,222 +13,213 @@ type Entry = Record<Lang, string>
 
 // UI strings. {name} placeholders are filled by t(key, vars).
 const UI = {
-  'app.tagline': { en: 'Every coin has a karat', fr: 'Chaque crypto a son carat', ar: 'كل coin عندها قيراطها' },
+  'app.tagline': { en: 'Every coin has a karat', fr: 'Chaque crypto a son carat', ar: 'لكل عملة قيراطها' },
   'nav.today': { en: 'Today', fr: "Aujourd'hui", ar: 'اليوم' },
-  'nav.record': { en: 'Track record', fr: 'Historique', ar: 'السجل' },
+  'nav.record': { en: 'Past results', fr: 'Historique', ar: 'السجل' },
   'nav.ask': { en: 'Ask', fr: 'Demander', ar: 'اسأل' },
   'nav.portfolio': { en: 'Portfolio', fr: 'Portefeuille', ar: 'محفظتي' },
   'nav.practice': { en: 'Practice', fr: 'Pratique', ar: 'تدريب' },
   'nav.learn': { en: 'Learn', fr: 'Apprendre', ar: 'تعلّم' },
   'nav.scamcheck': { en: 'Scam check', fr: 'Arnaque ?', ar: 'فحص الاحتيال' },
-  'nav.more': { en: 'More', fr: 'Plus', ar: 'أكثر' },
-  'nav.home': { en: 'Home', fr: 'Accueil', ar: 'البداية' },
-  'top.help': { en: 'How Qirat works', fr: 'Comment marche Qirat', ar: 'كيفاش يخدم قيراط' },
+  'nav.more': { en: 'More', fr: 'Plus', ar: 'المزيد' },
+  'nav.home': { en: 'Home', fr: 'Accueil', ar: 'الرئيسية' },
+  'top.help': { en: 'How Qirat works', fr: 'Comment marche Qirat', ar: 'كيف يعمل قيراط' },
   'top.theme': { en: 'Switch light / dark', fr: 'Thème clair / sombre', ar: 'فاتح / غامق' },
   'top.language': { en: 'Language', fr: 'Langue', ar: 'اللغة' },
 
-  'hero.on.title': { en: 'The market is risk-on', fr: 'Le marché est favorable', ar: 'السوق في حالة باهية' },
-  'hero.off.title': { en: 'The market is risk-off', fr: 'Le marché est défavorable', ar: 'السوق يحب الحذر' },
-  'hero.unknown.title': { en: 'Reading the market…', fr: 'Lecture du marché…', ar: 'نقراو في السوق…' },
+  'hero.on.title': { en: 'The market is in good shape', fr: 'Le marché va bien', ar: 'السوق في حالة جيدة' },
+  'hero.off.title': { en: 'Time to be careful', fr: 'Prudence sur le marché', ar: 'السوق يدعو إلى الحذر' },
+  'hero.unknown.title': { en: 'Reading the market…', fr: 'Lecture du marché…', ar: 'جارٍ قراءة السوق…' },
   'hero.on.body': {
-    en: 'Bitcoin is {pct} above its 200-day average, so Strong ratings are switched on.',
-    fr: 'Le bitcoin est {pct} au-dessus de sa moyenne sur 200 jours : les notes Fortes sont activées.',
-    ar: 'Bitcoin فوق المعدّل متاعو متاع 200 يوم بـ {pct}، هذاكا علاش التقييمات القويّة محلولة.',
+    en: 'Bitcoin is {pct} above its average price over 200 days, so Strong ratings are on.',
+    fr: 'Le bitcoin est {pct} au-dessus de son prix moyen sur 200 jours : les notes « Forte » sont possibles.',
+    ar: 'Bitcoin فوق متوسطه لـ 200 يوم بنسبة {pct}، لذلك التقييمات القوية مفعّلة.',
   },
   'hero.off.body': {
-    en: 'Bitcoin is {pct} below its 200-day average, so every score is capped at 66 and nothing rates Strong.',
-    fr: 'Le bitcoin est {pct} sous sa moyenne sur 200 jours : tous les scores sont plafonnés à 66, aucune note Forte.',
-    ar: 'Bitcoin تحت المعدّل متاعو متاع 200 يوم بـ {pct}، هذاكا علاش كل الدرجات مسقّفة على 66 وحتى تقييم ما يوصل لقوي.',
+    en: 'Bitcoin is {pct} below its average price over 200 days, so no score goes above 66 and no coin is rated Strong.',
+    fr: 'Le bitcoin est {pct} sous son prix moyen sur 200 jours : aucun score ne dépasse 66, aucune note « Forte ».',
+    ar: 'Bitcoin تحت متوسطه لـ 200 يوم بنسبة {pct}، لذلك كل الدرجات محدودة عند 66 ولا يصل أي تقييم إلى «قوي».',
   },
   'hero.why': {
-    en: 'In our 2021–26 backtest, Strong setups only beat the market while Bitcoin held this line.',
-    fr: 'Dans notre backtest 2021–26, les notes Fortes ne battaient le marché que lorsque le bitcoin restait au-dessus de ce seuil.',
-    ar: 'في الاختبار متاعنا على 2021–26، التقييمات القويّة ما غلبتش السوق كان وقت Bitcoin قعد فوق الخط هذا.',
+    en: 'In our test on 2021–26 prices, Strong coins only beat the market while Bitcoin stayed above this line.',
+    fr: 'Dans notre test sur les prix de 2021–26, les notes Fortes ne battaient le marché que si le bitcoin restait au-dessus de cette ligne.',
+    ar: 'في اختبارنا على بيانات 2021–26، لم تتفوّق التقييمات القوية على السوق إلا حين بقي Bitcoin فوق هذا الخط.',
   },
   'hero.mood': { en: 'Market mood', fr: 'Humeur du marché', ar: 'مزاج السوق' },
-  'hero.mcap': { en: 'Total market', fr: 'Marché total', ar: 'السوق الكل' },
-  'hero.btcDom': { en: 'BTC dominance', fr: 'Dominance BTC', ar: 'حصّة Bitcoin' },
+  'hero.mcap': { en: 'Total market', fr: 'Marché total', ar: 'السوق كله' },
+  'hero.btcDom': { en: 'Bitcoin’s share', fr: 'Part du bitcoin', ar: 'حصّة Bitcoin' },
   'hero.updated': { en: 'Updated {time}', fr: 'Mis à jour à {time}', ar: 'آخر تحديث {time}' },
-  'hero.refreshing': { en: 'Refreshing…', fr: 'Actualisation…', ar: 'نحدّثو…' },
-  'hero.failed': { en: 'Update failed, retrying soon', fr: 'Échec de la mise à jour, nouvel essai bientôt', ar: 'التحديث ما نجحش، نعاودو بعد شويّة' },
-  'hero.refresh': { en: 'Refresh', fr: 'Actualiser', ar: 'حدّث' },
+  'hero.refreshing': { en: 'Refreshing…', fr: 'Mise à jour…', ar: 'جارٍ التحديث…' },
+  'hero.failed': { en: 'Update failed, retrying soon', fr: 'La mise à jour a échoué, nouvel essai bientôt', ar: 'فشل التحديث، سنعيد المحاولة قريبًا' },
+  'hero.refresh': { en: 'Refresh', fr: 'Mettre à jour', ar: 'حدّث' },
   'hero.24h': { en: '24h', fr: '24 h', ar: '24 ساعة' },
 
   // Captions: the word inside [[double brackets]] sits on the gold marker.
-  // CHECK (marker only, words unchanged)
-  'weather.calm.title': { en: 'The market is [[calm]]', fr: 'Le marché est [[calme]]', ar: 'السوق [[صاحي]]' },
-  // CHECK (marker only, words unchanged)
-  'weather.choppy.title': { en: 'The market is [[choppy]]', fr: 'Le marché est [[agité]]', ar: 'السوق [[مغيّم]]' },
-  // CHECK (marker only, words unchanged)
-  'weather.stormy.title': { en: 'The market is [[stormy]]', fr: 'Le marché est [[orageux]]', ar: 'السوق [[خايب]]' },
+  'weather.calm.title': { en: 'The market is [[calm]]', fr: 'Le marché est [[calme]]', ar: 'السوق [[هادئ]]' },
+  'weather.choppy.title': { en: 'The market is [[choppy]]', fr: 'Le marché est [[agité]]', ar: 'السوق [[متقلّب]]' },
+  'weather.stormy.title': { en: 'The market is [[stormy]]', fr: 'Le marché est [[orageux]]', ar: 'السوق [[عاصف]]' },
   'weather.calm.body': {
-    en: 'Bitcoin is {pct} above its 50-day average and the crowd is not overheated.',
-    fr: 'Le bitcoin est {pct} au-dessus de sa moyenne sur 50 jours et la foule n’est pas en surchauffe.',
-    ar: 'Bitcoin فوق المعدّل متاعو متاع 50 يوم بـ {pct}، والناس موش مندفعين برشا.',
+    en: 'Bitcoin is {pct} above its average price over 50 days, and buyers are not too excited.',
+    fr: 'Le bitcoin est {pct} au-dessus de son prix moyen sur 50 jours, et les acheteurs ne s’emballent pas.',
+    ar: 'Bitcoin فوق متوسطه لـ 50 يومًا بنسبة {pct}، والمتداولون ليسوا في حماس مفرط.',
   },
   'weather.choppy.dip': {
-    en: 'Bitcoin slipped {pct} below its 50-day average but still holds its 200-day line. Expect bigger swings than usual.',
-    fr: 'Le bitcoin est passé {pct} sous sa moyenne sur 50 jours mais tient sa moyenne sur 200 jours. Attendez-vous à plus de remous.',
-    ar: 'Bitcoin هبط {pct} تحت المعدّل متاعو متاع 50 يوم، أما مازال فوق خط الـ 200 يوم. استنّى حركات أكبر من العادة.',
+    en: 'Bitcoin fell {pct} below its 50-day average but is still above its 200-day average. Expect bigger moves than usual.',
+    fr: 'Le bitcoin est passé {pct} sous sa moyenne sur 50 jours, mais reste au-dessus de celle sur 200 jours. Attendez-vous à de plus gros mouvements.',
+    ar: 'نزل Bitcoin تحت متوسطه لـ 50 يومًا بنسبة {pct}، لكنه ما زال فوق خط الـ 200 يوم. توقّع تقلبات أكبر من المعتاد.',
   },
   'weather.choppy.hot': {
-    en: 'Bitcoin is above its 50-day average, but the crowd is overheated ({why}). Pullbacks get more likely.',
-    fr: 'Le bitcoin est au-dessus de sa moyenne sur 50 jours, mais la foule surchauffe ({why}). Les replis deviennent plus probables.',
-    ar: 'Bitcoin فوق المعدّل متاعو متاع 50 يوم، أما الناس سخنو برشا ({why}). الرجوع لتالي يولّي أقرب.',
+    en: 'Bitcoin is above its 50-day average, but buyers are too excited ({why}). A drop gets more likely.',
+    fr: 'Le bitcoin est au-dessus de sa moyenne sur 50 jours, mais les acheteurs s’emballent ({why}). Une baisse devient plus probable.',
+    ar: 'Bitcoin فوق متوسطه لـ 50 يومًا، لكن المتداولين في حماس مفرط ({why}). التراجعات تصبح أكثر احتمالًا.',
   },
   'weather.stormy.body': {
     en: 'Bitcoin is below both its 50-day and 200-day averages. In storms most coins fall, even 24K ones.',
-    fr: 'Le bitcoin est sous ses moyennes sur 50 et 200 jours. Dans l’orage, la plupart des cryptos baissent, même les 24K.',
-    ar: 'Bitcoin تحت المعدّل متاع 50 يوم ومتاع 200 يوم. في الطقس الخايب أغلب الـ coins يهبطو، حتى الـ 24K.',
+    fr: 'Le bitcoin est sous ses moyennes sur 50 et sur 200 jours. Dans l’orage, la plupart des cryptos baissent, même les 24K.',
+    ar: 'Bitcoin تحت متوسطه لـ 50 يومًا ولـ 200 يوم. في العاصفة تهبط أغلب العملات، حتى عملات 24K.',
   },
-  'weather.hot.greed': { en: 'extreme greed', fr: 'avidité extrême', ar: 'طمع كبير' },
-  'weather.hot.funding': { en: 'leveraged longs paying up', fr: 'acheteurs à levier très payeurs', ar: 'برشا ناس شاريين بالـ leverage' },
+  'weather.hot.greed': { en: 'extreme greed', fr: 'avidité extrême', ar: 'طمع شديد' },
+  'weather.hot.funding': { en: 'many buying with borrowed money', fr: 'beaucoup achètent avec de l’argent emprunté', ar: 'كثيرون يشترون بالرافعة المالية' },
   'weather.why': {
-    en: 'Since 2021, months that started with Bitcoin above its 50-day average went clearly better than the rest.',
-    fr: 'Depuis 2021, les mois commencés avec le bitcoin au-dessus de sa moyenne sur 50 jours ont nettement mieux tourné.',
-    ar: 'من 2021، الشهور اللي بداو وBitcoin فوق المعدّل متاع 50 يوم كانو أحسن بالواضح من البقيّة.',
+    en: 'Since 2021, months that began with Bitcoin above its 50-day average went clearly better than the others.',
+    fr: 'Depuis 2021, les mois qui commencent avec le bitcoin au-dessus de sa moyenne sur 50 jours se passent nettement mieux.',
+    ar: 'منذ 2021، كانت الأشهر التي بدأت وBitcoin فوق متوسطه لـ 50 يومًا أفضل بوضوح من غيرها.',
   },
   // the tap that opens weather.why
-  // CHECK
-  'weather.whyAsk': { en: 'Why?', fr: 'Pourquoi ?', ar: 'علاش؟' },
+  'weather.whyAsk': { en: 'Why?', fr: 'Pourquoi ?', ar: 'لماذا؟' },
 
   'karat.label': { en: '{k}K', fr: '{k}K', ar: '{k} قيراط' },
   'karat.none': { en: 'New', fr: 'Nouveau', ar: 'جديدة' },
-  'karat.title': { en: 'Why {k}K', fr: 'Pourquoi {k}K', ar: 'علاش {k} قيراط' },
-  'karat.trend': { en: '90-day trend', fr: 'Tendance 90 jours', ar: 'الاتجاه في 90 يوم' },
+  'karat.title': { en: 'Why {k}K', fr: 'Pourquoi {k}K', ar: 'لماذا {k} قيراط' },
+  'karat.trend': { en: '90-day trend', fr: 'Tendance 90 jours', ar: 'الاتجاه خلال 90 يومًا' },
   'karat.trendSub': {
     en: 'Stronger than {n}% of the top coins',
     fr: 'Plus forte que {n} % des grandes cryptos',
-    ar: 'أقوى من {n}% من الـ coins الكبار',
+    ar: 'أقوى من {n}% من العملات الكبرى',
   },
   'karat.calm': { en: 'Calm', fr: 'Calme', ar: 'الهدوء' },
   'karat.calmSub': {
     en: 'Calmer than {n}% of the top coins',
     fr: 'Plus calme que {n} % des grandes cryptos',
-    ar: 'أهدى من {n}% من الـ coins الكبار',
+    ar: 'أهدأ من {n}% من العملات الكبرى',
   },
-  'karat.perDay': { en: '±{v}% a day', fr: '±{v} % par jour', ar: '±{v}% في النهار' },
+  'karat.perDay': { en: '±{v}% a day', fr: '±{v} % par jour', ar: '±{v}% في اليوم' },
   // The scale, shown as a 24K plate and a 10K plate with these words beside them.
-  // CHECK (the old legend's own words, split in two)
-  'karat.top': { en: 'calm and climbing', fr: 'calme et en hausse', ar: 'باهية وطالعة' },
-  // CHECK (the old legend's own words, split in two)
-  'karat.bottom': { en: 'wild or sliding', fr: 'agitée ou en baisse', ar: 'متقلّبة ولا هابطة' },
-  // CHECK (the second sentence of the old scale line, unchanged)
+  'karat.top': { en: 'calm and rising', fr: 'calme et en hausse', ar: 'هادئة وصاعدة' },
+  'karat.bottom': { en: 'wild or falling', fr: 'agitée ou en baisse', ar: 'متقلّبة أو هابطة' },
   'karat.compare': {
     en: 'Karats compare coins with each other: in a stormy market even 24K coins usually fall.',
     fr: 'Les carats comparent les cryptos entre elles : dans un marché orageux, même les 24K baissent souvent.',
-    ar: 'القيراط يقارن الـ coins بين بعضهم: في سوق خايب حتى الـ 24K عادةً يهبطو.',
+    ar: 'القيراط يقارن العملات ببعضها: في سوق عاصف تهبط عادةً حتى عملات 24K.',
   },
   'karat.young': {
     en: 'Too new for a karat: it needs 3 months of history.',
-    fr: 'Trop récente pour un carat : il faut 3 mois d’historique.',
-    ar: 'جديدة برشا باش تاخذ قيراط: لازمها 3 شهور من المعطيات.',
+    fr: 'Trop récente pour un carat : il faut 3 mois de prix.',
+    ar: 'جديدة جدًا لتأخذ قيراطًا: تحتاج إلى 3 أشهر من البيانات.',
   },
   // "Low" is relative to other coins: even the calmest crypto swings far more
   // than savings or gold, so the label says so.
-  'risk.low': { en: 'Low risk for crypto', fr: 'Risque faible pour une crypto', ar: 'risk منخفض للـ crypto' },
-  'risk.medium': { en: 'Medium risk', fr: 'Risque moyen', ar: 'risk متوسط' },
-  'risk.high': { en: 'High risk', fr: 'Risque élevé', ar: 'risk عالي' },
-  'risk.title': { en: 'If it goes wrong', fr: 'Si ça tourne mal', ar: 'كان صارت خايبة' },
+  'risk.low': { en: 'Low risk for crypto', fr: 'Risque faible pour une crypto', ar: 'مخاطرة منخفضة بين العملات الرقمية' },
+  'risk.medium': { en: 'Medium risk', fr: 'Risque moyen', ar: 'مخاطرة متوسطة' },
+  'risk.high': { en: 'High risk', fr: 'Risque élevé', ar: 'مخاطرة عالية' },
+  'risk.title': { en: 'If it goes wrong', fr: 'Si ça tourne mal', ar: 'إذا ساءت الأمور' },
   'risk.learn': {
     en: 'What is a rough month? 2-minute lesson',
     fr: 'C’est quoi un mauvais mois ? Leçon de 2 min',
-    ar: 'شنوّة الشهر الصعيب؟ درس في دقيقتين',
+    ar: 'ما هو الشهر الصعب؟ درس في دقيقتين',
   },
-  'risk.day': { en: 'A typical day', fr: 'Une journée normale', ar: 'نهار عادي' },
-  'risk.month': { en: 'A rough month (1 in 20)', fr: 'Un mauvais mois (1 sur 20)', ar: 'شهر صعيب (مرّة كل 20 شهر)' },
+  'risk.day': { en: 'A typical day', fr: 'Une journée normale', ar: 'يوم عادي' },
+  'risk.month': { en: 'A rough month (1 in 20)', fr: 'Un mauvais mois (1 sur 20)', ar: 'شهر صعب (مرة كل 20 شهرًا)' },
   'risk.money': {
     en: 'On 100 TND, a rough month could cost about {v} TND.',
     fr: 'Sur 100 TND, un mauvais mois pourrait coûter environ {v} TND.',
-    ar: 'على 100 دينار، شهر صعيب ينجّم يكلّفك قريب {v} دينار.',
+    ar: 'على 100 دينار، قد يكلّفك شهر صعب حوالي {v} دينار.',
   },
   'risk.note': {
-    en: 'Past swings, not a forecast. Risk is the part of the grade that has been most reliable. "Low" means low compared with other coins: crypto still swings far more than savings or gold.',
-    fr: 'Ce sont les variations passées, pas une prévision. Le risque est la partie la plus fiable de la note. « Faible » veut dire faible par rapport aux autres cryptos : une crypto bouge toujours bien plus qu’une épargne ou que l’or.',
-    ar: 'هذي حركات اللي فات، موش توقّع. الـ risk هو أكثر جزء صحيح في التقييم. «منخفض» معناها مقارنة بالـ coins الأخرين: الـ crypto ديما تتحرّك أكثر بكثير من التوفير ولا الذهب.',
+    en: 'These are past moves, not a forecast. Risk is the most reliable part of the grade. "Low" means low next to other coins: crypto still moves much more than savings or gold.',
+    fr: 'Ce sont des mouvements passés, pas une prévision. Le risque est la partie la plus fiable de la note. « Faible » veut dire faible par rapport aux autres cryptos : une crypto bouge toujours beaucoup plus qu’une épargne ou que l’or.',
+    ar: 'هذه حركات سابقة، وليست توقعًا. المخاطرة هي الجزء الأكثر موثوقية في التقييم. «منخفضة» تعني مقارنةً بالعملات الأخرى: العملات الرقمية تتحرك دائمًا أكثر بكثير من الادخار أو الذهب.',
   },
 
-  'coins.title': { en: 'Your coins', fr: 'Vos cryptos', ar: 'الـ coins متاعك' },
-  'coins.edit': { en: 'Edit list', fr: 'Modifier', ar: 'بدّل الليستة' },
-  'coins.done': { en: 'Done', fr: 'Terminé', ar: 'كمّلت' },
-  'coins.add': { en: 'Add', fr: 'Ajouter', ar: 'زيد' },
-  'coins.addPlaceholder': { en: 'Add a coin, e.g. SOL', fr: 'Ajouter une crypto, ex. SOL', ar: 'زيد coin، مثلاً SOL' },
-  'coins.popular': { en: 'Popular', fr: 'Populaires', ar: 'المعروفين' },
-  'coins.remove': { en: 'Remove {coin}', fr: 'Retirer {coin}', ar: 'نحّي {coin}' },
-  'coins.loading': { en: 'Grading your coins…', fr: 'Évaluation de vos cryptos…', ar: 'نقيّمو في الـ coins متاعك…' },
-  'coins.empty': { en: 'Add a coin to see its score.', fr: 'Ajoutez une crypto pour voir son score.', ar: 'زيد coin باش تشوف الدرجة متاعها.' },
+  'coins.title': { en: 'Your coins', fr: 'Vos cryptos', ar: 'عملاتك' },
+  'coins.edit': { en: 'Edit list', fr: 'Modifier', ar: 'عدّل القائمة' },
+  'coins.done': { en: 'Done', fr: 'Terminé', ar: 'تم' },
+  'coins.add': { en: 'Add', fr: 'Ajouter', ar: 'أضف' },
+  'coins.addPlaceholder': { en: 'Add a coin, e.g. SOL', fr: 'Ajouter une crypto, ex. SOL', ar: 'أضف عملة، مثلًا SOL' },
+  'coins.popular': { en: 'Popular', fr: 'Populaires', ar: 'الأشهر' },
+  'coins.remove': { en: 'Remove {coin}', fr: 'Retirer {coin}', ar: 'احذف {coin}' },
+  'coins.loading': { en: 'Grading your coins…', fr: 'Évaluation de vos cryptos…', ar: 'جارٍ تقييم عملاتك…' },
+  'coins.empty': { en: 'Add a coin to see its score.', fr: 'Ajoutez une crypto pour voir son score.', ar: 'أضف عملة لترى درجتها.' },
   'coins.notFound': {
     en: 'Not found on Binance: {list}. Remove it from your list.',
     fr: 'Introuvable sur Binance : {list}. Retirez-la de votre liste.',
-    ar: 'موش موجودة في Binance: {list}. نحّيها من الليستة متاعك.',
+    ar: 'غير موجودة على Binance: {list}. احذفها من قائمتك.',
   },
   'coins.unknown': {
-    en: 'We couldn’t find “{coin}” on Binance. Check the ticker, e.g. SOL.',
-    fr: 'Impossible de trouver « {coin} » sur Binance. Vérifiez le symbole, ex. SOL.',
-    ar: 'ما لقيناش «{coin}» في Binance. ثبّت في الرمز، مثلاً SOL.',
+    en: 'We couldn’t find “{coin}” on Binance. Check the short name, e.g. SOL.',
+    fr: 'Impossible de trouver « {coin} » sur Binance. Vérifiez le nom court, ex. SOL.',
+    ar: 'لم نجد «{coin}» على Binance. تحقّق من الرمز، مثلًا SOL.',
   },
-  'coins.checking': { en: 'Checking…', fr: 'Vérification…', ar: 'نثبّتو…' },
-  'coins.search': { en: 'Search a coin: BTC, Solana…', fr: 'Chercher une crypto : BTC, Solana…', ar: 'لوّج على coin: BTC، Solana…' },
+  'coins.checking': { en: 'Checking…', fr: 'Vérification…', ar: 'جارٍ التحقق…' },
+  'coins.search': { en: 'Search a coin: BTC, Solana…', fr: 'Chercher une crypto : BTC, Solana…', ar: 'ابحث عن عملة: BTC، Solana…' },
   'coins.noMatch': {
     en: 'No coin matching “{q}” on Binance.',
     fr: 'Aucune crypto « {q} » sur Binance.',
-    ar: 'ما فمّاش coin تشبه «{q}» في Binance.',
+    ar: 'لا توجد عملة تطابق «{q}» على Binance.',
   },
-  'coins.added': { en: 'Added', fr: 'Ajoutée', ar: 'تزادت' },
+  'coins.added': { en: 'Added', fr: 'Ajoutée', ar: 'أُضيفت' },
 
   'coin.today': { en: 'today', fr: "aujourd'hui", ar: 'اليوم' },
   'coin.7d': { en: '7 days', fr: '7 jours', ar: '7 أيام' },
-  // CHECK (a comma instead of the middle dot, words unchanged)
-  'chart.title': { en: '30 days, one candle per day', fr: '30 jours, une bougie par jour', ar: '30 يوم، شمعة لكل نهار' },
+  'chart.title': { en: '30 days, one candle per day', fr: '30 jours, une bougie par jour', ar: '30 يومًا، شمعة لكل يوم' },
   'chart.legend': {
-    en: 'Green: the day closed higher than it opened. Red: it closed lower. Thin line: the day’s high and low. Tap a candle to see that day.',
-    fr: 'Vert : la journée a clôturé plus haut qu’à l’ouverture. Rouge : plus bas. Trait fin : le plus haut et le plus bas du jour. Touchez une bougie pour voir ce jour.',
-    ar: 'الأخضر: النهار سكّر أعلى من ما حلّ. الأحمر: سكّر أوطى. الخيط الرقيق: أعلى وأوطى سوم في النهار. انقر على شمعة باش تشوف النهار هذاكا.',
+    en: 'Green: the price ended the day higher than it started. Red: lower. Thin line: the day’s highest and lowest price. Tap a candle to see that day.',
+    fr: 'Vert : le prix a fini la journée plus haut qu’au début. Rouge : plus bas. Trait fin : le prix le plus haut et le plus bas du jour. Touchez une bougie pour voir ce jour.',
+    ar: 'الأخضر: أغلق اليوم أعلى مما افتتح. الأحمر: أغلق أدنى. الخط الرفيع: أعلى وأدنى سعر في اليوم. انقر على شمعة لترى ذلك اليوم.',
   },
-  'chart.open': { en: 'Open', fr: 'Ouv.', ar: 'حلّ' },
+  'chart.open': { en: 'Open', fr: 'Ouverture', ar: 'افتتاح' },
   'chart.high': { en: 'High', fr: 'Haut', ar: 'أعلى' },
-  'chart.low': { en: 'Low', fr: 'Bas', ar: 'أوطى' },
-  'chart.close': { en: 'Close', fr: 'Clôt.', ar: 'سكّر' },
-  'coin.why': { en: 'Why this score', fr: 'Pourquoi ce score', ar: 'علاش الدرجة هاذي' },
-  'coin.base': { en: 'Starting point', fr: 'Point de départ', ar: 'منين بدينا' },
+  'chart.low': { en: 'Low', fr: 'Bas', ar: 'أدنى' },
+  'chart.close': { en: 'Close', fr: 'Clôture', ar: 'إغلاق' },
+  'coin.why': { en: 'Why this score', fr: 'Pourquoi ce score', ar: 'لماذا هذه الدرجة' },
+  'coin.base': { en: 'Starting point', fr: 'Point de départ', ar: 'نقطة البداية' },
   'coin.score': { en: 'Score', fr: 'Score', ar: 'الدرجة' },
-  'coin.cap': { en: 'Risk-off cap', fr: 'Plafond marché défavorable', ar: 'سقف وقت الحذر' },
-  'coin.beforeCap': { en: 'before the cap: {n}', fr: 'avant plafond : {n}', ar: 'قبل السقف: {n}' },
-  'coin.helps': { en: 'What helps', fr: 'Ce qui aide', ar: 'شنوّة يعاونها' },
-  'coin.watch': { en: 'Watch out', fr: 'Points de vigilance', ar: 'ردّ بالك من' },
-  'coin.risk': { en: 'Risk', fr: 'Risque', ar: 'الـ risk' },
-  'coin.capped': { en: 'Capped · risk-off', fr: 'Plafonné · défavorable', ar: 'مسقّف · وقت حذر' },
+  'coin.cap': { en: 'Limit (careful market)', fr: 'Limite (marché fragile)', ar: 'الحد الأقصى وقت الحذر' },
+  'coin.beforeCap': { en: 'before the limit: {n}', fr: 'avant la limite : {n}', ar: 'قبل الحد: {n}' },
+  'coin.helps': { en: 'What helps', fr: 'Ce qui aide', ar: 'ما يساعدها' },
+  'coin.watch': { en: 'Watch out', fr: 'Attention', ar: 'انتبه إلى' },
+  'coin.risk': { en: 'Risk', fr: 'Risque', ar: 'المخاطرة' },
+  'coin.capped': { en: 'Limited · careful market', fr: 'Limité · marché fragile', ar: 'محدودة · وقت الحذر' },
   'coin.notAdvice': {
     en: "A rating describes the coin's chart, not what you should do with your money.",
     fr: 'Une note décrit le graphique de la crypto, pas ce que vous devez faire de votre argent.',
-    ar: 'التقييم يوصف الـ chart متاع الـ coin، موش شنوّة لازمك تعمل بفلوسك.',
+    ar: 'التقييم يصف الرسم البياني للعملة، لا ما يجب أن تفعله بمالك.',
   },
-  'coin.details': { en: 'Show details', fr: 'Voir le détail', ar: 'ورّي التفاصيل' },
+  'coin.details': { en: 'Show details', fr: 'Voir le détail', ar: 'اعرض التفاصيل' },
 
-  'moves.title': { en: "What's moving", fr: 'Ce qui bouge', ar: 'شنوّة يتحرّك' },
-  // CHECK
+  'moves.title': { en: "What's moving", fr: 'Ce qui bouge', ar: 'ما الذي يتحرك' },
   'moves.more': { en: 'More headlines', fr: 'Plus de titres', ar: 'أخبار أخرى' },
   'moves.trending': { en: 'Trending searches', fr: 'Recherches tendance', ar: 'الأكثر بحثاً' },
 
-  'record.title': { en: 'Track record', fr: 'Historique', ar: 'السجل' },
+  'record.title': { en: 'Past results', fr: 'Historique', ar: 'السجل' },
   'record.sub': {
-    en: 'Every call is logged, losses included.',
+    en: 'Every rating is saved, losses included.',
     fr: 'Chaque note est enregistrée, pertes comprises.',
     ar: 'كل تقييم مسجّل، بما في ذلك الخسائر.',
   },
   'record.live': { en: 'Live log', fr: 'Journal en direct', ar: 'السجل المباشر' },
-  'record.backtest': { en: 'Backtest 2021–26', fr: 'Backtest 2021–26', ar: 'اختبار 2021–26' },
+  'record.backtest': { en: 'Test on 2021–26 prices', fr: 'Test sur les prix 2021–26', ar: 'اختبار 2021–26' },
   'record.7d': { en: '7 days', fr: '7 jours', ar: '7 أيام' },
   'record.30d': { en: '30 days', fr: '30 jours', ar: '30 يوماً' },
   'record.rating': { en: 'Rating', fr: 'Note', ar: 'التقييم' },
-  'record.avg': { en: 'Avg return', fr: 'Rendement moyen', ar: 'متوسط العائد' },
-  'record.median': { en: 'Median', fr: 'Médiane', ar: 'الوسيط' },
+  'record.avg': { en: 'Average gain', fr: 'Gain moyen', ar: 'متوسط العائد' },
+  'record.median': { en: 'Middle value', fr: 'Valeur du milieu', ar: 'الوسيط' },
   'record.up': { en: '% up', fr: '% en hausse', ar: '% صاعدة' },
-  'record.calls': { en: 'Calls', fr: 'Notes', ar: 'تقييمات' },
+  'record.calls': { en: 'Ratings', fr: 'Notes', ar: 'تقييمات' },
   'record.allCoins': { en: 'All coins', fr: 'Toutes', ar: 'كل العملات' },
   'record.headline': {
-    en: 'Coins rated Strong returned {strong} on average over the next {days}, vs {all} for all coins. Only {hit}% of them went up, though: the edge comes from bigger winners, not more frequent ones.',
-    fr: 'Les cryptos notées Fortes ont rapporté {strong} en moyenne sur les {days} suivants, contre {all} pour l’ensemble. Seules {hit} % ont monté : l’avantage vient de gains plus gros, pas plus fréquents.',
+    en: 'Coins rated Strong gained {strong} on average in the next {days}, against {all} for all coins. But only {hit}% of them went up: they won bigger, not more often.',
+    fr: 'Les cryptos notées Fortes ont gagné {strong} en moyenne dans les {days} suivants, contre {all} pour toutes les cryptos. Mais seules {hit} % ont monté : elles ont gagné plus gros, pas plus souvent.',
     ar: 'حققت العملات المصنّفة قوية عائداً متوسطه {strong} خلال {days} التالية، مقابل {all} لكل العملات. لكن {hit}٪ منها فقط ارتفعت: الأفضلية تأتي من مكاسب أكبر وليس أكثر تكراراً.',
   },
   'record.scope': {
@@ -236,23 +227,23 @@ const UI = {
     fr: '{days} jours-crypto · {coins} cryptos · {from}–{to}',
     ar: '{days} يوم-عملة · {coins} عملة · {from}–{to}',
   },
-  'record.byYear': { en: 'Strong setups by year', fr: 'Notes Fortes par année', ar: 'التقييمات القوية حسب السنة' },
-  'record.noCalls': { en: 'no calls', fr: 'aucune', ar: 'لا يوجد' },
+  'record.byYear': { en: 'Strong ratings by year', fr: 'Notes Fortes par année', ar: 'التقييمات القوية حسب السنة' },
+  'record.noCalls': { en: 'none', fr: 'aucune', ar: 'لا يوجد' },
   'record.allShort': { en: 'all {v}', fr: 'toutes {v}', ar: 'الكل {v}' },
   'record.noCallsNote': {
-    en: '"No calls" means Bitcoin spent the year below its 200-day average, so the risk-off cap kept every coin out of Strong.',
-    fr: '« Aucune » signifie que le bitcoin est resté sous sa moyenne 200 jours toute l’année : le plafond a empêché toute note Forte.',
+    en: '"None" means Bitcoin stayed below its 200-day average all year, so the careful-market limit kept every coin out of Strong.',
+    fr: '« Aucune » veut dire que le bitcoin est resté sous sa moyenne sur 200 jours toute l’année : la limite a empêché toute note Forte.',
     ar: '«لا يوجد» يعني أن البيتكوين بقي طوال العام تحت متوسطه لـ200 يوم، فمنع الحدّ أي تقييم قوي.',
   },
   'record.caveats': { en: 'Read before trusting this', fr: 'À lire avant de s’y fier', ar: 'اقرأ قبل أن تثق بهذا' },
   'record.liveIntro': {
-    en: 'Every day the same {n} coins are rated and the result is saved once, never edited. Returns are computed from the saved prices, losses included. Logging since {date} · {days} day(s) so far.',
-    fr: 'Chaque jour, les mêmes {n} cryptos sont notées et le résultat est enregistré une seule fois, sans modification. Les rendements sont calculés à partir des prix enregistrés, pertes comprises. Depuis le {date} · {days} jour(s).',
+    en: 'Every day we rate the same {n} coins and save the result once. We never edit it. Gains are worked out from the saved prices, losses included. Saving since {date} · {days} day(s) so far.',
+    fr: 'Chaque jour, nous notons les mêmes {n} cryptos et enregistrons le résultat une seule fois, sans jamais le modifier. Les gains sont calculés avec les prix enregistrés, pertes comprises. Depuis le {date} · {days} jour(s).',
     ar: 'كل يوم تُقيَّم نفس الـ{n} عملة ويُحفظ الناتج مرة واحدة دون أي تعديل. تُحسب العوائد من الأسعار المحفوظة، بما في ذلك الخسائر. منذ {date} · {days} يوم حتى الآن.',
   },
   'record.firstResults': {
-    en: 'First 7-day results arrive on {date}. Until then, the backtest shows how these exact rules did on 2021–26 data.',
-    fr: 'Premiers résultats à 7 jours le {date}. D’ici là, le backtest montre ce qu’ont donné ces règles sur 2021–26.',
+    en: 'The first 7-day results come on {date}. Until then, the test on past prices shows how these same rules did in 2021–26.',
+    fr: 'Premiers résultats à 7 jours le {date}. D’ici là, le test sur les prix passés montre ce qu’ont donné ces règles en 2021–26.',
     ar: 'تصل أول نتائج لـ7 أيام في {date}. حتى ذلك الحين، يعرض الاختبار التاريخي أداء هذه القواعد نفسها في 2021–26.',
   },
   'record.todayCalls': { en: "Today's ratings", fr: 'Notes du jour', ar: 'تقييمات اليوم' },
@@ -260,273 +251,236 @@ const UI = {
   'record.loading': { en: 'Loading the record…', fr: 'Chargement…', ar: 'جارٍ التحميل…' },
   'record.none': { en: 'Nothing logged yet.', fr: 'Rien d’enregistré pour l’instant.', ar: 'لا شيء مسجّل بعد.' },
 
-  'ask.briefTitle': { en: "Today's briefing", fr: 'Le briefing du jour', ar: 'ملخّص اليوم' },
-  'ask.generate': { en: 'Write my briefing', fr: 'Rédiger mon briefing', ar: 'اكتبلي الملخّص' },
-  'ask.regenerate': { en: 'Rewrite', fr: 'Réécrire', ar: 'عاود اكتب' },
-  'ask.writing': { en: 'Writing…', fr: 'Rédaction…', ar: 'نكتبو…' },
-  'ask.throttled': { en: 'Please wait {s}s before rewriting.', fr: 'Patientez {s} s avant de réécrire.', ar: 'استنّى {s} ثانية قبل ما تعاود تكتب.' },
-  // CHECK (marker only, words unchanged)
+  'ask.briefTitle': { en: 'Today’s summary', fr: 'Le résumé du jour', ar: 'ملخّص اليوم' },
+  'ask.generate': { en: 'Write my summary', fr: 'Écrire mon résumé', ar: 'اكتب لي الملخّص' },
+  'ask.regenerate': { en: 'Rewrite', fr: 'Réécrire', ar: 'أعد الكتابة' },
+  'ask.writing': { en: 'Writing…', fr: 'Écriture…', ar: 'جارٍ الكتابة…' },
+  'ask.throttled': { en: 'Please wait {s}s before rewriting.', fr: 'Patientez {s} s avant de réécrire.', ar: 'انتظر {s} ثانية قبل إعادة الكتابة.' },
   'ask.chatTitle': { en: 'Ask [[Qirat]]', fr: 'Demandez à [[Qirat]]', ar: 'اسأل [[قيراط]]' },
-  // CHECK (first sentence removed, the rest unchanged)
   'ask.chatIntro': {
     en: 'Answers use only the live data and never give personal advice.',
-    fr: 'Les réponses s’appuient uniquement sur les données en direct, jamais sur des conseils personnels.',
-    ar: 'الإجابات تعتمد كان على المعطيات الحيّة وعمرها ما تعطي نصيحة شخصية.',
+    fr: 'Les réponses utilisent seulement les données en direct et ne donnent jamais de conseil personnel.',
+    ar: 'الإجابات تعتمد على البيانات المباشرة فقط، ولا تقدّم أبدًا نصيحة شخصية.',
   },
-  'ask.placeholder': { en: 'Ask about your coins…', fr: 'Une question sur vos cryptos…', ar: 'اسأل على الـ coins متاعك…' },
-  'ask.send': { en: 'Send', fr: 'Envoyer', ar: 'ابعث' },
-  'ask.s1': { en: 'Why is {coin} rated like this?', fr: 'Pourquoi {coin} a-t-il cette note ?', ar: 'علاش {coin} خذات التقييم هذا؟' },
-  'ask.s2': { en: 'What would push {coin} higher?', fr: 'Qu’est-ce qui ferait monter le score de {coin} ?', ar: 'شنوّة ينجّم يطلّع درجة {coin}؟' },
-  'ask.s3': { en: 'Is the market risky today?', fr: 'Le marché est-il risqué aujourd’hui ?', ar: 'السوق فيه risk اليوم؟' },
-  'ask.off': { en: 'The AI is offline right now.', fr: 'L’IA est indisponible pour le moment.', ar: 'الذكاء الاصطناعي موش خدّام توّا.' },
+  'ask.placeholder': { en: 'Ask about your coins…', fr: 'Une question sur vos cryptos…', ar: 'اسأل عن عملاتك…' },
+  'ask.send': { en: 'Send', fr: 'Envoyer', ar: 'أرسل' },
+  'ask.s1': { en: 'Why is {coin} rated like this?', fr: 'Pourquoi {coin} a-t-il cette note ?', ar: 'لماذا حصلت {coin} على هذا التقييم؟' },
+  'ask.s2': { en: 'What would push {coin} higher?', fr: 'Qu’est-ce qui ferait monter le score de {coin} ?', ar: 'ما الذي قد يرفع درجة {coin}؟' },
+  'ask.s3': { en: 'Is the market risky today?', fr: 'Le marché est-il risqué aujourd’hui ?', ar: 'هل السوق خطير اليوم؟' },
+  'ask.off': { en: 'The AI is offline right now.', fr: 'L’IA est indisponible pour le moment.', ar: 'الذكاء الاصطناعي غير متاح حاليًا.' },
 
-  // CHECK (marker only, words unchanged)
-  'pf.title': { en: 'Your [[holdings]]', fr: 'Vos [[avoirs]]', ar: 'الـ coins اللي [[عندك]]' },
-  // CHECK (first two sentences removed, the last one unchanged)
+  'pf.title': { en: 'What you [[own]]', fr: 'Ce que vous [[avez]]', ar: 'العملات التي [[تملكها]]' },
   'pf.intro': {
     en: 'Saved only on this device.',
     fr: 'Enregistré uniquement sur cet appareil.',
-    ar: 'محفوظ كان في الجهاز هذا.',
+    ar: 'محفوظ على هذا الجهاز فقط.',
   },
-  'pf.coin': { en: 'Coin', fr: 'Crypto', ar: 'الـ coin' },
+  'pf.coin': { en: 'Coin', fr: 'Crypto', ar: 'العملة' },
   'pf.amount': { en: 'Amount', fr: 'Quantité', ar: 'الكمية' },
-  'pf.avg': { en: 'Avg buy price', fr: 'Prix d’achat moyen', ar: 'معدّل سوم الشراية' },
+  'pf.avg': { en: 'Average buy price', fr: 'Prix d’achat moyen', ar: 'متوسط سعر الشراء' },
   'pf.value': { en: 'Value', fr: 'Valeur', ar: 'القيمة' },
   'pf.pnl': { en: 'Profit / loss', fr: 'Gain / perte', ar: 'الربح / الخسارة' },
-  'pf.total': { en: 'Total value', fr: 'Valeur totale', ar: 'القيمة الكلّ' },
-  'pf.add': { en: 'Add a holding', fr: 'Ajouter un avoir', ar: 'زيد coin عندك' },
-  'pf.remove': { en: 'Remove', fr: 'Retirer', ar: 'نحّي' },
-  // CHECK (first sentence removed, the rest unchanged)
+  'pf.total': { en: 'Total value', fr: 'Valeur totale', ar: 'القيمة الإجمالية' },
+  'pf.add': { en: 'Add a coin you own', fr: 'Ajouter une crypto', ar: 'أضف عملة تملكها' },
+  'pf.remove': { en: 'Remove', fr: 'Retirer', ar: 'احذف' },
   'pf.empty': {
     en: 'Add what you own to see its value and profit.',
     fr: 'Ajoutez ce que vous possédez pour voir sa valeur et vos gains.',
-    ar: 'زيد اللي عندك باش تشوف قيمتو والربح متاعك.',
+    ar: 'أضف ما تملكه لترى قيمته وربحك.',
   },
-  'pf.source': { en: 'Market data', fr: 'Données de marché', ar: 'معطيات السوق' },
-  'pf.quote': { en: 'Priced in', fr: 'Prix en', ar: 'السوم بـ' },
-  'pf.alerts': { en: 'Send to my channels', fr: 'Envoyer sur mes canaux', ar: 'ابعث للقنوات متاعي' },
+  'pf.source': { en: 'Market data', fr: 'Données de marché', ar: 'بيانات السوق' },
+  'pf.quote': { en: 'Priced in', fr: 'Prix en', ar: 'السعر بـ' },
+  'pf.alerts': { en: 'Send to my channels', fr: 'Envoyer sur mes canaux', ar: 'أرسل إلى قنواتي' },
   'pf.alertsIntro': {
-    en: 'Push the current snapshot to a configured Discord or WhatsApp channel.',
-    fr: 'Envoyez l’instantané actuel vers un canal Discord ou WhatsApp configuré.',
-    ar: 'ابعث الصورة الحالية لقناة Discord ولا WhatsApp محضّرة.',
+    en: 'Send what you see now to a Discord or WhatsApp channel you set up.',
+    fr: 'Envoyez ce que vous voyez maintenant vers un canal Discord ou WhatsApp déjà réglé.',
+    ar: 'أرسل الصورة الحالية إلى قناة Discord أو WhatsApp مُعدّة مسبقًا.',
   },
-  'pf.ready': { en: 'ready', fr: 'prêt', ar: 'حاضر' },
-  'pf.notSet': { en: 'not set up', fr: 'non configuré', ar: 'موش محضّر' },
-  'pf.send': { en: 'Send update', fr: 'Envoyer', ar: 'ابعث التحديث' },
-  'pf.sending': { en: 'Sending…', fr: 'Envoi…', ar: 'نبعثو…' },
-  'pf.pickChannel': { en: 'Pick at least one channel.', fr: 'Choisissez au moins un canal.', ar: 'اختار قناة وحدة على الأقل.' },
-  'pf.sent': { en: 'Sent to {n} channel(s).', fr: 'Envoyé à {n} canal(aux).', ar: 'تبعث لـ {n} قناة.' },
-  'pf.noChannel': { en: 'No channel is configured yet.', fr: 'Aucun canal n’est configuré.', ar: 'حتى قناة موش محضّرة توّا.' },
+  'pf.ready': { en: 'ready', fr: 'prêt', ar: 'جاهز' },
+  'pf.notSet': { en: 'not set up', fr: 'non configuré', ar: 'غير مُعدّ' },
+  'pf.send': { en: 'Send update', fr: 'Envoyer', ar: 'أرسل التحديث' },
+  'pf.sending': { en: 'Sending…', fr: 'Envoi…', ar: 'جارٍ الإرسال…' },
+  'pf.pickChannel': { en: 'Pick at least one channel.', fr: 'Choisissez au moins un canal.', ar: 'اختر قناة واحدة على الأقل.' },
+  'pf.sent': { en: 'Sent to {n} channel(s).', fr: 'Envoyé à {n} canal(aux).', ar: 'أُرسل إلى {n} قناة.' },
+  'pf.noChannel': { en: 'No channel is configured yet.', fr: 'Aucun canal n’est configuré.', ar: 'لا توجد قناة مُعدّة بعد.' },
 
   'foot.disclaimer': {
-    en: 'Free during the beta. Rule-based grades, identical for everyone. Not financial advice.',
-    fr: 'Gratuit pendant la bêta. Notes fondées sur des règles, identiques pour tous. Pas un conseil financier.',
-    ar: 'بلاش في فترة التجربة. تقييمات بقواعد ثابتة، كيف كيف للناس الكل. موش نصيحة مالية.',
+    en: 'Free during the test period. Grades follow fixed rules, the same for everyone. Not financial advice.',
+    fr: 'Gratuit pendant la période de test. Les notes suivent des règles fixes, les mêmes pour tous. Pas un conseil financier.',
+    ar: 'مجاني خلال الفترة التجريبية. تقييمات بقواعد ثابتة، واحدة للجميع. ليست نصيحة مالية.',
   },
   // shown once after qirat.tn/#own-on or #own-off (lib/source.ts)
-  'own.on': { en: 'This browser is no longer counted.', fr: 'Ce navigateur n’est plus compté.', ar: 'المتصفّح هذا ما عادش يتحسب.' },
-  'own.off': { en: 'This browser is counted again.', fr: 'Ce navigateur est de nouveau compté.', ar: 'المتصفّح هذا رجع يتحسب.' },
+  'own.on': { en: 'This browser is no longer counted.', fr: 'Ce navigateur n’est plus compté.', ar: 'لم يعد هذا المتصفح يُحتسب.' },
+  'own.off': { en: 'This browser is counted again.', fr: 'Ce navigateur est de nouveau compté.', ar: 'عاد هذا المتصفح يُحتسب.' },
   'own.failed': {
     en: 'Storage is blocked here, so this browser is still counted.',
     fr: 'Le stockage est bloqué ici : ce navigateur reste compté.',
-    ar: 'الـ storage مسكّر هنا، المتصفّح هذا مازال يتحسب.',
+    ar: 'التخزين محظور هنا، لذلك ما زال هذا المتصفح يُحتسب.',
   },
-  'foot.data': { en: 'Market data', fr: 'Données', ar: 'المعطيات' },
-  'foot.channel': { en: 'Telegram channel', fr: 'Canal Telegram', ar: 'القناة في Telegram' },
-  'foot.follow': { en: 'New stories every week on', fr: 'De nouvelles histoires chaque semaine sur', ar: 'قصص جدد كل جمعة على' },
-  'foot.notAdvice': { en: 'Not financial advice.', fr: 'Pas un conseil financier.', ar: 'موش نصيحة مالية.' },
-  'foot.sources': { en: 'Where do the numbers come from?', fr: 'D’où viennent les chiffres ?', ar: 'منين تجي الأرقام؟' },
+  'foot.data': { en: 'Market data', fr: 'Données', ar: 'البيانات' },
+  'foot.channel': { en: 'Telegram channel', fr: 'Canal Telegram', ar: 'القناة على Telegram' },
+  'foot.follow': { en: 'New stories every week on', fr: 'De nouvelles histoires chaque semaine sur', ar: 'قصص جديدة كل أسبوع على' },
+  'foot.notAdvice': { en: 'Not financial advice.', fr: 'Pas un conseil financier.', ar: 'ليست نصيحة مالية.' },
+  'foot.sources': { en: 'Where do the numbers come from?', fr: 'D’où viennent les chiffres ?', ar: 'من أين تأتي الأرقام؟' },
 
   // The first screen (HomeView). A caption's [[double brackets]] sit on the gold
-  // marker; \n is a line break. The Darija lines marked CHECK were written for
-  // the redesign and wait for Abdelkerim's ear; «جرّب قبل ما تحطّ فلوسك» and
-  // «جرّب إنت زادة» are the videos' own words.
+  // marker; \n is a line break. Arabic here is light Arabic (simple Modern
+  // Standard Arabic for every Arab country, no dialect), since 2026-11-20.
   'home.h1': {
     en: 'Try it before you put in [[real money]]',
     fr: 'Essayez avant de mettre [[votre argent]]',
-    ar: 'جرّب قبل ما\nتحطّ [[فلوسك]]',
+    ar: 'جرّب قبل أن\nتضع [[أموالك]]',
   },
   'home.barLabel': { en: 'Qirat, the gold bar', fr: 'Qirat, le lingot d’or', ar: 'قيراط، سبيكة الذهب' },
-  // CHECK
   'home.bubble': {
     en: 'Here, {n} dollars. Pretend ones, relax.',
     fr: 'Tenez, {n} dollars. Fictifs, pas de stress.',
-    ar: 'هاك {n} دولار. تجريبية، ما تخافش.',
+    ar: 'تفضّل، {n} دولار. تجريبية، لا تقلق.',
   },
-  // CHECK
-  'home.bubbleBack': { en: 'You are back! Where were we?', fr: 'Vous revoilà ! On en était où ?', ar: 'رجعت! وين وصلنا؟' },
+  'home.bubbleBack': { en: 'You are back! Where were we?', fr: 'Vous revoilà ! On en était où ?', ar: 'عدت! أين وصلنا؟' },
   'home.bill': { en: 'pretend', fr: 'fictifs', ar: 'تجريبية' },
-  'home.try': { en: 'Try it with {n} pretend dollars', fr: 'Essayer avec {n} dollars fictifs', ar: 'جرّب بـ {n} دولار تجريبية' },
-  'home.lesson1': { en: 'Or start with lesson 1', fr: 'Ou commencer par la leçon 1', ar: 'ولا ابدا بالدرس 1' },
+  'home.try': { en: 'Try it with {n} pretend dollars', fr: 'Essayer avec {n} dollars fictifs', ar: 'جرّب بـ {n} دولار تجريبية' },
+  'home.lesson1': { en: 'Or start with lesson 1', fr: 'Ou commencer par la leçon 1', ar: 'أو ابدأ بالدرس 1' },
   'home.free': {
     en: 'Free. Qirat never tells you to buy or sell.',
     fr: 'Gratuit. Qirat ne vous dit jamais d’acheter ni de vendre.',
-    ar: 'بلاش. قيراط عمرو ما يقلّك اشري ولا بيع.',
+    ar: 'مجاني. قيراط لا يقول لك أبدًا اشترِ أو بِع.',
   },
-  'home.continue': { en: 'Continue with lesson {n}', fr: 'Continuer avec la leçon {n}', ar: 'كمّل بالدرس {n}' },
-  'home.openWallet': { en: 'Open my wallet', fr: 'Ouvrir mon portefeuille', ar: 'حلّ الـ wallet متاعي' },
+  'home.continue': { en: 'Continue with lesson {n}', fr: 'Continuer avec la leçon {n}', ar: 'أكمل مع الدرس {n}' },
+  'home.openWallet': { en: 'Open my wallet', fr: 'Ouvrir mon portefeuille', ar: 'افتح محفظتي' },
   'home.stories': { en: 'Stories in 30 seconds', fr: 'Des histoires en 30 secondes', ar: 'قصص في 30 ثانية' },
-  // CHECK
-  'home.learnH': { en: '{n} lessons.\n[[2 minutes]] each.', fr: '{n} leçons.\n[[2 minutes]] chacune.', ar: '{n} درس.\nكل درس [[دقيقتين]].' },
+  'home.learnH': { en: '{n} lessons.\n[[2 minutes]] each.', fr: '{n} leçons.\n[[2 minutes]] chacune.', ar: '{n} درسًا.\n[[دقيقتان]] لكل درس.' },
   'home.lessonN': { en: 'Lesson {n}', fr: 'Leçon {n}', ar: 'الدرس {n}' },
-  'home.startLesson': { en: 'Start the lesson', fr: 'Commencer la leçon', ar: 'ابدا الدرس' },
+  'home.startLesson': { en: 'Start the lesson', fr: 'Commencer la leçon', ar: 'ابدأ الدرس' },
   'home.allDone': {
     en: 'Every lesson passed. You are 24K.',
     fr: 'Toutes les leçons réussies. Vous êtes 24K.',
-    ar: 'الدروس الكل نجحت فيهم. إنت 24K.',
+    ar: 'نجحت في كل الدروس. أنت 24K.',
   },
-  // CHECK
   'home.practiceH': {
     en: 'Buy. Sell. Get it wrong.\nAll for free.',
     fr: 'Achetez. Vendez. Trompez-vous.\nTout est gratuit.',
-    ar: 'اشري. بيع. اغلط.\nالكل بلاش.',
+    ar: 'اشترِ. بِع. أخطئ.\nكل ذلك مجانًا.',
   },
-  'home.ticket': { en: 'Practice wallet', fr: 'Portefeuille d’entraînement', ar: 'wallet تجريبي' },
-  'home.cash': { en: 'Cash', fr: 'Cash', ar: 'كاش' },
-  'home.trades': { en: 'Trades made', fr: 'Trades passés', ar: 'trades عملتهم' },
-  'home.startedWith': { en: 'Start', fr: 'Départ', ar: 'بديت بـ' },
-  'home.stamp': { en: 'Pretend', fr: 'Fictif', ar: 'تجربة' },
-  'home.stampSub': { en: 'not real\nmoney', fr: 'pas de vrai\nargent', ar: 'موش فلوس\nحقيقية' },
-  // CHECK
-  'home.replayH': { en: '30 days in [[4 minutes]].', fr: '30 jours en [[4 minutes]].', ar: '30 نهار في [[4 دقايق]].' },
-  'home.replayGo': { en: 'Start the trip', fr: 'Commencer le voyage', ar: 'ابدا الرحلة' },
-  'story.try': { en: 'Try it yourself', fr: 'Essayez vous-même', ar: 'جرّب إنت زادة' },
-  'story.again': { en: 'Watch again', fr: 'Revoir', ar: 'عاود شوفها' },
-  'story.more': { en: 'More on', fr: 'La suite sur', ar: 'الباقي على' },
-  'story.close': { en: 'Close the video', fr: 'Fermer la vidéo', ar: 'سكّر الفيديو' },
+  'home.ticket': { en: 'Practice wallet', fr: 'Portefeuille d’entraînement', ar: 'محفظة التدريب' },
+  'home.cash': { en: 'Cash', fr: 'Cash', ar: 'النقد' },
+  'home.trades': { en: 'Trades made', fr: 'Trades passés', ar: 'الصفقات المنفّذة' },
+  'home.startedWith': { en: 'Start', fr: 'Départ', ar: 'البداية' },
+  'home.stamp': { en: 'Pretend', fr: 'Fictif', ar: 'تجريبي' },
+  'home.stampSub': { en: 'not real\nmoney', fr: 'pas de vrai\nargent', ar: 'ليس مالًا\nحقيقيًا' },
+  'home.replayH': { en: '30 days in [[4 minutes]].', fr: '30 jours en [[4 minutes]].', ar: '30 يومًا في [[4 دقائق]].' },
+  'home.replayGo': { en: 'Start the trip', fr: 'Commencer le voyage', ar: 'ابدأ الرحلة' },
+  'story.try': { en: 'Try it yourself', fr: 'Essayez vous-même', ar: 'جرّب بنفسك' },
+  'story.again': { en: 'Watch again', fr: 'Revoir', ar: 'شاهدها مجددًا' },
+  'story.more': { en: 'More on', fr: 'La suite sur', ar: 'المزيد على' },
+  'story.close': { en: 'Close the video', fr: 'Fermer la vidéo', ar: 'أغلق الفيديو' },
   // The feedback form (FeedbackModal), in the visitor's language. Each question
   // fills a fixed field of the Google Form, so its meaning must stay close to
   // that field (see the note at the top of FeedbackModal.tsx). The Arabic lines
-  // were written on 2026-11-18 and wait for Abdelkerim's check.
-  // CHECK
-  'fb.title': { en: 'Give [[feedback]]', fr: 'Votre [[avis]]', ar: 'قلّنا [[رأيك]]' },
-  // CHECK
+  // were rewritten in light Arabic on 2026-11-20.
+  'fb.title': { en: 'Give [[feedback]]', fr: 'Votre [[avis]]', ar: 'شاركنا [[رأيك]]' },
   'fb.sub': {
     en: '30 seconds. Anonymous, no sign-in, nothing stored about you.',
     fr: '30 secondes. Anonyme, sans compte, rien n’est gardé sur vous.',
-    ar: '30 ثانية وبلا اسم. ما نخزّنو عليك حتى شي.',
+    ar: '30 ثانية، وبدون اسم. لا نحفظ أي شيء عنك.',
   },
-  // CHECK
-  'fb.required': { en: 'Required', fr: 'Obligatoire', ar: 'لازم' },
-  // CHECK
-  'fb.optional': { en: 'Optional', fr: 'Facultatif', ar: 'كان تحب' },
-  // CHECK
-  'fb.q1': { en: 'How long have you been in crypto?', fr: 'Depuis quand êtes-vous dans la crypto ?', ar: 'قدّاش عندك في الـ crypto؟' },
-  // CHECK
-  'fb.exp1': { en: 'Under 1 year', fr: 'Moins d’un an', ar: 'أقل من عام' },
-  // CHECK
-  'fb.exp2': { en: '1 to 3 years', fr: '1 à 3 ans', ar: 'من 1 لـ 3 سنين' },
-  // CHECK
-  'fb.exp3': { en: 'Over 3 years', fr: 'Plus de 3 ans', ar: 'أكثر من 3 سنين' },
-  // CHECK
-  'fb.q2': { en: 'Is Qirat clear?', fr: 'Qirat est-il clair ?', ar: 'قيراط واضح؟' },
-  // CHECK
+  'fb.required': { en: 'Required', fr: 'Obligatoire', ar: 'إجباري' },
+  'fb.optional': { en: 'Optional', fr: 'Facultatif', ar: 'اختياري' },
+  'fb.q1': { en: 'How long have you been in crypto?', fr: 'Depuis quand êtes-vous dans la crypto ?', ar: 'منذ متى وأنت في عالم العملات الرقمية؟' },
+  'fb.exp1': { en: 'Under 1 year', fr: 'Moins d’un an', ar: 'أقل من سنة' },
+  'fb.exp2': { en: '1 to 3 years', fr: '1 à 3 ans', ar: 'من 1 إلى 3 سنوات' },
+  'fb.exp3': { en: 'Over 3 years', fr: 'Plus de 3 ans', ar: 'أكثر من 3 سنوات' },
+  'fb.q2': { en: 'Is Qirat clear?', fr: 'Qirat est-il clair ?', ar: 'هل قيراط واضح؟' },
   'fb.q2hint': {
     en: '1 = I understood nothing, 5 = everything is clear',
     fr: '1 = je n’ai rien compris, 5 = tout est clair',
-    ar: '1 = ما فهمت شي، 5 = الكل واضح',
+    ar: '1 = لم أفهم شيئًا، 5 = كل شيء واضح',
   },
-  // CHECK
   'fb.q3': {
     en: 'Would you use Qirat before putting in real money?',
     fr: 'Utiliseriez-vous Qirat avant de mettre de l’argent réel ?',
-    ar: 'تستعمل قيراط قبل ما تحطّ فلوس حقيقية؟',
+    ar: 'هل ستستعمل قيراط قبل أن تضع مالًا حقيقيًا؟',
   },
-  // CHECK
-  'fb.yes': { en: 'Yes', fr: 'Oui', ar: 'إيه' },
-  // CHECK
-  'fb.sometimes': { en: 'Sometimes', fr: 'Parfois', ar: 'ساعات' },
+  'fb.yes': { en: 'Yes', fr: 'Oui', ar: 'نعم' },
+  'fb.sometimes': { en: 'Sometimes', fr: 'Parfois', ar: 'أحيانًا' },
   'fb.no': { en: 'No', fr: 'Non', ar: 'لا' },
-  // CHECK
-  'fb.q4': { en: 'What is missing?', fr: 'Que manque-t-il ?', ar: 'شنوّة ناقص؟' },
-  // CHECK
-  'fb.q4hint': { en: 'Required. The one that matters most.', fr: 'Obligatoire. La plus importante.', ar: 'لازم. هذي أهمّ وحدة.' },
-  // CHECK
+  'fb.q4': { en: 'What is missing?', fr: 'Que manque-t-il ?', ar: 'ما الذي ينقص؟' },
+  'fb.q4hint': { en: 'Required. The one that matters most.', fr: 'Obligatoire. La plus importante.', ar: 'إجباري. هذا هو السؤال الأهم.' },
   'fb.q4ph': {
     en: 'What would bring you back every day? More lessons, more coins, alerts…',
     fr: 'Qu’est-ce qui vous ferait revenir chaque jour ? Plus de leçons, plus de cryptos, des alertes…',
-    ar: 'شنوّة يخلّيك ترجع كل نهار؟ دروس أكثر، coins أكثر، تنبيهات…',
+    ar: 'ما الذي يجعلك تعود كل يوم؟ دروس أكثر، عملات أكثر، تنبيهات…',
   },
-  // CHECK
-  'fb.q5': { en: 'Anything confusing or broken?', fr: 'Quelque chose de confus ou de cassé ?', ar: 'حاجة ما فهمتهاش ولا ما خدمتش؟' },
-  // CHECK
-  'fb.q5ph': { en: 'Say it as it is.', fr: 'Dites-le comme c’est.', ar: 'قولها كيما هي.' },
-  // CHECK
-  'fb.send': { en: 'Send', fr: 'Envoyer', ar: 'ابعث' },
-  // CHECK
-  'fb.sending': { en: 'Sending…', fr: 'Envoi…', ar: 'يتبعث…' },
-  // CHECK
+  'fb.q5': { en: 'Anything confusing or broken?', fr: 'Quelque chose de confus ou de cassé ?', ar: 'هل هناك شيء غير واضح أو لا يعمل؟' },
+  'fb.q5ph': { en: 'Say it as it is.', fr: 'Dites-le comme c’est.', ar: 'قلها كما هي.' },
+  'fb.send': { en: 'Send', fr: 'Envoyer', ar: 'أرسل' },
+  'fb.sending': { en: 'Sending…', fr: 'Envoi…', ar: 'جارٍ الإرسال…' },
   'fb.sent': {
     en: 'Sent. It changes what gets built next.',
     fr: 'Envoyé. Cela change ce qui sera construit ensuite.',
-    ar: 'وصل. رأيك يقرّر شنوّة نبنيو من بعد.',
+    ar: 'وصل. رأيك يحدّد ما سنبنيه بعد ذلك.',
   },
-  // CHECK
-  'fb.back': { en: 'Back to Qirat', fr: 'Retour à Qirat', ar: 'ارجع لقيراط' },
-  // CHECK
+  'fb.back': { en: 'Back to Qirat', fr: 'Retour à Qirat', ar: 'عُد إلى قيراط' },
   'fb.error': {
     en: 'It could not be sent. Check your connection and try again.',
     fr: 'L’envoi a échoué. Vérifiez votre connexion et réessayez.',
-    ar: 'ما تبعثش. ثبّت في الكونكسيون وعاود.',
+    ar: 'تعذّر الإرسال. تحقّق من اتصالك وحاول مرة أخرى.',
   },
-  // CHECK
-  'fb.openForm': { en: 'Or open the form directly', fr: 'Ou ouvrir le formulaire directement', ar: 'ولا حلّ الفورم مباشرة' },
-  // CHECK
+  'fb.openForm': { en: 'Or open the form directly', fr: 'Ou ouvrir le formulaire directement', ar: 'أو افتح الاستمارة مباشرة' },
   'fb.note': {
     en: 'Goes to a Google Form. No account, no email.',
     fr: 'Envoyé vers un Google Form. Ni compte, ni e-mail.',
-    ar: 'يمشي لـ Google Form. لا compte لا email.',
+    ar: 'يُرسل إلى Google Form. بدون حساب وبدون بريد إلكتروني.',
   },
-  // CHECK
-  'fb.close': { en: 'Close', fr: 'Fermer', ar: 'سكّر' },
-  'foot.feedback': { en: 'Give feedback', fr: 'Donner mon avis', ar: 'قلّنا رأيك' },
+  'fb.close': { en: 'Close', fr: 'Fermer', ar: 'إغلاق' },
+  'foot.feedback': { en: 'Give feedback', fr: 'Donner mon avis', ar: 'شاركنا رأيك' },
   'foot.feedbackHint': {
-    en: 'Testing Qirat? 30 seconds, anonymous. It shapes what gets built next.',
-    fr: 'Vous testez Qirat ? 30 secondes, anonyme. Cela oriente la suite.',
-    ar: 'تجرّب في قيراط؟ 30 ثانية وبلا اسم. رأيك يقرّر شنوّة نبنيو من بعد.',
+    en: 'Trying Qirat? 30 seconds, no name. Your answer decides what we build next.',
+    fr: 'Vous essayez Qirat ? 30 secondes, sans nom. Votre avis décide de la suite.',
+    ar: 'تجرّب قيراط؟ 30 ثانية وبدون اسم. رأيك يحدّد ما سنبنيه بعد ذلك.',
   },
 
-  'guide.title': { en: 'How Qirat works', fr: 'Comment marche Qirat', ar: 'كيفاش يخدم قيراط' },
+  'guide.title': { en: 'How Qirat works', fr: 'Comment marche Qirat', ar: 'كيف يعمل قيراط' },
   'guide.sub': {
     en: 'A karat grades gold. Qirat grades coins.',
     fr: 'Le carat note l’or. Qirat note les cryptos.',
-    ar: 'القيراط يوزن الذهب. وقيراط يوزن الـ coins.',
+    ar: 'القيراط يزن الذهب. وقيراط يزن العملات.',
   },
-  'guide.1t': { en: 'Add your coins', fr: 'Ajoutez vos cryptos', ar: 'زيد الـ coins متاعك' },
+  'guide.1t': { en: 'Add your coins', fr: 'Ajoutez vos cryptos', ar: 'أضف عملاتك' },
   'guide.1b': {
     en: 'Tap "Edit list" under Your coins and add the coins you follow. Each one gets a karat, like gold.',
     fr: 'Touchez « Modifier » sous Vos cryptos et ajoutez celles que vous suivez. Chacune reçoit un carat, comme l’or.',
-    ar: 'انقر على «بدّل الليستة» تحت الـ coins متاعك وزيد الـ coins اللي تتبّع فيهم. كل وحدة تاخذ قيراط، كيما الذهب.',
+    ar: 'انقر على «عدّل القائمة» تحت «عملاتك» وأضف العملات التي تتابعها. كل واحدة تأخذ قيراطًا، مثل الذهب.',
   },
-  'guide.2t': { en: 'Read the karat', fr: 'Lisez le carat', ar: 'اقرا القيراط' },
+  'guide.2t': { en: 'Read the karat', fr: 'Lisez le carat', ar: 'اقرأ القيراط' },
   'guide.2b': {
-    en: '24K = calm and climbing, 10K = wild or sliding. The karat compares each coin with 18 major coins on two things: how calm it has been and how strong its 90-day trend is. It is never an instruction to buy or sell.',
-    fr: '24K = calme et en hausse, 10K = agitée ou en baisse. Le carat compare chaque crypto à 18 grandes cryptos sur deux points : son calme et la force de sa tendance sur 90 jours. Ce n’est jamais une consigne d’achat ou de vente.',
-    ar: '24K = باهية وطالعة، 10K = متقلّبة ولا هابطة. القيراط يقارن كل coin مع 18 coin كبار في حاجتين: قدّاش كانت هادية وقدّاش الاتجاه متاعها في 90 يوم قوي. وعمرو ما هو أمر باش تشري ولا تبيع.',
+    en: '24K = calm and rising, 10K = wild or falling. The karat compares each coin with 18 big coins on two things: how calm it has been, and how strong its trend has been over 90 days. It never tells you to buy or sell.',
+    fr: '24K = calme et en hausse, 10K = agitée ou en baisse. Le carat compare chaque crypto à 18 grandes cryptos sur deux points : son calme, et la force de sa tendance sur 90 jours. Ce n’est jamais un ordre d’acheter ou de vendre.',
+    ar: '24K = هادئة وصاعدة، 10K = متقلّبة أو هابطة. القيراط يقارن كل عملة بـ 18 عملة كبرى في أمرين: مدى هدوئها، وقوة اتجاهها خلال 90 يومًا. وهو ليس أبدًا أمرًا بالشراء أو البيع.',
   },
-  'guide.3t': { en: 'Know the risk', fr: 'Connaissez le risque', ar: 'اعرف الـ risk' },
+  'guide.3t': { en: 'Know the risk', fr: 'Connaissez le risque', ar: 'اعرف المخاطرة' },
   'guide.3b': {
     en: 'Tap any coin to see its risk: how much it moves on a typical day and what a rough month could cost on 100 TND. Risk is the most reliable part of the grade.',
     fr: 'Touchez une crypto pour voir son risque : combien elle bouge un jour normal et ce qu’un mauvais mois pourrait coûter sur 100 TND. Le risque est la partie la plus fiable de la note.',
-    ar: 'انقر على أي coin باش تشوف الـ risk متاعها: قدّاش تتحرّك في نهار عادي وقدّاش ينجّم يكلّفك شهر صعيب على 100 دينار. الـ risk هو أكثر جزء صحيح في التقييم.',
+    ar: 'انقر على أي عملة لترى مخاطرتها: كم تتحرك في يوم عادي، وكم قد يكلّفك شهر صعب على 100 دينار. المخاطرة هي الجزء الأكثر موثوقية في التقييم.',
   },
-  'guide.4t': { en: 'Check the weather', fr: 'Regardez la météo', ar: 'شوف الطقس' },
+  'guide.4t': { en: 'Check the weather', fr: 'Regardez la météo', ar: 'انظر إلى الطقس' },
   'guide.4b': {
     en: 'Calm, choppy or stormy: the whole market’s mood, led by Bitcoin and its 50-day average. Karats compare coins with each other; in a storm even 24K coins usually fall.',
     fr: 'Calme, agité ou orageux : l’humeur de tout le marché, menée par le bitcoin et sa moyenne 50 jours. Les carats comparent les cryptos entre elles ; dans l’orage, même les 24K baissent souvent.',
-    ar: 'صاحي، مغيّم ولا خايب: مزاج السوق الكل، يقودو Bitcoin والمعدّل متاعو متاع 50 يوم. القيراط يقارن الـ coins بين بعضهم؛ وفي الطقس الخايب حتى الـ 24K عادةً يهبطو.',
+    ar: 'هادئ أو متقلّب أو عاصف: مزاج السوق كله، يقوده Bitcoin ومتوسطه لـ 50 يومًا. القيراط يقارن العملات ببعضها؛ وفي العاصفة تهبط عادةً حتى عملات 24K.',
   },
-  'guide.5t': { en: 'We never ask for money', fr: 'Nous ne demandons jamais d’argent', ar: 'عمرنا ما نطلبو منك فلوس' },
+  'guide.5t': { en: 'We never ask for money', fr: 'Nous ne demandons jamais d’argent', ar: 'لا نطلب منك المال أبدًا' },
   'guide.5b': {
-    en: 'Qirat never messages you first, never asks you to send money and has no VIP group. Anyone who does is not us. No ads, no affiliate links.',
-    fr: 'Qirat ne vous écrit jamais en premier, ne vous demande jamais d’envoyer de l’argent et n’a pas de groupe VIP. Si quelqu’un le fait, ce n’est pas nous. Ni pub, ni liens affiliés.',
-    ar: 'قيراط عمرو ما يبعثلك هو الأوّل، عمرو ما يطلب منك تبعث فلوس، وما عندوش قروب VIP. اللي يعمل هكّا موش احنا. لا إشهار ولا روابط affiliate.',
+    en: 'Qirat never messages you first, never asks you to send money and has no VIP group. Anyone who does is not us. No ads, no links that pay us.',
+    fr: 'Qirat ne vous écrit jamais en premier, ne vous demande jamais d’envoyer de l’argent et n’a pas de groupe VIP. Si quelqu’un le fait, ce n’est pas nous. Ni pub, ni liens qui nous rapportent.',
+    ar: 'قيراط لا يراسلك أولًا أبدًا، ولا يطلب منك أن ترسل مالًا، وليست لديه مجموعة VIP. من يفعل ذلك ليس نحن. لا إعلانات ولا روابط تسويق بالعمولة (affiliate).',
   },
   'guide.6t': { en: 'Ask questions', fr: 'Posez vos questions', ar: 'اسأل' },
   'guide.6b': {
-    en: 'The Ask tab writes a plain-language briefing and answers questions in your language, using only the live data.',
-    fr: 'L’onglet Demander rédige un briefing simple et répond dans votre langue, uniquement à partir des données en direct.',
-    ar: 'تبويب «اسأل» يكتب ملخّص بالكلام الساهل ويجاوب على أسئلتك بلغتك، كان من المعطيات الحيّة.',
+    en: 'The Ask tab writes a short, simple summary and answers your questions in your language, using only the live data.',
+    fr: 'L’onglet Demander écrit un résumé simple et répond à vos questions dans votre langue, seulement avec les données en direct.',
+    ar: 'تبويب «اسأل» يكتب ملخّصًا بكلام بسيط ويجيب عن أسئلتك بلغتك، اعتمادًا على البيانات المباشرة فقط.',
   },
   'guide.close': { en: 'Got it', fr: 'Compris', ar: 'فهمت' },
 } satisfies Record<string, Entry>
@@ -535,116 +489,141 @@ export type UIKey = keyof typeof UI
 
 // Strings produced by the scoring engine (breakdown labels, reasons, risks).
 // Keyed by the engine's English text; unknown strings fall back to English.
-const ENGINE: Record<string, Omit<Entry, 'en'>> = {
-  'Above 7-day average': { fr: 'Au-dessus de la moyenne 7 j', ar: 'فوق المعدّل متاع 7 أيّام' },
-  'Below 7-day average': { fr: 'Sous la moyenne 7 j', ar: 'تحت المعدّل متاع 7 أيّام' },
-  'Above 30-day average': { fr: 'Au-dessus de la moyenne 30 j', ar: 'فوق المعدّل متاع 30 يوم' },
-  'Below 30-day average': { fr: 'Sous la moyenne 30 j', ar: 'تحت المعدّل متاع 30 يوم' },
-  'Strong 7-day return': { fr: 'Forte hausse sur 7 j', ar: 'مردود قوي في 7 أيّام' },
-  'Weak 7-day return': { fr: 'Forte baisse sur 7 j', ar: 'طيحة قويّة في 7 أيّام' },
-  'Rising volume': { fr: 'Volume en hausse', ar: 'حجم تداول يزيد' },
-  'Fading volume': { fr: 'Volume en baisse', ar: 'حجم تداول ينقص' },
-  'Contrarian fear': { fr: 'Peur du marché (contrarien)', ar: 'خوف في السوق (إشارة بالعكس)' },
-  'Market greed': { fr: 'Avidité du marché', ar: 'طمع في السوق' },
-  'Sharp 24h drop': { fr: 'Chute brutale sur 24 h', ar: 'هبطة قويّة في 24 ساعة' },
-  'Extended 30-day move': { fr: 'Hausse étirée sur 30 j', ar: 'طلعة زايدة في 30 يوم' },
-  'Sustained 30-day uptrend': { fr: 'Hausse durable sur 30 j', ar: 'طلعة ثابتة في 30 يوم' },
-  'Uptrend structure': { fr: 'Structure haussière', ar: 'شكل اتجاه طالع' },
-  'Volume conviction': { fr: 'Volume convaincant', ar: 'حجم تداول يأكّد' },
-  'Steady 24h follow-through': { fr: 'Hausse régulière sur 24 h', ar: 'طلعة ثابتة في 24 ساعة' },
+// The key must stay the engine's exact text (the server and the saved record
+// use it), so a plainer English for display goes in the optional `en`.
+const ENGINE: Record<string, Omit<Entry, 'en'> & { en?: string }> = {
+  'Above 7-day average': { fr: 'Au-dessus de la moyenne 7 j', ar: 'فوق متوسط 7 أيام' },
+  'Below 7-day average': { fr: 'Sous la moyenne 7 j', ar: 'تحت متوسط 7 أيام' },
+  'Above 30-day average': { fr: 'Au-dessus de la moyenne 30 j', ar: 'فوق متوسط 30 يومًا' },
+  'Below 30-day average': { fr: 'Sous la moyenne 30 j', ar: 'تحت متوسط 30 يومًا' },
+  'Strong 7-day return': { en: 'Big rise over 7 days', fr: 'Forte hausse sur 7 j', ar: 'عائد قوي خلال 7 أيام' },
+  'Weak 7-day return': { en: 'Big drop over 7 days', fr: 'Forte baisse sur 7 j', ar: 'هبوط قوي خلال 7 أيام' },
+  'Rising volume': { en: 'Trading is picking up', fr: 'Les échanges augmentent', ar: 'حجم تداول متزايد' },
+  'Fading volume': { en: 'Trading is slowing down', fr: 'Les échanges ralentissent', ar: 'حجم تداول متراجع' },
+  'Contrarian fear': { en: 'The market is afraid', fr: 'Le marché a peur', ar: 'خوف في السوق (إشارة معاكسة)' },
+  'Market greed': { en: 'The market is greedy', fr: 'Le marché s’emballe', ar: 'طمع في السوق' },
+  'Sharp 24h drop': { en: 'Big drop in 24h', fr: 'Forte chute en 24 h', ar: 'هبوط حاد خلال 24 ساعة' },
+  'Extended 30-day move': { en: 'Rose too far in 30 days', fr: 'Trop forte hausse sur 30 j', ar: 'صعود مبالغ فيه خلال 30 يومًا' },
+  'Sustained 30-day uptrend': { en: 'Steady rise over 30 days', fr: 'Hausse régulière sur 30 j', ar: 'صعود ثابت خلال 30 يومًا' },
+  'Uptrend structure': { en: 'Clear upward trend', fr: 'Tendance nette à la hausse', ar: 'شكل اتجاه صاعد' },
+  'Volume conviction': { en: 'Trading backs the move', fr: 'Les échanges confirment', ar: 'حجم تداول يؤكّد الحركة' },
+  'Steady 24h follow-through': { en: 'Steady rise in 24h', fr: 'Hausse régulière sur 24 h', ar: 'صعود ثابت خلال 24 ساعة' },
 
   'Price is above the 7-day average, showing short-term strength.': {
-    fr: 'Le prix est au-dessus de sa moyenne 7 jours : force à court terme.',
-    ar: 'السوم فوق المعدّل متاع 7 أيّام: قوّة على المدى القصير.',
+    en: 'The price is above its 7-day average: it is strong right now.',
+    fr: 'Le prix est au-dessus de sa moyenne sur 7 jours : il est fort en ce moment.',
+    ar: 'السعر فوق متوسط 7 أيام: قوة على المدى القصير.',
   },
   'Price is below the 7-day average, so momentum is weak.': {
-    fr: 'Le prix est sous sa moyenne 7 jours : l’élan est faible.',
-    ar: 'السوم تحت المعدّل متاع 7 أيّام، يعني الدفعة ضعيفة.',
+    en: 'The price is below its 7-day average: it is weak right now.',
+    fr: 'Le prix est sous sa moyenne sur 7 jours : il est faible en ce moment.',
+    ar: 'السعر تحت متوسط 7 أيام، أي أن الزخم ضعيف.',
   },
   'Price is above the 30-day average, confirming broader trend support.': {
-    fr: 'Le prix est au-dessus de sa moyenne 30 jours : la tendance de fond le soutient.',
-    ar: 'السوم فوق المعدّل متاع 30 يوم، وهذا يأكّد الاتجاه الكبير.',
+    en: 'The price is above its 30-day average, which supports the longer trend.',
+    fr: 'Le prix est au-dessus de sa moyenne sur 30 jours : la tendance plus longue va dans le bon sens.',
+    ar: 'السعر فوق متوسط 30 يومًا، وهذا يؤكّد الاتجاه العام.',
   },
   'Price is below the 30-day average, which raises trend risk.': {
-    fr: 'Le prix est sous sa moyenne 30 jours : le risque de tendance augmente.',
-    ar: 'السوم تحت المعدّل متاع 30 يوم، وهذا يكبّر الـ risk متاع الاتجاه.',
+    en: 'The price is below its 30-day average, so the longer trend is at risk.',
+    fr: 'Le prix est sous sa moyenne sur 30 jours : la tendance plus longue est fragile.',
+    ar: 'السعر تحت متوسط 30 يومًا، وهذا يرفع مخاطرة الاتجاه.',
   },
-  'The 7-day return is strong.': { fr: 'La hausse sur 7 jours est forte.', ar: 'المردود في 7 أيّام قوي.' },
+  'The 7-day return is strong.': { en: 'It rose a lot over 7 days.', fr: 'La hausse sur 7 jours est forte.', ar: 'العائد خلال 7 أيام قوي.' },
   'The 7-day return is sharply negative.': {
-    fr: 'La baisse sur 7 jours est marquée.',
-    ar: 'المردود في 7 أيّام طايح برشا.',
+    en: 'It fell a lot over 7 days.',
+    fr: 'La baisse sur 7 jours est forte.',
+    ar: 'العائد خلال 7 أيام سلبي بشدة.',
   },
   'Recent volume is rising, which can confirm the move.': {
-    fr: 'Le volume récent augmente, ce qui peut confirmer le mouvement.',
-    ar: 'حجم التداول الأخير يطلع، وهذا ينجّم يأكّد الحركة.',
+    en: 'More people are trading it lately, which can back up the move.',
+    fr: 'Les échanges augmentent ces derniers jours, ce qui peut confirmer le mouvement.',
+    ar: 'حجم التداول الأخير يرتفع، وهذا قد يؤكّد الحركة.',
   },
   'Recent volume is fading, so conviction is lower.': {
-    fr: 'Le volume récent baisse : la conviction est plus faible.',
-    ar: 'حجم التداول الأخير ينقص، يعني الثقة أضعف.',
+    en: 'Fewer people are trading it lately, so the move is less sure.',
+    fr: 'Les échanges baissent ces derniers jours : le mouvement est moins sûr.',
+    ar: 'حجم التداول الأخير يتراجع، أي أن الثقة أضعف.',
   },
   'Market sentiment is fearful, which can create discounted entries.': {
-    fr: 'Le marché a peur, ce qui peut créer des prix décotés.',
-    ar: 'مزاج السوق خايف، وهذا ينجّم يعمل سوامات رخيصة.',
+    en: 'The market is afraid, which can push prices lower than usual.',
+    fr: 'Le marché a peur, ce qui peut faire baisser les prix plus que d’habitude.',
+    ar: 'مزاج السوق خائف، وهذا قد يتيح أسعارًا منخفضة.',
   },
   'Market sentiment is greedy, so chasing entries is riskier.': {
-    fr: 'Le marché est avide : courir après les prix est plus risqué.',
-    ar: 'مزاج السوق طمّاع، يعني الجري ورا السوم فيه risk أكثر.',
+    en: 'The market is greedy, so buying after a big rise is riskier.',
+    fr: 'Le marché s’emballe : acheter après une forte hausse est plus risqué.',
+    ar: 'مزاج السوق طمّاع، لذا فاللحاق بالسعر أكثر خطورة.',
   },
   'The 30-day trend is steadily higher without being overextended.': {
+    en: 'It has risen steadily over 30 days, without going too far.',
     fr: 'La tendance sur 30 jours monte régulièrement sans excès.',
-    ar: 'الاتجاه في 30 يوم طالع بثبات من غير مبالغة.',
+    ar: 'الاتجاه خلال 30 يومًا صاعد بثبات دون مبالغة.',
   },
   'Price sits above a rising 7-over-30-day average stack — a clean uptrend structure.': {
-    fr: 'Le prix est au-dessus de moyennes 7 et 30 jours croissantes : une structure haussière nette.',
-    ar: 'السوم فوق المعدّلات متاع 7 و30 يوم وهوما طالعين: شكل اتجاه طالع واضح.',
+    en: 'The price is above its 7-day and 30-day averages, and both are rising: a clear upward trend.',
+    fr: 'Le prix est au-dessus de ses moyennes sur 7 et 30 jours, qui montent toutes les deux : une hausse nette.',
+    ar: 'السعر فوق متوسطَي 7 و30 يومًا وهما يرتفعان: شكل اتجاه صاعد واضح.',
   },
   'Volume is surging while price holds its short-term trend — strong conviction.': {
-    fr: 'Le volume s’envole pendant que le prix tient sa tendance : forte conviction.',
-    ar: 'حجم التداول يطير والسوم شادّ الاتجاه القصير متاعو: ثقة قويّة.',
+    en: 'Trading is jumping while the price keeps its short-term direction: strong interest.',
+    fr: 'Les échanges bondissent et le prix garde sa direction : un fort intérêt.',
+    ar: 'حجم التداول يقفز والسعر يحافظ على اتجاهه القصير: ثقة قوية.',
   },
   "Today's gain is steady rather than a spike — consistent with a durable trend.": {
-    fr: 'La hausse du jour est régulière plutôt qu’un pic : cohérent avec une tendance durable.',
-    ar: 'طلعة اليوم ثابتة موش قفزة مفاجئة: تمشي مع اتجاه يدوم.',
+    en: 'Today’s rise is steady, not a sudden jump: that fits a trend that lasts.',
+    fr: 'La hausse du jour est régulière, pas un bond soudain : cela va avec une tendance qui dure.',
+    ar: 'صعود اليوم ثابت وليس قفزة مفاجئة: يتماشى مع اتجاه دائم.',
   },
   'Fear can persist longer than expected during broad sell-offs.': {
-    fr: 'La peur peut durer plus longtemps que prévu lors des ventes massives.',
-    ar: 'الخوف ينجّم يطوّل أكثر من المتوقّع وقت البيع الكبير.',
+    en: 'When many people sell, fear can last longer than expected.',
+    fr: 'Quand beaucoup de gens vendent, la peur peut durer plus longtemps que prévu.',
+    ar: 'قد يستمر الخوف أطول من المتوقع خلال موجات البيع الكبيرة.',
   },
   'Extreme greed can precede fast pullbacks.': {
-    fr: 'L’avidité extrême précède souvent des replis rapides.',
-    ar: 'الطمع الكبير ينجّم يجي قبل طيحات سريعة.',
+    en: 'Too much greed can come before quick drops.',
+    fr: 'Trop d’euphorie peut annoncer des baisses rapides.',
+    ar: 'الطمع الشديد قد يسبق تراجعات سريعة.',
   },
   'The asset dropped heavily in 24 hours, so volatility risk is elevated.': {
-    fr: 'Forte chute sur 24 heures : le risque de volatilité est élevé.',
-    ar: 'الـ coin طاحت بقوّة في 24 ساعة، يعني الـ risk متاع التقلّب عالي.',
+    en: 'The coin fell hard in 24 hours, so it may keep swinging a lot.',
+    fr: 'La crypto a beaucoup baissé en 24 heures : elle risque de continuer à bouger fort.',
+    ar: 'هبطت العملة بقوة خلال 24 ساعة، لذا فمخاطرة التقلب مرتفعة.',
   },
   'The 30-day move is extended, making a cooldown more likely.': {
-    fr: 'La hausse sur 30 jours est étirée : un repli devient plus probable.',
-    ar: 'الطلعة في 30 يوم زايدة، يعني الهدوء ولّى أقرب.',
+    en: 'It rose too far in 30 days, so a pause or a drop is more likely.',
+    fr: 'Elle a trop monté en 30 jours : une pause ou une baisse devient plus probable.',
+    ar: 'الصعود خلال 30 يومًا مبالغ فيه، لذا صار الهدوء أكثر احتمالًا.',
   },
   'The asset remains far below its all-time high, which may signal structural weakness.': {
-    fr: 'L’actif reste loin de son plus haut historique, signe possible de faiblesse structurelle.',
-    ar: 'الـ coin مازالت بعيدة برشا على أعلى سوم وصلتلو، وهذا ينجّم يعني ضعف في العمق.',
+    en: 'The coin is still far below its highest price ever, which may be a sign of deeper weakness.',
+    fr: 'La crypto reste loin de son prix le plus haut, ce qui peut montrer une faiblesse profonde.',
+    ar: 'ما زالت العملة بعيدة جدًا عن أعلى سعر وصلت إليه، وهذا قد يدل على ضعف عميق.',
   },
   'Crypto prices can move faster than the indicators update.': {
-    fr: 'Les prix crypto peuvent bouger plus vite que les indicateurs.',
-    ar: 'سوامات الـ crypto تنجّم تتحرّك أسرع من المؤشرات.',
+    en: 'Crypto prices can move faster than these numbers update.',
+    fr: 'Les prix des cryptos peuvent bouger plus vite que ces chiffres.',
+    ar: 'أسعار العملات الرقمية قد تتحرك أسرع من تحديث المؤشرات.',
   },
   'News, regulation, and liquidity shocks can invalidate the signal.': {
-    fr: 'Actualités, régulation et chocs de liquidité peuvent invalider la note.',
-    ar: 'الأخبار، القوانين وصدمات الـ liquidity ينجّمو يبطّلو التقييم.',
+    en: 'News, new laws, or a sudden lack of buyers can make this rating wrong.',
+    fr: 'Une nouvelle, une loi ou un manque soudain d’acheteurs peut rendre cette note fausse.',
+    ar: 'الأخبار والقوانين وصدمات السيولة قد تُبطل التقييم.',
   },
   'Position is up over 35% while market sentiment is greedy.': {
-    fr: 'La position gagne plus de 35 % alors que le marché est avide.',
-    ar: 'الـ position رابحة أكثر من 35% والسوق طمّاع.',
+    en: 'You are up more than 35% while the market is greedy.',
+    fr: 'Vous gagnez plus de 35 % alors que le marché s’emballe.',
+    ar: 'الصفقة رابحة بأكثر من 35% والسوق في حالة طمع.',
   },
   "Position is down over 20% and the coin's setup is weak.": {
-    fr: 'La position perd plus de 20 % et la crypto est notée Faible.',
-    ar: 'الـ position خاسرة أكثر من 20% وتقييم الـ coin ضعيف.',
+    en: 'You are down more than 20% and the coin is rated Weak.',
+    fr: 'Vous perdez plus de 20 % et la crypto est notée Faible.',
+    ar: 'الصفقة خاسرة بأكثر من 20% وتقييم العملة ضعيف.',
   },
   'Risk-off market: BTC is below its 200-day average': {
-    fr: 'Marché défavorable : le BTC est sous sa moyenne 200 jours',
-    ar: 'سوق حذر: Bitcoin تحت المعدّل متاعو متاع 200 يوم',
+    en: 'Careful market: Bitcoin is below its 200-day average',
+    fr: 'Marché fragile : le bitcoin est sous sa moyenne sur 200 jours',
+    ar: 'سوق حذر: Bitcoin تحت متوسطه لـ 200 يوم',
   },
 
   // ratings, risk levels and Fear & Greed classifications
@@ -653,12 +632,12 @@ const ENGINE: Record<string, Omit<Entry, 'en'>> = {
   WEAK: { fr: 'Faible', ar: 'ضعيف' },
   High: { fr: 'Élevé', ar: 'عالية' },
   Medium: { fr: 'Moyen', ar: 'متوسطة' },
-  Controlled: { fr: 'Maîtrisé', ar: 'تحت السيطرة' },
-  'Extreme Fear': { fr: 'Peur extrême', ar: 'خوف كبير' },
+  Controlled: { en: 'Under control', fr: 'Sous contrôle', ar: 'تحت السيطرة' },
+  'Extreme Fear': { fr: 'Peur extrême', ar: 'خوف شديد' },
   Fear: { fr: 'Peur', ar: 'خوف' },
   Neutral: { fr: 'Neutre', ar: 'محايد' },
   Greed: { fr: 'Avidité', ar: 'طمع' },
-  'Extreme Greed': { fr: 'Avidité extrême', ar: 'طمع كبير' },
+  'Extreme Greed': { fr: 'Avidité extrême', ar: 'طمع شديد' },
 }
 
 const ENGLISH_RATING: Record<string, string> = { STRONG: 'Strong', NEUTRAL: 'Neutral', WEAK: 'Weak' }
@@ -670,7 +649,7 @@ export function initialLang(): Lang {
   // page a search engine listed must open in the language it was listed in.
   const fromPath = learnPath()
   if (fromPath) return fromPath.lang
-  // A link like qirat.tn/?lang=ar (used in our Darija social bios) wins over
+  // A link like qirat.tn/?lang=ar (used in our Arabic social bios) wins over
   // the phone's language, and is remembered for the next visit.
   try {
     const fromUrl = new URLSearchParams(window.location.search).get('lang')
@@ -688,11 +667,11 @@ export function initialLang(): Lang {
     // storage blocked: fall through to the browser language
   }
   // No choice made yet. A visit through a platform address (qirat.tn/t, /i,
-  // /f, /w) comes from a Darija post, so it opens in Darija.
+  // /f, /w) comes from an Arabic post, so it opens in Arabic.
   if (arrive().source) return 'ar'
   const nav = (navigator.language || 'en').slice(0, 2).toLowerCase()
   if (nav === 'fr' || nav === 'ar') return nav
-  // Many phones in Tunisia are set to English; the audience still reads Darija.
+  // Many phones in Tunisia are set to English; the audience still reads Arabic.
   return inTunisia() ? 'ar' : 'en'
 }
 
@@ -720,7 +699,7 @@ export function makeI18n(lang: Lang, setLang: (lang: Lang) => void): I18n {
   }
   const te = (text?: string | null) => {
     if (!text) return ''
-    if (lang === 'en') return ENGLISH_RATING[text] ?? text
+    if (lang === 'en') return ENGLISH_RATING[text] ?? ENGINE[text]?.en ?? text
     return ENGINE[text]?.[lang] ?? ENGLISH_RATING[text] ?? text
   }
   return { lang, setLang, t, te }

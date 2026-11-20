@@ -23,7 +23,7 @@ export default class CrashGuard extends Component<{ children: ReactNode }, { cra
       <div className="mx-auto flex min-h-screen max-w-md flex-col items-center justify-center gap-4 px-6 text-center">
         <div className="card w-full space-y-2 p-6">
           <p className="font-semibold" dir="rtl" lang="ar">
-            صار مشكل في الصفحة هاذي.
+            حدثت مشكلة في هذه الصفحة.
           </p>
           <p className="text-sm text-muted" lang="fr">
             Un problème est survenu sur cet écran.
@@ -39,7 +39,7 @@ export default class CrashGuard extends Component<{ children: ReactNode }, { cra
             onClick={() => window.location.reload()}
             className="mt-3 cursor-pointer rounded-full bg-text px-5 py-2.5 text-sm font-semibold text-bg transition hover:opacity-90"
           >
-            <span lang="ar">عاود حلّ الصفحة</span> · Recharger · Reload
+            <span lang="ar">أعد تحميل الصفحة</span> · Recharger · Reload
           </button>
         </div>
       </div>

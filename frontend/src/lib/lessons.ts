@@ -73,8 +73,8 @@ export const LEVELS: { level: LessonLevel; name: Text; about: Text }[] = [
     level: 1,
     name: { en: 'Basics', fr: 'Les bases', ar: 'الأساسيات' },
     about: {
-      en: 'Understand what you are touching: what crypto is, why prices swing, wallets, scams and the law.',
-      fr: 'Comprendre ce que vous touchez : ce qu’est la crypto, pourquoi les prix bougent, les wallets, les arnaques et la loi.',
+      en: 'Understand what you are dealing with: what crypto is, why prices go up and down, wallets, scams and the law.',
+      fr: 'Comprendre à quoi vous avez affaire : ce qu’est la crypto, pourquoi les prix bougent, les portefeuilles, les arnaques et la loi.',
       ar: 'افهم ما الذي تتعامل معه: ما هي العملات الرقمية، لماذا تتحرك الأسعار، المحافظ، الاحتيال والقانون.',
     },
   },
@@ -82,8 +82,8 @@ export const LEVELS: { level: LessonLevel; name: Text; about: Text }[] = [
     level: 2,
     name: { en: 'Intermediate', fr: 'Intermédiaire', ar: 'المستوى المتوسط' },
     about: {
-      en: 'Read a chart and place a practice trade: candles, fees, order types, karats and the market weather.',
-      fr: 'Lire un graphique et passer un ordre d’entraînement : bougies, frais, types d’ordres, carats et météo du marché.',
+      en: 'Read a chart and make a practice trade: candles, fees, order types, karats and the market weather.',
+      fr: 'Lire un graphique et faire une opération d’entraînement : bougies, frais, types d’ordres, carats et météo du marché.',
       ar: 'اقرأ الرسم البياني ونفّذ صفقة تدريبية: الشموع، الرسوم، أنواع الأوامر، القيراط وطقس السوق.',
     },
   },
@@ -112,8 +112,8 @@ export const LEARN_UI = {
   // The "start here" strip a first visit sees on top of the hub.
   startTitle: { en: 'Start here', fr: 'Commencez ici', ar: 'ابدأ من هنا' },
   startBody: {
-    en: 'Qirat teaches you trading from zero: short lessons in three levels, a practice wallet with 100, 500 or 1000 pretend dollars at real prices, and an honest risk grade for every coin.',
-    fr: 'Qirat vous apprend le trading à partir de zéro : de courtes leçons en trois niveaux, un portefeuille d’entraînement de 100, 500 ou 1000 dollars fictifs aux prix réels, et une note de risque honnête pour chaque crypto.',
+    en: 'Qirat teaches you trading from zero. Short lessons in three levels. A practice wallet with 100, 500 or 1000 pretend dollars at real prices. And an honest risk grade for every coin.',
+    fr: 'Qirat vous apprend le trading à partir de zéro. De courtes leçons en trois niveaux. Un portefeuille d’entraînement de 100, 500 ou 1000 dollars fictifs aux prix réels. Et une note de risque honnête pour chaque crypto.',
     ar: 'قيراط يعلّمك التداول من الصفر: دروس قصيرة على ثلاثة مستويات، ومحفظة تدريب فيها 100 أو 500 أو 1000 دولار تجريبية بالأسعار الحقيقية، ودرجة مخاطرة صادقة لكل عملة.',
   },
   startLesson: { en: 'Start lesson 1', fr: 'Commencer la leçon 1', ar: 'ابدأ الدرس 1' },
@@ -250,7 +250,7 @@ export const courseTitle = (lang: keyof Text) => LEARN_UI.subtitle[lang].split('
 export const pageTitle = (name: string, lang: keyof Text) => `${name} | ${lang === 'ar' ? 'قيراط' : 'Qirat'}`
 
 /** The title of every screen that has no page of its own (same as index.html). */
-export const SITE_TITLE = 'Qirat · قيراط · تعلّم الـ trading من الصفر'
+export const SITE_TITLE = 'Qirat · قيراط · تعلّم التداول من الصفر'
 
 // ---------------------------------------------------------------------------
 // Helpers

@@ -24,7 +24,7 @@ export const BASICS: Lesson[] = [
         h: { en: 'Money with no bank in the middle', fr: 'De l’argent sans banque au milieu', ar: 'مال بدون بنك في الوسط' },
         p: {
           en: 'When you send money through a bank, the bank keeps the record of who owns what. Crypto replaces the bank with a shared notebook, copied on thousands of computers around the world. That notebook is called a blockchain. Nobody can secretly erase a line, because everyone has a copy.',
-          fr: 'Quand vous envoyez de l’argent par la banque, c’est elle qui tient le registre de qui possède quoi. La crypto remplace la banque par un cahier partagé, copié sur des milliers d’ordinateurs dans le monde. Ce cahier s’appelle une blockchain. Personne ne peut effacer une ligne en douce, car tout le monde en a une copie.',
+          fr: 'Quand vous envoyez de l’argent par la banque, c’est elle qui tient le registre de qui possède quoi. La crypto remplace la banque par un cahier partagé, copié sur des milliers d’ordinateurs dans le monde. Ce cahier s’appelle une blockchain. Personne ne peut effacer une ligne en secret, car tout le monde en a une copie.',
           ar: 'عندما ترسل المال عبر البنك، يحتفظ البنك بسجل من يملك ماذا. العملات الرقمية (crypto) تستبدل البنك بدفتر مشترك، منسوخ على آلاف الحواسيب حول العالم. هذا الدفتر اسمه blockchain. لا أحد يستطيع أن يمحو سطرًا في الخفاء، لأن الجميع يملك نسخة منه.',
         },
       },
@@ -47,8 +47,8 @@ export const BASICS: Lesson[] = [
       {
         h: { en: 'Thousands of other coins', fr: 'Des milliers d’autres cryptos', ar: 'آلاف العملات الأخرى' },
         p: {
-          en: 'Today the CoinGecko website lists more than 22,000 cryptocurrencies. A few are big and well known. Most are small, and many die: CoinGecko counted that more than half of the tokens listed since 2021 are no longer traded. New does not mean better.',
-          fr: 'Aujourd’hui, le site CoinGecko recense plus de 22 000 cryptomonnaies. Quelques-unes sont grandes et connues. La plupart sont petites, et beaucoup meurent : CoinGecko a compté que plus de la moitié des jetons listés depuis 2021 ne s’échangent plus. Nouveau ne veut pas dire meilleur.',
+          en: 'Today the CoinGecko website lists more than 22,000 cryptocurrencies. A few are big and well known. Most are small, and many die: CoinGecko counted that more than half of the coins added to its list since 2021 are no longer bought or sold. New does not mean better.',
+          fr: 'Aujourd’hui, le site CoinGecko affiche plus de 22 000 cryptomonnaies. Quelques-unes sont grandes et connues. La plupart sont petites, et beaucoup meurent : CoinGecko a compté que plus de la moitié des cryptos ajoutées à sa liste depuis 2021 ne s’échangent plus. Nouveau ne veut pas dire meilleur.',
           ar: 'اليوم يعرض موقع CoinGecko أكثر من 22,000 عملة رقمية. القليل منها كبير ومعروف. أغلبها صغير، وكثير منها يموت: حسب CoinGecko، أكثر من نصف الرموز التي أُدرجت منذ 2021 لم يعد أحد يتداولها. الجديد لا يعني الأفضل.',
         },
       },
@@ -56,7 +56,7 @@ export const BASICS: Lesson[] = [
         h: { en: 'What it is not', fr: 'Ce que ce n’est pas', ar: 'ما ليست عليه' },
         p: {
           en: 'Crypto is not a savings account. No bank and no state guarantees its value. If the price drops, nobody pays you back.',
-          fr: 'La crypto n’est pas un livret d’épargne. Aucune banque et aucun État ne garantit sa valeur. Si le prix chute, personne ne vous rembourse.',
+          fr: 'La crypto n’est pas un compte d’épargne. Aucune banque et aucun État ne garantit sa valeur. Si le prix chute, personne ne vous rembourse.',
           ar: 'العملات الرقمية ليست حساب توفير. لا يضمن قيمتها أي بنك ولا أي دولة. إذا انخفض السعر، لن يعوّضك أحد.',
         },
       },
@@ -152,31 +152,31 @@ export const BASICS: Lesson[] = [
       {
         h: { en: 'What it is', fr: 'Ce que c’est', ar: 'ما هي' },
         p: {
-          en: 'USDT, also called Tether, is a stablecoin: a crypto designed to always be worth about 1 US dollar. The company Tether says it holds reserves for every USDT, mostly US Treasury bills (short-term loans to the US government), plus cash, gold and some bitcoin.',
-          fr: 'L’USDT, aussi appelé Tether, est un stablecoin : une crypto conçue pour valoir toujours environ 1 dollar américain. La société Tether affirme garder des réserves pour chaque USDT, surtout des bons du Trésor américain (des prêts à court terme à l’État américain), plus du cash, de l’or et un peu de bitcoin.',
+          en: 'USDT, also called Tether, is a stablecoin: a crypto made to always be worth about 1 US dollar. The company Tether says it keeps things of value behind every USDT: mostly US Treasury bills (short-term loans to the US government), plus cash, gold and some bitcoin.',
+          fr: 'L’USDT, aussi appelé Tether, est un stablecoin : une crypto faite pour valoir toujours environ 1 dollar américain. La société Tether dit garder des biens de valeur derrière chaque USDT : surtout des bons du Trésor américain (des prêts à court terme à l’État américain), plus du cash, de l’or et un peu de bitcoin.',
           ar: 'USDT، وتُسمّى أيضًا Tether، هي عملة مستقرة (stablecoin): عملة رقمية مصممة لتساوي دائمًا حوالي 1 دولار أمريكي. تقول شركة Tether إنها تحتفظ باحتياطي مقابل كل USDT، أغلبه سندات خزينة أمريكية (قروض قصيرة الأجل للحكومة الأمريكية)، إضافة إلى نقد وذهب وبعض الـ bitcoin.',
         },
       },
       {
         h: { en: 'Why people use it', fr: 'Pourquoi on l’utilise', ar: 'لماذا يستعملها الناس' },
         p: {
-          en: 'Because its price barely moves, people use USDT to park money between other cryptos, and many freelancers get paid in it from abroad. Most crypto prices, including in Qirat, are shown in USDT.',
-          fr: 'Comme son prix bouge à peine, on utilise l’USDT pour garer de l’argent entre deux cryptos, et beaucoup de freelances se font payer en USDT depuis l’étranger. La plupart des prix crypto, y compris dans Qirat, sont affichés en USDT.',
+          en: 'Its price barely moves, so people keep money in USDT between two other cryptos. Many freelancers also get paid in it from abroad. Most crypto prices, including in Qirat, are shown in USDT.',
+          fr: 'Comme son prix bouge à peine, on garde de l’argent en USDT entre deux cryptos. Beaucoup de freelances se font aussi payer en USDT depuis l’étranger. La plupart des prix crypto, y compris dans Qirat, sont affichés en USDT.',
           ar: 'لأن سعرها لا يكاد يتحرك، يستعمل الناس USDT لإبقاء أموالهم بين عملة وأخرى، وكثير من المستقلين (freelancers) يتقاضون أجورهم بها من الخارج. ومعظم أسعار العملات الرقمية، بما فيها في قيراط، تُعرض بالـ USDT.',
         },
       },
       {
         h: { en: 'Checked, but not fully audited', fr: 'Vérifié, mais pas audité en entier', ar: 'مُراجَع، لكن بدون تدقيق كامل' },
         p: {
-          en: 'Every quarter, an accounting firm checks Tether’s reserves on one date: this is an attestation, not a full audit. In 2021, two US authorities, the CFTC and New York’s attorney general, found that USDT had not always been fully backed in the past, and Tether paid fines to settle both cases.',
-          fr: 'Chaque trimestre, un cabinet comptable vérifie les réserves de Tether à une date donnée : c’est une attestation, pas un audit complet. En 2021, deux autorités américaines, la CFTC et la procureure générale de New York, ont constaté que l’USDT n’avait pas toujours été entièrement couvert par le passé, et Tether a payé des amendes pour clore les deux affaires.',
+          en: 'Every three months, an accounting firm checks what Tether holds, on one single day. This is a simple check (an attestation), not a full audit of all the accounts. In 2021, two US authorities looked into it: the CFTC and New York’s attorney general. They found that in the past, Tether had not always held enough to cover every USDT. Tether paid fines to close both cases.',
+          fr: 'Tous les trois mois, une société de comptabilité vérifie ce que Tether possède, à une seule date. C’est une simple vérification (une attestation), pas un audit complet de tous les comptes. En 2021, deux autorités américaines ont enquêté : la CFTC et la procureure générale de New York. Elles ont constaté que, par le passé, Tether n’avait pas toujours eu de quoi couvrir chaque USDT. Tether a payé des amendes pour régler les deux affaires.',
           ar: 'كل ثلاثة أشهر، يراجع مكتب محاسبة احتياطي Tether في تاريخ واحد: هذه شهادة (attestation)، وليست تدقيقًا كاملًا. في 2021، وجدت جهتان أمريكيتان، هما CFTC والمدعية العامة لولاية New York، أن USDT لم تكن مغطاة بالكامل دائمًا في الماضي، ودفعت Tether غرامات لإغلاق القضيتين.',
         },
       },
       {
         h: { en: 'Stable is not the same as safe', fr: 'Stable ne veut pas dire sûr', ar: 'مستقرة لا تعني مضمونة' },
         p: {
-          en: 'Other stablecoins have broken. In May 2022, TerraUSD (UST) was supposed to stay at $1 and fell below 10 cents in about a week. USDT itself has slipped below $1 for short periods: to about $0.87–0.95 in October 2018 and about $0.92–0.95 in May 2022, depending on the platform.',
+          en: 'Other stablecoins have broken. In May 2022, TerraUSD (UST) was supposed to stay at $1 and fell below 10 cents in about a week. USDT itself has dropped below $1 for short periods: to about $0.87–0.95 in October 2018 and about $0.92–0.95 in May 2022, depending on the platform.',
           fr: 'D’autres stablecoins ont cassé. En mai 2022, TerraUSD (UST) devait rester à 1 $ et est tombé sous les 10 centimes en une semaine environ. L’USDT lui-même est déjà passé sous 1 $ pendant de courtes périodes : vers 0,87–0,95 $ en octobre 2018 et 0,92–0,95 $ en mai 2022, selon les plateformes.',
           ar: 'عملات مستقرة أخرى انهارت. في مايو 2022، كان من المفروض أن تبقى TerraUSD (UST) عند 1 دولار، فسقطت تحت 10 سنتات في حوالي أسبوع. وUSDT نفسها نزلت تحت 1 دولار لفترات قصيرة: إلى حوالي 0.87–0.95 دولار في أكتوبر 2018، وحوالي 0.92–0.95 دولار في مايو 2022، حسب المنصة.',
         },
@@ -184,16 +184,16 @@ export const BASICS: Lesson[] = [
       {
         h: { en: 'It does not grow', fr: 'Il ne grossit pas', ar: 'لا تكبر' },
         p: {
-          en: 'USDT is built to stay flat. If someone promises you “20% a month on your USDT”, that extra money has to come from somewhere. It is a classic sign of a scam (see the lesson «How scammers find you»).',
-          fr: 'L’USDT est fait pour rester plat. Si quelqu’un vous promet « 20 % par mois sur vos USDT », cet argent en plus doit bien venir de quelque part. C’est un signe classique d’arnaque (voir la leçon « Comment les arnaqueurs vous trouvent »).',
+          en: 'USDT is made to stay at $1. If someone promises you “20% a month on your USDT”, that extra money has to come from somewhere. It is a common sign of a scam (see the lesson «How scammers find you»).',
+          fr: 'L’USDT est fait pour rester à 1 $. Si quelqu’un vous promet « 20 % par mois sur vos USDT », cet argent en plus doit bien venir de quelque part. C’est un signe classique d’arnaque (voir la leçon « Comment les arnaqueurs vous trouvent »).',
           ar: 'USDT مصممة لتبقى ثابتة. إذا وعدك أحد بـ«20% في الشهر على USDT الخاصة بك»، فهذا المال الإضافي يجب أن يأتي من مكان ما. هذه علامة كلاسيكية على الاحتيال (انظر درس «كيف يصل إليك المحتالون»).',
         },
       },
       {
-        h: { en: 'The local-money side', fr: 'Côté monnaie locale', ar: 'من جهة العملة المحلية' },
+        h: { en: 'Buying it with local money', fr: 'L’acheter en monnaie locale', ar: 'من جهة العملة المحلية' },
         p: {
-          en: 'When people get USDT for dinars, dirhams or pounds from another person, the rate they are charged can be far above the official exchange rate. You can lose money on the exchange itself, even while USDT stays at $1.',
-          fr: 'Quand on obtient de l’USDT contre des dinars, des dirhams ou des livres auprès d’une personne, le taux demandé peut être bien au-dessus du taux de change officiel. On peut perdre de l’argent sur le change lui-même, même si l’USDT reste à 1 $.',
+          en: 'When you buy USDT from a person with dinars, dirhams or pounds, they can ask a rate far above the official exchange rate. So you can lose money on the exchange itself, even while USDT stays at $1.',
+          fr: 'Vous achetez de l’USDT à une personne, avec des dinars, des dirhams ou des livres ? Le taux demandé peut être bien au-dessus du taux de change officiel. Vous pouvez donc perdre de l’argent sur le change lui-même, même si l’USDT reste à 1 $.',
           ar: 'عندما يحصل الناس على USDT مقابل الدينار أو الدرهم أو الجنيه من شخص آخر، قد يكون السعر المطلوب أعلى بكثير من سعر الصرف الرسمي. يمكنك أن تخسر مالًا في عملية الصرف نفسها، حتى لو بقيت USDT عند 1 دولار.',
         },
       },
@@ -217,7 +217,7 @@ export const BASICS: Lesson[] = [
         ],
         answer: 2,
         why: {
-          en: 'USDT is a stablecoin that tracks the US dollar.',
+          en: 'USDT is a stablecoin: it follows the US dollar.',
           fr: 'L’USDT est un stablecoin qui suit le dollar américain.',
           ar: 'USDT عملة مستقرة تتبع الدولار الأمريكي.',
         },
@@ -235,8 +235,8 @@ export const BASICS: Lesson[] = [
         ],
         answer: 1,
         why: {
-          en: 'USDT is built not to grow. High fixed returns are how scams pull people in.',
-          fr: 'L’USDT est fait pour ne pas grossir. Les gros rendements fixes, c’est l’appât des arnaques.',
+          en: 'USDT is made not to grow. Big, fixed gains are how scams pull people in.',
+          fr: 'L’USDT est fait pour ne pas grossir. Les gros gains fixes, c’est comme ça que les arnaques attirent les gens.',
           ar: 'USDT مصممة لكي لا تكبر. الأرباح الكبيرة والثابتة هي الطُّعم الذي يستعمله المحتالون.',
         },
       },
@@ -253,7 +253,7 @@ export const BASICS: Lesson[] = [
         ],
         answer: 0,
         why: {
-          en: 'TerraUSD collapsed in 2022. A stablecoin is only as stable as the promise behind it.',
+          en: 'TerraUSD collapsed in 2022. A stablecoin stays stable only while the promise behind it holds.',
           fr: 'TerraUSD s’est effondré en 2022. Un stablecoin n’est stable que si la promesse derrière tient.',
           ar: 'انهارت TerraUSD في 2022. العملة المستقرة مستقرة بقدر ما يكون الوعد الذي وراءها ثابتًا.',
         },
@@ -301,16 +301,16 @@ export const BASICS: Lesson[] = [
       {
         h: { en: 'Two prices, not one', fr: 'Deux prix, pas un seul', ar: 'سعران وليس سعراً واحداً' },
         p: {
-          en: 'At any moment there is a best buy price (the bid: the most anyone will pay) and a best sell price (the ask: the least anyone will accept). The ask is always a little above the bid. The gap between them is the spread. Buying straight away costs a little more than the middle, and selling gets a little less: each trade pays part of the spread.',
-          fr: 'À chaque instant, il existe un meilleur prix d’achat (le bid : le plus que quelqu’un paiera) et un meilleur prix de vente (l’ask : le moins que quelqu’un acceptera). L’ask est toujours un peu au-dessus du bid. L’écart entre les deux s’appelle le spread. Acheter immédiatement coûte un peu plus que le milieu, et vendre rapporte un peu moins : chaque opération en paie une partie.',
+          en: 'At any moment there are two prices. The best buy price (the bid) is the most anyone will pay. The best sell price (the ask) is the least anyone will accept. The ask is always a little above the bid. The gap between them is the spread. Buying straight away costs a little more than the middle price, and selling straight away gets a little less: each trade pays part of the spread.',
+          fr: 'À chaque instant, il y a deux prix. Le meilleur prix d’achat (le bid) est le plus que quelqu’un veut bien payer. Le meilleur prix de vente (l’ask) est le moins que quelqu’un veut bien accepter. L’ask est toujours un peu au-dessus du bid. L’écart entre les deux s’appelle le spread. Acheter tout de suite coûte un peu plus que le prix du milieu, et vendre tout de suite rapporte un peu moins : chaque opération en paie une partie.',
           ar: 'في كل لحظة يوجد أفضل سعر شراء (bid): أعلى مبلغ يدفعه أحد، وأفضل سعر بيع (ask): أقل مبلغ يقبله أحد. سعر البيع دائماً أعلى قليلاً من سعر الشراء. الفرق بينهما اسمه الفارق (spread). الشراء الفوري يكلّف أكثر قليلاً من السعر الأوسط، والبيع الفوري يعطيك أقل قليلاً: كل عملية تدفع جزءاً من الفارق.',
         },
       },
       {
         h: { en: 'The spread in the practice wallet', fr: 'L’écart dans le portefeuille d’entraînement', ar: 'الفارق في محفظة التدريب' },
         p: {
-          en: 'Qirat’s practice wallet copies this: a buy fills 0.05% above the market price and a sell fills 0.05% below it. On a $100 practice buy, that is about 5 cents. Small, but it is there on every trade, on top of the 0.1% fee.',
-          fr: 'Le portefeuille d’entraînement de Qirat reproduit cela : un achat passe 0,05 % au-dessus du prix du marché et une vente 0,05 % en dessous. Sur un achat fictif de 100 $, cela fait environ 5 centimes. C’est peu, mais c’est là à chaque opération, en plus des frais de 0,1 %.',
+          en: 'Qirat’s practice wallet copies this: a buy goes through 0.05% above the market price, and a sell 0.05% below it. On a $100 practice buy, that is about 5 cents. Small, but it is there on every trade, on top of the 0.1% fee.',
+          fr: 'Le portefeuille d’entraînement de Qirat copie cela : un achat se fait 0,05 % au-dessus du prix du marché, et une vente 0,05 % en dessous. Sur un achat fictif de 100 $, cela fait environ 5 centimes. C’est peu, mais c’est là à chaque opération, en plus des frais de 0,1 %.',
           ar: 'محفظة التدريب في قيراط تحاكي ذلك: الشراء يتمّ بسعر أعلى من سعر السوق بـ 0.05%، والبيع بسعر أقل منه بـ 0.05%. في شراء تجريبي بـ 100 دولار، هذا حوالي 5 سنتات. مبلغ صغير، لكنه موجود في كل عملية، فوق رسوم 0.1%.',
         },
       },
@@ -318,14 +318,14 @@ export const BASICS: Lesson[] = [
         h: { en: 'A low price is not “cheap”', fr: 'Un prix bas n’est pas « bon marché »', ar: 'السعر المنخفض لا يعني أنها رخيصة' },
         p: {
           en: 'A coin at $0.001 can look cheaper than a coin at $50. It is not. What counts is the market cap: the price times the number of coins in circulation. A $0.001 coin with 500 billion coins is worth $500 million in total, more than a $50 coin with 2 million coins ($100 million). A low price only means there are many coins.',
-          fr: 'Une crypto à 0,001 $ peut sembler moins chère qu’une crypto à 50 $. Ce n’est pas le cas. Ce qui compte, c’est la capitalisation (market cap) : le prix multiplié par le nombre de pièces en circulation. Une crypto à 0,001 $ avec 500 milliards de pièces vaut 500 millions de dollars au total, plus qu’une crypto à 50 $ avec 2 millions de pièces (100 millions de dollars). Un prix bas veut seulement dire qu’il y a beaucoup de pièces.',
+          fr: 'Une crypto à 0,001 $ peut sembler moins chère qu’une crypto à 50 $. Ce n’est pas le cas. Ce qui compte, c’est la capitalisation (market cap) : le prix multiplié par le nombre de pièces en circulation. Une crypto à 0,001 $ avec 500 milliards de pièces vaut 500 millions de dollars au total. C’est plus qu’une crypto à 50 $ avec 2 millions de pièces (100 millions de dollars). Un prix bas veut seulement dire qu’il y a beaucoup de pièces.',
           ar: 'عملة سعرها 0.001 دولار قد تبدو أرخص من عملة سعرها 50 دولاراً. هذا غير صحيح. المهم هو القيمة السوقية (market cap): السعر مضروباً في عدد العملات المتداولة. عملة بسعر 0.001 دولار وعددها 500 مليار قيمتها 500 مليون دولار، أي أكثر من عملة بسعر 50 دولاراً وعددها 2 مليون (100 مليون دولار). السعر المنخفض يعني فقط أن عدد العملات كبير.',
         },
       },
     ],
     takeaway: {
-      en: 'The price is the last deal between a buyer and a seller. Every trade pays the gap between the buy and sell price, and a low price per coin does not make a coin cheap.',
-      fr: 'Le prix, c’est la dernière affaire entre un acheteur et un vendeur. Chaque opération paie l’écart entre prix d’achat et prix de vente, et un prix unitaire bas ne rend pas une crypto bon marché.',
+      en: 'The price is the last deal between a buyer and a seller. Every trade pays the gap between the buy and sell price. And a low price per coin does not make a coin cheap.',
+      fr: 'Le prix, c’est la dernière affaire entre un acheteur et un vendeur. Chaque opération paie l’écart entre prix d’achat et prix de vente. Et un prix bas par pièce ne rend pas une crypto bon marché.',
       ar: 'السعر هو آخر صفقة بين مشترٍ وبائع. كل عملية تدفع الفارق بين سعر الشراء وسعر البيع، والسعر المنخفض للعملة لا يجعلها رخيصة.',
     },
     quiz: [
@@ -395,7 +395,7 @@ export const BASICS: Lesson[] = [
         answer: 0,
         why: {
           en: 'The price per coin depends on how many coins exist. Coins are compared by market cap: price × coins in circulation.',
-          fr: 'Le prix unitaire dépend du nombre de pièces. On compare les cryptos par leur capitalisation : prix × pièces en circulation.',
+          fr: 'Le prix d’une pièce dépend du nombre de pièces. On compare les cryptos par leur capitalisation : prix × pièces en circulation.',
           ar: 'سعر العملة الواحدة يتعلّق بعدد العملات الموجودة. المقارنة تكون بالقيمة السوقية: السعر × عدد العملات المتداولة.',
         },
       },
@@ -423,7 +423,7 @@ export const BASICS: Lesson[] = [
         h: { en: 'Small market, big crowd', fr: 'Petit marché, grande foule', ar: 'سوق صغير وجمهور كبير' },
         p: {
           en: 'Compared with gold or big company shares, most cryptos are small markets with little liquidity: few buyers and sellers are waiting at each price. So when many people buy or sell at the same time, the price jumps or drops fast. A news story, a rumour, one big holder selling, or a single post can move it.',
-          fr: 'Comparées à l’or ou aux actions des grandes entreprises, la plupart des cryptos sont de petits marchés avec peu de liquidité : peu d’acheteurs et de vendeurs attendent à chaque prix. Alors quand beaucoup de gens achètent ou vendent en même temps, le prix bondit ou chute vite. Une info, une rumeur, un gros détenteur qui vend ou un seul post peuvent le faire bouger.',
+          fr: 'Comparées à l’or ou aux actions des grandes entreprises, la plupart des cryptos sont de petits marchés avec peu de liquidité : peu d’acheteurs et de vendeurs attendent à chaque prix. Alors quand beaucoup de gens achètent ou vendent en même temps, le prix bondit ou chute vite. Une info, une rumeur, une personne qui en a beaucoup et qui vend, ou un seul post peuvent le faire bouger.',
           ar: 'مقارنة بالذهب أو بأسهم الشركات الكبرى، أغلب العملات الرقمية أسواق صغيرة بسيولة قليلة (liquidity): عدد قليل من المشترين والبائعين ينتظرون عند كل سعر. لذلك عندما يشتري أو يبيع كثير من الناس في الوقت نفسه، يقفز السعر أو يهبط بسرعة. خبر، أو إشاعة، أو بيع من شخص يملك كمية كبيرة، أو منشور واحد، قد يكفي لتحريكه.',
         },
       },
@@ -438,8 +438,8 @@ export const BASICS: Lesson[] = [
       {
         h: { en: 'Volatility and the risk grade', fr: 'La volatilité et la note de risque', ar: 'التقلب ودرجة المخاطرة' },
         p: {
-          en: 'Volatility means how much a price usually moves. Qirat shows it as “a typical day”: ±2% means most days the price moves less than 2% up or down, and some days more. Qirat then ranks the 18 big coins it tracks by their moves over the last 30 days: the calmest third is “low risk for crypto”, the middle third “medium”, the wildest third “high”.',
-          fr: 'La volatilité, c’est l’ampleur habituelle des mouvements d’un prix. Qirat l’affiche comme « une journée normale » : ±2 % veut dire que la plupart des jours, le prix bouge de moins de 2 %, à la hausse ou à la baisse, et certains jours davantage. Qirat classe ensuite les 18 grandes cryptos qu’il suit selon leurs mouvements des 30 derniers jours : le tiers le plus calme est « risque faible pour une crypto », le tiers du milieu « moyen », le tiers le plus agité « élevé ».',
+          en: 'Volatility means how much a price usually moves. Qirat shows it as “a typical day”: ±2% means most days the price moves less than 2% up or down, and some days more. Then Qirat sorts the 18 big coins it follows by how much they moved in the last 30 days. The calmest third is “low risk for crypto”, the middle third “medium”, the wildest third “high”.',
+          fr: 'La volatilité, c’est combien un prix bouge d’habitude. Qirat l’affiche comme « une journée normale » : ±2 % veut dire que la plupart des jours, le prix bouge de moins de 2 %, à la hausse ou à la baisse, et certains jours plus. Ensuite, Qirat classe les 18 grandes cryptos qu’il suit selon leurs mouvements des 30 derniers jours. Le tiers le plus calme est « risque faible pour une crypto », le tiers du milieu « moyen », le tiers le plus agité « élevé ».',
           ar: 'التقلب (volatility) يعني كم يتحرك السعر عادةً. قيراط يعرضه كـ«يوم عادي»: ±2% تعني أن السعر في أغلب الأيام يتحرك أقل من 2% صعودًا أو نزولًا، وفي بعض الأيام أكثر. ثم يرتب قيراط العملات الكبيرة الـ 18 التي يتابعها حسب حركتها في آخر 30 يومًا: الثلث الأهدأ «مخاطرة منخفضة بالنسبة للعملات الرقمية»، والثلث الأوسط «متوسطة»، والثلث الأكثر تقلبًا «عالية».',
         },
       },
@@ -454,8 +454,8 @@ export const BASICS: Lesson[] = [
       {
         h: { en: 'An example with 100', fr: 'Un exemple avec 100', ar: 'مثال بـ 100' },
         p: {
-          en: 'Say a coin’s rough month is −30% and you put 100 in it, in any currency. In a bad month like that, you could be left with about 70. For a high-risk coin the rough month can be −50% or worse: 100 becomes 50. Two things to remember: it is not the worst that can happen, because crypto can fall even more, and it comes from the past, so it is not a forecast. Its job is to let you picture the drop before you put money in.',
-          fr: 'Disons que le mauvais mois d’une crypto est à −30 % et que vous y mettez 100, dans n’importe quelle monnaie. Dans un mauvais mois comme ça, il pourrait vous rester environ 70. Pour une crypto à risque élevé, le mauvais mois peut être à −50 % ou pire : 100 deviennent 50. Deux choses à retenir : ce n’est pas le pire possible, une crypto peut tomber encore plus bas, et ça vient du passé, ce n’est donc pas une prévision. Ça sert à imaginer la baisse avant de mettre de l’argent.',
+          en: 'Say a coin’s rough month is −30% and you put 100 in it, in any currency. In a bad month like that, you could be left with about 70. For a high-risk coin the rough month can be −50% or worse: 100 becomes 50. Remember two things. It is not the worst that can happen: crypto can fall even more. And it comes from the past, so it is not a forecast. It is there to help you imagine the drop before you put money in.',
+          fr: 'Disons que le mauvais mois d’une crypto est à −30 % et que vous y mettez 100, dans n’importe quelle monnaie. Dans un mauvais mois comme ça, il pourrait vous rester environ 70. Pour une crypto à risque élevé, le mauvais mois peut être à −50 % ou pire : 100 deviennent 50. Retenez deux choses. Ce n’est pas le pire possible : une crypto peut tomber encore plus bas. Et ça vient du passé, donc ce n’est pas une prévision. Ça sert à imaginer la baisse avant de mettre de l’argent.',
           ar: 'لنفترض أن الشهر الصعب لعملة ما هو −30%، ووضعت فيها 100، بأي عملة كانت. في شهر سيئ كهذا، قد يبقى لك حوالي 70. وفي عملة مخاطرتها عالية، قد يكون الشهر الصعب −50% أو أسوأ: الـ 100 تصبح 50. تذكّر أمرين: هذا ليس أسوأ ما يمكن أن يحدث، فالعملات الرقمية قد تهبط أكثر، وهو محسوب من الماضي، أي أنه ليس توقعًا. فائدته أن تتخيل الهبوط قبل أن تضع مالك.',
         },
       },
@@ -492,7 +492,7 @@ export const BASICS: Lesson[] = [
         answer: 2,
         why: {
           en: 'A typical day is the usual size of the move, in either direction. It is not a gain.',
-          fr: 'La journée normale, c’est l’ampleur habituelle du mouvement, dans un sens ou dans l’autre. Ce n’est pas un gain.',
+          fr: 'La journée normale, c’est la taille habituelle du mouvement, dans un sens ou dans l’autre. Ce n’est pas un gain.',
           ar: 'اليوم العادي هو الحجم المعتاد للحركة، في أي اتجاه. ليس ربحًا.',
         },
       },
@@ -546,7 +546,7 @@ export const BASICS: Lesson[] = [
     },
     hook: {
       en: 'Crypto can fall by half. Do the maths before any real money goes in.',
-      fr: 'Une crypto peut perdre la moitié de sa valeur. Faites le calcul avant que le moindre argent réel n’y entre.',
+      fr: 'Une crypto peut perdre la moitié de sa valeur. Faites le calcul avant d’y mettre de l’argent réel.',
       ar: 'العملات الرقمية قد تفقد نصف قيمتها. احسب قبل أن تضع أي مال حقيقي.',
     },
     terms: ['emergency-fund', 'drawdown', 'rough-month'],
@@ -555,24 +555,24 @@ export const BASICS: Lesson[] = [
       {
         h: { en: 'What comes first', fr: 'Ce qui passe avant', ar: 'ما يأتي أولاً' },
         p: {
-          en: 'Rent, food, bills and money for emergencies come before any crypto. An emergency fund is money set aside for a sudden cost, like a repair or a doctor; many guides suggest a few months of expenses. Only what is left after all of that can be called money you can lose.',
-          fr: 'Le loyer, la nourriture, les factures et l’argent des urgences passent avant toute crypto. Une épargne de secours, c’est de l’argent mis de côté pour une dépense soudaine, comme une réparation ou un médecin ; beaucoup de guides conseillent quelques mois de dépenses. Seul ce qui reste après tout cela peut s’appeler de l’argent que vous pouvez perdre.',
+          en: 'Rent, food, bills and money for emergencies come before any crypto. An emergency fund is money set aside for a sudden cost, like a repair or a doctor. Many guides say to keep a few months of spending. Only what is left after all of that can be called money you can lose.',
+          fr: 'Le loyer, la nourriture, les factures et l’argent des urgences passent avant toute crypto. Une épargne de secours, c’est de l’argent mis de côté pour une dépense soudaine, comme une réparation ou un médecin. Beaucoup de guides conseillent de garder quelques mois de dépenses. Seul ce qui reste après tout cela peut s’appeler de l’argent que vous pouvez perdre.',
           ar: 'الإيجار والأكل والفواتير ومال الطوارئ تأتي قبل أي عملة رقمية. صندوق الطوارئ هو مال تضعه جانباً لمصروف مفاجئ، مثل إصلاح أو طبيب، وكثير من الأدلّة تنصح بما يكفي لبضعة أشهر من المصاريف. فقط ما يبقى بعد كل هذا يمكن أن تسمّيه مالاً تستطيع خسارته.',
         },
       },
       {
         h: { en: 'Crypto can fall by half', fr: 'Une crypto peut perdre la moitié', ar: 'العملة قد تفقد نصف قيمتها' },
         p: {
-          en: 'Even Bitcoin has lost more than half its value several times in its history. Qirat shows each coin’s rough month: what a bad month, the kind that comes about once in 20 months, could cost. It is not the worst case: real drops can go deeper.',
-          fr: 'Même le Bitcoin a perdu plus de la moitié de sa valeur plusieurs fois dans son histoire. Qirat montre le mauvais mois de chaque crypto : ce que pourrait coûter un mauvais mois, du genre qui arrive environ une fois tous les 20 mois. Ce n’est pas le pire cas : les vraies chutes peuvent aller plus bas.',
+          en: 'Even Bitcoin has lost more than half its value several times in its history. Qirat shows each coin’s rough month: what one bad month could cost you. That is the kind of month that comes about once in 20 months. It is not the worst case: real drops can go deeper.',
+          fr: 'Même le Bitcoin a perdu plus de la moitié de sa valeur plusieurs fois dans son histoire. Qirat montre le mauvais mois de chaque crypto : ce qu’un mauvais mois pourrait vous coûter. C’est le genre de mois qui arrive environ une fois tous les 20 mois. Ce n’est pas le pire cas : les vraies chutes peuvent aller plus bas.',
           ar: 'حتى Bitcoin فقد أكثر من نصف قيمته عدّة مرات في تاريخه. قيراط يعرض «الشهر الصعب» لكل عملة: كم قد يكلّفك شهر سيّئ، من النوع الذي يأتي تقريباً مرة كل 20 شهراً. وهذا ليس أسوأ احتمال: الهبوط الحقيقي قد يكون أعمق.',
         },
       },
       {
         h: { en: 'A loss is harder to win back', fr: 'Une perte est plus dure à rattraper', ar: 'الخسارة أصعب في التعويض' },
         p: {
-          en: 'If $100 falls 50%, you have $50 left. To get back to $100, those $50 must double: that is +100%. A 20% drop, from $100 to $80, needs +25% to come back. The deeper the fall, the steeper the climb.',
-          fr: 'Si 100 $ perdent 50 %, il vous reste 50 $. Pour revenir à 100 $, ces 50 $ doivent doubler : c’est +100 %. Une baisse de 20 %, de 100 $ à 80 $, demande +25 % pour revenir. Plus la chute est profonde, plus la remontée est raide.',
+          en: 'If $100 falls 50%, you have $50 left. To get back to $100, those $50 must double: that is +100%. A 20% drop, from $100 to $80, needs +25% to come back. The bigger the fall, the harder the way back up.',
+          fr: 'Si 100 $ perdent 50 %, il vous reste 50 $. Pour revenir à 100 $, ces 50 $ doivent doubler : c’est +100 %. Une baisse de 20 %, de 100 $ à 80 $, demande +25 % pour revenir. Plus la chute est grande, plus la remontée est dure.',
           ar: 'إذا خسرت 100 دولار نسبة 50%، يبقى لك 50 دولاراً. لتعود إلى 100 دولار يجب أن تتضاعف هذه الـ 50: أي ربح 100%. وهبوط 20%، من 100 إلى 80 دولاراً، يحتاج ربح 25% للعودة. كلما كان الهبوط أعمق، كان الصعود أصعب.',
         },
       },
@@ -723,8 +723,8 @@ export const BASICS: Lesson[] = [
       {
         h: { en: 'What can go wrong on each side', fr: 'Ce qui peut mal tourner de chaque côté', ar: 'ما قد يحدث في كل جهة' },
         p: {
-          en: 'In November 2022 the exchange FTX collapsed. Its customers could not get their money for years, and most were repaid only at the dollar value of November 2022, far below what the same coins were worth later. With your own wallet, the risk is you: lose the words and the phone, and nobody can reset it.',
-          fr: 'En novembre 2022, la plateforme FTX s’est effondrée. Ses clients n’ont pas pu récupérer leur argent pendant des années, et la plupart n’ont été remboursés qu’à la valeur en dollars de novembre 2022, bien en dessous de ce que valaient ces mêmes cryptos plus tard. Avec votre propre wallet, le risque, c’est vous : perdez les mots et le téléphone, et personne ne peut le réinitialiser.',
+          en: 'In November 2022 the exchange FTX collapsed. Its customers could not get their money for years. Most were paid back only at the dollar value of November 2022. That was far below what the same coins were worth later. With your own wallet, the risk is you: lose the words and the phone, and nobody can get it back for you.',
+          fr: 'En novembre 2022, la plateforme FTX s’est effondrée. Ses clients n’ont pas pu récupérer leur argent pendant des années. La plupart n’ont été remboursés qu’à la valeur en dollars de novembre 2022. C’était bien en dessous de ce que valaient ces mêmes cryptos plus tard. Avec votre propre wallet, le risque, c’est vous : perdez les mots et le téléphone, et personne ne peut le récupérer pour vous.',
           ar: 'في نوفمبر 2022 انهارت منصّة FTX. عملاؤها لم يستطيعوا استرجاع أموالهم لسنوات، وأغلبهم استُرجع لهم المال فقط بقيمته بالدولار في نوفمبر 2022، وهي أقل بكثير ممّا صارت تساويه نفس العملات بعد ذلك. أما في محفظتك الخاصة فالخطر هو أنت: إذا ضاعت الكلمات والهاتف، لا أحد يستطيع استرجاعها.',
         },
       },
@@ -766,8 +766,8 @@ export const BASICS: Lesson[] = [
         ],
         answer: 0,
         why: {
-          en: 'Photos, screenshots and messages can be hacked or synced to the cloud. Paper kept offline can’t be reached from the internet.',
-          fr: 'Photos, captures et messages peuvent être piratés ou synchronisés dans le cloud. Le papier hors ligne est inaccessible depuis internet.',
+          en: 'Photos, screenshots and messages can be hacked or copied to the cloud. Paper kept offline can’t be reached from the internet.',
+          fr: 'Photos, captures et messages peuvent être piratés ou copiés dans le cloud. Personne ne peut atteindre un papier hors ligne depuis internet.',
           ar: 'الصور ولقطات الشاشة والرسائل قد تُخترق أو تُرفع إلى الـ cloud. الورقة البعيدة عن الإنترنت لا يمكن الوصول إليها من الإنترنت.',
         },
       },
@@ -828,8 +828,8 @@ export const BASICS: Lesson[] = [
       {
         h: { en: 'The VIP group', fr: 'Le groupe VIP', ar: 'مجموعة الـ VIP' },
         p: {
-          en: 'You get a message, or you find yourself added to a WhatsApp or Telegram group full of “members” posting screenshots of profits. Many are fake or paid accounts. The “coach” offers VIP signals for a fee, or asks you to send money so he can “manage” it for you.',
-          fr: 'Vous recevez un message, ou vous vous retrouvez ajouté à un groupe WhatsApp ou Telegram plein de « membres » qui postent des captures de gains. Beaucoup sont des comptes faux ou payés. Le « coach » propose des signaux VIP payants, ou vous demande d’envoyer de l’argent pour le « gérer » à votre place.',
+          en: 'You get a message, or you find yourself added to a WhatsApp or Telegram group full of “members” posting screenshots of profits. Many are fake or paid accounts. The “coach” sells VIP signals (tips on what to buy or sell). Or he asks you to send money so he can “manage” it for you.',
+          fr: 'Vous recevez un message, ou vous vous retrouvez ajouté à un groupe WhatsApp ou Telegram plein de « membres » qui postent des captures de gains. Beaucoup sont des comptes faux ou payés. Le « coach » vend des signaux VIP (des conseils sur quoi acheter ou vendre). Ou il vous demande d’envoyer de l’argent pour le « gérer » à votre place.',
           ar: 'تصلك رسالة، أو تجد نفسك مضافًا إلى مجموعة WhatsApp أو Telegram مليئة بـ«أعضاء» ينشرون صورًا لأرباحهم. كثير منها حسابات مزيفة أو مدفوعة. «المدرب» يعرض عليك توصيات (signals) VIP مقابل المال، أو يطلب منك أن ترسل له مالًا لكي «يديره» لك.',
         },
       },
@@ -844,8 +844,8 @@ export const BASICS: Lesson[] = [
       {
         h: { en: 'Fake platforms', fr: 'Les fausses plateformes', ar: 'المنصات المزيفة' },
         p: {
-          en: 'A slick website or app shows your balance growing. When you try to withdraw, they ask for a “tax” or an “unlock fee” first. Then another one. The money was never there. Some fake login pages also copy a real platform to steal your password. Before anything, search the name with the word “scam”, and look for warnings from your country’s financial regulator.',
-          fr: 'Un site ou une appli soignée montre votre solde qui grimpe. Quand vous voulez retirer, on vous demande d’abord une « taxe » ou des « frais de déblocage ». Puis d’autres. L’argent n’a jamais existé. Certaines fausses pages de connexion copient aussi une vraie plateforme pour voler votre mot de passe. Avant tout, cherchez le nom avec le mot « arnaque », et regardez les mises en garde du régulateur financier de votre pays.',
+          en: 'A nice-looking website or app shows your balance growing. When you try to take your money out, they first ask for a “tax” or an “unlock fee”. Then another one. The money was never there. Some fake login pages also copy a real platform to steal your password. Before anything, search the name with the word “scam”. Also look for warnings from the official body that controls finance in your country.',
+          fr: 'Un beau site ou une belle appli montre votre solde qui monte. Quand vous voulez retirer votre argent, on vous demande d’abord une « taxe » ou des « frais de déblocage ». Puis d’autres. L’argent n’a jamais existé. Certaines fausses pages de connexion copient aussi une vraie plateforme pour voler votre mot de passe. Avant tout, cherchez le nom avec le mot « arnaque ». Regardez aussi les avertissements de l’autorité qui contrôle la finance dans votre pays.',
           ar: 'موقع أو تطبيق أنيق يُريك رصيدك يكبر. عندما تحاول السحب، يطلبون منك أولًا «ضريبة» أو «رسوم فتح الحساب». ثم رسومًا أخرى. المال لم يكن موجودًا أصلًا. وبعض صفحات الدخول المزيفة تقلّد منصة حقيقية لتسرق كلمة المرور. قبل أي شيء، ابحث عن الاسم مع كلمة «احتيال»، وابحث عن تحذيرات الجهة الرقابية المالية في بلدك.',
         },
       },
@@ -853,7 +853,7 @@ export const BASICS: Lesson[] = [
         h: { en: 'Cash meetups', fr: 'Les rendez-vous avec du cash', ar: 'لقاءات النقد' },
         p: {
           en: '“Cheap USDT, meet me in person and bring cash.” There have been reports of such meetups turning into robberies. A price far below the market is the bait.',
-          fr: '« USDT pas cher, on se voit en vrai, apporte du cash. » Des rendez-vous de ce genre ont, selon plusieurs témoignages, tourné au vol. Un prix très en dessous du marché, c’est l’appât.',
+          fr: '« USDT pas cher, on se voit en vrai, apporte du cash. » Plusieurs personnes racontent que ce genre de rendez-vous a fini en vol. Un prix très en dessous du marché, c’est l’appât.',
           ar: '«USDT رخيصة، لنلتقِ وجهًا لوجه وأحضر النقد». وردت تقارير عن لقاءات كهذه انتهت بسرقة. السعر الأرخص بكثير من السوق هو الطُّعم.',
         },
       },
@@ -885,7 +885,7 @@ export const BASICS: Lesson[] = [
         ],
         answer: 0,
         why: {
-          en: 'Screenshots are easy to fake, and a “small test” deposit is how many people get hooked.',
+          en: 'Screenshots are easy to fake, and a “small test” deposit is how many people get trapped.',
           fr: 'Les captures se truquent facilement, et le « petit dépôt pour tester » est souvent le début du piège.',
           ar: 'الصور سهلة التزييف، و«المبلغ الصغير للتجربة» هو الطريقة التي يقع بها كثيرون في الفخ.',
         },
@@ -903,8 +903,8 @@ export const BASICS: Lesson[] = [
         ],
         answer: 2,
         why: {
-          en: 'Fake platforms invent fees to squeeze out more money. The “profits” on screen were never real.',
-          fr: 'Les fausses plateformes inventent des frais pour soutirer encore plus. Les « gains » affichés n’ont jamais existé.',
+          en: 'Fake platforms invent fees to take more of your money. The “profits” on screen were never real.',
+          fr: 'Les fausses plateformes inventent des frais pour vous prendre encore plus d’argent. Les « gains » affichés n’ont jamais existé.',
           ar: 'المنصات المزيفة تخترع رسومًا لتأخذ منك المزيد. «الأرباح» التي على الشاشة لم تكن حقيقية أبدًا.',
         },
       },
@@ -921,8 +921,8 @@ export const BASICS: Lesson[] = [
         ],
         answer: 1,
         why: {
-          en: 'Nobody can guarantee a crypto return. The other two are honest warnings.',
-          fr: 'Personne ne peut garantir un rendement crypto. Les deux autres sont des avertissements honnêtes.',
+          en: 'Nobody can guarantee a crypto gain. The other two are honest warnings.',
+          fr: 'Personne ne peut garantir un gain en crypto. Les deux autres sont des avertissements honnêtes.',
           ar: 'لا أحد يستطيع أن يضمن عائدًا في العملات الرقمية. الرسالتان الأخريان تحذيران صادقان.',
         },
       },
@@ -948,8 +948,8 @@ export const BASICS: Lesson[] = [
       {
         h: { en: 'What P2P is', fr: 'Ce qu’est le P2P', ar: 'ما هو الـ P2P' },
         p: {
-          en: 'P2P (peer to peer) means buying or selling crypto directly with another person, often through a platform that holds the crypto in escrow until both sides confirm the payment. The other person is a stranger, and that is where the risks start.',
-          fr: 'Le P2P (de pair à pair) consiste à acheter ou vendre de la crypto directement avec une autre personne, souvent via une plateforme qui bloque la crypto sous séquestre (escrow) jusqu’à ce que les deux côtés confirment le paiement. L’autre personne est un inconnu, et c’est là que les risques commencent.',
+          en: 'P2P (peer to peer, or person to person) means buying or selling crypto directly with another person. It often goes through a platform that holds the crypto until both sides confirm the payment: this is called escrow. The other person is a stranger, and that is where the risks start.',
+          fr: 'Le P2P (de pair à pair, c’est-à-dire de personne à personne), c’est acheter ou vendre de la crypto directement avec une autre personne. Souvent, cela passe par une plateforme qui bloque la crypto jusqu’à ce que les deux côtés confirment le paiement : c’est le séquestre (escrow). L’autre personne est un inconnu, et c’est là que les risques commencent.',
           ar: 'الـ P2P (من شخص إلى شخص) يعني أن تشتري أو تبيع عملة رقمية مباشرة مع شخص آخر، غالباً عبر منصّة تحجز العملة (escrow) حتى يؤكّد الطرفان الدفع. الطرف الآخر شخص لا تعرفه، ومن هنا تبدأ المخاطر.',
         },
       },
@@ -957,37 +957,37 @@ export const BASICS: Lesson[] = [
         h: { en: 'Cash meetups', fr: 'Les rendez-vous avec du cash', ar: 'اللقاءات بالنقد' },
         p: {
           en: 'Some offers say: “Cheap USDT, meet me in person and bring cash.” There have been reports of such meetups ending in robbery. A price far below the market is the bait.',
-          fr: 'Certaines offres disent : « USDT pas cher, on se voit en personne, apporte du cash. » Des rendez-vous de ce genre ont, selon plusieurs témoignages, fini en vol. Un prix très en dessous du marché, c’est l’appât.',
+          fr: 'Certaines offres disent : « USDT pas cher, on se voit en personne, apporte du cash. » Plusieurs personnes racontent que ce genre de rendez-vous a fini en vol. Un prix très en dessous du marché, c’est l’appât.',
           ar: 'بعض العروض تقول: «USDT رخيص، نلتقي وجهاً لوجه وأحضر النقود». وقد وردت روايات عن لقاءات كهذه انتهت بسرقة. السعر الأقل بكثير من السوق هو الطُعم.',
         },
       },
       {
         h: { en: 'Payments that come back', fr: 'Les paiements qui reviennent', ar: 'مدفوعات تُسترجع' },
         p: {
-          en: 'A bank transfer can be reversed, or turn out to come from a stolen account. If your crypto has already left, you lose both. Some scammers send a fake payment screenshot and push you to release the crypto fast.',
-          fr: 'Un virement peut être annulé, ou venir d’un compte volé. Si votre crypto est déjà partie, vous perdez les deux. Certains escrocs envoient une fausse capture de paiement et vous pressent de libérer la crypto vite.',
+          en: 'A bank transfer can be undone, or turn out to come from a stolen account. If your crypto has already left, you lose both. Some scammers send a fake payment screenshot and push you to send the crypto fast.',
+          fr: 'Un virement peut être annulé, ou venir d’un compte volé. Si votre crypto est déjà partie, vous perdez les deux. Certains escrocs envoient une fausse capture de paiement et vous pressent d’envoyer la crypto vite.',
           ar: 'التحويل البنكي قد يُلغى، أو يتّضح أنه جاء من حساب مسروق. إذا كانت عملتك قد خرجت، تخسر الاثنين. وبعض المحتالين يرسلون لقطة شاشة مزيّفة للدفع ويستعجلونك لتسليم العملة.',
         },
       },
       {
         h: { en: 'The rate and your bank', fr: 'Le taux et votre banque', ar: 'سعر الصرف وبنكك' },
         p: {
-          en: 'The rate a stranger asks can be far from the official exchange rate, so you can lose money on the rate itself. Money from strangers landing on your bank account can also bring questions from your bank about where it came from.',
-          fr: 'Le taux demandé par un inconnu peut être très loin du taux de change officiel : vous pouvez perdre de l’argent sur le taux lui-même. De l’argent d’inconnus qui arrive sur votre compte peut aussi amener votre banque à vous demander d’où il vient.',
+          en: 'The rate a stranger asks can be far from the official exchange rate, so you can lose money on the rate itself. Also, when money from strangers lands on your bank account, your bank can ask you where it came from.',
+          fr: 'Le taux demandé par un inconnu peut être très loin du taux de change officiel : vous pouvez perdre de l’argent sur le taux lui-même. Et quand de l’argent d’inconnus arrive sur votre compte, votre banque peut vous demander d’où il vient.',
           ar: 'السعر الذي يطلبه شخص غريب قد يكون بعيداً جداً عن سعر الصرف الرسمي، فتخسر مالاً في سعر الصرف نفسه. كما أن وصول أموال من غرباء إلى حسابك البنكي قد يجعل البنك يسألك عن مصدرها.',
         },
       },
       {
         h: { en: 'Leaving the platform', fr: 'Quitter la plateforme', ar: 'الخروج من المنصّة' },
         p: {
-          en: 'A common trick is: “Let’s finish on WhatsApp, it’s faster.” Outside the platform there is no escrow and nobody to complain to. A so-called “escrow agent” who asks you to send first is the same trick.',
+          en: 'A common trick is: “Let’s finish on WhatsApp, it’s faster.” Outside the platform there is no escrow and nobody to complain to. A fake “escrow agent” who asks you to send first is the same trick.',
           fr: 'Un piège courant : « On termine sur WhatsApp, c’est plus rapide. » Hors de la plateforme, il n’y a plus de séquestre et personne à qui se plaindre. Un soi-disant « agent de séquestre » qui vous demande d’envoyer en premier, c’est le même piège.',
           ar: 'حيلة شائعة: «لنُكمل على WhatsApp، أسرع». خارج المنصّة لا يوجد حجز (escrow) ولا جهة تشتكي إليها. و«وسيط الضمان» الذي يطلب منك أن ترسل أولاً هو نفس الحيلة.',
         },
       },
     ],
     takeaway: {
-      en: 'In P2P the other side is a stranger. Cash meetups, reversed payments, odd rates and moving off the platform are where people lose money.',
+      en: 'In P2P the other side is a stranger. Cash meetups, undone payments, strange rates and leaving the platform: that is where people lose money.',
       fr: 'En P2P, l’autre côté est un inconnu. Les rendez-vous en cash, les paiements annulés, les taux bizarres et le fait de quitter la plateforme, c’est là qu’on perd de l’argent.',
       ar: 'في الـ P2P الطرف الآخر شخص غريب. اللقاءات بالنقد، والمدفوعات التي تُلغى، والأسعار الغريبة، والخروج من المنصّة: هنا يخسر الناس أموالهم.',
     },
@@ -1005,7 +1005,7 @@ export const BASICS: Lesson[] = [
         ],
         answer: 2,
         why: {
-          en: 'Nobody sells far below the market without a reason. A cheap price plus cash in person is the classic setup for a robbery or a scam.',
+          en: 'Nobody sells far below the market without a reason. A cheap price plus cash in person is how many robberies and scams start.',
           fr: 'Personne ne vend très en dessous du marché sans raison. Prix bas + cash en personne, c’est le scénario classique d’un vol ou d’une arnaque.',
           ar: 'لا أحد يبيع بأقل بكثير من السوق دون سبب. سعر رخيص مع نقد ولقاء شخصي هو السيناريو المعروف للسرقة أو الاحتيال.',
         },
@@ -1027,8 +1027,8 @@ export const BASICS: Lesson[] = [
         ],
         answer: 1,
         why: {
-          en: 'Off the platform, nobody holds the crypto and nobody can settle a dispute. That is exactly why scammers ask for it.',
-          fr: 'Hors de la plateforme, personne ne bloque la crypto et personne ne peut trancher un litige. C’est justement pour ça que les escrocs le demandent.',
+          en: 'Off the platform, nobody holds the crypto and nobody can decide who is right if you disagree. That is exactly why scammers ask for it.',
+          fr: 'Hors de la plateforme, personne ne bloque la crypto et personne ne peut décider qui a raison en cas de désaccord. C’est justement pour ça que les escrocs le demandent.',
           ar: 'خارج المنصّة لا أحد يحجز العملة ولا أحد يحلّ الخلاف. ولهذا بالضبط يطلبه المحتالون.',
         },
       },
@@ -1040,7 +1040,7 @@ export const BASICS: Lesson[] = [
         },
         options: [
           {
-            en: 'The bank can ask where it came from, and a transfer can be reversed',
+            en: 'The bank can ask where it came from, and a transfer can be undone',
             fr: 'La banque peut demander d’où il vient, et un virement peut être annulé',
             ar: 'البنك قد يسألك عن مصدره، والتحويل قد يُلغى',
           },
@@ -1049,7 +1049,7 @@ export const BASICS: Lesson[] = [
         ],
         answer: 0,
         why: {
-          en: 'You don’t know where a stranger’s money comes from. If it is reversed or stolen, the problem lands on your account.',
+          en: 'You don’t know where a stranger’s money comes from. If the transfer is undone or the money is stolen, the problem lands on your account.',
           fr: 'Vous ne savez pas d’où vient l’argent d’un inconnu. S’il est annulé ou volé, le problème tombe sur votre compte.',
           ar: 'أنت لا تعرف مصدر مال شخص غريب. إذا أُلغي التحويل أو كان المال مسروقاً، تقع المشكلة على حسابك.',
         },
@@ -1067,7 +1067,7 @@ export const BASICS: Lesson[] = [
       ar: 'العملات الرقمية والقانون في تونس',
     },
     hook: {
-      en: 'Facts with dates, as of November 2026. This is not legal advice.',
+      en: 'Facts with dates, up to date in November 2026. This is not legal advice.',
       fr: 'Des faits datés, à jour en novembre 2026. Ce n’est pas un conseil juridique.',
       ar: 'وقائع بتواريخها، إلى غاية نوفمبر 2026. هذا ليس استشارة قانونية.',
     },
@@ -1076,7 +1076,7 @@ export const BASICS: Lesson[] = [
       {
         h: { en: 'The only legal currency', fr: 'La seule monnaie légale', ar: 'العملة القانونية الوحيدة' },
         p: {
-          en: 'In Tunisia the dinar is the only legal currency (legal tender). As of November 2026, no law authorises crypto.',
+          en: 'In Tunisia the dinar is the only legal currency (legal tender). In November 2026, no law allows crypto.',
           fr: 'En Tunisie, le dinar est la seule monnaie légale (cours légal). En novembre 2026, aucune loi n’autorise la crypto.',
           ar: 'في تونس، الدينار هو العملة القانونية الوحيدة (legal tender). وإلى غاية نوفمبر 2026، لا يوجد قانون يسمح بالعملات الرقمية.',
         },
@@ -1084,46 +1084,46 @@ export const BASICS: Lesson[] = [
       {
         h: { en: 'The 1976 exchange law', fr: 'La loi des changes de 1976', ar: 'قانون الصرف لسنة 1976' },
         p: {
-          en: 'Foreign-currency matters are governed by law no. 76-18 of 21 January 1976, the foreign-exchange code. It controls holding and moving money and assets in foreign currency, under the central bank (BCT). Crypto cases have been brought under this law.',
-          fr: 'Les questions de devises relèvent de la loi n° 76-18 du 21 janvier 1976, le code des changes. Elle encadre la détention et le transfert d’argent et d’avoirs en devises, sous le contrôle de la banque centrale (BCT). Des affaires de crypto ont été poursuivies sur la base de cette loi.',
+          en: 'Foreign money is covered by law no. 76-18 of 21 January 1976, called the foreign-exchange code. It sets the rules for holding and moving money and other things of value in foreign currency. The central bank (BCT) is in charge of it. Crypto cases have been taken to court under this law.',
+          fr: 'Tout ce qui touche aux devises (les monnaies étrangères) dépend de la loi n° 76-18 du 21 janvier 1976, appelée le code des changes. Elle fixe les règles pour garder et transférer de l’argent et d’autres biens en devises. C’est la banque centrale (BCT) qui contrôle. Des affaires de crypto sont allées en justice sur la base de cette loi.',
           ar: 'مسائل العملات الأجنبية يحكمها القانون عدد 76-18 المؤرّخ في 21 جانفي 1976، أي مجلّة الصرف. هذا القانون ينظّم امتلاك وتحويل الأموال والأصول بالعملة الأجنبية، تحت رقابة البنك المركزي (BCT). وقد رُفعت قضايا تتعلّق بالعملات الرقمية على أساس هذا القانون.',
         },
       },
       {
         h: { en: 'A case from 2021', fr: 'Une affaire de 2021', ar: 'قضية من سنة 2021' },
         p: {
-          en: 'In May 2021 an engineering student was arrested and charged under the exchange law in a bitcoin case. He was released at the end of May 2021, and the court dismissed the case in December 2021. In June 2021 the finance minister said that owning bitcoin should be decriminalised.',
-          fr: 'En mai 2021, un étudiant ingénieur a été arrêté et poursuivi au titre de la loi des changes dans une affaire de bitcoin. Il a été libéré fin mai 2021, et la justice a prononcé un non-lieu en décembre 2021. En juin 2021, le ministre des Finances a déclaré que la détention de bitcoin devrait être dépénalisée.',
+          en: 'In May 2021, an engineering student was arrested in a bitcoin case and charged under the exchange law. He was set free at the end of May 2021. In December 2021, the court closed the case. In June 2021, the finance minister said that owning bitcoin should no longer be a crime.',
+          fr: 'En mai 2021, un étudiant ingénieur a été arrêté dans une affaire de bitcoin et poursuivi sur la base de la loi des changes. Il a été libéré fin mai 2021. En décembre 2021, la justice a fermé le dossier (non-lieu). En juin 2021, le ministre des Finances a dit qu’avoir du bitcoin ne devrait plus être puni par la loi.',
           ar: 'في ماي 2021، أُوقف طالب هندسة ووُجّهت إليه تهم بموجب قانون الصرف في قضية تتعلّق بالـ bitcoin. أُطلق سراحه في آخر ماي 2021، وحفظت المحكمة القضية (عدم سماع الدعوى) في ديسمبر 2021. وفي جوان 2021 قال وزير المالية إن امتلاك الـ bitcoin يجب ألّا يبقى جريمة.',
         },
       },
       {
         h: { en: 'The new exchange code', fr: 'Le nouveau code des changes', ar: 'مجلّة الصرف الجديدة' },
         p: {
-          en: 'In February 2023 a draft of a new exchange code stated that crypto-assets are not a currency. On 14 March 2024 a government draft was adopted in a ministerial council; it aimed to allow crypto transactions with BCT authorisation. In October 2025 members of parliament filed their own bill, which was examined in committee in 2026.',
-          fr: 'En février 2023, un projet de nouveau code des changes indiquait que les crypto-actifs ne sont pas une monnaie. Le 14 mars 2024, un projet du gouvernement a été adopté en conseil ministériel ; il visait à autoriser les transactions en crypto avec l’autorisation de la BCT. En octobre 2025, des députés ont déposé leur propre proposition de loi, examinée en commission en 2026.',
+          en: 'In February 2023, a draft of a new exchange code said that crypto is not a currency. On 14 March 2024, a ministerial council (a meeting of ministers) approved a government draft. It aimed to allow crypto deals with the BCT’s permission. In October 2025, members of parliament put forward their own bill (a proposed law). A parliament committee studied it in 2026.',
+          fr: 'En février 2023, un projet de nouveau code des changes disait que la crypto n’est pas une monnaie. Le 14 mars 2024, un conseil ministériel (une réunion de ministres) a approuvé un projet du gouvernement. Il voulait permettre les opérations en crypto avec l’accord de la BCT. En octobre 2025, des députés ont déposé leur propre proposition de loi. Une commission du Parlement l’a étudiée en 2026.',
           ar: 'في فيفري 2023، نصّ مشروع لمجلّة صرف جديدة على أن الأصول الرقمية ليست عملة. وفي 14 مارس 2024 صادق مجلس وزاري على مشروع حكومي، كان هدفه السماح بمعاملات العملات الرقمية بترخيص من البنك المركزي. وفي أكتوبر 2025 قدّم نوّاب في البرلمان مقترح قانون خاصاً بهم، ونوقش في اللجنة خلال 2026.',
         },
       },
       {
-        h: { en: 'Where it stands', fr: 'Où on en est', ar: 'أين وصل الأمر' },
+        h: { en: 'Where things are now', fr: 'Où on en est', ar: 'أين وصل الأمر' },
         p: {
-          en: 'As of November 2026 the new code is not law, so the 1976 law still applies. Rules can change: check the date of anything you read on this topic. For your own situation, ask a lawyer. This page is not legal advice.',
+          en: 'In November 2026, the new code is not law, so the 1976 law still applies. Rules can change: check the date of anything you read on this topic. For your own situation, ask a lawyer. This page is not legal advice.',
           fr: 'En novembre 2026, le nouveau code n’est pas une loi : la loi de 1976 s’applique donc toujours. Les règles peuvent changer : vérifiez la date de tout ce que vous lisez sur le sujet. Pour votre propre situation, demandez à un avocat. Cette page n’est pas un conseil juridique.',
           ar: 'إلى غاية نوفمبر 2026، المجلّة الجديدة ليست قانوناً بعد، لذلك ما زال قانون 1976 هو المطبّق. القواعد قد تتغيّر: تحقّق من تاريخ كل ما تقرؤه في هذا الموضوع. ولوضعك الخاص، اسأل محامياً. هذه الصفحة ليست استشارة قانونية.',
         },
       },
     ],
     takeaway: {
-      en: 'As of November 2026: the dinar is the only legal currency, the 1976 exchange law still applies, and the new exchange code has not been adopted.',
+      en: 'In November 2026: the dinar is the only legal currency, the 1976 exchange law still applies, and the new exchange code has not been passed.',
       fr: 'En novembre 2026 : le dinar est la seule monnaie légale, la loi des changes de 1976 s’applique toujours, et le nouveau code des changes n’est pas adopté.',
       ar: 'إلى غاية نوفمبر 2026: الدينار هو العملة القانونية الوحيدة، وقانون الصرف لسنة 1976 ما زال مطبّقاً، ومجلّة الصرف الجديدة لم يُصادَق عليها.',
     },
     quiz: [
       {
         q: {
-          en: 'As of November 2026, which law still covers foreign-exchange matters in Tunisia?',
-          fr: 'En novembre 2026, quelle loi régit encore les changes en Tunisie ?',
+          en: 'In November 2026, which law still sets the rules for foreign money in Tunisia?',
+          fr: 'En novembre 2026, quelle loi s’applique encore aux devises en Tunisie ?',
           ar: 'إلى غاية نوفمبر 2026، أيّ قانون ما زال ينظّم الصرف في تونس؟',
         },
         options: [
@@ -1148,21 +1148,21 @@ export const BASICS: Lesson[] = [
           { en: 'He was given a crypto licence', fr: 'Il a obtenu une licence crypto', ar: 'حصل على رخصة للعملات الرقمية' },
           { en: 'He was sentenced to ten years', fr: 'Il a été condamné à dix ans', ar: 'حُكم عليه بعشر سنوات' },
           {
-            en: 'He was arrested, then the case was dismissed in December 2021',
-            fr: 'Il a été arrêté, puis l’affaire s’est conclue par un non-lieu en décembre 2021',
+            en: 'He was arrested, then the case was closed in December 2021',
+            fr: 'Il a été arrêté, puis le dossier a été fermé en décembre 2021',
             ar: 'أُوقف، ثم حُفظت القضية في ديسمبر 2021',
           },
         ],
         answer: 2,
         why: {
-          en: 'He was charged under the exchange law, released at the end of May 2021, and the case was dismissed in December 2021.',
-          fr: 'Il a été poursuivi au titre de la loi des changes, libéré fin mai 2021, et l’affaire a été classée par un non-lieu en décembre 2021.',
+          en: 'He was charged under the exchange law and set free at the end of May 2021. The case was closed in December 2021.',
+          fr: 'Il a été poursuivi sur la base de la loi des changes et libéré fin mai 2021. Le dossier a été fermé en décembre 2021 (non-lieu).',
           ar: 'وُجّهت إليه تهم بموجب قانون الصرف، وأُطلق سراحه في آخر ماي 2021، ثم حُفظت القضية في ديسمبر 2021.',
         },
       },
       {
         q: {
-          en: 'Where does the new exchange code stand in November 2026?',
+          en: 'What is the status of the new exchange code in November 2026?',
           fr: 'Où en est le nouveau code des changes en novembre 2026 ?',
           ar: 'أين وصلت مجلّة الصرف الجديدة في نوفمبر 2026؟',
         },
@@ -1173,7 +1173,7 @@ export const BASICS: Lesson[] = [
         ],
         answer: 0,
         why: {
-          en: 'There have been drafts since 2023 and a bill in parliament since October 2025, but nothing adopted as of November 2026.',
+          en: 'There have been drafts since 2023, and a bill in parliament since October 2025. But nothing was passed by November 2026.',
           fr: 'Il y a des projets depuis 2023 et une proposition au Parlement depuis octobre 2025, mais rien d’adopté en novembre 2026.',
           ar: 'توجد مشاريع منذ 2023 ومقترح قانون في البرلمان منذ أكتوبر 2025، لكن لا شيء صودق عليه إلى غاية نوفمبر 2026.',
         },

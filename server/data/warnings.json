@@ -11,9 +11,9 @@
       "country": "TN",
       "date": "2026-10-28",
       "summary": {
-        "en": "Tunisia's market regulator (CMF) warned that this entity offered to manage people's portfolios on social media, presented as investment advice, without any approval. Managing money for others is reserved to licensed brokers, management companies and banks.",
-        "fr": "Le CMF a mis en garde contre cette entité qui proposait sur les réseaux sociaux de gérer des portefeuilles, présentée comme du conseil en investissement, sans aucun agrément. La gestion pour le compte de tiers est réservée aux intermédiaires en Bourse, sociétés de gestion et banques agréés.",
-        "ar": "حذّرت هيئة السوق المالية التونسية من هذه الجهة التي عرضت على مواقع التواصل إدارة محافظ الناس، تحت غطاء النصيحة الاستثمارية، دون أي ترخيص. إدارة أموال الغير حكر على الوسطاء وشركات التصرف والبنوك المرخّص لها."
+        "en": "Tunisia's market regulator (CMF) warned about this name. It offered on social media to manage people's investments, calling it investment advice, without any approval. Only licensed brokers, management companies and banks may manage money for others.",
+        "fr": "Le CMF a mis en garde contre ce nom. Il proposait sur les réseaux sociaux de gérer les placements des gens, en parlant de conseil en investissement, sans aucune autorisation. Seuls les intermédiaires en Bourse, sociétés de gestion et banques agréés peuvent gérer l'argent des autres.",
+        "ar": "حذّرت هيئة السوق المالية التونسية من هذه الجهة التي عرضت على مواقع التواصل إدارة محافظ الناس، تحت غطاء النصيحة الاستثمارية، دون أي ترخيص. إدارة أموال الغير حكر على الوسطاء وشركات إدارة الأموال والبنوك المرخّص لها."
       },
       "source_name": "L'Économiste Maghrébin (CMF warning)",
       "source_url": "https://www.leconomistemaghrebin.com/2026/10/28/cmf-attention-aux-arnaques-dinvestissement-sur-les-reseaux-sociaux/"
@@ -27,8 +27,8 @@
       "country": "TN",
       "date": "2026-09-11",
       "summary": {
-        "en": "The CMF warned that documents circulating under this name used the CMF's identity to make investment offers look approved. The CMF said it never validated them and would file a criminal complaint.",
-        "fr": "Le CMF a averti que des documents diffusés sous ce nom usurpaient son identité pour faire passer des offres d'investissement pour agréées. Le CMF ne les a jamais validées et annonce une plainte pénale.",
+        "en": "The CMF warned that documents shared under this name used the CMF's name to make investment offers look approved. The CMF said it never approved them and would file a criminal complaint.",
+        "fr": "Le CMF a averti que des documents diffusés sous ce nom se servaient de son nom pour faire croire que des offres d'investissement étaient autorisées. Le CMF ne les a jamais validées et annonce une plainte pénale.",
         "ar": "نبّهت هيئة السوق المالية إلى أن وثائق متداولة بهذا الاسم انتحلت صفتها لتجعل عروض استثمار تبدو مرخّصة. الهيئة لم تصادق عليها أبداً وأعلنت تقديم شكوى جزائية."
       },
       "source_name": "Managers.tn (CMF warning)",
@@ -43,8 +43,8 @@
       "country": "TN",
       "date": "2019-11-19",
       "summary": {
-        "en": "The CMF warned that this website invited savers to invest as an 'equity crowdfunding platform' with no legal status to offer securities, and falsely claimed a link with the CMF.",
-        "fr": "Le CMF a mis en garde contre ce site qui invitait les épargnants à investir comme « plateforme d'equity crowdfunding » sans statut légal pour offrir des titres, et revendiquait à tort un partenariat avec le CMF.",
+        "en": "The CMF warned that this website asked savers to invest, calling itself an 'equity crowdfunding platform', without the legal right to sell shares or other investments. It also falsely claimed a link with the CMF.",
+        "fr": "Le CMF a mis en garde contre ce site. Il invitait les épargnants à investir en se disant « plateforme d'equity crowdfunding », sans avoir le droit de vendre des actions ou d'autres placements. Il disait aussi, à tort, être partenaire du CMF.",
         "ar": "حذّرت هيئة السوق المالية من هذا الموقع الذي دعا المدّخرين للاستثمار بصفته «منصة تمويل تشاركي» دون صفة قانونية، وادّعى زوراً شراكة مع الهيئة."
       },
       "source_name": "WebManagerCenter (CMF warning)",
@@ -59,9 +59,9 @@
       "country": "Africa",
       "date": "2025-07-01",
       "summary": {
-        "en": "A crypto Ponzi that promised about 100% a month from 'AI trading' through Telegram, changed domains several times, collapsed in April 2025, then victims were targeted again by 'recovery fee' scams.",
-        "fr": "Une pyramide crypto qui promettait environ 100 % par mois grâce au « trading par IA » via Telegram, a changé plusieurs fois de domaine, s'est effondrée en avril 2025, puis les victimes ont été visées par des arnaques aux « frais de récupération ».",
-        "ar": "مخطط بونزي للعملات الرقمية وعد بحوالي 100% شهرياً عبر «تداول بالذكاء الاصطناعي» على تيليغرام، وغيّر نطاقه عدة مرات، ثم انهار في أفريل 2025، وبعدها استُهدف الضحايا بعمليات احتيال «رسوم الاسترجاع»."
+        "en": "A crypto Ponzi scheme run through Telegram. It promised about 100% a month from 'AI trading' and changed its web address several times. It collapsed in April 2025. Then victims were hit again by 'recovery fee' scams.",
+        "fr": "Une pyramide crypto via Telegram. Elle promettait environ 100 % par mois grâce au « trading par IA » et a changé plusieurs fois d'adresse web. Elle s'est effondrée en avril 2025. Puis les victimes ont été visées par des arnaques aux « frais de récupération ».",
+        "ar": "مخطط Ponzi للعملات الرقمية وعد بحوالي 100% شهرياً عبر «تداول بالذكاء الاصطناعي» على Telegram، وغيّر نطاقه عدة مرات، ثم انهار في أبريل 2025، وبعدها استُهدف الضحايا بعمليات احتيال «رسوم الاسترجاع»."
       },
       "source_name": "Le360 Afrique / AFP",
       "source_url": "https://afrique.le360.ma/afrique-de-louest/la-crypto-arnaque-cbex-une-pyramide-de-ponzi-ayant-ruine-de-nombreux-africains_AO7B2ORNKZAR7GAL4OERH4TYCE"
@@ -75,9 +75,9 @@
       "country": "MA",
       "date": "2024-10-01",
       "summary": {
-        "en": "A WhatsApp 'tontine' in Morocco: pay 1,800 MAD, get 10,000 MAD after recruiting two more people. About 720 million MAD were reported lost. Influencers and preachers promoted it.",
+        "en": "A WhatsApp 'tontine' (savings group) in Morocco: pay 1,800 MAD, get 10,000 MAD after bringing in two more people. About 720 million MAD were reported lost. Influencers and preachers promoted it.",
         "fr": "Une « tontine » WhatsApp au Maroc : payer 1 800 MAD, recevoir 10 000 MAD après avoir recruté deux personnes. Environ 720 millions de MAD de pertes rapportées. Des influenceurs et prédicateurs en faisaient la promotion.",
-        "ar": "«جمعية» على واتساب في المغرب: تدفع 1800 درهم وتأخذ 10000 درهم بعد أن تجلب شخصين. أُبلغ عن خسائر بحوالي 720 مليون درهم، وروّج لها مؤثرون ووعّاظ."
+        "ar": "«جمعية» على WhatsApp في المغرب: تدفع 1800 درهم وتأخذ 10000 درهم بعد أن تجلب شخصين. أُبلغ عن خسائر بحوالي 720 مليون درهم، وروّج لها مؤثرون ووعّاظ."
       },
       "source_name": "Challenge.ma",
       "source_url": "https://www.challenge.ma/tout-ce-quil-faut-savoir-sur-la-plus-grosse-fraude-de-ponzi-de-lhistoire-du-maroc-288369"
@@ -105,7 +105,7 @@
       "regulator": "CMF",
       "country": "TN",
       "date": "2026-10-28",
-      "title": "CMF: unlicensed portfolio management on social media",
+      "title": "CMF: managing people's money without a licence on social media",
       "source_url": "https://www.leconomistemaghrebin.com/2026/10/28/cmf-attention-aux-arnaques-dinvestissement-sur-les-reseaux-sociaux/"
     },
     {
@@ -113,7 +113,7 @@
       "regulator": "AMMC",
       "country": "MA",
       "date": "2026-09-16",
-      "title": "AMMC: fake investment platforms (ads → WhatsApp group → fake dashboard → blocked withdrawal → fee)",
+      "title": "AMMC: fake investment platforms (ads → WhatsApp group → fake account page → blocked withdrawal → fee)",
       "source_url": "https://fr.hespress.com/488684-investissement-lammc-met-en-garde-contre-les-plateformes-frauduleuses.html"
     },
     {
@@ -121,7 +121,7 @@
       "regulator": "AMMC",
       "country": "MA",
       "date": "2025-12-22",
-      "title": "AMMC: unauthorised investment advice and fraudulent trading platforms",
+      "title": "AMMC: investment advice without a licence, and fake trading platforms",
       "source_url": "https://medias24.com/2025/12/22/lammc-met-en-garde-contre-le-conseil-en-investissement-illegal-et-les-plateformes-de-trading-frauduleuses-1601028/"
     },
     {
@@ -153,7 +153,7 @@
       "regulator": "exchange",
       "country": "global",
       "date": "2025-01-01",
-      "title": "Binance: common P2P scams (fake 'paid' marks, fake receipts, third-party payments)",
+      "title": "Binance: common P2P scams (fake 'paid' marks, fake receipts, payments from someone else's account)",
       "source_url": "https://www.binance.com/en/blog/p2p/5812573865681778876"
     }
   ]

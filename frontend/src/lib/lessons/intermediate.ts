@@ -39,16 +39,16 @@ export const INTERMEDIATE: Lesson[] = [
       {
         h: { en: 'Trading: buy and sell often', fr: 'Trader : acheter et vendre souvent', ar: 'التداول: تشتري وتبيع كثيرًا' },
         p: {
-          en: 'Trading means buying and selling often to catch price moves, sometimes several times a day (day trading). Every trade pays a fee and the spread, and every trade is a new decision you can get wrong. Fear and excitement push people to act at the worst moments.',
-          fr: 'Trader, c’est acheter et vendre souvent pour profiter des mouvements de prix, parfois plusieurs fois par jour (le day trading). Chaque opération paie des frais et l’écart (spread), et chaque opération est une nouvelle décision où l’on peut se tromper. La peur et l’excitation poussent à agir aux pires moments.',
+          en: 'Trading means buying and selling often to catch price moves, sometimes several times a day (day trading). Every trade pays a fee and the spread (the gap between the buy and sell price). And every trade is a new decision you can get wrong. Fear and excitement push people to act at the worst moments.',
+          fr: 'Trader, c’est acheter et vendre souvent pour profiter des mouvements de prix, parfois plusieurs fois par jour (le day trading). Chaque opération paie des frais et l’écart (spread) entre le prix d’achat et le prix de vente. Et chaque opération est une nouvelle décision où l’on peut se tromper. La peur et l’excitation poussent à agir aux pires moments.',
           ar: 'التداول (trading) يعني أن تشتري وتبيع كثيرًا لتستفيد من حركات السعر، وأحيانًا عدة مرات في اليوم (day trading). كل عملية تدفع فيها رسومًا والفارق (spread)، وكل عملية قرار جديد قد تخطئ فيه. والخوف والحماس يدفعان الناس إلى التصرف في أسوأ اللحظات.',
         },
       },
       {
         h: { en: 'What the studies found', fr: 'Ce qu’ont trouvé les études', ar: 'ماذا وجدت الدراسات' },
         p: {
-          en: 'Researchers have studied real day traders. In Taiwan, over 15 years of data, fewer than 1% of day traders earned money reliably after fees. In Brazil, among people who day-traded futures for 300 days or more, 97% lost money. These studies are about stock and futures markets, not crypto, but crypto day traders face the same fees and the same emotions.',
-          fr: 'Des chercheurs ont étudié de vrais day traders. À Taïwan, sur 15 ans de données, moins de 1 % des day traders gagnaient de l’argent de façon régulière après les frais. Au Brésil, parmi les personnes qui ont fait du day trading sur des contrats à terme pendant 300 jours ou plus, 97 % ont perdu de l’argent. Ces études portent sur la bourse et les contrats à terme, pas sur la crypto, mais un day trader crypto fait face aux mêmes frais et aux mêmes émotions.',
+          en: 'Researchers have studied real day traders. In Taiwan, over 15 years of data, fewer than 1% of day traders earned money reliably after fees. In Brazil, among people who day-traded futures (contracts that bet on a price) for 300 days or more, 97% lost money. These studies are about stock and futures markets, not crypto. But crypto day traders face the same fees and the same emotions.',
+          fr: 'Des chercheurs ont étudié de vrais day traders. À Taïwan, sur 15 ans de données, moins de 1 % des day traders gagnaient de l’argent de façon régulière après les frais. Au Brésil, parmi les personnes qui ont fait du day trading sur des contrats à terme (des contrats qui parient sur un prix) pendant 300 jours ou plus, 97 % ont perdu de l’argent. Ces études portent sur la bourse et les contrats à terme, pas sur la crypto. Mais un day trader crypto fait face aux mêmes frais et aux mêmes émotions.',
           ar: 'درس باحثون متداولين يوميين حقيقيين. في تايوان، وعلى بيانات 15 سنة، أقل من 1% من المتداولين اليوميين ربحوا بشكل منتظم بعد خصم الرسوم. وفي البرازيل، من بين من تداولوا العقود الآجلة يوميًا لمدة 300 يوم أو أكثر، خسر 97% منهم. هذه الدراسات عن البورصة والعقود الآجلة وليست عن العملات الرقمية، لكن المتداول اليومي في العملات الرقمية يواجه نفس الرسوم ونفس المشاعر.',
         },
       },
@@ -160,8 +160,8 @@ export const INTERMEDIATE: Lesson[] = [
       {
         h: { en: 'One candle, one day', fr: 'Une bougie, un jour', ar: 'شمعة واحدة، يوم واحد' },
         p: {
-          en: 'On Qirat’s 30-day chart, each candle is one day. It shows four prices: where the day opened, where it closed, the highest price of the day and the lowest.',
-          fr: 'Sur le graphique 30 jours de Qirat, chaque bougie est un jour. Elle montre quatre prix : l’ouverture, la clôture, le plus haut et le plus bas de la journée.',
+          en: 'On Qirat’s 30-day chart, each candle is one day. It shows four prices: the price at the start of the day (the open), at the end (the close), the highest price of the day and the lowest.',
+          fr: 'Sur le graphique 30 jours de Qirat, chaque bougie est un jour. Elle montre quatre prix : le prix au début du jour (l’ouverture), à la fin (la clôture), le plus haut et le plus bas de la journée.',
           ar: 'في رسم قيراط البياني لـ 30 يومًا، كل شمعة (candle) هي يوم واحد. تُظهر أربعة أسعار: سعر افتتاح اليوم، وسعر إغلاقه، وأعلى سعر في اليوم، وأدنى سعر.',
         },
       },
@@ -169,7 +169,7 @@ export const INTERMEDIATE: Lesson[] = [
         h: { en: 'Green or red', fr: 'Verte ou rouge', ar: 'خضراء أم حمراء' },
         p: {
           en: 'Green: the day closed higher than it opened. Red: it closed lower. The thick part of the candle (the body) goes from the open to the close.',
-          fr: 'Verte : la journée a clôturé plus haut qu’elle n’a ouvert. Rouge : elle a clôturé plus bas. La partie épaisse (le corps) va de l’ouverture à la clôture.',
+          fr: 'Verte : le prix a fini la journée plus haut qu’au début. Rouge : il a fini plus bas. La partie épaisse (le corps) va de l’ouverture à la clôture.',
           ar: 'الخضراء: أُغلق اليوم أعلى من سعر الافتتاح. الحمراء: أُغلق أدنى منه. الجزء العريض من الشمعة (الجسم) يمتد من سعر الافتتاح إلى سعر الإغلاق.',
         },
       },
@@ -177,7 +177,7 @@ export const INTERMEDIATE: Lesson[] = [
         h: { en: 'The thin line', fr: 'Le trait fin', ar: 'الخط الرفيع' },
         p: {
           en: 'The thin line above and below the body shows the day’s high and low. A long line means the price travelled far during the day, even if it closed near where it opened.',
-          fr: 'Le trait fin au-dessus et en dessous du corps montre le plus haut et le plus bas du jour. Un long trait veut dire que le prix a beaucoup voyagé dans la journée, même s’il a clôturé près de son ouverture.',
+          fr: 'Le trait fin au-dessus et en dessous du corps montre le plus haut et le plus bas du jour. Un long trait veut dire que le prix a beaucoup bougé dans la journée, même s’il a fini près de son prix de départ.',
           ar: 'الخط الرفيع فوق الجسم وتحته يُظهر أعلى وأدنى سعر في اليوم. الخط الطويل يعني أن السعر تحرك كثيرًا خلال اليوم، حتى لو أُغلق قريبًا من سعر الافتتاح.',
         },
       },
@@ -193,14 +193,14 @@ export const INTERMEDIATE: Lesson[] = [
         h: { en: 'What candles do not tell you', fr: 'Ce que les bougies ne disent pas', ar: 'ما لا تخبرك به الشموع' },
         p: {
           en: 'Candles show what already happened. Three green days in a row do not mean the fourth will be green. Anyone who says a candle pattern tells you when to buy is selling something.',
-          fr: 'Les bougies montrent ce qui s’est déjà passé. Trois jours verts de suite ne veulent pas dire que le quatrième sera vert. Celui qui dit qu’une figure de bougies indique quand acheter vous vend quelque chose.',
+          fr: 'Les bougies montrent ce qui s’est déjà passé. Trois jours verts de suite ne veulent pas dire que le quatrième sera vert. Celui qui dit qu’une forme de bougies montre quand acheter vous vend quelque chose.',
           ar: 'الشموع تُظهر ما حدث فعلًا. ثلاثة أيام خضراء متتالية لا تعني أن الرابع سيكون أخضر. ومن يقول لك إن شكلًا معينًا من الشموع يخبرك متى تشتري، فهو يبيعك شيئًا.',
         },
       },
     ],
     takeaway: {
-      en: 'Read a candle as a summary of one day: green closed higher, red closed lower, the thin line is the day’s range. It describes the past, it does not predict.',
-      fr: 'Lisez une bougie comme le résumé d’un jour : verte a clôturé plus haut, rouge plus bas, le trait fin est l’amplitude du jour. Elle décrit le passé, elle ne prédit rien.',
+      en: 'Read a candle as a summary of one day: green closed higher, red closed lower, the thin line shows the day’s high and low. It describes the past, it does not predict.',
+      fr: 'Lisez une bougie comme le résumé d’un jour : verte a fini plus haut, rouge plus bas, le trait fin montre le plus haut et le plus bas du jour. Elle décrit le passé, elle ne prédit rien.',
       ar: 'اقرأ الشمعة كملخص ليوم واحد: الخضراء أُغلقت أعلى، والحمراء أُغلقت أدنى، والخط الرفيع هو مدى حركة اليوم. إنها تصف الماضي، ولا تتنبأ بشيء.',
     },
     quiz: [
@@ -229,7 +229,7 @@ export const INTERMEDIATE: Lesson[] = [
           ar: 'شمعة حمراء. ماذا حدث في ذلك اليوم؟',
         },
         options: [
-          { en: 'It closed lower than it opened', fr: 'Il a clôturé plus bas qu’il n’a ouvert', ar: 'أُغلق أدنى من سعر الافتتاح' },
+          { en: 'It closed lower than it opened', fr: 'Il a fini plus bas qu’au début', ar: 'أُغلق أدنى من سعر الافتتاح' },
           { en: 'Someone lost all their money', fr: 'Quelqu’un a tout perdu', ar: 'شخص ما خسر كل أمواله' },
           { en: 'The market was closed', fr: 'Le marché était fermé', ar: 'كان السوق مغلقًا' },
         ],
@@ -272,7 +272,7 @@ export const INTERMEDIATE: Lesson[] = [
     },
     hook: {
       en: 'A coin can look wild or calm depending only on how far you zoom.',
-      fr: 'Une crypto peut sembler agitée ou calme selon votre seul zoom.',
+      fr: 'Une crypto peut sembler agitée ou calme, juste selon votre zoom.',
       ar: 'قد تبدو العملة هائجة أو هادئة فقط حسب المسافة التي تنظر منها.',
     },
     terms: ['timeframe', 'volume', 'candle'],
@@ -305,8 +305,8 @@ export const INTERMEDIATE: Lesson[] = [
       {
         h: { en: 'Why short timeframes are tiring', fr: 'Pourquoi les unités courtes fatiguent', ar: 'لماذا تُتعب الأطر الزمنية القصيرة' },
         p: {
-          en: 'The shorter the timeframe, the more decisions it seems to ask for. Watching 1-minute candles pushes many people into frequent trades, and each trade pays a fee and the spread. Knowing which timeframe you are looking at keeps a scary-looking minute in proportion.',
-          fr: 'Plus l’unité de temps est courte, plus elle semble demander de décisions. Regarder des bougies d’une minute pousse beaucoup de gens à multiplier les opérations, et chacune paie des frais et l’écart. Savoir quelle unité de temps vous regardez aide à garder une minute effrayante à sa juste place.',
+          en: 'The shorter the timeframe, the more decisions it seems to ask for. Watching 1-minute candles pushes many people into frequent trades, and each trade pays a fee and the spread. Knowing which timeframe you are looking at helps you see a scary minute at its real size.',
+          fr: 'Plus l’unité de temps est courte, plus elle semble demander de décisions. Regarder des bougies d’une minute pousse beaucoup de gens à multiplier les opérations, et chacune paie des frais et l’écart. Savoir quelle unité de temps vous regardez aide à voir une minute qui fait peur à sa vraie taille.',
           ar: 'كلما قصر الإطار الزمني، بدا أنه يطلب منك قرارات أكثر. متابعة شموع الدقيقة تدفع كثيرين إلى عمليات متكررة، وكل عملية تدفع رسومًا وفارقًا. ومعرفة الإطار الزمني الذي تنظر إليه تساعدك على رؤية الدقيقة المخيفة بحجمها الحقيقي.',
         },
       },
@@ -418,8 +418,8 @@ export const INTERMEDIATE: Lesson[] = [
       {
         h: { en: 'Two costs on every trade', fr: 'Deux coûts sur chaque opération', ar: 'تكلفتان في كل عملية' },
         p: {
-          en: 'Every trade has two costs. The fee is what the platform charges: 0.1% in Qirat’s practice wallet, the same as Binance’s basic spot fee. The spread is the gap between the buy price and the sell price: in the practice wallet, buys fill 0.05% above the market price and sells 0.05% below.',
-          fr: 'Chaque opération a deux coûts. Les frais, c’est ce que prend la plateforme : 0,1 % dans le portefeuille d’entraînement de Qirat, comme les frais spot de base de Binance. L’écart (spread), c’est la différence entre le prix d’achat et le prix de vente : dans le portefeuille d’entraînement, on achète 0,05 % au-dessus du prix du marché et on vend 0,05 % en dessous.',
+          en: 'Every trade has two costs. The fee is what the platform charges: 0.1% in Qirat’s practice wallet, the same as Binance’s basic fee for simple (spot) trades. The spread is the gap between the buy price and the sell price: in the practice wallet, you buy 0.05% above the market price and sell 0.05% below.',
+          fr: 'Chaque opération a deux coûts. Les frais, c’est ce que prend la plateforme : 0,1 % dans le portefeuille d’entraînement de Qirat, comme les frais de base de Binance pour un achat ou une vente simple (spot). L’écart (spread), c’est la différence entre le prix d’achat et le prix de vente : dans le portefeuille d’entraînement, on achète 0,05 % au-dessus du prix du marché et on vend 0,05 % en dessous.',
           ar: 'لكل عملية تكلفتان. الرسوم (fee) هي ما تأخذه المنصّة: 0.1% في محفظة التدريب في قيراط، وهي نفس الرسوم الأساسية للتداول الفوري في Binance. والفارق (spread) هو الفرق بين سعر الشراء وسعر البيع: في محفظة التدريب، يتم الشراء بسعر أعلى من سعر السوق بـ 0.05%، والبيع بسعر أقل منه بـ 0.05%.',
         },
       },
@@ -483,7 +483,7 @@ export const INTERMEDIATE: Lesson[] = [
         ],
         answer: 1,
         why: {
-          en: 'About 0.1% fee and 0.05% spread on each side: roughly 0.3% for the round trip.',
+          en: 'About 0.1% fee and 0.05% spread on each side: roughly 0.3% to buy and then sell.',
           fr: 'Environ 0,1 % de frais et 0,05 % d’écart de chaque côté : à peu près 0,3 % pour l’aller-retour.',
           ar: 'حوالي 0.1% رسوم و0.05% فارق في كل اتجاه: أي تقريبًا 0.3% للذهاب والعودة.',
         },
@@ -555,40 +555,40 @@ export const INTERMEDIATE: Lesson[] = [
       {
         h: { en: 'Market order: now, at the best price available', fr: 'Ordre au marché : maintenant, au meilleur prix disponible', ar: 'أمر السوق: الآن، بأفضل سعر متوفر' },
         p: {
-          en: 'A market order buys or sells right away at the best price available at that moment. It is fast and almost always fills. The price you get can differ a little from the price you saw, especially on small coins or big orders. That difference is called slippage.',
-          fr: 'Un ordre au marché achète ou vend tout de suite, au meilleur prix disponible à ce moment-là. Il est rapide et s’exécute presque toujours. Le prix obtenu peut être un peu différent de celui affiché, surtout sur les petites cryptos ou les gros ordres. Cette différence s’appelle le glissement (slippage).',
+          en: 'A market order buys or sells right away at the best price available at that moment. It is fast and almost always goes through. The price you get can differ a little from the price you saw, especially on small coins or big orders. That difference is called slippage.',
+          fr: 'Un ordre au marché achète ou vend tout de suite, au meilleur prix disponible à ce moment-là. Il est rapide et passe presque toujours. Le prix obtenu peut être un peu différent de celui affiché, surtout sur les petites cryptos ou les gros ordres. Cette différence s’appelle le glissement (slippage).',
           ar: 'أمر السوق (market order) يشتري أو يبيع فورًا بأفضل سعر متوفر في تلك اللحظة. هو سريع ويُنفَّذ في أغلب الأحيان. لكن السعر الذي تحصل عليه قد يختلف قليلًا عن السعر الذي رأيته، خاصة في العملات الصغيرة أو الأوامر الكبيرة. هذا الفرق اسمه الانزلاق (slippage).',
         },
       },
       {
         h: { en: 'Limit order: only at my price or better', fr: 'Ordre limité : seulement à mon prix ou mieux', ar: 'الأمر المحدد: بسعري أو أفضل فقط' },
         p: {
-          en: 'A limit order sets your price. A buy limit at 95 fills only at 95 or lower; a sell limit at 110 fills only at 110 or higher. You control the price, but if the market never reaches it, the order never fills.',
-          fr: 'Un ordre à cours limité fixe votre prix. Un achat limité à 95 ne s’exécute qu’à 95 ou moins ; une vente limitée à 110 ne s’exécute qu’à 110 ou plus. Vous contrôlez le prix, mais si le marché ne l’atteint jamais, l’ordre ne s’exécute jamais.',
+          en: 'A limit order sets your price. A buy limit at 95 goes through only at 95 or lower. A sell limit at 110 goes through only at 110 or higher. You control the price, but if the market never reaches it, the order never goes through.',
+          fr: 'Un ordre à cours limité fixe votre prix. Un achat limité à 95 ne passe qu’à 95 ou moins. Une vente limitée à 110 ne passe qu’à 110 ou plus. Vous contrôlez le prix, mais si le marché ne l’atteint jamais, l’ordre ne passe jamais.',
           ar: 'الأمر المحدد السعر (limit order) يحدد السعر الذي تريده. أمر شراء محدد عند 95 لا يُنفَّذ إلا عند 95 أو أقل، وأمر بيع محدد عند 110 لا يُنفَّذ إلا عند 110 أو أكثر. أنت تتحكم في السعر، لكن إن لم يصل السوق إليه أبدًا، فلن يُنفَّذ الأمر أبدًا.',
         },
       },
       {
         h: { en: 'Stop-loss: the exit you choose before you enter', fr: 'Stop-loss : la sortie choisie avant d’entrer', ar: 'وقف الخسارة: المخرج الذي تختاره قبل الدخول' },
         p: {
-          en: 'A stop-loss is a price below your entry, chosen in advance, where a sell order is sent to limit a loss. Bought at 100 with a stop at 90? If the price falls to 90, the platform sends the sell order. In a very fast drop it can fill below 90, so a stop limits a loss but does not guarantee its size.',
-          fr: 'Un stop-loss est un prix sous votre prix d’entrée, choisi à l’avance, où un ordre de vente part pour limiter une perte. Acheté à 100 avec un stop à 90 ? Si le prix tombe à 90, la plateforme envoie l’ordre de vente. Dans une chute très rapide, il peut s’exécuter sous 90 : un stop limite une perte, mais ne garantit pas sa taille.',
+          en: 'A stop-loss is a price below your buy price, chosen in advance, where a sell order is sent to limit a loss. Bought at 100 with a stop at 90? If the price falls to 90, the platform sends the sell order. In a very fast drop it can sell below 90. So a stop limits a loss, but it does not guarantee its size.',
+          fr: 'Un stop-loss est un prix sous votre prix d’achat, choisi à l’avance, où un ordre de vente part pour limiter une perte. Acheté à 100 avec un stop à 90 ? Si le prix tombe à 90, la plateforme envoie l’ordre de vente. Dans une chute très rapide, la vente peut se faire sous 90 : un stop limite une perte, mais ne garantit pas sa taille.',
           ar: 'أمر وقف الخسارة (stop-loss) هو سعر أقل من سعر دخولك، تختاره مسبقًا، يُرسَل عنده أمر بيع للحدّ من الخسارة. اشتريت بـ 100 ووضعت الوقف عند 90؟ إذا نزل السعر إلى 90، ترسل المنصّة أمر البيع. وفي الهبوط السريع جدًا قد يُنفَّذ تحت 90، فوقف الخسارة يحدّ من الخسارة لكنه لا يضمن حجمها.',
         },
       },
       {
         h: { en: 'Take-profit: the exit on the way up', fr: 'Take-profit : la sortie à la hausse', ar: 'جني الأرباح: المخرج عند الصعود' },
         p: {
-          en: 'A take-profit is the same idea above your entry: a price where a sell order is sent if the coin rises. Bought at 100 with a take-profit at 120? It sells if the price reaches 120. Exits set before entering are decided while you are calm, not in the heat of a move.',
-          fr: 'Un take-profit, c’est la même idée au-dessus de votre prix d’entrée : un prix où un ordre de vente part si la crypto monte. Acheté à 100 avec un take-profit à 120 ? Il vend si le prix atteint 120. Des sorties fixées avant d’entrer sont décidées à froid, pas dans le feu du mouvement.',
+          en: 'A take-profit is the same idea above your buy price: a price where a sell order is sent if the coin rises. Bought at 100 with a take-profit at 120? It sells if the price reaches 120. Exits set before you buy are decided while you are calm, not in the rush of a big move.',
+          fr: 'Un take-profit, c’est la même idée au-dessus de votre prix d’achat : un prix où un ordre de vente part si la crypto monte. Acheté à 100 avec un take-profit à 120 ? Il vend si le prix atteint 120. Des sorties fixées avant d’acheter sont décidées au calme, pas dans l’excitation d’un gros mouvement.',
           ar: 'أمر جني الأرباح (take-profit) هو نفس الفكرة لكن فوق سعر دخولك: سعر يُرسَل عنده أمر بيع إذا ارتفعت العملة. اشتريت بـ 100 ووضعت جني الأرباح عند 120؟ يتم البيع إذا وصل السعر إلى 120. والمخارج التي تُحدَّد قبل الدخول تُقرَّر بهدوء، لا في حرارة الحركة.',
         },
       },
       {
         h: { en: 'What Qirat’s practice wallet has', fr: 'Ce qu’a le portefeuille d’entraînement de Qirat', ar: 'ما الموجود في محفظة التدريب في قيراط' },
         p: {
-          en: 'Qirat’s practice wallet only places market orders for now: your practice buy or sell fills at once at the live price, plus the spread. Limit and stop orders are not there yet. On a real platform, it pays to check which order type is selected before confirming.',
-          fr: 'Pour l’instant, le portefeuille d’entraînement de Qirat ne passe que des ordres au marché : votre achat ou votre vente fictive s’exécute tout de suite au prix en direct, plus l’écart. Les ordres limités et les stops n’y sont pas encore. Sur une vraie plateforme, mieux vaut vérifier quel type d’ordre est choisi avant de confirmer.',
+          en: 'Qirat’s practice wallet only places market orders for now: your practice buy or sell goes through at once at the live price, plus the spread. Limit and stop orders are not there yet. On a real platform, it is worth checking which order type is selected before confirming.',
+          fr: 'Pour l’instant, le portefeuille d’entraînement de Qirat ne passe que des ordres au marché : votre achat ou votre vente fictive se fait tout de suite au prix en direct, plus l’écart. Les ordres limités et les stops n’y sont pas encore. Sur une vraie plateforme, mieux vaut vérifier quel type d’ordre est choisi avant de confirmer.',
           ar: 'محفظة التدريب في قيراط لا تنفّذ حاليًا إلا أوامر السوق: عملية الشراء أو البيع التجريبية تُنفَّذ فورًا بالسعر الحي، مع إضافة الفارق. الأوامر المحددة وأوامر الوقف غير موجودة بعد. وفي أي منصّة حقيقية، من المفيد التحقق من نوع الأمر المختار قبل التأكيد.',
         },
       },
@@ -606,14 +606,14 @@ export const INTERMEDIATE: Lesson[] = [
           ar: 'وضعت أمر شراء محددًا عند 95. نزل السعر إلى 97 ثم ارتفع من جديد. ماذا حدث لأمرك؟',
         },
         options: [
-          { en: 'It did not fill', fr: 'Il ne s’est pas exécuté', ar: 'لم يُنفَّذ' },
-          { en: 'It filled at 97', fr: 'Il s’est exécuté à 97', ar: 'نُفِّذ عند 97' },
-          { en: 'It filled at 95 anyway', fr: 'Il s’est quand même exécuté à 95', ar: 'نُفِّذ عند 95 رغم ذلك' },
+          { en: 'It did not go through', fr: 'Il n’est pas passé', ar: 'لم يُنفَّذ' },
+          { en: 'It went through at 97', fr: 'Il est passé à 97', ar: 'نُفِّذ عند 97' },
+          { en: 'It went through at 95 anyway', fr: 'Il est quand même passé à 95', ar: 'نُفِّذ عند 95 رغم ذلك' },
         ],
         answer: 0,
         why: {
-          en: 'A buy limit fills only at your price or lower. The price never reached 95.',
-          fr: 'Un achat limité ne s’exécute qu’à votre prix ou moins. Le prix n’a jamais atteint 95.',
+          en: 'A buy limit goes through only at your price or lower. The price never reached 95.',
+          fr: 'Un achat limité ne passe qu’à votre prix ou moins. Le prix n’a jamais atteint 95.',
           ar: 'أمر الشراء المحدد لا يُنفَّذ إلا بسعرك أو أقل، والسعر لم يصل إلى 95 أبدًا.',
         },
       },
@@ -630,8 +630,8 @@ export const INTERMEDIATE: Lesson[] = [
         ],
         answer: 2,
         why: {
-          en: 'It is an exit chosen before entering. In a fast drop it can fill a bit lower than planned.',
-          fr: 'C’est une sortie choisie avant d’entrer. Dans une chute rapide, elle peut s’exécuter un peu plus bas que prévu.',
+          en: 'It is an exit chosen before you buy. In a fast drop it can sell a bit lower than planned.',
+          fr: 'C’est une sortie choisie avant d’acheter. Dans une chute rapide, la vente peut se faire un peu plus bas que prévu.',
           ar: 'إنه مخرج يُختار قبل الدخول. وفي الهبوط السريع قد يُنفَّذ بسعر أقل قليلًا مما خُطِّط له.',
         },
       },
@@ -648,8 +648,8 @@ export const INTERMEDIATE: Lesson[] = [
         ],
         answer: 1,
         why: {
-          en: 'Practice trades fill at once at the live price, plus the spread. Limit and stop orders are not there yet.',
-          fr: 'Les opérations fictives s’exécutent tout de suite au prix en direct, plus l’écart. Les ordres limités et les stops n’y sont pas encore.',
+          en: 'Practice trades go through at once at the live price, plus the spread. Limit and stop orders are not there yet.',
+          fr: 'Les opérations fictives se font tout de suite au prix en direct, plus l’écart. Les ordres limités et les stops n’y sont pas encore.',
           ar: 'العمليات التجريبية تُنفَّذ فورًا بالسعر الحي مع الفارق. الأوامر المحددة وأوامر الوقف غير موجودة بعد.',
         },
       },
@@ -704,8 +704,8 @@ export const INTERMEDIATE: Lesson[] = [
       {
         h: { en: 'What the test found', fr: 'Ce qu’a montré le test', ar: 'ماذا وجد الاختبار' },
         p: {
-          en: 'In Qirat’s October 2026 test on past data, calm coins with a 90-day uptrend did a little better on average than the rest. That is a weak edge, not a promise: a weak edge is often wrong for any single coin. The risk grade, built from the same 30-day swings, has been the more reliable part.',
-          fr: 'Dans le test de Qirat d’octobre 2026 sur des données passées, les cryptos calmes en tendance haussière sur 90 jours ont fait un peu mieux en moyenne que les autres. C’est un avantage faible, pas une promesse : un avantage faible se trompe souvent pour une crypto donnée. La note de risque, construite sur les mêmes variations de 30 jours, a été la partie la plus fiable.',
+          en: 'In Qirat’s October 2026 test on past prices, calm coins that rose over 90 days did a little better on average than the rest. That is a small advantage, not a promise: for any single coin, it is often wrong. The risk grade, built from the same 30-day swings, has been the more reliable part.',
+          fr: 'Dans le test de Qirat d’octobre 2026 sur des données passées, les cryptos calmes qui ont monté sur 90 jours ont fait un peu mieux en moyenne que les autres. C’est un petit avantage, pas une promesse : pour une seule crypto, il se trompe souvent. La note de risque, construite sur les mêmes variations de 30 jours, a été la partie la plus fiable.',
           ar: 'في اختبار قيراط في أكتوبر 2026 على بيانات سابقة، كانت العملات الهادئة ذات الاتجاه الصاعد على 90 يومًا أفضل قليلًا في المتوسط من غيرها. إنها أفضلية ضعيفة وليست وعدًا: والأفضلية الضعيفة تخطئ كثيرًا مع أي عملة بمفردها. أما درجة المخاطرة، المبنية على نفس تحركات الـ 30 يومًا، فكانت الجزء الأكثر موثوقية.',
         },
       },
@@ -805,15 +805,15 @@ export const INTERMEDIATE: Lesson[] = [
       {
         h: { en: 'What a moving average is', fr: 'C’est quoi une moyenne mobile', ar: 'ما هو المتوسط المتحرك' },
         p: {
-          en: 'A 50-day moving average is the average closing price of the last 50 days. Each new day adds one price and drops the oldest, so the line moves slowly behind the price. The 200-day average does the same over a much longer stretch.',
-          fr: 'Une moyenne mobile sur 50 jours, c’est le prix de clôture moyen des 50 derniers jours. Chaque nouveau jour ajoute un prix et retire le plus ancien : la ligne avance lentement derrière le prix. La moyenne sur 200 jours fait la même chose sur une période bien plus longue.',
+          en: 'A 50-day moving average is the average end-of-day price over the last 50 days. Each new day adds one price and drops the oldest, so the line moves slowly behind the price. The 200-day average does the same over a much longer time.',
+          fr: 'Une moyenne mobile sur 50 jours, c’est le prix moyen de fin de journée sur les 50 derniers jours. Chaque nouveau jour ajoute un prix et retire le plus ancien : la ligne avance lentement derrière le prix. La moyenne sur 200 jours fait la même chose sur une période bien plus longue.',
           ar: 'المتوسط المتحرك (moving average) لـ 50 يومًا هو متوسط أسعار الإغلاق في آخر 50 يومًا. كل يوم جديد يضيف سعرًا ويحذف أقدمها، فيتحرك الخط ببطء خلف السعر. والمتوسط لـ 200 يوم يفعل الشيء نفسه على فترة أطول بكثير.',
         },
       },
       {
         h: { en: 'Above or below the line', fr: 'Au-dessus ou en dessous de la ligne', ar: 'فوق الخط أو تحته' },
         p: {
-          en: 'When the price is above its 50-day average, it is higher than its recent normal: the recent direction is up. Below it, the recent direction is down. The 200-day line helps tell a short dip apart from a longer downtrend.',
+          en: 'When the price is above its 50-day average, it is higher than its recent normal: the recent direction is up. Below it, the recent direction is down. The 200-day line helps tell a short dip apart from a longer fall.',
           fr: 'Quand le prix est au-dessus de sa moyenne sur 50 jours, il est plus haut que sa normale récente : la direction récente est à la hausse. En dessous, elle est à la baisse. La ligne des 200 jours aide à distinguer un petit creux d’une baisse plus longue.',
           ar: 'عندما يكون السعر فوق متوسطه لـ 50 يومًا، فهو أعلى من مستواه المعتاد مؤخرًا: الاتجاه الأخير صاعد. وعندما يكون تحته، فالاتجاه الأخير هابط. أما خط الـ 200 يوم فيساعد على التمييز بين نزول قصير واتجاه هابط أطول.',
         },
@@ -821,24 +821,24 @@ export const INTERMEDIATE: Lesson[] = [
       {
         h: { en: 'Qirat’s three skies', fr: 'Les trois ciels de Qirat', ar: 'سماوات قيراط الثلاث' },
         p: {
-          en: 'Qirat looks at Bitcoin, because most coins tend to move with it. Calm: Bitcoin is above its 50-day average and the crowd is not overheated. Choppy: Bitcoin is above it but the crowd is overheated, or it slipped below the 50-day line while staying above the 200-day one. Stormy: Bitcoin is below both lines.',
-          fr: 'Qirat regarde le Bitcoin, car la plupart des cryptos ont tendance à bouger avec lui. Calme : le Bitcoin est au-dessus de sa moyenne sur 50 jours et la foule n’est pas en surchauffe. Agité : il est au-dessus mais la foule surchauffe, ou il est passé sous la ligne des 50 jours tout en restant au-dessus de celle des 200 jours. Orageux : le Bitcoin est sous les deux lignes.',
+          en: 'Qirat looks at Bitcoin, because most coins tend to move with it. Calm: Bitcoin is above its 50-day average and the crowd is not too excited. Choppy: Bitcoin is above it but the crowd is too excited, or it fell below the 50-day line but stayed above the 200-day one. Stormy: Bitcoin is below both lines.',
+          fr: 'Qirat regarde le Bitcoin, car la plupart des cryptos ont tendance à bouger avec lui. Calme : le Bitcoin est au-dessus de sa moyenne sur 50 jours et la foule n’est pas trop excitée. Agité : il est au-dessus mais la foule est trop excitée, ou il est passé sous la ligne des 50 jours tout en restant au-dessus de celle des 200 jours. Orageux : le Bitcoin est sous les deux lignes.',
           ar: 'ينظر قيراط إلى Bitcoin، لأن أغلب العملات تميل إلى التحرك معه. هادئ: Bitcoin فوق متوسطه لـ 50 يومًا والناس ليسوا في حالة اندفاع. متقلب: Bitcoin فوقه لكن الناس مندفعون جدًا، أو نزل تحت خط الـ 50 يومًا مع بقائه فوق خط الـ 200 يوم. عاصف: Bitcoin تحت الخطين معًا.',
         },
       },
       {
         h: { en: 'How the crowd’s mood counts', fr: 'Comment compte l’humeur de la foule', ar: 'كيف يُحسب مزاج الناس' },
         p: {
-          en: 'Two gauges measure the crowd. The Fear & Greed index scores the mood around Bitcoin from 0 (extreme fear) to 100 (extreme greed). Funding is a small payment that traders betting on a rise with borrowed money on futures make to stay in; when it is high, many have bet on a rise. If Fear & Greed is 80 or more, or funding is high, a calm sky turns choppy. The crowd never makes the sky calm on its own.',
-          fr: 'Deux jauges mesurent la foule. L’indice Fear & Greed note l’humeur autour du Bitcoin de 0 (peur extrême) à 100 (avidité extrême). Le funding est un petit paiement que versent les traders qui parient sur une hausse avec de l’argent emprunté sur les contrats à terme, pour rester en position ; quand il est élevé, beaucoup ont parié sur une hausse. Si le Fear & Greed est à 80 ou plus, ou si le funding est élevé, un ciel calme devient agité. La foule ne rend jamais le ciel calme à elle seule.',
+          en: 'Two numbers measure the crowd. The Fear & Greed index scores the mood around Bitcoin from 0 (extreme fear) to 100 (extreme greed). Funding is a small payment on futures. Traders who bet on a rise with borrowed money pay it to keep their bet open. When it is high, many have bet on a rise. If Fear & Greed is 80 or more, or funding is high, a calm sky turns choppy. The crowd never makes the sky calm on its own.',
+          fr: 'Deux chiffres mesurent la foule. L’indice Fear & Greed note l’humeur autour du Bitcoin de 0 (peur extrême) à 100 (avidité extrême). Le funding est un petit paiement sur les contrats à terme. Les traders qui parient sur une hausse avec de l’argent emprunté le paient pour garder leur pari ouvert. Quand il est élevé, beaucoup ont parié sur une hausse. Si le Fear & Greed est à 80 ou plus, ou si le funding est élevé, un ciel calme devient agité. La foule ne rend jamais le ciel calme à elle seule.',
           ar: 'مقياسان يقيسان مزاج الناس. مؤشر Fear & Greed يقيّم المزاج حول Bitcoin من 0 (خوف شديد) إلى 100 (طمع شديد). ورسوم التمويل (funding) دفعة صغيرة يدفعها من يراهنون على الصعود بأموال مقترضة في العقود الآجلة ليبقوا في مراكزهم، وعندما تكون مرتفعة فهذا يعني أن كثيرين راهنوا على الصعود. إذا كان Fear & Greed عند 80 أو أكثر، أو كان التمويل مرتفعًا، يتحول الطقس الهادئ إلى متقلب. لكن مزاج الناس وحده لا يجعل الطقس هادئًا أبدًا.',
         },
       },
       {
         h: { en: 'What the past shows, and what it doesn’t', fr: 'Ce que montre le passé, et ce qu’il ne montre pas', ar: 'ماذا يُظهر الماضي، وماذا لا يُظهر' },
         p: {
-          en: 'Qirat checked Bitcoin from 2021 to 2026. For months that started with Bitcoin above its 50-day average, the middle result (the median) of the next 30 days was +3.0%; for months that started below it, −2.1%. That is a tilt in past data, not a promise: a median hides many months that went the other way.',
-          fr: 'Qirat a étudié le Bitcoin de 2021 à 2026. Pour les mois commencés avec le Bitcoin au-dessus de sa moyenne sur 50 jours, le résultat du milieu (la médiane) des 30 jours suivants était de +3,0 % ; pour ceux commencés en dessous, −2,1 %. C’est une tendance dans des données passées, pas une promesse : une médiane cache beaucoup de mois qui sont allés dans l’autre sens.',
+          en: 'Qirat checked Bitcoin from 2021 to 2026. In months that started with Bitcoin above its 50-day average, the middle result (the median) of the next 30 days was +3.0%. In months that started below it, it was −2.1%. That is a small difference in past data, not a promise: a median hides many months that went the other way.',
+          fr: 'Qirat a étudié le Bitcoin de 2021 à 2026. Pour les mois commencés avec le Bitcoin au-dessus de sa moyenne sur 50 jours, le résultat du milieu (la médiane) des 30 jours suivants était de +3,0 %. Pour ceux commencés en dessous, il était de −2,1 %. C’est une petite différence dans des données passées, pas une promesse : une médiane cache beaucoup de mois qui sont allés dans l’autre sens.',
           ar: 'درس قيراط سعر Bitcoin من 2021 إلى 2026. في الأشهر التي بدأت وBitcoin فوق متوسطه لـ 50 يومًا، كانت النتيجة الوسطى (الوسيط) للـ 30 يومًا التالية +3.0%، وفي الأشهر التي بدأت وهو تحته كانت −2.1%. هذا ميل في بيانات سابقة وليس وعدًا: الوسيط يخفي أشهرًا كثيرة سارت في الاتجاه المعاكس.',
         },
       },
@@ -866,16 +866,16 @@ export const INTERMEDIATE: Lesson[] = [
         options: [
           { en: 'The highest price of the last 50 days', fr: 'Le prix le plus haut des 50 derniers jours', ar: 'أعلى سعر في آخر 50 يومًا' },
           {
-            en: 'The average closing price of the last 50 days',
-            fr: 'Le prix de clôture moyen des 50 derniers jours',
+            en: 'The average end-of-day price over the last 50 days',
+            fr: 'Le prix moyen de fin de journée sur les 50 derniers jours',
             ar: 'متوسط أسعار الإغلاق في آخر 50 يومًا',
           },
           { en: 'A forecast for the next 50 days', fr: 'Une prévision pour les 50 prochains jours', ar: 'توقع للأيام الـ 50 القادمة' },
         ],
         answer: 1,
         why: {
-          en: 'It averages the last 50 daily closes, so it moves slowly behind the price.',
-          fr: 'Elle fait la moyenne des 50 dernières clôtures journalières : elle avance lentement derrière le prix.',
+          en: 'It is the average of the last 50 end-of-day prices, so it moves slowly behind the price.',
+          fr: 'Elle fait la moyenne des 50 derniers prix de fin de journée : elle avance lentement derrière le prix.',
           ar: 'هو متوسط آخر 50 سعر إغلاق يومي، لذلك يتحرك ببطء خلف السعر.',
         },
       },
@@ -910,8 +910,8 @@ export const INTERMEDIATE: Lesson[] = [
         ],
         answer: 0,
         why: {
-          en: 'An overheated crowd turns a calm sky choppy. The crowd’s mood never makes it calm on its own.',
-          fr: 'Une foule en surchauffe fait passer un ciel calme à agité. L’humeur de la foule ne le rend jamais calme à elle seule.',
+          en: 'A crowd that is too excited turns a calm sky choppy. The crowd’s mood never makes it calm on its own.',
+          fr: 'Une foule trop excitée fait passer un ciel calme à agité. L’humeur de la foule ne le rend jamais calme à elle seule.',
           ar: 'اندفاع الناس الشديد يحوّل الطقس الهادئ إلى متقلب. ومزاج الناس وحده لا يجعله هادئًا أبدًا.',
         },
       },
@@ -939,7 +939,7 @@ export const INTERMEDIATE: Lesson[] = [
         h: { en: 'What FOMO is', fr: 'C’est quoi le FOMO', ar: 'ما هو الـ FOMO' },
         p: {
           en: 'Fear Of Missing Out: the feeling you get when a coin is up 50% this week, your friends are all posting about it, and you feel you have to get in right now.',
-          fr: 'Fear Of Missing Out, la peur de rater le coche : ce que vous ressentez quand une crypto a pris 50 % cette semaine, que vos amis en parlent tous et que vous sentez qu’il faut y aller tout de suite.',
+          fr: 'Fear Of Missing Out, la peur de rater l’occasion : ce que vous ressentez quand une crypto a pris 50 % cette semaine, que vos amis en parlent tous et que vous sentez qu’il faut y aller tout de suite.',
           ar: 'Fear Of Missing Out، أي الخوف من تفويت الفرصة: هو الشعور الذي ينتابك عندما ترتفع عملة 50% هذا الأسبوع، ويتحدث عنها كل أصدقائك، وتشعر أن عليك الدخول فورًا.',
         },
       },
@@ -991,8 +991,8 @@ export const INTERMEDIATE: Lesson[] = [
         ],
         answer: 2,
         why: {
-          en: 'Urgency with no reason except “it’s going up” is the signature of FOMO.',
-          fr: 'L’urgence sans autre raison que « ça monte », c’est la signature du FOMO.',
+          en: 'Urgency with no reason except “it’s going up” is the clear sign of FOMO.',
+          fr: 'L’urgence sans autre raison que « ça monte », c’est le signe clair du FOMO.',
           ar: 'الاستعجال بلا سبب سوى «إنها ترتفع» هو توقيع الـ FOMO.',
         },
       },
