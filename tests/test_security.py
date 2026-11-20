@@ -268,6 +268,8 @@ def test_the_chat_finds_things_only_from_the_site_map_it_is_sent(client: TestCli
     # it once sent the user to a sidebar Qirat does not have
     assert "Never invent or guess a menu, sidebar" in ai.CHAT_SYSTEM_PROMPT
     assert "[a few words](#id)" in ai.CHAT_SYSTEM_PROMPT
+    # live, gpt-oss often left the link out: the question's last line asks for it again
+    assert "end with one link to it" in content
 
 
 @pytest.mark.parametrize(

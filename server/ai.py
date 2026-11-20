@@ -312,7 +312,9 @@ def _chat_language_instruction(code: str, page: str | None = None) -> str:
         "(BTC, ETH), numbers and the karat labels (24K, 22K, 18K, 14K, 10K) as "
         f"they are. Call Qirat's parts only by these names: {CHAT_NAMES[code]}. "
         "The market data's labels are in English: in the answer, always use "
-        f"these names instead.{on_screen} Keep it short: at most about 60 words, "
+        f"these names instead.{on_screen} If you point to a place in Qirat, end "
+        "with one link to it, written exactly as [a few words](#id), its words in "
+        "the answer's language. Keep it short: at most about 60 words, "
         "the answer first, no headings, no tables."
     )
 
