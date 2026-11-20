@@ -145,14 +145,8 @@ CHAT_SYSTEM_PROMPT = (
     "'trend_score' or field names. No tables and no headings.\n"
     "- To try something without risk, suggest the practice wallet. If asked "
     'where scoring is documented, point to the in-app "How Qirat works" guide.\n'
-    "- Call Qirat's parts by the names the user sees, in the answer's language "
-    "(English / French / Arabic): Qirat itself (Qirat / قيراط), the Practice "
-    "tab (Pratique / تدريب), the Time "
-    "machine (Machine à remonter le temps / آلة الزمن), Today (Aujourd'hui / "
-    "اليوم), the Learn tab (Apprendre / تعلّم), the lesson 'How scammers find "
-    "you' (Comment les arnaqueurs vous trouvent / كيف يصل إليك المحتالون), the "
-    "lesson 'Crypto and the law in Arab countries' (La crypto et la loi dans les "
-    "pays arabes / العملات الرقمية والقانون في الدول العربية).\n"
+    "- Call Qirat's parts only by the names listed with each question, in the "
+    "answer's language.\n"
     "- Be risk-aware and avoid guarantees or pressure to trade. A 'low' risk "
     "grade is low compared with other coins only; crypto still swings far more "
     "than savings or gold, so say so when it matters.\n"
@@ -191,6 +185,42 @@ def _language_instruction(code: str) -> str:
         f"\n\nWrite your entire answer in {LANGUAGES[code]}, including the section "
         "headings (translate them). Keep coin tickers (BTC, ETH), numbers and the "
         "karat labels (24K, 22K, 18K, 14K, 10K) as they are."
+    )
+
+
+# What the user sees each part of Qirat called, in one language only: given a
+# list in three languages, the live model copied it word for word into Arabic
+# answers ("Apprendre / تعلّم"). The weather words are the app's own.
+CHAT_NAMES = {
+    "en": (
+        "Qirat; the Practice tab (the practice wallet); the Time machine; Today; "
+        "the Learn tab; the lessons 'How scammers find you' and 'Crypto and the "
+        "law in Arab countries'; the market weather: calm, choppy, stormy"
+    ),
+    "fr": (
+        "Qirat ; l'onglet Pratique (le portefeuille d'entraînement) ; la Machine "
+        "à remonter le temps ; Aujourd'hui ; l'onglet Apprendre ; les leçons "
+        "« Comment les arnaqueurs vous trouvent » et « La crypto et la loi dans "
+        "les pays arabes » ; la météo du marché : calme, agité, orageux"
+    ),
+    "ar": (
+        "قيراط؛ تبويب «تدريب» (محفظة التدريب)؛ «آلة الزمن»؛ «اليوم»؛ تبويب «تعلّم»؛ "
+        "درس «كيف يصل إليك المحتالون» ودرس «العملات الرقمية والقانون في الدول "
+        "العربية»؛ طقس السوق: هادئ، متقلّب، عاصف"
+    ),
+}
+
+
+def _chat_language_instruction(code: str) -> str:
+    """The chat's own closing line: one language, its names, and short with no
+    headings (the briefing's line asks for translated headings, which the live
+    model took as a cue to add them to chat answers)."""
+    return (
+        f"\n\nWrite your entire answer in {LANGUAGES[code]}. Keep coin tickers "
+        "(BTC, ETH), numbers and the karat labels (24K, 22K, 18K, 14K, 10K) as "
+        f"they are. Call Qirat's parts only by these names: {CHAT_NAMES[code]}. "
+        "Keep it short: at most about 100 words, the answer first, no headings, "
+        "no tables."
     )
 
 
@@ -466,7 +496,7 @@ def _chat_messages(
             f"refreshing). Answer carefully without inventing data.\n\n"
             f"User question: {question}"
         )
-    messages.append({"role": "user", "content": final + _language_instruction(_language(language))})
+    messages.append({"role": "user", "content": final + _chat_language_instruction(_language(language))})
     return messages
 
 

@@ -147,6 +147,20 @@ def test_the_screen_note_is_one_line_and_the_lesson_is_fenced() -> None:
     assert ai._page_note(None, "text with no screen") == ""
 
 
+def test_a_chat_question_names_qirats_parts_in_its_own_language_only() -> None:
+    """The live model copied a three-language name list into Arabic answers
+    ("Apprendre / تعلّم"), so each question carries one language's names."""
+    ar = ai._chat_messages("?", None, [], "ar")[-1]["content"]
+    assert "تدريب" in ai.CHAT_NAMES["ar"] and "تدريب" in ar
+    assert "Apprendre" not in ar and "Pratique" not in ar and "stormy" not in ar
+    fr = ai._chat_messages("?", None, [], "fr")[-1]["content"]
+    assert "Apprendre" in fr and "تعلّم" not in fr
+    for lang in ("en", "fr", "ar"):
+        content = ai._chat_messages("?", None, [], lang)[-1]["content"]
+        assert "no headings" in content and "headings (translate them)" not in content
+    assert "Apprendre" not in ai.CHAT_SYSTEM_PROMPT and "تعلّم" not in ai.CHAT_SYSTEM_PROMPT
+
+
 @pytest.mark.parametrize(
     "body",
     [
