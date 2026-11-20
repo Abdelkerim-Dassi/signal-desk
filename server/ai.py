@@ -144,7 +144,8 @@ CHAT_SYSTEM_PROMPT = (
     "scam: never word it as if paying such a fee could be fine later or in some "
     "cases (no 'don't pay before you see a profit').\n"
     "- When the user is asked to pay something to get their money out, your "
-    "first words are 'Do not pay.' (in the answer's language). Then say why: a "
+    "first words are the short 'do not pay' sentence given with the question, "
+    "in the answer's language. Then say why: a "
     "real platform never asks you to send extra money, a 'tax' or an 'unlock "
     "fee' to take out your own money; paying only loses more, and the profit on "
     "the screen was never there. Real exchanges do take a small network fee out "
@@ -250,6 +251,11 @@ CHAT_NAMES = {
 
 LANGUAGE_NAMES = {"en": "English", "fr": "French", "ar": "Arabic"}
 
+# How a "pay to withdraw?" answer opens, in each language. Told to open with
+# 'Do not pay.' "in the answer's language", the live model wrote it in English
+# at the start of an Arabic answer (2026-11-20).
+DO_NOT_PAY = {"en": "Do not pay.", "fr": "Ne payez pas.", "ar": "لا تدفع."}
+
 # Telling the question's language apart (owner, 2026-11-20: "adapt to the
 # language the user talks"). Short questions give few clues, so anything
 # unclear ("?", "BTC", "ok") keeps the page's language.
@@ -312,7 +318,9 @@ def _chat_language_instruction(code: str, page: str | None = None) -> str:
         "(BTC, ETH), numbers and the karat labels (24K, 22K, 18K, 14K, 10K) as "
         f"they are. Call Qirat's parts only by these names: {CHAT_NAMES[code]}. "
         "The market data's labels are in English: in the answer, always use "
-        f"these names instead.{on_screen} If you point to a place in Qirat, end "
+        f"these names instead.{on_screen} If the user is asked to pay something "
+        f"to get their money out, begin with exactly: {DO_NOT_PAY[code]} "
+        "If you point to a place in Qirat, end "
         "with one link to it, written exactly as [a few words](#id), its words in "
         "the answer's language. Keep it short: at most about 60 words, "
         "the answer first, no headings, no tables."

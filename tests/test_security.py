@@ -216,8 +216,24 @@ def test_the_chat_calls_paying_to_withdraw_a_scam_sign_without_exceptions() -> N
     assert "never word it as if paying such a fee could be fine" in ai.CHAT_SYSTEM_PROMPT
     # live it still opened with "don't pay any fees before your profits are withdrawn",
     # and offered the practice wallet (which has no withdrawals) to try one
-    assert "your first words are 'Do not pay.'" in ai.CHAT_SYSTEM_PROMPT
+    assert "your first words are the short 'do not pay' sentence" in ai.CHAT_SYSTEM_PROMPT
     assert "no deposits, withdrawals or transfers" in ai.CHAT_SYSTEM_PROMPT
+
+
+@pytest.mark.parametrize(
+    "question,page,sentence,others",
+    [
+        ("منصة تطلب مني دفع رسوم قبل أن أسحب أرباحي، هل أدفع؟", "ar", "لا تدفع.", ["Do not pay.", "Ne payez pas."]),
+        ("Une plateforme me demande des frais pour retirer, je paie ?", "ar", "Ne payez pas.", ["Do not pay.", "لا تدفع."]),
+        ("A platform wants a fee before I can withdraw, should I pay?", "fr", "Do not pay.", ["Ne payez pas.", "لا تدفع."]),
+    ],
+)
+def test_the_do_not_pay_sentence_comes_in_the_answers_language(question, page, sentence, others) -> None:
+    # live, an Arabic answer opened with "Do not pay." in English
+    content = ai._chat_messages(question, None, [], page)[-1]["content"]
+    assert f"begin with exactly: {sentence}" in content
+    assert not any(o in content for o in others)
+    assert "'Do not pay.'" not in ai.CHAT_SYSTEM_PROMPT
 
 
 def test_the_chat_gets_the_risk_words_in_its_own_language() -> None:
