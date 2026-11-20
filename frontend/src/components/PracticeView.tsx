@@ -38,6 +38,7 @@ import Caption from './brand/Caption'
 import Mascot from './brand/Mascot'
 import type { Mood } from './brand/Mascot'
 import { CoinIcon, KaratBadge, RiskChip } from './Rating'
+import SendToFriend from './SendToFriend'
 
 // The practice wallet, as a scene from the videos (reel.css):
 //   a wallet that has not traded   one caption, the bar saying one line, one button
@@ -101,6 +102,8 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
   const [firstDone, setFirstDone] = useState<Trade | null>(null)
   // the trade confirmed during this visit: the coach answers it once (how the screen moves, nothing else)
   const [landed, setLanded] = useState<number | null>(null)
+  // this browser's first trade ever, while it is the last one: it offers to tell a friend (SendToFriend)
+  const [firstEver, setFirstEver] = useState<number | null>(null)
   // every change is stored here, and a kept wallet's saved copy follows (lib/keep.ts)
   const keep = useKeep()
   useEffect(() => {
@@ -116,6 +119,7 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
       setLastNotes(last ? { trade: last } : null)
       setFirstDone(null)
       setLanded(null)
+      setFirstEver(null)
     }
     window.addEventListener(RESTORED, restored)
     return () => window.removeEventListener(RESTORED, restored)
@@ -156,6 +160,7 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
     setLastNotes(null)
     setFirstDone(null)
     setLanded(null)
+    setFirstEver(null)
     dismissLink()
     onToast(tp('resetDone', { start }))
   }
@@ -163,12 +168,14 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
   const onTraded = (result: QuoteResult, oneTap = false) => {
     const next = withTrade(ledger, result)
     const trade = next.trades.at(-1)!
-    if (isFirstTradeEver(ledger)) track('practice_first', oneTap ? 'tap' : 'form')
+    const first = isFirstTradeEver(ledger)
+    if (first) track('practice_first', oneTap ? 'tap' : 'form')
     markActive()
     setLedger(next)
     setLastNotes({ trade })
     setFirstDone(oneTap ? trade : null)
     setLanded(trade.ts)
+    setFirstEver(first ? trade.ts : null)
     dismissLink()
     if (!oneTap) onToast(tp('traded'))
   }
@@ -194,7 +201,7 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
           onTraded={(r) => onTraded(r, true)}
         />
       )}
-      {firstDone && <Receipt trade={firstDone} cash={ledger.wallet.cash} />}
+      {firstDone && <Receipt trade={firstDone} cash={ledger.wallet.cash} share={firstEver === firstDone.ts} />}
 
       {traded && !state && stateQuery.isLoading && (
         <p className="text-muted" role="status">
@@ -243,7 +250,7 @@ export default function PracticeView({ onToast }: { onToast: (msg: string) => vo
             {/* right after the one-tap trade the bar speaks under the receipt instead */}
             {state && last && !fresh && (
               <div className="order-5">
-                <Coach key={last.ts} last={last} answer={landed === last.ts} />
+                <Coach key={last.ts} last={last} answer={landed === last.ts} share={firstEver === last.ts} />
               </div>
             )}
             {state && traded && (
@@ -494,7 +501,7 @@ function Notes({ notes }: { notes: CoachNote[] }) {
  * was bought, at what price, what it cost, what is left) and one sentence from
  * the bar, or the coach's notes when it has some.
  */
-function Receipt({ trade, cash }: { trade: Trade; cash: number }) {
+function Receipt({ trade, cash, share }: { trade: Trade; cash: number; share: boolean }) {
   const { tp } = usePracticeT()
   const when = useWhen()
   const box = useRef<HTMLDivElement>(null)
@@ -542,6 +549,8 @@ function Receipt({ trade, cash }: { trade: Trade; cash: number }) {
       <Says mood={mood} className={`mt-6 md:col-start-1 md:row-start-2 md:mt-7 md:self-start ${POP_LATE}`}>
         {trade.notes.length > 0 ? <Notes notes={trade.notes} /> : <p className="bubble">{tp('firstSay')}</p>}
       </Says>
+      {/* a first trade is a good moment to tell a friend: one quiet line, what to do next still follows */}
+      {share && <SendToFriend from="practice" className={`mt-2 md:col-start-1 md:row-start-3 ${POP_LATE}`} />}
     </div>
   )
 }
@@ -1146,7 +1155,7 @@ function TradeForm({
  * face to match, or that it has nothing to say. It answers the trade that just
  * landed (it comes into view and pops); on a later visit it is simply there.
  */
-function Coach({ last, answer }: { last: Trade; answer: boolean }) {
+function Coach({ last, answer, share }: { last: Trade; answer: boolean; share: boolean }) {
   const { tp } = usePracticeT()
   const box = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -1162,6 +1171,8 @@ function Coach({ last, answer }: { last: Trade; answer: boolean }) {
       <Says mood={mood} className={answer ? POP : ''}>
         {last.notes.length === 0 ? <p className="bubble">{tp('coachNone')}</p> : <Notes notes={last.notes} />}
       </Says>
+      {/* a first trade made with the form: the same line as under the one-tap receipt */}
+      {share && <SendToFriend from="practice" className="mt-2" />}
     </div>
   )
 }

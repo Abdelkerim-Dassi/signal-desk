@@ -96,6 +96,16 @@ export const IconTelegram = (p: SVGProps<SVGSVGElement>) => (
     <path d="m7.6 15 10-7.3-7.7 8.6" />
   </Svg>
 )
+export const IconWhatsApp = (p: SVGProps<SVGSVGElement>) => (
+  <Svg {...p}>
+    <path d="M3.5 20.5l1.4-4.1A8.5 8.5 0 1 1 8 19.3L3.5 20.5Z" />
+    <path
+      fill="currentColor"
+      stroke="none"
+      d="M8.5 9c0-.3.2-.5.5-.5h.8c.2 0 .4.1.5.3l.6 1.5c.1.2 0 .5-.2.6l-.6.5c.5 1.1 1.4 2 2.5 2.5l.5-.6c.2-.2.4-.3.6-.2l1.5.6c.2.1.3.3.3.5v.8c0 .3-.2.5-.5.5C11.4 15.5 8.5 12.6 8.5 9Z"
+    />
+  </Svg>
+)
 export const IconSparkle = (p: SVGProps<SVGSVGElement>) => (
   <Svg {...p}>
     <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3ZM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z" />

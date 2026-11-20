@@ -24,8 +24,19 @@ from . import upstash
 
 KEEP_DAYS = 400  # long enough to compare this Ramadan with the next
 
-# Short paths typed from a video or tapped in a bio: qirat.tn/t, /i, /f, /w.
-SOURCES = {"t": "TikTok", "i": "Instagram", "f": "Facebook", "w": "WhatsApp", "y": "YouTube", "direct": "Direct"}
+# Short paths typed from a video or tapped in a bio: qirat.tn/t, /i, /f, /w, /y.
+# /m is the link in Instagram's automatic reply to a keyword comment under a
+# reel, and /s the link in the message a visitor sends a friend from the site.
+SOURCES = {
+    "t": "TikTok",
+    "i": "Instagram",
+    "f": "Facebook",
+    "w": "WhatsApp",
+    "y": "YouTube",
+    "m": "Instagram message",
+    "s": "Shared by a visitor",
+    "direct": "Direct",
+}
 VIEWS = {"home", "today", "learn", "practice", "replay", "portfolio", "record"}
 PLACES = {"quiz", "practice", "footer"}
 # The first screen, for a browser that has not read a lesson or traded yet:
@@ -57,6 +68,10 @@ REPLAYS = {"m1", "m2"}
 # a tile, by video. And a tap on one of Qirat's account links, by platform.
 STORIES = {"same-trade", "mariem-all-in", "cheap-coin", "ten-trades"}
 SOCIALS = {"tiktok", "instagram", "youtube", "facebook", "telegram"}
+# "Send it to a friend on WhatsApp", offered right after a browser's first
+# practice trade and after each lesson passed: a tap, by where it was offered.
+# The message carries qirat.tn/s, so what it brings back is visit:s.
+SHARES = {"practice", "lesson"}
 
 # What the browser may report, and the values each event accepts.
 CLIENT_EVENTS: dict[str, set[str] | None] = {
@@ -78,7 +93,7 @@ CLIENT_EVENTS: dict[str, set[str] | None] = {
     "story": STORIES,
     "social": SOCIALS,
     "bot_click": PLACES,
-    "share": PLACES,
+    "share": SHARES,
     # Ask Qirat, the bubble on every screen: opened, by the screen it was opened on.
     # Each question sent is counted on the server ("ask").
     "chat_open": VIEWS,
@@ -118,7 +133,7 @@ def client_field(event: str, value: str | None) -> str | None:
 
 
 # "scam" stays readable: links made before the Scam check was removed (2026-11-20) still say it
-_START = re.compile(r"^(t|i|f|w|web)-(scam|quiz|practice|footer)$")
+_START = re.compile(r"^(t|i|f|w|y|m|s|web)-(scam|quiz|practice|footer)$")
 
 
 def bot_start_field(payload: str | None) -> str:
@@ -198,7 +213,8 @@ def owner_report(days: int = 7) -> str:
         f"Visits: {_sum(t, 'visit')}  ({_by(t, 'visit', SOURCES)})",
         f"Start here shown: {t.get('start:shown', 0)} · lesson 1 tapped: {t.get('start:lesson', 0)}"
         f" · practice tapped: {t.get('start:practice', 0)}",
-        f"Results shared: {_sum(t, 'share')}",
+        f"Sent to a friend on WhatsApp: {_sum(t, 'share')}  ({_by(t, 'share')})"
+        f" · visits from those messages: {t.get('visit:s', 0)}",
         f"Lessons opened: {t.get('lesson_open', 0)} · passed: {t.get('lesson_pass', 0)}",
         f"People who passed a first lesson: {t.get('lesson_first', 0)} · finished Level 1: {t.get('level_done:1', 0)}"
         f" · Level 2: {t.get('level_done:2', 0)} · Level 3: {t.get('level_done:3', 0)}",

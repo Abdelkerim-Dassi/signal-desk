@@ -1,6 +1,8 @@
 """Usage counters: daily totals, a fixed list of event names, private reads."""
 
+import re
 from datetime import date
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -36,6 +38,8 @@ def test_read_ignores_days_outside_the_window():
         ("visit", "t", "visit:t"),
         ("visit", "direct", "visit:direct"),
         ("visit", "y", "visit:y"),
+        ("visit", "m", "visit:m"),
+        ("visit", "s", "visit:s"),
         ("view", "learn", "view:learn"),
         ("view", "home", "view:home"),
         ("story", "same-trade", "story:same-trade"),
@@ -49,6 +53,7 @@ def test_read_ignores_days_outside_the_window():
         ("practice_first", "form", "practice_first:form"),
         ("bot_click", "quiz", "bot_click:quiz"),
         ("share", "practice", "share:practice"),
+        ("share", "lesson", "share:lesson"),
         ("chat_open", "learn", "chat_open:learn"),
         ("chat_open", "practice", "chat_open:practice"),
     ],
@@ -74,6 +79,9 @@ def test_client_events_that_count(event, value, field):
         ("start", None),
         ("practice_first", None),
         ("practice_first", "twice"),
+        ("share", None),
+        ("share", "scam"),  # the Scam check's share button left with it on 2026-11-20
+        ("share", "whatsapp"),
         ("practice_trade", None),  # counted on the server, when a trade is confirmed
         ("scamcheck", "high"),  # counted on the server, not reported by the browser
         ("bot_start", "t-scam"),
@@ -90,6 +98,9 @@ def test_client_events_that_are_refused(event, value):
         ("t-scam", "bot_start:t-scam"),
         ("web-footer", "bot_start:web-footer"),
         ("I-QUIZ", "bot_start:i-quiz"),
+        ("y-footer", "bot_start:y-footer"),
+        ("m-practice", "bot_start:m-practice"),
+        ("s-quiz", "bot_start:s-quiz"),
         ("", "bot_start:direct"),
         (None, "bot_start:direct"),
         ("free-money", "bot_start:other"),
@@ -124,6 +135,30 @@ def test_owner_report_reads_like_a_note():
     assert "Ask Qirat opened: 1  (learn 1) · questions asked: 2" in report
     assert "Practice trades: 2" in report and "First practice trades: 1  (tap 1)" in report
     assert "Bot starts: 1" in report
+
+
+def test_owner_report_shows_the_new_links_and_sends_to_a_friend():
+    stats.bump("visit:m")
+    stats.bump("visit:s")
+    stats.bump("visit:s")
+    stats.bump("share:practice")
+    stats.bump("share:lesson")
+    stats.bump("share:lesson")
+    report = stats.owner_report(7)
+    assert "Shared by a visitor 2" in report and "Instagram message 1" in report
+    assert "Sent to a friend on WhatsApp: 3  (lesson 2, practice 1) · visits from those messages: 2" in report
+
+
+def test_every_short_address_on_the_site_is_counted_by_the_server():
+    """frontend/src/lib/source.ts maps qirat.tn/<letter> to a source; a letter the
+    server does not know would be counted as nothing."""
+    text = (Path(__file__).resolve().parent.parent / "frontend/src/lib/source.ts").read_text(encoding="utf-8")
+    paths = re.search(r"const PATHS: Record<string, Source> = \{([^}]*)\}", text)
+    assert paths, "PATHS not found in source.ts"
+    letters = re.findall(r"'/(\w+)': '(\w+)'", paths.group(1))
+    assert {path for path, _ in letters} >= {"t", "i", "f", "w", "y", "m", "s"}
+    for path, source in letters:
+        assert path == source and source in stats.SOURCES, path
 
 
 @pytest.fixture

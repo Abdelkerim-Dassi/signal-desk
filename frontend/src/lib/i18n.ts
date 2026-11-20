@@ -673,7 +673,8 @@ export function initialLang(): Lang {
     // storage blocked: fall through to the browser language
   }
   // No choice made yet. A visit through a platform address (qirat.tn/t, /i,
-  // /f, /w) comes from an Arabic post, so it opens in Arabic.
+  // /f, /w, /y, /m) comes from an Arabic post, so it opens in Arabic. So does
+  // /s, a friend's message: most are sent from the site in Arabic.
   if (arrive().source) return 'ar'
   const nav = (navigator.language || 'en').slice(0, 2).toLowerCase()
   if (nav === 'fr' || nav === 'ar') return nav

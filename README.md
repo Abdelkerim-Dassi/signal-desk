@@ -89,7 +89,7 @@ Note: Groq's free tier has its own per-minute rate limits — if a traffic burst
 
 ## Usage counters
 
-Daily totals only, with no cookie and nothing about any one visitor (`server/stats.py`). Visits are tagged by the short address used (`qirat.tn/t`, `/i`, `/f`, `/w`, `/y`). Read the totals with `GET /api/stats` (jobs secret) or the bot's `/stats` command.
+Daily totals only, with no cookie and nothing about any one visitor (`server/stats.py`). Visits are tagged by the short address used (`qirat.tn/t`, `/i`, `/f`, `/w`, `/y`; `/m` is the link in Instagram's automatic reply to a keyword comment, `/s` the link in "send it to a friend on WhatsApp", offered after a first practice trade and after a lesson passed, whose taps count as `share:practice` / `share:lesson`). Read the totals with `GET /api/stats` (jobs secret) or the bot's `/stats` command.
 
 **Keep our own visits out of the numbers.** Before any check or screen capture on the live site, open `qirat.tn/#own-on` once in that browser: a short note confirms it, and from then on that browser sends no visit, tap, lesson, practice-trade or page-view count. `qirat.tn/#own-off` turns counting back on.
 The mark is kept in that browser's local storage, so a new profile, a private window or cleared site data needs `#own-on` again. Ask Qirat questions and Telegram bot starts are counted on the server, so they still count from a marked browser.

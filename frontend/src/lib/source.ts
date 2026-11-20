@@ -2,17 +2,20 @@
 //
 // Each platform gets its own short address, typed from a video or tapped in a
 // bio: qirat.tn/t (TikTok), /i (Instagram), /f (Facebook), /w (WhatsApp),
-// /y (YouTube).
+// /y (YouTube). Two more are sent in messages: /m by Instagram's automatic
+// reply to a keyword comment under a reel, and /s in "send it to a friend on
+// WhatsApp", the message a visitor sends from the site (SendToFriend).
 // The server keeps daily totals only (server/stats.py): no cookie, no device
 // id, nothing about any one person.
 //
 // Our own browsers stay out of the numbers: qirat.tn/#own-on marks a browser
 // as ours, qirat.tn/#own-off removes the mark (see ownerSwitch below).
 
-export type Source = 't' | 'i' | 'f' | 'w' | 'y'
+export type Source = 't' | 'i' | 'f' | 'w' | 'y' | 'm' | 's'
 export type Place = 'quiz' | 'practice' | 'footer'
 
-const PATHS: Record<string, Source> = { '/t': 't', '/i': 'i', '/f': 'f', '/w': 'w', '/y': 'y' }
+const PATHS: Record<string, Source> = { '/t': 't', '/i': 'i', '/f': 'f', '/w': 'w', '/y': 'y', '/m': 'm', '/s': 's' }
+const SOURCES: readonly string[] = Object.values(PATHS)
 const SRC_KEY = 'qirat.src'
 const SEEN_KEY = 'qirat.seen'
 const VISIT_KEY = 'qirat.visit'
@@ -138,7 +141,7 @@ export function arrive(): Arrival {
 /** The last tagged address this browser used, or "web" for none. */
 export function lastSource(): Source | 'web' {
   const saved = read('local', SRC_KEY)
-  return saved === 't' || saved === 'i' || saved === 'f' || saved === 'w' || saved === 'y' ? saved : 'web'
+  return saved !== null && SOURCES.includes(saved) ? (saved as Source) : 'web'
 }
 
 /** A link that starts the bot and tells it where the tap came from. */

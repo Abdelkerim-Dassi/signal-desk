@@ -16,6 +16,7 @@ import BotInvite from './BotInvite'
 import Mascot from './brand/Mascot'
 import type { Mood } from './brand/Mascot'
 import LiveTicket from './LearnLive'
+import SendToFriend from './SendToFriend'
 
 // A lesson, read like one of the videos: one screen at a time. The cover, a
 // screen per section, the takeaway in the gold bar's own words, today's live
@@ -27,6 +28,7 @@ import LiveTicket from './LearnLive'
 //   recordQuiz             on the tap that asks for the score, after the last answer
 //   countLessonPass        right after it, the first time this lesson is passed
 //   BotInvite place="quiz" shown on the screen of a passed quiz
+//   SendToFriend           on the same screen, after the way on (share:lesson on a tap)
 
 type Reading = 'cover' | 'takeaway' | 'live' | number // a number is a section
 
@@ -457,7 +459,11 @@ export default function LessonStory({ lesson, brief, onView }: { lesson: Lesson;
               {lt('retry')}
             </button>
           </p>
-          <div className="mt-5">
+          {/* a good moment to tell a friend; after the way on, never in its place */}
+          <p className="mt-3 border-t-2 border-dashed border-text/15 pt-2 text-center">
+            <SendToFriend from="lesson" />
+          </p>
+          <div className="mt-3">
             <BotInvite place="quiz" inset />
           </div>
         </div>
