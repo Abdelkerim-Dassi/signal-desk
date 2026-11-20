@@ -97,6 +97,8 @@ CLIENT_EVENTS: dict[str, set[str] | None] = {
     # Ask Qirat, the bubble on every screen: opened, by the screen it was opened on.
     # Each question sent is counted on the server ("ask").
     "chat_open": VIEWS,
+    # a link in a chat answer tapped, by the screen it opens
+    "chat_go": VIEWS,
 }
 
 _memory: dict[str, dict[str, int]] = {}
@@ -231,7 +233,8 @@ def owner_report(days: int = 7) -> str:
         f" · first visits on a shared link {_sum(t, 'replay_arrive')}",
         f"Story videos opened: {_sum(t, 'story')}  ({_by(t, 'story')})",
         f"Taps on our accounts: {_sum(t, 'social')}  ({_by(t, 'social')})",
-        f"Ask Qirat opened: {_sum(t, 'chat_open')}  ({_by(t, 'chat_open')}) · questions asked: {t.get('ask', 0)}",
+        f"Ask Qirat opened: {_sum(t, 'chat_open')}  ({_by(t, 'chat_open')}) · questions asked: {t.get('ask', 0)}"
+        f" · links in answers tapped: {_sum(t, 'chat_go')}  ({_by(t, 'chat_go')})",
         f"Bot button taps: {_sum(t, 'bot_click')}  ({_by(t, 'bot_click')})",
         f"Bot starts: {_sum(t, 'bot_start')}  ({_by(t, 'bot_start')})",
         f"New bot chats: {t.get('bot_new_chat', 0)}",

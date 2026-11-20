@@ -322,7 +322,9 @@ async def ai_chat(req: ChatRequest, request: Request) -> Response:
         # Errors mid-stream can't change the status code anymore, so they're
         # delivered as a {"error": ...} event the client renders inline.
         try:
-            async for chunk in ai.stream_chat(question, market, history, req.language, req.page, req.page_text):
+            async for chunk in ai.stream_chat(
+                question, market, history, req.language, req.page, req.page_text, site_map=req.site_map
+            ):
                 yield f"data: {json.dumps({'text': chunk})}\n\n"
             yield 'data: {"done": true}\n\n'
         except Exception:

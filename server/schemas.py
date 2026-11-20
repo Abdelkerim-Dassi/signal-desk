@@ -49,6 +49,9 @@ class ChatRequest(Watchlist):
     # words for the screen, and on a lesson that lesson's own text.
     page: str | None = Field(default=None, max_length=200)
     page_text: str | None = Field(default=None, max_length=6000)
+    # Every part of the site with the words its screen shows, built by the app
+    # (lib/siteMap.ts), so the chat can say exactly where things are.
+    site_map: str | None = Field(default=None, max_length=8000)
 
 
 class StatsEvent(BaseModel):

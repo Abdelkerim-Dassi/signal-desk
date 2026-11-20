@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import type { MouseEvent as ReactMouseEvent } from 'react'
 import type { AnalyzeParams, Brief, ChatMessage, PageContext } from '../lib/api'
 import { streamChat } from '../lib/api'
 import { briefingHtml } from '../lib/format'
@@ -6,6 +7,7 @@ import { useI18n } from '../lib/i18n'
 import type { Lang, UIKey } from '../lib/i18n'
 import { LESSONS } from '../lib/lessons'
 import { routeId } from '../lib/route'
+import { SITE_MAP_MAX, siteMap } from '../lib/siteMap'
 import { track } from '../lib/source'
 import type { View } from '../lib/views'
 import Mascot from './brand/Mascot'
@@ -36,7 +38,7 @@ const SCREENS: Record<View, string> = {
   record: 'the track record of past grades',
 }
 
-function pageContext(view: View, id: string, lang: Lang): PageContext {
+function pageContext(view: View, id: string, lang: Lang, site_map: string): PageContext {
   if (id.startsWith('learn-')) {
     const lesson = LESSONS.find((l) => l.slug === id.slice('learn-'.length))
     if (lesson) {
@@ -48,10 +50,20 @@ function pageContext(view: View, id: string, lang: Lang): PageContext {
       return {
         page: `the lesson "${lesson.title.en}"`,
         page_text: parts.filter(Boolean).join('\n\n').slice(0, 6000),
+        site_map,
       }
     }
   }
-  return { page: SCREENS[view] }
+  return { page: SCREENS[view], site_map }
+}
+
+/** An answer's reading direction, from its letters: Arabic right to left, the rest left to
+ *  right (an English answer quoting an Arabic button stays left to right). Nothing yet: the page's. */
+function answerDir(text: string): 'rtl' | 'ltr' | undefined {
+  const arabic = text.match(/[؀-ۿ]/g)?.length ?? 0
+  const latin = text.match(/[a-zà-ÿ]/gi)?.length ?? 0
+  if (!arabic && !latin) return undefined
+  return arabic >= latin ? 'rtl' : 'ltr'
 }
 
 /** The questions offered before the first one: one for this screen, then two for anywhere. */
@@ -152,6 +164,16 @@ export default function AskBubble({
 
   if (!aiEnabled) return null
 
+  // A link in an answer opens that screen (the address changes, App follows). On a
+  // phone the sheet covers the page, so it steps aside; the conversation stays.
+  const onAnswerClick = (e: ReactMouseEvent) => {
+    const link = (e.target as HTMLElement).closest('a[data-go]')
+    if (!link) return
+    // counted by the screen it opens: #learn-candles is "learn", #replay-<id> is "replay"
+    track('chat_go', link.getAttribute('data-go')!.slice(1).split('-')[0])
+    if (!window.matchMedia('(min-width: 768px)').matches) setOpen(false)
+  }
+
   const coin = (brief?.opportunities?.[0]?.symbol || 'BTC').toUpperCase()
   const suggestions = suggestionKeys(view, id).map((k) => t(k, { coin }))
 
@@ -176,7 +198,7 @@ export default function AskBubble({
           })
         },
         lang,
-        pageContext(view, id, lang),
+        pageContext(view, id, lang, siteMap(lang, t).slice(0, SITE_MAP_MAX)),
       )
     } catch {
       // the server's reason is in English (busy, too many questions): say it in the page's language
@@ -244,8 +266,8 @@ export default function AskBubble({
             <p className={`${SHEET} max-w-[92%]`}>{t('ask.intro')}</p>
           </div>
           {/* The question sits on the marker at the far side, the answer is a sheet on the near side.
-              An answer comes in the page's language, so it reads in the page's direction even when
-              it opens with a ticker; a question reads in whatever was typed. */}
+              An answer comes in the language the question was typed in, so it reads in that
+              language's direction (answerDir), even when it opens with a ticker. */}
           {messages.map((m, i) =>
             m.role === 'user' ? (
               <div key={i} className="flex justify-end">
@@ -257,7 +279,7 @@ export default function AskBubble({
               </div>
             ) : (
               <div key={i} className="flex justify-start">
-                <div className={`${SHEET} max-w-[92%]`}>
+                <div className={`${SHEET} max-w-[92%]`} dir={answerDir(m.content)} onClick={onAnswerClick}>
                   <div dangerouslySetInnerHTML={{ __html: briefingHtml(m.content) }} />
                   {i === messages.length - 1 && streaming && <span className="caret">▋</span>}
                 </div>

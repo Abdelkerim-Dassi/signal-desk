@@ -66,8 +66,15 @@ export function formatDuration(totalSeconds: number): string {
   return minutes <= 0 ? `${rest}s` : `${minutes}m ${String(rest).padStart(2, '0')}s`
 }
 
+/** A link the chat may write: [words](#screen), to a Qirat screen only (the
+ *  ids in lib/siteMap.ts). Anything else stays plain text. */
+const SCREEN_ID = '#(?:home|practice|today|portfolio|(?:learn|replay)(?:-[a-z0-9-]+)?)'
+const SCREEN_LINK = new RegExp(`\\[([^\\]\\n]{1,80})\\]\\((${SCREEN_ID})\\)`, 'g')
+/** A screen id written bare in the text ("#learn-candles") becomes a small link too. */
+const BARE_SCREEN_ID = new RegExp(`(?<![(\\w"=-])(${SCREEN_ID})(?![\\w-])`, 'g')
+
 /** Minimal, escape-first markdown renderer for the AI briefing and chat
- * (headings, bold, italics, bullets, and pipe tables). */
+ * (headings, bold, italics, bullets, pipe tables, and links to Qirat's own screens). */
 export function briefingHtml(markdown: string): string {
   const escaped = markdown
     .replaceAll('&', '&amp;')
@@ -77,6 +84,8 @@ export function briefingHtml(markdown: string): string {
   const out: string[] = []
   const fmt = (text: string) =>
     text
+      .replace(BARE_SCREEN_ID, '<a href="$1" class="alt" data-go="$1" aria-label="$1">↗</a>')
+      .replace(SCREEN_LINK, '<a href="$2" class="alt" data-go="$2">$1</a>')
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       .replace(/(^|[^*\w])\*([^*\s][^*]*?)\*(?!\w)/g, '$1<em>$2</em>')
   let inList = false

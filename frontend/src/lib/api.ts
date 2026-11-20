@@ -217,10 +217,12 @@ export async function getStatus(): Promise<AppStatus> {
   return asJson<AppStatus>(res)
 }
 
-/** Where the visitor is when they ask: a few words for the screen, and a lesson's own text. */
+/** Where the visitor is when they ask: a few words for the screen, a lesson's own text,
+ *  and the map of the whole site in the screen's words (lib/siteMap.ts). */
 export interface PageContext {
   page: string
   page_text?: string
+  site_map?: string
 }
 
 /**

@@ -8,7 +8,7 @@ import type { CoachNote, TradeErrorCode } from './practice'
 
 type Entry = Record<Lang, string>
 
-const P = {
+export const P = {
   // also printed as plain text on the Learn screen, so it carries no marker
   title: { en: 'Practice with ${start}', fr: 'S’entraîner avec {start} $', ar: 'تدرّب بـ {start} دولار' },
   // the same words as this screen's caption; [[double brackets]] sit on the gold marker
